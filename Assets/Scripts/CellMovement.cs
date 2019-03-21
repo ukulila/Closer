@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class CellMovement : MonoBehaviour
 {
@@ -40,6 +41,9 @@ public class CellMovement : MonoBehaviour
     public CellPlacement cP;
     public bool moveVerticalX;
     public Cell_Renamer renameManager;
+
+    
+
 
     #region Init
     void Start()
@@ -96,7 +100,7 @@ public class CellMovement : MonoBehaviour
             selected = false;
             click = false;
             timer = 0;
-            CameraBehaviour.Instance.rotateAroundCube = true;
+            //CameraBehaviour.Instance.rotateAroundCube = true;
             isOpen = false;
             if(!isSpawn)
             {

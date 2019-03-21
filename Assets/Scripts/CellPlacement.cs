@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class CellPlacement : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class CellPlacement : MonoBehaviour
     public bool once;
     public GameObject facingPlane;
 
+    
 
 
 
@@ -47,6 +49,8 @@ public class CellPlacement : MonoBehaviour
                     hit.collider.gameObject.GetComponent<CellMovement>().over = true;
 
                     hit.collider.gameObject.GetComponent<CellMovement>().originPos = Input.mousePosition;
+
+
 // HEAD:Assets/PackagesKillian/Package/CellPlacement.cs
 
                     /*for(int i = 0; i< hit.collider.transform.childCount; i++)
@@ -54,8 +58,9 @@ public class CellPlacement : MonoBehaviour
 
                     }*/
 //
-                    CameraBehaviour.Instance.rotateAroundCube = false;
+                    //CameraBehaviour.Instance.rotateAroundCube = false;
                     CameraMovement.Instance.aboutCamera = false;
+                    
                     // Develop:Assets/Scripts/CellPlacement.cs
                 }
                 else
@@ -94,9 +99,7 @@ public class CellPlacement : MonoBehaviour
                 facingPlane = hits[1].transform.gameObject;
                 once = false;
             }
-            
         }
-
     }
 
 
@@ -108,9 +111,6 @@ public class CellPlacement : MonoBehaviour
        
         if (Input.GetMouseButton(0))
         {
-
-
-
             for (int i = 0; i < cM.Count; i++)
             {
 
@@ -141,6 +141,7 @@ public class CellPlacement : MonoBehaviour
 
 
         }
+
         if (nbrTouch > 2 || Input.GetMouseButtonUp(0))
         {
             if (SecondTouched != null)
@@ -150,6 +151,8 @@ public class CellPlacement : MonoBehaviour
                 FirstTouched = null;
                 SecondTouched = null;
             }
+
+
             nbrTouch = 0;
 
         }

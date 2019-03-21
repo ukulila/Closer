@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.45092088, g: 0.4992531, b: 0.56615245, a: 1}
+  m_IndirectSpecularColor: {r: 0.4241721, g: 0.45565438, b: 0.4796434, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -385,6 +385,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &65615991
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +631,7 @@ MonoBehaviour:
   reverse: 0
   cP: {fileID: 721795838}
   moveVerticalX: 0
+  renameManager: {fileID: 0}
 --- !u!65 &159203163
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -665,6 +667,8 @@ MonoBehaviour:
   fin: 74
   wtf: {x: 0, y: 0, z: 0, w: 0}
   isCurrent: 0
+  brothers: []
+  renameManager: {fileID: 0}
 --- !u!1 &165668794 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1506257909362596, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -687,6 +691,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &167061528 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1926130899905342, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -709,6 +714,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +806,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &198586193 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1298653405383838, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -822,6 +829,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &211590434 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1506257909362596, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -844,6 +852,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &228872187
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +899,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PositionName: E_u1_Cell_Up_BackLeft
+  brothers: []
+  manager: 0
 --- !u!54 &228872190
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -941,6 +952,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &305682995 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -986,6 +998,7 @@ MonoBehaviour:
   reverse: 0
   cP: {fileID: 721795838}
   moveVerticalX: 0
+  renameManager: {fileID: 0}
 --- !u!65 &305682997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1021,6 +1034,8 @@ MonoBehaviour:
   fin: 74
   wtf: {x: 0, y: 0, z: 0, w: 0}
   isCurrent: 0
+  brothers: []
+  renameManager: {fileID: 0}
 --- !u!1 &397837401 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1506257909362596, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -1043,6 +1058,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &439171786 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -1088,6 +1104,7 @@ MonoBehaviour:
   reverse: 0
   cP: {fileID: 721795838}
   moveVerticalX: 0
+  renameManager: {fileID: 0}
 --- !u!65 &439171788
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1123,6 +1140,8 @@ MonoBehaviour:
   fin: 74
   wtf: {x: 0, y: 0, z: 0, w: 0}
   isCurrent: 0
+  brothers: []
+  renameManager: {fileID: 0}
 --- !u!1 &463543878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,7 +1160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &463543879
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1287,6 +1306,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PositionName: G_u3_Cell_Up_FrontRight
+  brothers: []
+  manager: 0
 --- !u!54 &495154720
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1368,7 +1389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498826438}
   m_LocalRotation: {x: 1.0255803e-15, y: 0.000000019142721, z: 1.6235834e-16, w: 1}
-  m_LocalPosition: {x: 0, y: 0.67, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1396,6 +1417,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &515129548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,8 +1655,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.14451028, y: 0.34377146, z: -0.05363019, w: 0.92631626}
-  m_LocalPosition: {x: -1.3668067, y: 0.67, z: -1.5878557}
+  m_LocalRotation: {x: 0.00000005797904, y: 0.23195422, z: -0.000000013825551, w: 0.97272676}
+  m_LocalPosition: {x: -0.95261055, y: 3.554778e-15, z: -1.8838634}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 170076735}
@@ -1655,15 +1677,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShowDebugText: 0
   m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
+  m_IgnoreTimeScale: 1
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2
   m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
+    m_Style: 7
+    m_Time: 1.5
     m_CustomCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1944,8 +1984,7 @@ PrefabInstance:
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_TagString
       value: Cell
@@ -2019,7 +2058,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &564865961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2250,6 +2289,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &598648669
 GameObject:
   m_ObjectHideFlags: 0
@@ -2296,6 +2336,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PositionName: F_u2_Cell_Up_BackRight
+  brothers: []
+  manager: 0
 --- !u!54 &598648672
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2622,6 +2664,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PositionName: B_d2_Cell_Down_FrontRight
+  brothers: []
+  manager: 0
 --- !u!54 &667852351
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2833,6 +2877,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &701122185 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1506257909362596, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -2855,6 +2900,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &706482107
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,6 +2947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PositionName: A_d1_Cell_Down_FrontLeft
+  brothers: []
+  manager: 0
 --- !u!54 &706482110
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3020,6 +3068,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &744536239 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1146711319383536, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -3042,6 +3091,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &755210833 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1298653405383838, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -3064,6 +3114,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1001 &765797571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3073,13 +3124,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_Name
-      value: F_u2_Cell_Up_BackRight_Current
+      value: F_u2_Cell_Up_BackRight
       objectReference: {fileID: 0}
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_TagString
       value: Cell
@@ -3474,7 +3524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &821120729
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3596,6 +3646,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &836016840 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1219163805475082, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -3618,6 +3669,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &865355058
 GameObject:
   m_ObjectHideFlags: 0
@@ -3731,6 +3783,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &902192251
 GameObject:
   m_ObjectHideFlags: 0
@@ -3908,7 +3961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &902440391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3962,6 +4015,7 @@ RectTransform:
   - {fileID: 821120729}
   - {fileID: 1004760756}
   - {fileID: 463543879}
+  - {fileID: 1582065112}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4040,13 +4094,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_Name
-      value: A_d1_Cell_Down_FrontLeft_Exit
+      value: A_d1_Cell_Down_FrontLeft
       objectReference: {fileID: 0}
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_TagString
       value: Cell
@@ -4155,6 +4208,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &958592712 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1219163805475082, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -4177,6 +4231,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &985766153 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1926130899905342, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -4199,6 +4254,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1004760755
 GameObject:
   m_ObjectHideFlags: 0
@@ -4217,7 +4273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1004760756
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4431,6 +4487,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1082720687 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1298653405383838, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -4453,6 +4510,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1088259540 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1926130899905342, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -4475,6 +4533,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1132392712 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1298653405383838, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -4497,6 +4556,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1151766608
 GameObject:
   m_ObjectHideFlags: 0
@@ -4793,6 +4853,7 @@ MonoBehaviour:
   reverse: 0
   cP: {fileID: 721795838}
   moveVerticalX: 0
+  renameManager: {fileID: 0}
 --- !u!65 &1206990012
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4828,6 +4889,8 @@ MonoBehaviour:
   fin: 74
   wtf: {x: 0, y: 0, z: 0, w: 0}
   isCurrent: 0
+  brothers: []
+  renameManager: {fileID: 0}
 --- !u!1001 &1228788122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4842,8 +4905,7 @@ PrefabInstance:
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_TagString
       value: Cell
@@ -5157,6 +5219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PositionName: D_d4_Cell_Down_BackLeft
+  brothers: []
+  manager: 0
 --- !u!54 &1282872925
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5208,6 +5272,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1001 &1311397593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5222,8 +5287,7 @@ PrefabInstance:
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_TagString
       value: Cell
@@ -5302,6 +5366,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1346942355
 GameObject:
   m_ObjectHideFlags: 0
@@ -5354,6 +5419,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1385057994 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1219163805475082, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -5376,6 +5442,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1389697902 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1926130899905342, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -5398,6 +5465,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1396312784
 GameObject:
   m_ObjectHideFlags: 0
@@ -5676,7 +5744,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1435323657}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5723,7 +5791,7 @@ Transform:
   m_GameObject: {fileID: 1435323657}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -5750,6 +5818,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1527818785
 GameObject:
   m_ObjectHideFlags: 3
@@ -5808,7 +5877,6 @@ MonoBehaviour:
   m_SoftZoneHeight: 1
   m_BiasX: 0
   m_BiasY: 0
-  m_CenterOnActivate: 1
 --- !u!114 &1527818789
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -5835,8 +5903,7 @@ PrefabInstance:
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_TagString
       value: Cell
@@ -5938,6 +6005,7 @@ MonoBehaviour:
   reverse: 0
   cP: {fileID: 721795838}
   moveVerticalX: 0
+  renameManager: {fileID: 0}
 --- !u!65 &1578821661
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5973,6 +6041,82 @@ MonoBehaviour:
   fin: 74
   wtf: {x: 0, y: 0, z: 0, w: 0}
   isCurrent: 0
+  brothers: []
+  renameManager: {fileID: 0}
+--- !u!1 &1582065111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1582065112}
+  - component: {fileID: 1582065114}
+  - component: {fileID: 1582065113}
+  m_Layer: 0
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1582065112
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582065111}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 902440393}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1582065113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582065111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 0
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &1582065114
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582065111}
+  m_CullTransparentMesh: 0
 --- !u!1001 &1595373136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5987,8 +6131,7 @@ PrefabInstance:
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_TagString
       value: Cell
@@ -6079,6 +6222,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1623333825
 GameObject:
   m_ObjectHideFlags: 0
@@ -6603,6 +6747,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1659001102
 GameObject:
   m_ObjectHideFlags: 0
@@ -6809,6 +6954,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PositionName: H_u4_Cell _Up_FrontLeft
+  brothers: []
+  manager: 0
 --- !u!54 &1676329015
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6860,6 +7007,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1690841133
 GameObject:
   m_ObjectHideFlags: 0
@@ -6905,6 +7053,7 @@ MonoBehaviour:
       - {fileID: 1630221202}
       - {fileID: 617384161}
       - {fileID: 1625064463}
+  doorWayPoints: []
 --- !u!65 &1690841135
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7014,8 +7163,7 @@ PrefabInstance:
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02, type: 3}
       propertyPath: m_TagString
       value: Cell
@@ -7123,6 +7271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PositionName: C_d3_Cell_Down_BackRight
+  brothers: []
+  manager: 0
 --- !u!54 &1729032225
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7174,6 +7324,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1798898175 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -7219,6 +7370,7 @@ MonoBehaviour:
   reverse: 0
   cP: {fileID: 721795838}
   moveVerticalX: 0
+  renameManager: {fileID: 0}
 --- !u!65 &1798898177
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7278,6 +7430,8 @@ MonoBehaviour:
   fin: 74
   wtf: {x: 0, y: 0, z: 0, w: 0}
   isCurrent: 1
+  brothers: []
+  renameManager: {fileID: 0}
 --- !u!1 &1819504599 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1926130899905342, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -7300,6 +7454,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1862047795 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1839348333571958, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -7345,6 +7500,7 @@ MonoBehaviour:
   reverse: 0
   cP: {fileID: 721795838}
   moveVerticalX: 0
+  renameManager: {fileID: 0}
 --- !u!65 &1862047797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7380,6 +7536,8 @@ MonoBehaviour:
   fin: 74
   wtf: {x: 0, y: 0, z: 0, w: 0}
   isCurrent: 0
+  brothers: []
+  renameManager: {fileID: 0}
 --- !u!1 &1923951262 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1219163805475082, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -7402,6 +7560,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &1954202397
 GameObject:
   m_ObjectHideFlags: 0
@@ -7584,6 +7743,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &2005566692
 GameObject:
   m_ObjectHideFlags: 0
@@ -7711,7 +7871,7 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_StandbyUpdate: 2
+  m_StandbyUpdate: 1
   m_LookAt: {fileID: 1435323661}
   m_Follow: {fileID: 0}
   m_Lens:
@@ -7738,8 +7898,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2024939148}
-  m_LocalRotation: {x: 0.14451028, y: 0.34377146, z: -0.05363019, w: 0.92631626}
-  m_LocalPosition: {x: -1.3668067, y: 0.67, z: -1.5878557}
+  m_LocalRotation: {x: 0.00000005797904, y: 0.23195422, z: -0.000000013825551, w: 0.97272676}
+  m_LocalPosition: {x: -0.95261055, y: 3.554778e-15, z: -1.8838634}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1527818786}
@@ -7762,7 +7922,7 @@ MonoBehaviour:
   m_UpdateMethod: 0
   m_PositionUnits: 1
   m_Speed: 0
-  m_Position: 1.51
+  m_Position: 1
 --- !u!114 &2024939153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7815,6 +7975,58 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   minimum: 7
+  placementScript: {fileID: 0}
+  targetOffsets:
+  - {x: -0.95, y: 0, z: 0}
+  - {x: 20, y: 0, z: 1}
+  - {x: 0.95, y: 0, z: 0}
+  - {x: -20, y: 0, z: -1}
+  uiPathPosition:
+  - 1
+  - 4.65
+  - 8.35
+  - 12
+  uiDollyScale: {x: 1.1, y: 1.1, z: 1.1}
+  gameDollyScale: {x: 1, y: 1, z: 1}
+  selectionTimingImage: {fileID: 1582065113}
+  currentSelectedCell: 
+  timingOfSelection: 1.2
+  switchToUI: 0
+  cameraRepositioningCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  repositionTimingMax: 3
+  retargetingTimingMax: 2
+  currentPathPos: 0
+  pathPosDiff: 0
+  currentDollyScale: {x: 0, y: 0, z: 0}
+  dollyDiff: {x: 0, y: 0, z: 0}
+  currentTargetOffset: {x: 0, y: 0, z: 0}
+  targetOffsetDiff: {x: 0, y: 0, z: 0}
+  transitionDistance: 1
+  cameraReposition: 1
+  retargeting: 0
 --- !u!1 &2027280182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1298653405383838, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -7837,6 +8049,7 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
 --- !u!1 &2061336241
 GameObject:
   m_ObjectHideFlags: 0
@@ -7949,15 +8162,23 @@ MonoBehaviour:
   waypoints:
     listOfWaypoint: []
   context: {fileID: 0}
+  nextContext: {fileID: 0}
   distance: 0
   minDist: 0.1
   direction: {x: 0, y: 0, z: 0}
   myPath: 4
-  one: 0
-  zero: 0
   ways: 
   index: 0
   next: 1
+  boolIndex: 0
+  animspeed: 0
+  openDoor: 0
+  myRotY: 0
+  baseMovement: 0
+  door: {fileID: 0}
+  isValid: 0
+  inverseList: []
+  reverse: 0
 --- !u!1 &2086085571
 GameObject:
   m_ObjectHideFlags: 0
@@ -8127,6 +8348,7 @@ MonoBehaviour:
   reverse: 0
   cP: {fileID: 721795838}
   moveVerticalX: 0
+  renameManager: {fileID: 0}
 --- !u!65 &2101178853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8162,6 +8384,8 @@ MonoBehaviour:
   fin: 74
   wtf: {x: 0, y: 0, z: 0, w: 0}
   isCurrent: 0
+  brothers: []
+  renameManager: {fileID: 0}
 --- !u!1 &2122446049 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1298653405383838, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -8184,3 +8408,4 @@ MonoBehaviour:
   cam: {fileID: 534669902}
   distance: 0
   isActive: 0
+  oui: 0
