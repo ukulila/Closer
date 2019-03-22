@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.4241721, g: 0.45565438, b: 0.4796434, a: 1}
+  m_IndirectSpecularColor: {r: 0.42417124, g: 0.45565253, b: 0.47964364, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1655,8 +1655,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.00000005797904, y: 0.23195422, z: -0.000000013825551, w: 0.97272676}
-  m_LocalPosition: {x: -0.95261055, y: 3.554778e-15, z: -1.8838634}
+  m_LocalRotation: {x: 0.00000005139475, y: -0.04860931, z: 0.0000000025012188, w: 0.9988179}
+  m_LocalPosition: {x: 0.20921987, y: 4.466485e-15, z: -2.1444192}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 170076735}
@@ -7898,8 +7898,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2024939148}
-  m_LocalRotation: {x: 0.00000005797904, y: 0.23195422, z: -0.000000013825551, w: 0.97272676}
-  m_LocalPosition: {x: -0.95261055, y: 3.554778e-15, z: -1.8838634}
+  m_LocalRotation: {x: 0.00000005139475, y: -0.04860931, z: 0.0000000025012188, w: 0.9988179}
+  m_LocalPosition: {x: 0.20921987, y: 4.466485e-15, z: -2.1444192}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1527818786}
@@ -7922,7 +7922,7 @@ MonoBehaviour:
   m_UpdateMethod: 0
   m_PositionUnits: 1
   m_Speed: 0
-  m_Position: 1
+  m_Position: 13.13
 --- !u!114 &2024939153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7978,14 +7978,14 @@ MonoBehaviour:
   placementScript: {fileID: 0}
   targetOffsets:
   - {x: -0.95, y: 0, z: 0}
-  - {x: 20, y: 0, z: 1}
+  - {x: 0, y: 0, z: 0.95}
   - {x: 0.95, y: 0, z: 0}
-  - {x: -20, y: 0, z: -1}
+  - {x: 0, y: 0, z: -0.95}
   uiPathPosition:
   - 1
-  - 4.65
-  - 8.35
-  - 12
+  - 4.3
+  - 7.65
+  - 11
   uiDollyScale: {x: 1.1, y: 1.1, z: 1.1}
   gameDollyScale: {x: 1, y: 1, z: 1}
   selectionTimingImage: {fileID: 1582065113}
@@ -8007,8 +8007,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -8016,17 +8016,35 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  repositionTimingMax: 3
-  retargetingTimingMax: 2
-  currentPathPos: 0
-  pathPosDiff: 0
-  currentDollyScale: {x: 0, y: 0, z: 0}
+  targetRepositioningCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animationCurveTimingMax: 0
+  switchDurationRatioModifier: 0.9
   dollyDiff: {x: 0, y: 0, z: 0}
-  currentTargetOffset: {x: 0, y: 0, z: 0}
   targetOffsetDiff: {x: 0, y: 0, z: 0}
-  transitionDistance: 1
   cameraReposition: 1
-  retargeting: 0
 --- !u!1 &2027280182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1298653405383838, guid: f02717ddb2fe5e74695beac716f76a02,
