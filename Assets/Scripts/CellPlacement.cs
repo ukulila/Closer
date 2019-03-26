@@ -17,8 +17,8 @@ public class CellPlacement : MonoBehaviour
     public CinemachineBrain myBrain;
     public bool once;
     public GameObject facingPlane;
-    public PlayerMovement pM;
-    
+
+
 
 
 
@@ -36,7 +36,7 @@ public class CellPlacement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            once = true; 
+            once = true;
 
             RaycastHit hit;
 
@@ -50,22 +50,23 @@ public class CellPlacement : MonoBehaviour
 
                     hit.collider.gameObject.GetComponent<CellMovement>().originPos = Input.mousePosition;
 
-                    
-// HEAD:Assets/PackagesKillian/Package/CellPlacement.cs
+
+                    // HEAD:Assets/PackagesKillian/Package/CellPlacement.cs
 
                     /*for(int i = 0; i< hit.collider.transform.childCount; i++)
                     {
 
                     }*/
-//
+                    //
                     //CameraBehaviour.Instance.rotateAroundCube = false;
-                   CameraMovement.Instance.aboutCamera = false;
-                    
+                    CameraMovement.Instance.aboutCamera = false;
+
                     // Develop:Assets/Scripts/CellPlacement.cs
                 }
                 else
                 {
-                    CameraMovement.Instance.aboutCamera = true;
+                    if (CameraMovement.Instance.switchToUI == false)
+                        CameraMovement.Instance.aboutCamera = true;
                 }
 
                 if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
@@ -76,7 +77,7 @@ public class CellPlacement : MonoBehaviour
             }
             else
             {
-                
+
 
                 for (int i = 0; i < cM.Count; i++)
                 {
@@ -99,7 +100,7 @@ public class CellPlacement : MonoBehaviour
                 facingPlane = hits[0].transform.gameObject;
                 once = false;
             }
-            else if (hits.Length >1)
+            else if (hits.Length > 1)
             {
                 Debug.LogWarning(hits[1].transform.name);
                 facingPlane = hits[1].transform.gameObject;
@@ -112,9 +113,9 @@ public class CellPlacement : MonoBehaviour
 
 
 
-        public void CheckForDirection()
+    public void CheckForDirection()
     {
-       
+
         if (Input.GetMouseButton(0))
         {
             for (int i = 0; i < cM.Count; i++)
@@ -129,7 +130,7 @@ public class CellPlacement : MonoBehaviour
                         cM[i].selected = false;
                         cM[i].over = false;
                     }
-                    else if(FirstTouched != null && cM[i] != FirstTouched)
+                    else if (FirstTouched != null && cM[i] != FirstTouched)
                     {
                         SecondTouched = cM[i].gameObject;
                         cM[i].selected = false;
@@ -143,7 +144,7 @@ public class CellPlacement : MonoBehaviour
                 }
 
             }
-           
+
 
 
         }
@@ -153,7 +154,7 @@ public class CellPlacement : MonoBehaviour
             if (SecondTouched != null)
             {
                 direction = SecondTouched.transform.position - FirstTouched.transform.position;
-               // Debug.Log(direction);
+                // Debug.Log(direction);
                 FirstTouched = null;
                 SecondTouched = null;
             }
