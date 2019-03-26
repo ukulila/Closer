@@ -9,5 +9,5 @@ public class ScrEnvironment : MonoBehaviour
     public Transform basePosUp;
     public WayPointList paths;
     public List<Transform> doorWayPoints;
-
+    public bool touched;
 }

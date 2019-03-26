@@ -17,7 +17,7 @@ public class CellPlacement : MonoBehaviour
     public CinemachineBrain myBrain;
     public bool once;
     public GameObject facingPlane;
-
+    public PlayerMovement pM;
     
 
 
@@ -50,7 +50,7 @@ public class CellPlacement : MonoBehaviour
 
                     hit.collider.gameObject.GetComponent<CellMovement>().originPos = Input.mousePosition;
 
-
+                    
 // HEAD:Assets/PackagesKillian/Package/CellPlacement.cs
 
                     /*for(int i = 0; i< hit.collider.transform.childCount; i++)
@@ -59,13 +59,19 @@ public class CellPlacement : MonoBehaviour
                     }*/
 //
                     //CameraBehaviour.Instance.rotateAroundCube = false;
-                    CameraMovement.Instance.aboutCamera = false;
+                   CameraMovement.Instance.aboutCamera = false;
                     
                     // Develop:Assets/Scripts/CellPlacement.cs
                 }
                 else
                 {
                     CameraMovement.Instance.aboutCamera = true;
+                }
+
+                if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
+                {
+                    pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
+                    hit.collider.gameObject.GetComponent<ScrEnvironment>().touched = true;
                 }
             }
             else
