@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEditor;
 
@@ -10,13 +11,16 @@ public class DialogueSetUp : Editor
 {
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
-
         DialogueSystem dialogueSystem = (DialogueSystem)target;
 
-        if(GUILayout.Button("Generate Dialogue"))
+        if (GUILayout.Button("Update Dialogue Parameters"))
         {
-            
+            dialogueSystem.CleanDialogueSetUp();
+            dialogueSystem.SetUpTextFile();
+            dialogueSystem.SetUpDialogueLines();
+            dialogueSystem.SetUpDialogueBox();
         }
+
+        base.OnInspectorGUI();
     }
 }
