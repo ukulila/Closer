@@ -68,6 +68,12 @@ public class CellPlacement : MonoBehaviour
                     if (CameraMovement.Instance.switchToUI == false)
                         CameraMovement.Instance.aboutCamera = true;
                 }
+
+                if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
+                {
+                    pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
+                    hit.collider.gameObject.GetComponent<ScrEnvironment>().touched = true;
+                }
             }
             else
             {
