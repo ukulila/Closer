@@ -18,8 +18,6 @@ public class CellPlacement : MonoBehaviour
     public bool once;
     public GameObject facingPlane;
 
-    private PlayerMovement pM;
-
 
 
 
@@ -71,7 +69,7 @@ public class CellPlacement : MonoBehaviour
 
                 if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
                 {
-                    pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
+                    //pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
                     hit.collider.gameObject.GetComponent<ScrEnvironment>().touched = true;
                 }
             }

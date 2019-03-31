@@ -20,9 +20,6 @@ public class DialogueSetUp : Editor
             dialogueSystem.SetUpTextFile();
             dialogueSystem.SetUpDialogueLines();
             dialogueSystem.SetUpDialogueBox();
-
-            if (dialogueSystem.everythingSet)
-                dialogueSystem.Debuger();
         }
 
         base.OnInspectorGUI();

@@ -12,50 +12,57 @@ using UnityEditor.IMGUI;
 public class DialogueSystem : MonoBehaviour
 {
     public TextAsset asset;
-    public string textOfAsset;
-    public char[] characters;
-    public string currentWord;
+    private string textOfAsset;
+    private char[] characters;
+    private string currentWord;
     private int spaceCount;
     private int lineSpace = 2;
-    public bool actorSet = false;
-    public bool write = false;
-    public bool everythingSet;
+    private bool actorSet = false;
+    private bool write = false;
 
 
-    public List<string> lines;
-    public char[] currentLineCharacters;
-    public TextMeshProUGUI[] dialogueTexts;
-    public GameObject[] dialogueBoxes;
+    private List<string> lines;
+    private char[] currentLineCharacters;
+    public List<char[]> linesCharacters;
+    private TextMeshProUGUI[] dialogueTexts;
+    private GameObject[] dialogueBoxes;
     public Image[] actorsIcon;
     public GameObject dialogueBoxPrefab;
 
     public List<AnimationCurve> lineTypingSpeed;
-    public float currentTime;
-    public float maxTime;
-    public float typingTimeRatio;
-    public float typingSpeedRatio;
-    public float typingFasterRatio;
-    public int currentCharacter;
-    public int lastCharacter;
+    private float currentTime;
+    private float maxTime;
+    private float typingTimeRatio;
+    private float typingSpeedRatio = 1;
+    private float typingFasterRatio = 2;
+    private int currentCharacter;
+    private int lastCharacter;
 
     public enum Actors { Blanche, Mireille, Louis, MmeBerleau, Dotty, Jolly, Dolores, Maggie, Esdie, Walter, Ray, Barney, Irina };
-    public Actors currentActor;
-    public List<Actors> actors;
+    private Actors currentActor;
+    private List<Actors> actors;
 
 
+    [Header("Dialogue 'Content'")]
     public int currentLine;
     public int maxLines;
 
-    public float boxesInBetweenSpace;
-    public float boxMaxWidth;
-    public float boxMinWidth;
-    public float boxMaxHeight;
-    public float boxMinHeight;
+    [Header("Dialogue Box Image Parameters")]
+    public float boxesSpacing;
+    private float boxMaxWidth = 363;
+    private float boxMinWidth = 153;
+
+    private float boxMinHeight = 60;
+    private float boxHeigthPerLine = 45;
+
+    private float textHeightPerLine = 33;
+    private float textMinHeight = 31;
+    private float textWidth = 320;
 
 
-    public bool isDialogueFinished = true;
-    public bool endOfTheLine;
-    public bool isThereAnotherLine;
+    private bool isDialogueFinished = true;
+    private bool endOfTheLine;
+    private bool isThereAnotherLine;
 
 
 
@@ -120,10 +127,12 @@ public class DialogueSystem : MonoBehaviour
                     actorSet = false;
                     write = false;
 
+                    /*
                     if (lines.Count != 0)
                     {
-                        lines[lines.Count - 1] = lines[lines.Count - 1].Remove(lines[lines.Count - 1].Length -1);
+                        //lines[lines.Count - 1] = lines[lines.Count - 1].Remove(lines[lines.Count - 1].Length -1);
                     }
+                    */
                 }
 
                 if (!actorSet)
@@ -316,9 +325,22 @@ public class DialogueSystem : MonoBehaviour
                 dialogueBoxes[i].GetComponentInChildren<RectTransform>().pivot = new Vector2(1, 0.5f);
                 dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchoredPosition = new Vector2(-140, -135);
             }
-        }
 
-        everythingSet = true;
+            if (dialogueTexts[i].GetTextInfo(lines[i]).lineCount > 1)
+            {
+                dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(textWidth, textMinHeight + ((dialogueTexts[i].GetTextInfo(lines[i]).lineCount - 1) * textHeightPerLine));
+                dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMaxWidth, boxMinHeight + ((dialogueTexts[i].GetTextInfo(lines[i]).lineCount - 1) * boxHeigthPerLine));
+            }
+            else
+            {
+                dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMinWidth, boxMinHeight);
+                dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(textWidth, textMinHeight);
+            }
+
+            //Debug.Log("La ligne comporte " + dialogueTexts[i].GetTextInfo(lines[i]).characterCount + "lettres");
+            //Debug.Log("pour un maximum de " + dialogueTexts[i].GetTextInfo(lines[i]).characterInfo.Length);
+            //Debug.Log("La ligne "+ i + " peut contenir" + dialogueTexts[i].wordWrappingRatios + " lettres");
+        }
     }
 
     public void CleanDialogueSetUp()
@@ -327,7 +349,6 @@ public class DialogueSystem : MonoBehaviour
         characters = new char[0];
         actorSet = false;
         write = false;
-        everythingSet = false;
 
         for (int i = 0; i < dialogueBoxes.Length; i++)
         {
@@ -340,15 +361,6 @@ public class DialogueSystem : MonoBehaviour
         lines.Clear();
         actors.Clear();
         currentWord = "";
-    }
-
-    public void Debuger()
-    {
-        for (int i = 0; i < dialogueTexts.Length; i++)
-        {
-            //dialogueTexts[i].text = lines[i].ToString();
-            Debug.Log("Le text " + i + " se répartie sur " + dialogueTexts[i].richText+ "ligne(s)");
-        }
     }
     #endregion
 
@@ -391,12 +403,12 @@ public class DialogueSystem : MonoBehaviour
 
         currentCharacter = (int)lineTypingSpeed[currentLine].Evaluate(currentTime);
 
-        Debug.Log("Current Character = " + currentCharacter);
-        Debug.Log("Last Character = " + lastCharacter);
+        //Debug.Log("Current Character = " + currentCharacter);
+        //Debug.Log("Last Character = " + lastCharacter);
 
         if (currentCharacter != lastCharacter)
         {
-            dialogueTexts[currentLine].text = dialogueTexts[currentLine].text + currentLineCharacters[currentCharacter];
+            dialogueTexts[currentLine].text = dialogueTexts[currentLine].text + currentLineCharacters[currentCharacter - 1];
             lastCharacter = currentCharacter;
         }
     }
