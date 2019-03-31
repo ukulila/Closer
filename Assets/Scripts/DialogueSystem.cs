@@ -6,6 +6,8 @@ using System;
 using System.IO;
 using UnityEditor;
 using TMPro;
+using TMPro.EditorUtilities;
+using UnityEditor.IMGUI;
 
 public class DialogueSystem : MonoBehaviour
 {
@@ -14,9 +16,11 @@ public class DialogueSystem : MonoBehaviour
     public char[] characters;
     public string currentWord;
     private int spaceCount;
-    private int lineSpace = 3;
+    private int lineSpace = 2;
     public bool actorSet = false;
     public bool write = false;
+    public bool everythingSet;
+
 
     public List<string> lines;
     public char[] currentLineCharacters;
@@ -115,6 +119,11 @@ public class DialogueSystem : MonoBehaviour
                     spaceCount = 0;
                     actorSet = false;
                     write = false;
+
+                    if (lines.Count != 0)
+                    {
+                        lines[lines.Count - 1] = lines[lines.Count - 1].Remove(lines[lines.Count - 1].Length -1);
+                    }
                 }
 
                 if (!actorSet)
@@ -126,6 +135,9 @@ public class DialogueSystem : MonoBehaviour
                             actors.Add(Actors.Barney);
                             spaceCount = 0;
                             actorSet = true;
+
+
+
                             lines.Add("");
                             currentWord = "";
                         }
@@ -289,10 +301,24 @@ public class DialogueSystem : MonoBehaviour
 
             dialogueTexts.SetValue(dialogueBoxes[i].GetComponentInChildren<TextMeshProUGUI>(), i);
             dialogueTexts[i].text = "";
-            dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(600, 250);
 
-
+            if (actors[i] == Actors.Blanche)
+            {
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMin = new Vector2(0, 0.5f);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMax = new Vector2(0, 0.5f);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().pivot = new Vector2(0, 0.5f);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchoredPosition = new Vector2(-435, -135);
+            }
+            else
+            {
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMin = new Vector2(1, 0.5f);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMax = new Vector2(1, 0.5f);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().pivot = new Vector2(1, 0.5f);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchoredPosition = new Vector2(-140, -135);
+            }
         }
+
+        everythingSet = true;
     }
 
     public void CleanDialogueSetUp()
@@ -301,6 +327,7 @@ public class DialogueSystem : MonoBehaviour
         characters = new char[0];
         actorSet = false;
         write = false;
+        everythingSet = false;
 
         for (int i = 0; i < dialogueBoxes.Length; i++)
         {
@@ -313,6 +340,15 @@ public class DialogueSystem : MonoBehaviour
         lines.Clear();
         actors.Clear();
         currentWord = "";
+    }
+
+    public void Debuger()
+    {
+        for (int i = 0; i < dialogueTexts.Length; i++)
+        {
+            //dialogueTexts[i].text = lines[i].ToString();
+            Debug.Log("Le text " + i + " se répartie sur " + dialogueTexts[i].richText+ "ligne(s)");
+        }
     }
     #endregion
 
@@ -334,7 +370,7 @@ public class DialogueSystem : MonoBehaviour
         lastCharacter = -1;
         typingTimeRatio = typingSpeedRatio;
 
-        maxTime = lineTypingSpeed[currentLine].keys[lineTypingSpeed[currentLine].length -1].time;
+        maxTime = lineTypingSpeed[currentLine].keys[lineTypingSpeed[currentLine].length - 1].time;
 
         currentLineCharacters = lines[currentLine].ToCharArray();
 

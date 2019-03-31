@@ -18,7 +18,7 @@ public class CellPlacement : MonoBehaviour
     public bool once;
     public GameObject facingPlane;
 
-
+    private PlayerMovement pM;
 
 
 
