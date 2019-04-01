@@ -21,8 +21,6 @@ public class CellPlacement : MonoBehaviour
 
     public CameraBehaviour cB;
 
-
-
     void Start()
     {
         nbrTouch = 0;
@@ -72,7 +70,7 @@ public class CellPlacement : MonoBehaviour
 
                 if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
                 {
-                    pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
+                    //pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
                     hit.collider.gameObject.GetComponent<ScrEnvironment>().touched = true;
                 }
             }
