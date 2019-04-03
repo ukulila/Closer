@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 // Custom Editor using SerializedProperties.
@@ -20,6 +17,7 @@ public class DialogueSetUp : Editor
             dialogueSystem.SetUpTextFile();
             dialogueSystem.SetUpDialogueLines();
             dialogueSystem.SetUpDialogueBox();
+            dialogueSystem.SetDialogueParameters();
         }
 
         base.OnInspectorGUI();

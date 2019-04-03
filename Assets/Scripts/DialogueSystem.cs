@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.IO;
-using UnityEditor;
 using TMPro;
-using TMPro.EditorUtilities;
-using UnityEditor.IMGUI;
 
 public class DialogueSystem : MonoBehaviour
 {
@@ -21,26 +16,26 @@ public class DialogueSystem : MonoBehaviour
     private bool write = false;
 
 
-    private List<string> lines;
-    private char[] currentLineCharacters;
-    public List<char[]> linesCharacters;
-    private TextMeshProUGUI[] dialogueTexts;
-    private GameObject[] dialogueBoxes;
+    public List<string> lines;
+    public char[] currentLineCharacters;
+    public TextMeshProUGUI[] dialogueTexts;
+    public GameObject[] dialogueBoxes;
     public Image[] actorsIcon;
     public GameObject dialogueBoxPrefab;
+    public TMP_Vertex vertex;
 
     public List<AnimationCurve> lineTypingSpeed;
-    private float currentTime;
-    private float maxTime;
-    private float typingTimeRatio;
+    public float currentTime;
+    public float maxTime;
+    public float typingTimeRatio;
     private float typingSpeedRatio = 1;
-    private float typingFasterRatio = 2;
-    private int currentCharacter;
-    private int lastCharacter;
+    private float typingFasterRatio = 3;
+    public int currentCharacter;
+    public int lastCharacter;
 
     public enum Actors { Blanche, Mireille, Louis, MmeBerleau, Dotty, Jolly, Dolores, Maggie, Esdie, Walter, Ray, Barney, Irina };
-    private Actors currentActor;
-    private List<Actors> actors;
+    public Actors currentActor;
+    public List<Actors> actors;
 
 
     [Header("Dialogue 'Content'")]
@@ -48,21 +43,67 @@ public class DialogueSystem : MonoBehaviour
     public int maxLines;
 
     [Header("Dialogue Box Image Parameters")]
-    public float boxesSpacing;
-    private float boxMaxWidth = 363;
-    private float boxMinWidth = 153;
+    //Parametres BOX des rectTransform
+    public float dialogueBoxSpacing;
+    public float boxMaxWidth = 363f;
+    public float boxMinWidth = 100f;
 
-    private float boxMinHeight = 60;
-    private float boxHeigthPerLine = 45;
+    public float boxMinHeight = 80f;
+    public float boxHeigthPerLine = 20f;
 
-    private float textHeightPerLine = 33;
-    private float textMinHeight = 31;
-    private float textWidth = 320;
+    public float boxInitPos_X;
+    public float boxInitPos_Y;
+
+    public float boxInitPos_X2;
+    public float boxInitPos_Y2;
 
 
-    private bool isDialogueFinished = true;
-    private bool endOfTheLine;
-    private bool isThereAnotherLine;
+    //Parametres TEXT des rectTransform
+    public float textHeightPerLine = 33f;
+    public float textMinHeight = 37f;
+    public float textWidth = 315f;
+
+    //Différents etats du Dialogue
+    public bool isDialogueFinished = true;
+    public bool endOfTheLine;
+    public bool writting;
+    public bool isThereAnotherLine;
+    public bool ending;
+
+
+    //Changer la couleur charcter per character
+    public TMP_Text m_TextComponent;
+    public TMP_TextInfo textInfo;
+    public Color32[] vertexNewColor;
+
+
+    public List<float> translationCount;
+    public RectTransform dialogueGo;
+    public bool boxReady = true;
+    public Vector2 nextLinePosition;
+
+    public AnimationCurve boxSlidingCurve;
+    public float currentSlideTime;
+    public float maxSlideTime;
+    public float boxTimingRatio = 1;
+    public float currentSlidePercent;
+    public float currentYPos;
+    public float nextYPos;
+
+    public AnimationCurve resetDialogueCurve;
+    public float currentResetTime;
+    public float maxResetTime;
+
+    public float lastY;
+    public float percentY;
+    public float Ydisplacment;
+
+
+    //Adapter les boxes à leur text
+    public Vector2 textSize;
+    public float rendWidth;
+
+
 
 
 
@@ -71,9 +112,10 @@ public class DialogueSystem : MonoBehaviour
         SetDialogueParameters();
         isDialogueFinished = false;
 
-        if (currentLine > maxLines - 1)
+        if (currentLine == maxLines - 1)
         {
             isThereAnotherLine = false;
+            ending = true;
         }
         else
         {
@@ -81,28 +123,42 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
+
+
     private void Update()
     {
+        if (endOfTheLine && !isDialogueFinished && currentCharacter > 0)
+            currentCharacter = 0;
+
         if (Input.GetMouseButtonDown(0))
         {
             if (endOfTheLine && !isThereAnotherLine)
                 isDialogueFinished = true;
 
             if (endOfTheLine && isThereAnotherLine)
+            {
+                endOfTheLine = false;
                 NextLine();
+            }
 
             if (!endOfTheLine)
                 typingTimeRatio = typingFasterRatio;
 
-            if (isDialogueFinished)
+            if (isDialogueFinished && !ending)
                 ResetDialogueParameters();
 
+            if (isDialogueFinished && ending)
+                EndDialogueAnimation();
         }
 
-        if (!isDialogueFinished && !endOfTheLine)
+
+        if (!boxReady)
+            SlideDialogueTo();
+
+
+        if (!isDialogueFinished && !endOfTheLine && writting)
             DialogueUpdate();
     }
-
 
 
     #region Dialogue EDITOR SET UP
@@ -111,6 +167,11 @@ public class DialogueSystem : MonoBehaviour
         textOfAsset = asset.ToString();
 
         characters = textOfAsset.ToCharArray();
+
+        if (dialogueGo == null)
+        {
+            dialogueGo = this.GetComponent<RectTransform>();
+        }
     }
 
     public void SetUpDialogueLines()
@@ -309,22 +370,24 @@ public class DialogueSystem : MonoBehaviour
             dialogueBoxes.SetValue(currentGO, i);
 
             dialogueTexts.SetValue(dialogueBoxes[i].GetComponentInChildren<TextMeshProUGUI>(), i);
-            dialogueTexts[i].text = "";
+            dialogueTexts[i].text = lines[i];
+
 
             if (actors[i] == Actors.Blanche)
             {
-                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMin = new Vector2(0, 0.5f);
-                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMax = new Vector2(0, 0.5f);
-                dialogueBoxes[i].GetComponentInChildren<RectTransform>().pivot = new Vector2(0, 0.5f);
-                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchoredPosition = new Vector2(-435, -135);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMin = new Vector2(0, 1);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMax = new Vector2(0, 1);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().pivot = new Vector2(0, 1);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchoredPosition = new Vector2(boxInitPos_X, boxInitPos_Y);
             }
             else
             {
-                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMin = new Vector2(1, 0.5f);
-                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMax = new Vector2(1, 0.5f);
-                dialogueBoxes[i].GetComponentInChildren<RectTransform>().pivot = new Vector2(1, 0.5f);
-                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchoredPosition = new Vector2(-140, -135);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMin = new Vector2(1, 1);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMax = new Vector2(1, 1);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().pivot = new Vector2(1, 1);
+                dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchoredPosition = new Vector2(boxInitPos_X2, boxInitPos_Y2);
             }
+
 
             if (dialogueTexts[i].GetTextInfo(lines[i]).lineCount > 1)
             {
@@ -333,13 +396,32 @@ public class DialogueSystem : MonoBehaviour
             }
             else
             {
-                dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMinWidth, boxMinHeight);
+                GUIContent content = new GUIContent(dialogueTexts[i].text);
+                textSize = GUI.skin.box.CalcSize(content);
+
+                rendWidth = dialogueTexts[i].renderedWidth;
+
+                float widthRatio = textSize.x / rendWidth;
+
+
+                dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMaxWidth, boxMinHeight);
                 dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(textWidth, textMinHeight);
             }
+        }
 
-            //Debug.Log("La ligne comporte " + dialogueTexts[i].GetTextInfo(lines[i]).characterCount + "lettres");
-            //Debug.Log("pour un maximum de " + dialogueTexts[i].GetTextInfo(lines[i]).characterInfo.Length);
-            //Debug.Log("La ligne "+ i + " peut contenir" + dialogueTexts[i].wordWrappingRatios + " lettres");
+
+        for (int i = 1; i < maxLines; i++)
+        {
+
+            float posYdiff = ((dialogueBoxes[i].GetComponent<RectTransform>().anchoredPosition.y - dialogueBoxes[i].GetComponent<RectTransform>().offsetMax.y) +
+                (dialogueBoxes[i - 1].GetComponent<RectTransform>().offsetMin.y - dialogueBoxes[i - 1].GetComponent<RectTransform>().anchoredPosition.y)) - dialogueBoxSpacing;
+
+            Debug.Log("i = " + i + " off :" + dialogueBoxes[i].GetComponent<RectTransform>().position);
+
+            translationCount.Add(posYdiff);
+
+            dialogueBoxes[i].GetComponent<RectTransform>().anchoredPosition =
+                            new Vector2(dialogueBoxes[i].GetComponent<RectTransform>().anchoredPosition.x, (dialogueBoxes[i - 1].GetComponent<RectTransform>().anchoredPosition.y + translationCount[i - 1]));
         }
     }
 
@@ -352,7 +434,8 @@ public class DialogueSystem : MonoBehaviour
 
         for (int i = 0; i < dialogueBoxes.Length; i++)
         {
-            DestroyImmediate(dialogueBoxes[i]);
+            if (dialogueBoxes[i] != null)
+                DestroyImmediate(dialogueBoxes[i]);
         }
 
         dialogueBoxes = new GameObject[0];
@@ -360,19 +443,40 @@ public class DialogueSystem : MonoBehaviour
         lineTypingSpeed.Clear();
         lines.Clear();
         actors.Clear();
+        dialogueGo.position = new Vector2(dialogueGo.position.x, dialogueGo.position.y);
+        translationCount.Clear();
         currentWord = "";
     }
     #endregion
 
 
+    public void SlideDialogueTo()
+    {
+        if(currentSlideTime < maxSlideTime)
+        {
+            currentSlideTime += Time.deltaTime * boxTimingRatio;
+        }
+        else
+        {
+            writting = true;
+            lastY = dialogueGo.anchoredPosition.y;
+            boxReady = true;
+        }
+
+        currentSlidePercent = boxSlidingCurve.Evaluate(currentSlideTime);
+         
+        dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, currentYPos + nextYPos * currentSlidePercent);
+    }
 
     public void ResetDialogueParameters()
     {
         currentTime = 0;
+        currentSlideTime = 0;
         currentCharacter = 0;
         lastCharacter = -1;
         currentLine = 0;
         typingTimeRatio = typingSpeedRatio;
+
     }
 
     public void SetDialogueParameters()
@@ -384,9 +488,21 @@ public class DialogueSystem : MonoBehaviour
 
         maxTime = lineTypingSpeed[currentLine].keys[lineTypingSpeed[currentLine].length - 1].time;
 
-        currentLineCharacters = lines[currentLine].ToCharArray();
+        m_TextComponent = dialogueTexts[currentLine].GetComponent<TMP_Text>();
+        textInfo = m_TextComponent.textInfo;
+    }
 
-        endOfTheLine = false;
+
+    /// <summary>
+    /// Parametres de déplacement des boxes
+    /// </summary>
+    private void SetSlideParameters()
+    {
+        nextLinePosition = new Vector2(dialogueGo.anchoredPosition.x, dialogueGo.anchoredPosition.y - translationCount[currentLine - 1]);
+        currentYPos = dialogueGo.anchoredPosition.y;
+        nextYPos = nextLinePosition.y - currentYPos;
+
+        currentSlideTime = 0;
     }
 
 
@@ -399,29 +515,48 @@ public class DialogueSystem : MonoBehaviour
         else
         {
             endOfTheLine = true;
+            writting = false;
+            typingTimeRatio = typingSpeedRatio;
         }
 
         currentCharacter = (int)lineTypingSpeed[currentLine].Evaluate(currentTime);
 
-        //Debug.Log("Current Character = " + currentCharacter);
-        //Debug.Log("Last Character = " + lastCharacter);
+        dialogueTexts[currentLine].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
 
         if (currentCharacter != lastCharacter)
         {
-            dialogueTexts[currentLine].text = dialogueTexts[currentLine].text + currentLineCharacters[currentCharacter - 1];
+            //Debug.LogWarning("current character = " + currentCharacter);
+            // Get the index of the material used by the current character.
+            int materialIndex = textInfo.characterInfo[currentCharacter].materialReferenceIndex;
+
+            // Get the vertex colors of the mesh used by this text element (character or sprite).
+            vertexNewColor = textInfo.meshInfo[materialIndex].colors32;
+            // Get the index of the first vertex used by this text element.
+            int vertexIndex = textInfo.characterInfo[currentCharacter].vertexIndex;
+
+            // Set all to full alpha
+            vertexNewColor[vertexIndex + 0].a = 255;
+            vertexNewColor[vertexIndex + 1].a = 255;
+            vertexNewColor[vertexIndex + 2].a = 255;
+            vertexNewColor[vertexIndex + 3].a = 255;
+
             lastCharacter = currentCharacter;
         }
-    }
 
+        Debug.Log("last character = " + lastCharacter);
+
+        dialogueTexts[currentLine].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
+
+    }
 
     public void NextLine()
     {
         currentLine += 1;
-        typingTimeRatio = typingSpeedRatio;
 
-        if (currentLine > maxLines - 1)
+        if (currentLine > maxLines - 2)
         {
             isThereAnotherLine = false;
+            ending = true;
         }
         else
         {
@@ -429,7 +564,26 @@ public class DialogueSystem : MonoBehaviour
         }
 
         SetDialogueParameters();
+
+        SetSlideParameters();
+
+        boxReady = false;
     }
 
+    public void EndDialogueAnimation()
+    {
+        if(currentResetTime < maxResetTime)
+        {
+            currentResetTime += Time.deltaTime;
+        }
+        else
+        {
+            ending = false;
+        }
+
+        percentY = resetDialogueCurve.Evaluate(currentResetTime);
+
+        dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, lastY + Ydisplacment * percentY);
+    }
 
 }
