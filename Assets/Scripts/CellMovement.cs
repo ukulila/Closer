@@ -41,8 +41,10 @@ public class CellMovement : MonoBehaviour
     public CellPlacement cP;
     public bool moveVerticalX;
     public Cell_Renamer renameManager;
+    public PlayerMovement pM;
+    public bool clickDirection;
 
-    
+
 
 
     #region Init
@@ -65,22 +67,53 @@ public class CellMovement : MonoBehaviour
 
         hasEnded = true;
         freezePosValue = true;
+
+        if (/*gameObject.name.Contains("Current") ||*/ gameObject.name.Contains("Exit"))
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if (transform.GetChild(i).name.Contains("Plane"))
+                {
+                    transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
+                }
+
+            }
+        }
+
+
     }
     #endregion
 
 
     void Update()
     {
-        /*for (int i = 0; i < brothers.Count; i++)
+        if(isSpawn)
         {
-            if (brothers[i].GetComponent<CellMovement>().isSpawn == false)
+            for (int i = 0; i < transform.childCount; i++)
             {
-                for (int f = 0; f < brothers[i].transform.childCount; f++)
+                if (transform.GetChild(i).name.Contains("Plane"))
                 {
-                    transform.GetChild(f).GetComponent<Renderer>().material.SetInt("_isActive", 0);
+                    transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
                 }
+
             }
-        }*/
+
+            if(selected && Input.GetMouseButtonUp(0))
+            {
+                pM.castingRay = true;
+                selected = false;
+            }
+        }
+
+
+        if (clickDirection)
+        {
+            pM.nextContext = gameObject.GetComponent<ScrEnvironment>();
+            pM.add = true;
+            clickDirection = false;
+        }
+
+
         #region ---- RenameByPLace ----
 
 
@@ -93,92 +126,54 @@ public class CellMovement : MonoBehaviour
 
 
         #region ---- RESET ----
+
         //Deselects everything when click over
         if (Input.GetMouseButtonUp(0))
         {
             once = false;
-            selected = false;
+            
             click = false;
             timer = 0;
-            //CameraBehaviour.Instance.rotateAroundCube = true;
-            isOpen = false;
-            if(!isSpawn)
-            {
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 0);
-                }
-            }
+            
         }
 
-        if(toRotate.Count < 4)
+        if (toRotate.Count < 4)
         {
 
             toRotate.Clear();
 
         }
-        
+
 
         #endregion
 
         #region ---- Selection ----
 
-        selected = click;
+        if (click)
+        {
+            selected = true;
+        }
+
+
 
         //Takes off the Outline when click elsewhere
-        if (Input.GetMouseButtonDown(0) && !over && !isSpawn)
+        if (Input.GetMouseButtonDown(0) && !isSpawn && gameObject.name.Contains("Exit") == false)
         {
-            
+            selected = false;
+            isOpen = false;
+
             for (int i = 0; i < transform.childCount; i++)
             {
-                transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 0);
-                
-            }
-
-        }
-
-        //Adds the outline if neither spawn nor exit Cell // Changes the name too for Debug
-        if (selected)
-        {
-            if (gameObject != actualCell && gameObject != exitCell)
-            {
-                for (int i = 0; i < transform.childCount; i++)
+                if (transform.GetChild(i).name.Contains("Plane"))
                 {
-                    transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
-
+                    transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_myColor", Color.green);
                 }
-            }
-            //gameObject.name = myName + "-----------";
-        }
-        else
-        {
-            //gameObject.name = myName;
-        }
-
-        //Debug Name to Check for free Cells around player
-        if (isOpen)
-        {
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_myColor", new Color32(140,140,140,255));
-
-                transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
-
 
             }
         }
-        else if (!isOpen)
-        {
-            for (int i = 0; i < transform.childCount; i++)
-            {
 
-                transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_myColor", Color.green);
-                
-
-
-            }
-
-        }
+        
+       
         #endregion
 
         #region ---- Update Movement ----
@@ -229,17 +224,7 @@ public class CellMovement : MonoBehaviour
         if (click)
         {
             timer++;
-            for (int i = 0; i < brothers.Count; i++)
-            {
-                isOpen = false;
-                if (!isSpawn)
-                {
-                    for (int f = 0; f < transform.childCount; f++)
-                    {
-                        transform.GetChild(f).GetComponent<Renderer>().material.SetInt("_isActive", 0);
-                    }
-                }
-            }
+            
         }
 
         //Stores position of The Mouse after timer is 30
@@ -263,13 +248,13 @@ public class CellMovement : MonoBehaviour
         {
             CheckMove();
 
-            
+
         }
 
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..
         if (moveHorizontal)
         {
-            
+
 
             //Debug.Log(gameObject.name);
 
@@ -532,7 +517,6 @@ public class CellMovement : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Hey That's Too Short");
             return;
         }
 
@@ -722,10 +706,10 @@ public class CellMovement : MonoBehaviour
 
                     if (cP.facingPlane.name == "PlaneForward")
                     {
-                       // Debug.Log("I play Forward");
+                        // Debug.Log("I play Forward");
                         if (brothers[u].transform.position.z < 0 && transform.position.z < 0)
                         {
-                          // Debug.Log("I play Forward Two");
+                            // Debug.Log("I play Forward Two");
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
@@ -788,10 +772,10 @@ public class CellMovement : MonoBehaviour
 
                     if (cP.facingPlane.name == "PlaneRight")
                     {
-                       // Debug.Log("I play Right");
+                        // Debug.Log("I play Right");
                         if (brothers[u].transform.position.x < 0 && transform.position.x < 0)
                         {
-                          //  Debug.Log("I play Right Two");
+                            //  Debug.Log("I play Right Two");
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
@@ -821,10 +805,10 @@ public class CellMovement : MonoBehaviour
 
                     if (cP.facingPlane.name == "PlaneLeft")
                     {
-                       // Debug.Log("I play Left");
+                        // Debug.Log("I play Left");
                         if (brothers[u].transform.position.x < 0 && transform.position.x < 0)
                         {
-                         //   Debug.Log("I play Left Two");
+                            //   Debug.Log("I play Left Two");
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
@@ -991,5 +975,38 @@ public class CellMovement : MonoBehaviour
     }
 
 
+
+    public void OnTriggerStay(Collider other)
+    {
+
+        if (other.transform.name.Contains("Player"))
+        {
+            isSpawn = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if(other.transform.name.Contains("Player"))
+        {
+            isSpawn = false;
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if (transform.GetChild(i).name.Contains("Plane"))
+                {
+                    transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 0);
+                }
+
+            }
+        }
+
+
+    }
+    #endregion
+
+
+    
+
 }
-#endregion
+

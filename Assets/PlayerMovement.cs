@@ -30,10 +30,10 @@ public class PlayerMovement : MonoBehaviour
     private bool firstPath;
     public GameObject door;
     public GameObject nextDoor;
-    public List<Transform> doorDirection;
+    public Transform doorDirection;
     public bool isValid;
     public List<Transform> inverseList;
-    public List<Transform> myDoorList;
+    public Transform myDoor;
     public bool reverse;
     private Vector3 doorRot;
     public bool closeDoor;
@@ -41,12 +41,13 @@ public class PlayerMovement : MonoBehaviour
 
     public CinemachineBrain Camera;
     public List<Transform> ultimateList;
-
+    public bool castingRay;
+    public CellPlacement cP;
 
     void Start()
     {
-        minDist = 0.1f;
-
+       // minDist = 0.1f;
+        add = false;
     }
 
     void Update()
@@ -57,7 +58,62 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (context.touched && nextContext != context && !add)
+        if(castingRay)
+        {
+            for (int u = 0; u < context.doorWayPoints.Count; u++)
+            {
+
+                RaycastHit hit;
+                int layerMaskDoor = LayerMask.GetMask("Door");
+
+
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position, -context.doorWayPoints[u].transform.forward, out hit, 0.5f, layerMaskDoor) && hit.transform != context.doorWayPoints[u].GetChild(0))
+                {
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position, -context.doorWayPoints[u].transform.forward, Color.green, 50);
+                    //cP.okToSetup = true;
+
+                    Debug.Log(hit.transform.name);
+
+                    if (hit.transform.parent.parent.parent.GetComponent<CellMovement>() )
+                    {
+                        Debug.Log("here is a door i could take" + hit.transform.parent.parent.parent.name);
+                        hit.transform.parent.parent.parent.GetComponent<CellMovement>().isOpen = true;
+                    }
+                    
+                    castingRay = false;
+                }
+                else
+                {
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position, -context.doorWayPoints[u].transform.forward, Color.red, 50);
+                    castingRay = false;
+
+                }
+
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position, context.doorWayPoints[u].transform.forward, out hit, 0.5f, layerMaskDoor) && hit.transform != context.doorWayPoints[u].GetChild(0))
+                {
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position, context.doorWayPoints[u].transform.forward, Color.green, 50);
+
+
+                    if (hit.transform.parent.parent.parent.GetComponent<CellMovement>())
+                    {
+                        Debug.Log("here is a door i could take" + hit.transform.parent.parent.parent.name);
+                        hit.transform.parent.parent.parent.GetComponent<CellMovement>().isOpen = true;
+                    }
+                    castingRay = false;
+
+                }
+                else
+                {
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position, context.doorWayPoints[u].transform.forward, Color.red, 50);
+                    castingRay = false;
+
+                }
+
+
+            }
+        }
+
+        if (/*(context.touched && nextContext != context &&*/ add )
         {
             //myDoorList = context.doorWayPoints;
 
@@ -68,37 +124,46 @@ public class PlayerMovement : MonoBehaviour
                 int layerMaskDoor = LayerMask.GetMask("Door");
 
 
-                if (Physics.Raycast(context.doorWayPoints[u].transform.position , -context.doorWayPoints[u].transform.forward, out hit, Mathf.Infinity, layerMaskDoor))
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position , -context.doorWayPoints[u].transform.forward, out hit, 0.5f, layerMaskDoor))
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].transform.position , -context.doorWayPoints[u].transform.forward, Color.red, 500.0F);
-                    myDoorList.Add(context.doorWayPoints[u]);
-                    doorDirection.Add(hit.collider.transform.parent.transform);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position , -context.doorWayPoints[u].transform.forward, Color.green, 050);
+                    //cP.okToSetup = true;
+
+                    myDoor = context.doorWayPoints[u];
+                    doorDirection = (hit.collider.transform.parent.transform);
+                    castingRay = false;
                 }
                 else
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].transform.position, -context.doorWayPoints[u].transform.forward, Color.red, 500.0F);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position, -context.doorWayPoints[u].transform.forward, Color.red, 50);
+                    castingRay = false;
 
                 }
 
-                if (Physics.Raycast(context.doorWayPoints[u].transform.position, context.doorWayPoints[u].transform.forward, out hit, Mathf.Infinity, layerMaskDoor))
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position, context.doorWayPoints[u].transform.forward, out hit, 0.5f, layerMaskDoor))
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].transform.position, -context.doorWayPoints[u].transform.forward, Color.red, 500.0F);
-                    myDoorList.Add(context.doorWayPoints[u]);
-                    doorDirection.Add(hit.collider.transform.parent.transform);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position, -context.doorWayPoints[u].transform.forward, Color.green, 50);
+                    myDoor = context.doorWayPoints[u];
+                    doorDirection = (hit.collider.transform.parent.transform);
+                    castingRay = false;
+
                 }
                 else
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].transform.position, context.doorWayPoints[u].transform.forward, Color.red, 500.0F);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position, context.doorWayPoints[u].transform.forward, Color.red , 50);
+                    castingRay = false;
 
                 }
 
 
             }
-            if (doorDirection.Count != 0 && myDoorList.Count != 0)
+            
+            if (doorDirection != null && myDoor != null && nextContext != null)
             {
                 CheckList();
             }
-            add = true;
+
+            add = false;
             
 
         }
@@ -107,12 +172,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        /*if(Input.GetKeyDown(KeyCode.A))
-        {
-
-           // Debug.LogError(context.paths.list.Count);
-
-        }*/
+        
 
         boolIndex = Mathf.Clamp(boolIndex, 0, ways.Count);
 
@@ -147,174 +207,18 @@ public class PlayerMovement : MonoBehaviour
         {
             Movement(waypoints.listOfWaypoint);
 
-            /*
-            //AllPlayerMovement
-            if (waypoints.listOfWaypoint.Count != 0)
-            {
-
-                //Check distance btw player and waypoints
-                CalculateDistance(waypoints.listOfWaypoint[index].position);
-
-                //direction = waypoints[0].position;
-                if (!once)
-                {
-                    origin = transform.position;
-                    once = true;
-                }
-
-                //Actual movement to selected waypoint
-                transform.position = Vector3.Lerp(transform.position, waypoints.listOfWaypoint[index].position, 0.05f);
-                transform.LookAt(waypoints.listOfWaypoint[index].transform.position);
-
-
-                //Select the next waypoint when last is reached
-                if (distance <= minDist && index != waypoints.listOfWaypoint.Count - 2 && next)
-                {
-                    //once = false;
-                    //movement = false;
-                    //reset = true;
-                    index++;
-                    next = false;
-                }
-                else if (distance <= minDist && index == waypoints.listOfWaypoint.Count - 2)        //if last point is reached, check if door 
-                {
-                    index = 0;
-                    movement = false;
-                    transform.LookAt(waypoints.listOfWaypoint[waypoints.listOfWaypoint.Count - 1].transform.position);
-
-                    context = nextContext;
-                    isValid = true;
-
-                    reset = true;
-                    door = waypoints.listOfWaypoint[waypoints.listOfWaypoint.Count - 1].gameObject;
-
-
-
-
-                    RaycastHit[] hits;
-                    hits = Physics.RaycastAll(transform.position, waypoints.listOfWaypoint[index].transform.position/*transform.forward, 100.0F);
-                    Debug.DrawRay(transform.position, transform.forward, Color.red, 500.0F);
-                    for (int i = 0; i < hits.Length; i++)
-                    {
-                        RaycastHit hit = hits[i];
-
-                        if (hit.transform.tag == "Cell" && hit.transform.name != context.transform.name)
-                        {
-                            Debug.Log("true, it's   " + hit.transform.name);
-                            isValid = true;
-                            context = hit.transform.GetComponent<ScrEnvironment>();
-                        }
-
-                        /* else
-                         {
-                             waypoints.listOfWaypoint.Reverse();
-                             baseMovement = true;
-                         }
-
-                    }
-
-                    /*
-
-                    RaycastHit[] hit;
-                if (Physics.RaycastAll(/*door.transform.position, new Vector3 (0,0, -Vector3.Distance(door.transform.position, transform.position) * 10), out hit))
-                {
-
-                    Debug.DrawRay(/*door.transform.position, new Vector3(0, 0, -Vector3.Distance(door.transform.position, transform.position) * 10), Color.red, 10);
-                    if (hit.transform.tag == "Cell" && hit.transform.name != context.gameObject.name)
-                    {
-                        isValid = true;
-                        context = hit.transform.GetComponent<ScrEnvironment>();
-                    }
-                }
-
-                    if (waypoints.listOfWaypoint[waypoints.listOfWaypoint.Count - 1].name.Contains("Door") && isValid)
-                    {
-
-                        openDoor = true;
-                    }
-                    else
-                    {
-                        waypoints.listOfWaypoint.Reverse();
-                        reverse = true;
-                        baseMovement = true;
-                    }
-                    }
-                }*/
+           
 
         }
-
-        if (baseMovement)
-        {
-            if (waypoints.listOfWaypoint.Count != 0)
-            {
-                CalculateDistance(waypoints.listOfWaypoint[index].position);
-                //direction = waypoints[0].position;
-                if (!once)
-                {
-                    origin = transform.position;
-                    once = true;
-                }
-
-                transform.position = Vector3.Lerp(transform.position, waypoints.listOfWaypoint[index].position, 0.05f);
-                transform.LookAt(waypoints.listOfWaypoint[index].position);
-
-
-                if (distance <= minDist && index != waypoints.listOfWaypoint.Count - 1 && next)
-                {
-                    //once = false;
-                    //movement = false;
-                    //reset = true;
-                    index++;
-                    next = false;
-
-
-                }
-                else if (distance <= minDist && index == waypoints.listOfWaypoint.Count - 1)
-                {
-                    index = 0;
-                    movement = false;
-
-                    if (reverse)
-                    {
-                        reset = true;
-                        //waypoints.listOfWaypoint.Clear();
-                        reverse = false;
-                        baseMovement = false;
-                    }
-
-                    if (nextContext != null)
-                    {
-                        context = nextContext;
-                        nextContext = null;
-                        baseMovement = false;
-
-                    }
-
-                    /*
-                    if (waypoints.listOfWaypoint[waypoints.listOfWaypoint.Count - 1].name.Contains("Door"))
-                    {
-
-                        openDoor = true;
-
-                    }
-                    */
-                }
-                else
-                {
-
-
-
-                }
-            }
-        }
+        
 
         if (openDoor)
         {
 
+            doorRot = nextDoor.transform.localEulerAngles;
 
             if (nextDoor.transform.localEulerAngles.y < 90)
             {
-                doorRot = nextDoor.transform.localEulerAngles;
                 nextDoor.transform.localEulerAngles = new Vector3(0, Mathf.LerpAngle(doorRot.y, doorRot.y + 90, Time.deltaTime * animspeed), transform.localEulerAngles.z);
                 
             }
@@ -333,9 +237,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (closeDoor)
         {
-            if (door.transform.localEulerAngles.y >= 5)
+            
+
+           
+            
+            if (door.transform.localEulerAngles.y >= -90)
             {
-                doorRot = door.transform.localEulerAngles;
                 door.transform.localEulerAngles = new Vector3(0, Mathf.LerpAngle(doorRot.y, doorRot.y - 119.984f, Time.deltaTime * animspeed), transform.localEulerAngles.z);
 
                 //door.transform.localEulerAngles = new Vector3(0, 0, 0);
@@ -364,7 +271,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ResetWhenTooFar()
     {
-        if (Vector3.Distance(transform.position, context.basePos.position) >= 0.1f && !movement)
+        if (Vector3.Distance(transform.position, context.basePos.position) >= 0.01f && !movement)
         {
             transform.position = Vector3.Lerp(transform.position, context.basePos.position, 0.05f);
             transform.LookAt(context.basePos.position);
@@ -384,11 +291,12 @@ public class PlayerMovement : MonoBehaviour
         distance = Vector3.Distance(transform.position, objectif);
         if (distance > minDist)
         {
+            Debug.Log("Distanceok");
             next = true;
         }
 
     }
-
+    //1,758842e-06
 
 
     public void CheckList()
@@ -397,7 +305,7 @@ public class PlayerMovement : MonoBehaviour
 
         for (int i = 0; i < context.paths.list.Count; i++)
         {
-            if (context.paths.list[i].listOfWaypoint.Contains(myDoorList[0]))
+            if (context.paths.list[i].listOfWaypoint.Contains(myDoor))
             {
                 for (int u = 0; u < context.paths.list[i].listOfWaypoint.Count; u++)
                 {
@@ -408,7 +316,7 @@ public class PlayerMovement : MonoBehaviour
 
         for (int h = 0; h < nextContext.paths.list.Count; h++)
         {
-            if (nextContext.paths.list[h].listOfWaypoint.Contains(doorDirection[0]))
+            if (nextContext.paths.list[h].listOfWaypoint.Contains(doorDirection))
             {
 
                 for (int u = 0; u < nextContext.paths.list[h].listOfWaypoint.Count; u++)
@@ -447,7 +355,7 @@ public class PlayerMovement : MonoBehaviour
     public void Movement(List<Transform> listToMove)
     {
         lookCam = false;
-        print(listToMove[0]);
+        //print(listToMove[0]);
 
         //AllPlayerMovement
         if (listToMove.Count != 0)
@@ -483,16 +391,16 @@ public class PlayerMovement : MonoBehaviour
                 index = 0;
                 // transform.LookAt(listToMove[listToMove.Count - 1].transform.position);
 
-                context = nextContext;
-                //nextContext = null;
+                context = nextContext;                                                       
+                nextContext = null;
                 once = false;
                 next = false;
 
                 waypoints.listOfWaypoint.Clear();
                 ultimateList.Clear();
                 inverseList.Clear();
-                myDoorList.Clear();
-                doorDirection.Clear();
+                myDoor = null;
+                doorDirection = null;
 
                 isValid = true;
 
@@ -510,7 +418,7 @@ public class PlayerMovement : MonoBehaviour
                 if (listToMove[index + 1].name.Contains("Door"))
                 {
                     nextDoor = listToMove[index + 1].gameObject;
-                    openDoor = true;
+                   // openDoor = true;
 
                 }
             }
@@ -520,7 +428,7 @@ public class PlayerMovement : MonoBehaviour
                 if (listToMove[index - 1].name.Contains("Door"))
                 {
                     door = listToMove[index - 1].gameObject;
-                    closeDoor = true;
+                   // closeDoor = true;
 
                 }
             }
