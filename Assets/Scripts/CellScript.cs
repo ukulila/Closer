@@ -17,6 +17,7 @@ public class CellScript : MonoBehaviour {
     public bool isCurrent;
     public List<CellMovement> brothers;
     public Cell_Renamer renameManager;
+    public CellPlacement cP;
 
 	void Start () {
 
@@ -43,13 +44,14 @@ public class CellScript : MonoBehaviour {
         if(rotation)
         {
             transform.Rotate(new Vector3 (0,90,0), 1.2f);
-            
+            cP.isInRotation = true;
             timeRot++;
 
             if (/*transform.rotation == myRot*new Quaternion(0,90,0,0) */timeRot > fin)
             {
                 timeRot = 0;
                 rotation = false;
+                cP.isInRotation = false;
 
                 for (int r = 0; r < brothers.Count; r++)
                 {
@@ -66,99 +68,7 @@ public class CellScript : MonoBehaviour {
         first = true;
         nbrTouch += 1;
 
-        #region ColorFreeCells
-        if(isCurrent)
-        {
-            RaycastHit hit;
-
-            if(Physics.Raycast(gameObject.transform.position, new Vector3(0, 0, -1), out hit))
-            {
-                if (hit.transform.tag == "Cell")
-                {
-                    if (hit.transform.gameObject.GetComponent<CellMovement>().isOpen == false)
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = true;
-                    }
-                    else
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = false;
-                    }
-                }
-            }
-            if (Physics.Raycast(gameObject.transform.position, new Vector3(0, 0, 1), out hit))
-            {
-                if (hit.transform.tag == "Cell")
-                {
-                    if (hit.transform.gameObject.GetComponent<CellMovement>().isOpen == false)
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = true;
-                    }
-                    else
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = false;
-                    }
-                }
-            }
-            if (Physics.Raycast(gameObject.transform.position, new Vector3(0, -1, 0), out hit))
-            {
-                if (hit.transform.tag == "Cell")
-                {
-                    if (hit.transform.gameObject.GetComponent<CellMovement>().isOpen == false)
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = true;
-                    }
-                    else
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = false;
-                    }
-                }
-            }
-            if (Physics.Raycast(gameObject.transform.position, new Vector3(0, 1, 0), out hit))
-            {
-                if (hit.transform.tag == "Cell")
-                {
-                    if (hit.transform.gameObject.GetComponent<CellMovement>().isOpen == false)
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = true;
-                    }
-                    else
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = false;
-                    }
-                }
-            }
-            if (Physics.Raycast(gameObject.transform.position, new Vector3(-1, 0, 0), out hit))
-            {
-                if (hit.transform.tag == "Cell")
-                {
-                    if (hit.transform.gameObject.GetComponent<CellMovement>().isOpen == false)
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = true;
-                    }
-                    else
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = false;
-                    }
-                }
-            }
-            if (Physics.Raycast(gameObject.transform.position, new Vector3(1, 0, 0), out hit))
-            {
-                if (hit.transform.tag == "Cell")
-                {
-                    if (hit.transform.gameObject.GetComponent<CellMovement>().isOpen == false)
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = true;
-                    }
-                    else
-                    {
-                        hit.transform.gameObject.GetComponent<CellMovement>().isOpen = false;
-                    }
-                }
-            }
-        }
-
         
-        #endregion
 
         if (first && nbrTouch>1)
         {

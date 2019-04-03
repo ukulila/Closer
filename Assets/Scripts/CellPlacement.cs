@@ -17,11 +17,12 @@ public class CellPlacement : MonoBehaviour
     public CinemachineBrain myBrain;
     public bool once;
     public GameObject facingPlane;
+    public PlayerMovement pM;
 
-    private PlayerMovement pM;
-    public CameraBehaviour cbbbb;
+    public CameraBehaviour cB;
+    public bool okToSetup;
 
-
+    public bool isInRotation;
 
     void Start()
     {
@@ -45,47 +46,39 @@ public class CellPlacement : MonoBehaviour
                 if (hit.collider.gameObject.GetComponent<CellMovement>() != null)
                 {
                     //Debug.Log("ok so I work");
-                    hit.collider.gameObject.GetComponent<CellMovement>().click = true;
-                    hit.collider.gameObject.GetComponent<CellMovement>().over = true;
+                    if (!isInRotation)
+                    {
+                        hit.collider.gameObject.GetComponent<CellMovement>().click = true;
+                        hit.collider.gameObject.GetComponent<CellMovement>().over = true;
+                    }
+
+                    if (hit.collider.gameObject.GetComponent<CellMovement>().isOpen)
+                    {
+                        Debug.Log("RaycastHittin");
+                        hit.collider.gameObject.GetComponent<CellMovement>().clickDirection = true;
+                        
+                    }
 
                     hit.collider.gameObject.GetComponent<CellMovement>().originPos = Input.mousePosition;
 
-
-                    // HEAD:Assets/PackagesKillian/Package/CellPlacement.cs
-
-                    /*for(int i = 0; i< hit.collider.transform.childCount; i++)
-                    {
-
-                    }*/
-                    //
-                    cbbbb.rotateAroundCube = false;
-                    /*
-                    CameraMovement.Instance.aboutCamera = false;
-                    */
-                    // Develop:Assets/Scripts/CellPlacement.cs
+                    cB.rotateAroundCube = false;
+                    
                 }
-                else
-                {
-                    cbbbb.rotateAroundCube = true;
-
-
-
-                    /*
-                    if (CameraMovement.Instance.switchToUI == false)
-                        CameraMovement.Instance.aboutCamera = true;
-                        */
-
-                }
+               
 
                 if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
                 {
-                    pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
+                    if(okToSetup && pM.context != hit.collider.gameObject.GetComponent<ScrEnvironment>())
+                    {
+                        pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
+
+                    }
                     hit.collider.gameObject.GetComponent<ScrEnvironment>().touched = true;
                 }
             }
             else
             {
-
+                cB.rotateAroundCube = true;
 
                 for (int i = 0; i < cM.Count; i++)
                 {
