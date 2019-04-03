@@ -19,7 +19,7 @@ public class CellPlacement : MonoBehaviour
     public GameObject facingPlane;
 
     private PlayerMovement pM;
-
+    public CameraBehaviour cbbbb;
 
 
 
@@ -58,15 +58,23 @@ public class CellPlacement : MonoBehaviour
 
                     }*/
                     //
-                    //CameraBehaviour.Instance.rotateAroundCube = false;
+                    cbbbb.rotateAroundCube = false;
+                    /*
                     CameraMovement.Instance.aboutCamera = false;
-
+                    */
                     // Develop:Assets/Scripts/CellPlacement.cs
                 }
                 else
                 {
+                    cbbbb.rotateAroundCube = true;
+
+
+
+                    /*
                     if (CameraMovement.Instance.switchToUI == false)
                         CameraMovement.Instance.aboutCamera = true;
+                        */
+
                 }
 
                 if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
