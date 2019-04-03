@@ -17,9 +17,9 @@ public class CellPlacement : MonoBehaviour
     public CinemachineBrain myBrain;
     public bool once;
     public GameObject facingPlane;
+    public PlayerMovement pM;
 
-
-
+    public CameraBehaviour cB;
 
     void Start()
     {
@@ -56,15 +56,16 @@ public class CellPlacement : MonoBehaviour
 
                     }*/
                     //
-                    //CameraBehaviour.Instance.rotateAroundCube = false;
-                    CameraMovement.Instance.aboutCamera = false;
+                    cB.rotateAroundCube = false;
+                    //    CameraMovement.Instance.aboutCamera = false;
 
                     // Develop:Assets/Scripts/CellPlacement.cs
                 }
                 else
                 {
-                    if (CameraMovement.Instance.switchToUI == false)
-                        CameraMovement.Instance.aboutCamera = true;
+                    // if (CameraMovement.Instance.switchToUI == false)
+                    //CameraMovement.Instance.aboutCamera = true;
+                   // cB.rotateAroundCube = true;
                 }
 
                 if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
@@ -75,7 +76,7 @@ public class CellPlacement : MonoBehaviour
             }
             else
             {
-
+                cB.rotateAroundCube = true;
 
                 for (int i = 0; i < cM.Count; i++)
                 {
