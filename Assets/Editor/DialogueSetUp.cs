@@ -17,7 +17,8 @@ public class DialogueSetUp : Editor
             dialogueSystem.SetUpTextFile();
             dialogueSystem.SetUpDialogueLines();
             dialogueSystem.SetUpDialogueBox();
-            dialogueSystem.SetDialogueParameters();
+            dialogueSystem.SetActorsParameters();
+            //dialogueSystem.SetDialogueParameters();
         }
 
         base.OnInspectorGUI();
