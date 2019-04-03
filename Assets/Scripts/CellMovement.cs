@@ -981,6 +981,7 @@ public class CellMovement : MonoBehaviour
 
         if (other.transform.name.Contains("Player"))
         {
+            isOpen = false;
             isSpawn = true;
         }
     }
