@@ -497,7 +497,7 @@ public class CameraMovement : MonoBehaviour
 
                     if (currentSelectedCell == "B_d2_Cell_Down_FrontRight" || currentSelectedCell == "G_u3_Cell_Up_FrontRight")
                     {
-                        Debug.Log("3");
+                        //Debug.Log("3");
                         continuePosDifference = (uiPathPosition[3] - currentPathPos);
 
                         if (continuePosDifference < 0)

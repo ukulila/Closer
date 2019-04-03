@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 // Custom Editor using SerializedProperties.
@@ -8,15 +6,20 @@ using UnityEditor;
 [CustomEditor(typeof(DialogueSystem))]
 public class DialogueSetUp : Editor
 {
+
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
-
         DialogueSystem dialogueSystem = (DialogueSystem)target;
 
-        if(GUILayout.Button("Generate Dialogue"))
+        if (GUILayout.Button("Update Dialogue Parameters"))
         {
-            
+            dialogueSystem.CleanDialogueSetUp();
+            dialogueSystem.SetUpTextFile();
+            dialogueSystem.SetUpDialogueLines();
+            dialogueSystem.SetUpDialogueBox();
+            dialogueSystem.SetDialogueParameters();
         }
+
+        base.OnInspectorGUI();
     }
 }
