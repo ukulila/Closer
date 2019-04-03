@@ -19,6 +19,7 @@ public class CellPlacement : MonoBehaviour
     public GameObject facingPlane;
     public PlayerMovement pM;
 
+    public CameraMovement camM;
     public CameraBehaviour cB;
     public bool okToSetup;
 
@@ -61,6 +62,7 @@ public class CellPlacement : MonoBehaviour
 
                     hit.collider.gameObject.GetComponent<CellMovement>().originPos = Input.mousePosition;
 
+                    // camM.aboutCamera = false;
                     cB.rotateAroundCube = false;
                     
                 }
@@ -78,6 +80,7 @@ public class CellPlacement : MonoBehaviour
             }
             else
             {
+                // camM.aboutCamera = true;
                 cB.rotateAroundCube = true;
 
                 for (int i = 0; i < cM.Count; i++)
