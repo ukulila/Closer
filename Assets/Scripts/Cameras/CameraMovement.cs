@@ -591,12 +591,13 @@ public class CameraMovement : MonoBehaviour
         if (Input.GetMouseButton(0) && Input.touchCount < 2 && !aboutCamera && cameraReposition && !switchToUI)
         {
             //Debug raycast d'ouverture UI (actions contextuelles)
-            Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
 
             RaycastHit selectedCube;
 
             if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube))
             {
+                Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
+
                 if (currentSelectedCell == selectedCube.collider.gameObject.name && selectedCube.collider.gameObject.GetComponent<CellMovement>().once == false && cameraReposition == true)
                 {
                     selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
