@@ -103,6 +103,9 @@ public class CameraBehaviour : MonoBehaviour
     public Vector3 gameDollyScale;
     public float uiFOV;
     public float gameFOV;
+    public Vector3 uiUpDollyPos;
+    public Vector3 uiDownDollyPos;
+    public Vector3 gameDollyPos;
 
     public Image selectionTimingImage;
     public string currentSelectedCell;
@@ -133,6 +136,9 @@ public class CameraBehaviour : MonoBehaviour
 
     public Vector3 currentTargetOffset;
     public Vector3 targetOffsetDiff;
+
+    public Vector3 currentDollyPosition;
+    public Vector3 dollyPositionDiff;
 
     public bool cameraReposition = true;
 
@@ -185,6 +191,7 @@ public class CameraBehaviour : MonoBehaviour
 
                     currentPathPos = dollyCart.m_Position;
                     currentDollyScale = dollyTransform.localScale;
+                    currentDollyPosition = dollyTransform.localPosition;
                     currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
                     currentFOV = virtualCamera.m_Lens.FieldOfView;
                     currentRepositionTime = 0;
@@ -209,6 +216,7 @@ public class CameraBehaviour : MonoBehaviour
 
                 currentPathPos = dollyCart.m_Position;
                 currentDollyScale = dollyTransform.localScale;
+                currentDollyPosition = dollyTransform.localPosition;
                 currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
                 currentFOV = virtualCamera.m_Lens.FieldOfView;
                 currentRepositionTime = 0;
@@ -220,12 +228,14 @@ public class CameraBehaviour : MonoBehaviour
                     currentSelectedCell = selectedCube.collider.gameObject.name;
                     fovDiff = uiFOV - currentFOV;
 
+
                     Debug.Log("We are touching something ... and it's cubic");
-                    
-                    if (currentSelectedCell == "E_u1_Cell_Up_BackLeft" || currentSelectedCell == "D_d4_Cell_Down_BackLeft")
+
+                    if (currentSelectedCell == "B_d2_Cell_Down_FrontRight")
                     {
-                        Debug.Log("1");
+                        //Debug.Log("3");
                         continuePosDifference = (uiPathPosition[1] - currentPathPos);
+                        dollyPositionDiff = uiDownDollyPos - gameDollyPos;
 
 
                         if (continuePosDifference < 0)
@@ -267,10 +277,12 @@ public class CameraBehaviour : MonoBehaviour
                         targetOffsetDiff = targetOffsets[1] - currentTargetOffset;
                     }
 
-                    if (currentSelectedCell == "A_d1_Cell_Down_FrontLeft" || currentSelectedCell == "H_u4_Cell _Up_FrontLeft")
+                    if (currentSelectedCell == "G_u3_Cell_Up_FrontRight")
                     {
-                        Debug.Log("0");
+                        //Debug.Log("3");
                         continuePosDifference = (uiPathPosition[0] - currentPathPos);
+                        dollyPositionDiff = uiUpDollyPos - gameDollyPos;
+
 
                         if (continuePosDifference < 0)
                         {
@@ -311,10 +323,12 @@ public class CameraBehaviour : MonoBehaviour
                         targetOffsetDiff = targetOffsets[0] - currentTargetOffset;
                     }
 
-                    if (currentSelectedCell == "B_d2_Cell_Down_FrontRight" || currentSelectedCell == "G_u3_Cell_Up_FrontRight")
+
+                    if (currentSelectedCell == "A_d1_Cell_Down_FrontLeft")
                     {
-                        //Debug.Log("3");
+                        Debug.Log("0");
                         continuePosDifference = (uiPathPosition[3] - currentPathPos);
+                        dollyPositionDiff = uiDownDollyPos - gameDollyPos;
 
                         if (continuePosDifference < 0)
                         {
@@ -355,10 +369,12 @@ public class CameraBehaviour : MonoBehaviour
                         targetOffsetDiff = targetOffsets[3] - currentTargetOffset;
                     }
 
-                    if (currentSelectedCell == "F_u2_Cell_Up_BackRight" || currentSelectedCell == "C_d3_Cell_Down_BackRight")
+                    if (currentSelectedCell == "H_u4_Cell _Up_FrontLeft")
                     {
-                        Debug.Log("2");
+                        Debug.Log("0");
                         continuePosDifference = (uiPathPosition[2] - currentPathPos);
+                        dollyPositionDiff = uiUpDollyPos - gameDollyPos;
+
 
                         if (continuePosDifference < 0)
                         {
@@ -398,6 +414,191 @@ public class CameraBehaviour : MonoBehaviour
 
                         targetOffsetDiff = targetOffsets[2] - currentTargetOffset;
                     }
+
+
+                    if (currentSelectedCell == "E_u1_Cell_Up_BackLeft")
+                    {
+                        Debug.Log("1");
+                        continuePosDifference = (uiPathPosition[4] - currentPathPos);
+                        dollyPositionDiff = uiUpDollyPos - gameDollyPos;
+
+
+                        if (continuePosDifference < 0)
+                        {
+                            reversePosDifference = positionMax - (continuePosDifference * -1);
+
+                            if ((continuePosDifference * -1) > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+                        else
+                        {
+                            reversePosDifference = positionMax - continuePosDifference;
+
+                            if (continuePosDifference > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+
+                        if (animationPosDifference < 0)
+                        {
+                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                        }
+                        else
+                        {
+                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                        }
+
+                        targetOffsetDiff = targetOffsets[4] - currentTargetOffset;
+                    }
+
+                    if (currentSelectedCell == "D_d4_Cell_Down_BackLeft")
+                    {
+                        Debug.Log("1");
+                        continuePosDifference = (uiPathPosition[5] - currentPathPos);
+                        dollyPositionDiff = uiDownDollyPos - gameDollyPos;
+
+                        if (continuePosDifference < 0)
+                        {
+                            reversePosDifference = positionMax - (continuePosDifference * -1);
+
+                            if ((continuePosDifference * -1) > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+                        else
+                        {
+                            reversePosDifference = positionMax - continuePosDifference;
+
+                            if (continuePosDifference > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+
+                        if (animationPosDifference < 0)
+                        {
+                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                        }
+                        else
+                        {
+                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                        }
+
+                        targetOffsetDiff = targetOffsets[5] - currentTargetOffset;
+                    }
+
+
+                    if (currentSelectedCell == "C_d3_Cell_Down_BackRight")
+                    {
+                        Debug.Log("2");
+                        continuePosDifference = (uiPathPosition[7] - currentPathPos);
+                        dollyPositionDiff = uiDownDollyPos - gameDollyPos;
+
+                        if (continuePosDifference < 0)
+                        {
+                            reversePosDifference = positionMax - (continuePosDifference * -1);
+
+                            if ((continuePosDifference * -1) > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+                        else
+                        {
+                            reversePosDifference = positionMax - continuePosDifference;
+
+                            if (continuePosDifference > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+
+                        if (animationPosDifference < 0)
+                        {
+                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                        }
+                        else
+                        {
+                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                        }
+
+                        targetOffsetDiff = targetOffsets[7] - currentTargetOffset;
+                    }
+
+                    if (currentSelectedCell == "F_u2_Cell_Up_BackRight")
+                    {
+                        Debug.Log("2");
+                        continuePosDifference = (uiPathPosition[6] - currentPathPos);
+                        dollyPositionDiff = uiUpDollyPos - gameDollyPos;
+
+
+                        if (continuePosDifference < 0)
+                        {
+                            reversePosDifference = positionMax - (continuePosDifference * -1);
+
+                            if ((continuePosDifference * -1) > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+                        else
+                        {
+                            reversePosDifference = positionMax - continuePosDifference;
+
+                            if (continuePosDifference > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+
+                        if (animationPosDifference < 0)
+                        {
+                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                        }
+                        else
+                        {
+                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                        }
+
+                        targetOffsetDiff = targetOffsets[6] - currentTargetOffset;
+                    }
+
                 }
             }
         }
@@ -405,13 +606,15 @@ public class CameraBehaviour : MonoBehaviour
 
         if (Input.GetMouseButton(0) && !aboutCamera && cameraReposition && !switchToUI)
         {
-            //Debug raycast d'ouverture UI (actions contextuelles)
-            Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
+
 
             RaycastHit selectedCube;
 
             if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube))
             {
+                //Debug raycast d'ouverture UI (actions contextuelles)
+                Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
+
                 if (currentSelectedCell == selectedCube.collider.gameObject.name && selectedCube.collider.gameObject.GetComponent<CellMovement>().once == false && cameraReposition == true)
                 {
                     selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
@@ -538,19 +741,9 @@ public class CameraBehaviour : MonoBehaviour
 
         if (!cameraReposition)
             RepositionCamera();
-
-
-        //Distance la distance entre le vecteur du doight et sa dernière position enregistré jusqu'au moment où son doigt a bougé
-        currentDistance = Vector3.Distance(lastPosition, currentFingerPosition);
-
-        //Update des valeurs concernées
-        dollyCart.m_Speed = pathSpeed;
-        dollyTransform.position = new Vector3(dollyTransform.position.x, pathOffset, dollyTransform.position.z);
-        virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = targetVectorOffset;
-
-        targetOffset = targetOffsetCurve.Evaluate(pathOffset);
-
-        targetVectorOffset = new Vector3(targetVectorOffset.x, targetOffset, targetVectorOffset.z);
+       
+        if(cameraReposition && !switchToUI)
+            UpdateComponentValueForRotation();
 
         //Si le doigt ne bouge pas
         if (!isFingerMoving)
@@ -567,8 +760,20 @@ public class CameraBehaviour : MonoBehaviour
         }
     }
 
+    private void UpdateComponentValueForRotation()
+    {
+        //Distance la distance entre le vecteur du doight et sa dernière position enregistré jusqu'au moment où son doigt a bougé
+        currentDistance = Vector3.Distance(lastPosition, currentFingerPosition);
 
+        //Update des valeurs concernées
+        dollyCart.m_Speed = pathSpeed;
+        dollyTransform.position = new Vector3(dollyTransform.position.x, pathOffset, dollyTransform.position.z);
+        virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = targetVectorOffset;
 
+        targetOffset = targetOffsetCurve.Evaluate(pathOffset);
+
+        targetVectorOffset = new Vector3(targetVectorOffset.x, targetOffset, targetVectorOffset.z);
+    }
 
     public void LateUpdate()
     {
@@ -604,10 +809,13 @@ public class CameraBehaviour : MonoBehaviour
                     currentTargetOffset.y + targetOffsetDiff.y * retarPercent, currentTargetOffset.z + targetOffsetDiff.z * retarPercent);
 
                 //Changement du Scale du dolly
-                dollyTransform.localScale = new Vector3(currentDollyScale.x + dollyDiff.x * repoPercent, currentDollyScale.y + dollyDiff.y * repoPercent, currentDollyScale.z + dollyDiff.z * repoPercent);
+                //dollyTransform.localScale = new Vector3(currentDollyScale.x + dollyDiff.x * repoPercent, currentDollyScale.y + dollyDiff.y * repoPercent, currentDollyScale.z + dollyDiff.z * repoPercent);
+
+                //Changement du Transform du dolly
+                dollyTransform.localPosition = new Vector3(currentDollyPosition.x, currentDollyPosition.y + dollyPositionDiff.y * repoPercent, currentDollyPosition.z);
 
                 //Changement de la focale
-                //virtualCamera.m_Lens.FieldOfView = currentFOV + fovDiff * repoPercent;
+                virtualCamera.m_Lens.FieldOfView = currentFOV + fovDiff * repoPercent;
             }
         }
         else
@@ -617,10 +825,13 @@ public class CameraBehaviour : MonoBehaviour
                 currentTargetOffset.y - targetOffsetDiff.y * retarPercent, currentTargetOffset.z - targetOffsetDiff.z * retarPercent);
 
             //Changement du Scale du dolly
-            dollyTransform.localScale = new Vector3(currentDollyScale.x - dollyDiff.x * repoPercent, currentDollyScale.y - dollyDiff.y * repoPercent, currentDollyScale.z - dollyDiff.z * repoPercent);
+            //dollyTransform.localScale = new Vector3(currentDollyScale.x - dollyDiff.x * repoPercent, currentDollyScale.y - dollyDiff.y * repoPercent, currentDollyScale.z - dollyDiff.z * repoPercent);
+
+            //Changement du Transform du dolly
+            dollyTransform.localPosition = new Vector3(currentDollyPosition.x, currentDollyPosition.y - dollyPositionDiff.y * repoPercent, currentDollyPosition.z);
 
             //Changement de la focale
-            //virtualCamera.m_Lens.FieldOfView = currentFOV - fovDiff * repoPercent;
+            virtualCamera.m_Lens.FieldOfView = currentFOV - fovDiff * repoPercent;
         }
 
     }
@@ -674,7 +885,7 @@ public class CameraBehaviour : MonoBehaviour
 
         if (isFingerMoving)
         {
-            currentVerticalSpeed = Time.deltaTime * 0.01f + currentDistance * verticalSpeedRatioModifier;
+            currentVerticalSpeed = Time.deltaTime + currentDistance * verticalSpeedRatioModifier;
 
             if (yDirection == VerticalDirection.up && currentDistance > 0 && pathOffset > minHeigh)
             {

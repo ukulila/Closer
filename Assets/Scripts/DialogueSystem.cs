@@ -130,7 +130,7 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueHasStarted = false;
 
-        StartDialogue();
+        //StartDialogue();
 
 
         if (currentLine == maxLines - 1)

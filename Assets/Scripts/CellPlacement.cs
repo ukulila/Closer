@@ -46,6 +46,13 @@ public class CellPlacement : MonoBehaviour
             {
                 if (hit.collider.gameObject.GetComponent<CellMovement>() != null)
                 {
+                    CellMovement cellmove = hit.collider.gameObject.GetComponent<CellMovement>();
+
+                    if (cB.switchToUI == true)
+                    {
+                        cellmove.hasEnded = false;
+                    }
+
                     //Debug.Log("ok so I work");
                     if (!isInRotation)
                     {
@@ -75,6 +82,16 @@ public class CellPlacement : MonoBehaviour
 
                     }
                     hit.collider.gameObject.GetComponent<ScrEnvironment>().touched = true;
+                }
+
+                if (hit.collider.gameObject.GetComponent<CellScript>() != null)
+                {
+                    CellScript cellscr = hit.collider.gameObject.GetComponent<CellScript>();
+
+                    if (cB.switchToUI == true)
+                    {
+                        cellscr.rotation = false;
+                    }
                 }
             }
             else
