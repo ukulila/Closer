@@ -124,7 +124,6 @@ public class DialogueSystem : MonoBehaviour
 
 
 
-
     private void Awake()
     {
 
@@ -203,8 +202,7 @@ public class DialogueSystem : MonoBehaviour
             if (!endOfTheLine)
                 typingTimeRatio = typingFasterRatio;
 
-            if (isDialogueFinished && !ending && dialogueBoxReady && dialogueHasStarted)
-                ResetDialogueParameters();
+
         }
 
         if (isDialogueFinished && ending)
@@ -215,6 +213,9 @@ public class DialogueSystem : MonoBehaviour
 
         if (!dialogueBoxReady && !isDialogueFinished)
             DialogueBoxAppear();
+
+        if (isDialogueFinished && !ending && dialogueBoxReady && dialogueHasStarted)
+            ResetDialogueParameters();
 
         if (!isDialogueFinished && !endOfTheLine && writting)
             DialogueUpdate();
@@ -664,6 +665,16 @@ public class DialogueSystem : MonoBehaviour
         currentAppearingTime = 0;
         typingTimeRatio = typingSpeedRatio;
 
+        for (int i = 0; i < maxLines; i++)
+        {
+            dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
+        }
+
+        DesactivateIcons();
+
+        dialogueGo.anchoredPosition = new Vector2(0, 0);
+
+        ROOM_Manager.Instance.LaunchUI();
 
         endOfTheLine = false;
         writting = false;
@@ -671,48 +682,6 @@ public class DialogueSystem : MonoBehaviour
         boxReady = true;
         dialogueBoxReady = false;
         dialogueHasStarted = false;
-
-
-        for (int i = 0; i < maxLines; i++)
-        {
-            dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
-        }
-
-        dialogueGo.anchoredPosition = new Vector2(0, 0);
-
-        DesactivateIcons();
-
-        //this.gameObject.SetActive(false);
-
-        /*
-                for (int i = 0; i < maxLines - 1; i++)
-                {
-
-                    for (int y = 1; y < dialogueTexts[i].textInfo.characterCount; y++)
-                    {
-                        //Debug.LogWarning("current character = " + currentCharacter);
-                        // Get the index of the material used by the current character.
-                        int materialIndex = textInfo.characterInfo[y].materialReferenceIndex;
-                        //Debug.Log("material Index = " + materialIndex);
-
-                        // Get the vertex colors of the mesh used by this text element (character or sprite).
-                        vertexNewColor = textInfo.meshInfo[materialIndex].colors32;
-                        // Get the index of the first vertex used by this text element.
-                        int vertexIndex = textInfo.characterInfo[y].vertexIndex;
-
-                        // Set all to full alpha
-                        vertexNewColor[vertexIndex + 0].a = 0;
-                        vertexNewColor[vertexIndex + 1].a = 0;
-                        vertexNewColor[vertexIndex + 2].a = 0;
-                        vertexNewColor[vertexIndex + 3].a = 0;
-
-                        dialogueTexts[i].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
-                    }
-
-                }
-        */
-        //this.gameObject.SetActive(false);
-        //dialogueGo.gameObject.SetActive(false);
     }
 
     public void SetDialogueParameters()
@@ -775,6 +744,7 @@ public class DialogueSystem : MonoBehaviour
 
         currentCharacter = (int)lineTypingSpeed[currentLine].Evaluate(currentTime);
 
+
         if (currentCharacter != lastCharacter)
         {
             //Debug.Log("Last character begin = " + lastCharacter);
@@ -805,6 +775,7 @@ public class DialogueSystem : MonoBehaviour
         }
 
         dialogueTexts[currentLine].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
+
     }
 
     public void NextLine()
