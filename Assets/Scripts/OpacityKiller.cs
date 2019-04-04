@@ -100,7 +100,7 @@ public class OpacityKiller : MonoBehaviour
             {
                 myMaterial.SetColor("_myColor", Color.green);
 
-               myMaterial.SetInt("_isActive", 1);
+                myMaterial.SetInt("_isActive", 1);
             }
             else if (transform.parent.GetComponent<CellMovement>().selected == false && myMaterial.GetInt("_isActive") != 0)
             {

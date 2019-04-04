@@ -51,7 +51,7 @@ public class DialogueSystem : MonoBehaviour
     //Parametres BOX des rectTransform
     public float dialogueBoxSpacing;
     private float boxMaxWidth = 363f;
-    private float boxMinWidth = 100f;
+    //private float boxMinWidth = 152f;
 
     private float boxMinHeight = 80f;
     public float boxHeigthPerLine = 25f;
@@ -130,7 +130,7 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueHasStarted = false;
 
-        StartDialogue();
+        //StartDialogue();
 
 
         if (currentLine == maxLines - 1)

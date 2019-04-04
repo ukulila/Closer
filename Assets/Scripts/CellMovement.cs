@@ -93,6 +93,8 @@ public class CellMovement : MonoBehaviour
             {
                 if (transform.GetChild(i).name.Contains("Plane"))
                 {
+                    transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_myColor", Color.green);
+
                     transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
                 }
 

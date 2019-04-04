@@ -93,6 +93,7 @@ public class CameraMovement : MonoBehaviour
     public AnimationCurve cameraRepositioningCurve;
     public AnimationCurve targetRepositioningCurve;
     public float animationCurveTimingMax;
+    public float animationTimingMin;
     public float currentRepositionTime;
     private float repoPercent;
     private float retarPercent;
@@ -441,11 +442,11 @@ public class CameraMovement : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = - animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[1] - currentTargetOffset;
@@ -485,11 +486,11 @@ public class CameraMovement : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[0] - currentTargetOffset;
@@ -529,11 +530,11 @@ public class CameraMovement : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[3] - currentTargetOffset;
@@ -573,11 +574,11 @@ public class CameraMovement : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[2] - currentTargetOffset;
