@@ -801,8 +801,7 @@ public class CameraBehaviour : MonoBehaviour
         {
             if (!cameraReposition)
             {
-                targetOffset = new Vector3(currentTargetOffset.x + targetOffsetDiff.x * retarPercent,
-                    currentTargetOffset.y + targetOffsetDiff.y * retarPercent, currentTargetOffset.z + targetOffsetDiff.z * retarPercent); ;
+                targetOffset = targetOffsetDiff.y * retarPercent;
 
                 //Changement de la position
                 dollyCart.m_Position = currentPathPos + animationPosDifference * repoPercent;
