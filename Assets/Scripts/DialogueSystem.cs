@@ -144,12 +144,12 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-    
+
     public void StartDialogue()
     {
         StartCoroutine(StartDialogueIn(1));
     }
-    
+
 
     /// <summary>
     /// Démarer le dialogue après un delai dès l'activation du GameObject
@@ -163,6 +163,16 @@ public class DialogueSystem : MonoBehaviour
         ActivateActorsIcons();
         dialogueBoxReady = false;
         dialogueHasStarted = true;
+
+        if (currentLine == maxLines - 1)
+        {
+            isThereAnotherLine = false;
+            ending = true;
+        }
+        else
+        {
+            isThereAnotherLine = true;
+        }
     }
 
 
@@ -177,6 +187,7 @@ public class DialogueSystem : MonoBehaviour
             StartDialogue();
         }
         */
+
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -236,13 +247,6 @@ public class DialogueSystem : MonoBehaviour
                     spaceCount = 0;
                     actorSet = false;
                     write = false;
-
-                    /*
-                    if (lines.Count != 0)
-                    {
-                        //lines[lines.Count - 1] = lines[lines.Count - 1].Remove(lines[lines.Count - 1].Length -1);
-                    }
-                    */
                 }
 
                 if (!actorSet)
@@ -254,8 +258,6 @@ public class DialogueSystem : MonoBehaviour
                             actors.Add(Actors.Barney);
                             spaceCount = 0;
                             actorSet = true;
-
-
 
                             lines.Add("");
                             currentWord = "";
@@ -457,10 +459,10 @@ public class DialogueSystem : MonoBehaviour
 
                 float widthRatio = textSize.x / rendWidth;
 
-                
+
                 dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMaxWidth, boxMinHeight);
                 dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(textWidth, textMinHeight);
-                
+
             }
 
 
@@ -680,34 +682,36 @@ public class DialogueSystem : MonoBehaviour
 
         DesactivateIcons();
 
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
 
+        /*
+                for (int i = 0; i < maxLines - 1; i++)
+                {
 
-        for (int i = 0; i < maxLines - 1; i++)
-        {
-            for (int y = 1; y < dialogueTexts[i].textInfo.characterCount; y++)
-            {
-                //Debug.LogWarning("current character = " + currentCharacter);
-                // Get the index of the material used by the current character.
-                //int materialIndex = textInfo.characterInfo[y].materialReferenceIndex;
-                //Debug.Log("material Index = " + materialIndex);
+                    for (int y = 1; y < dialogueTexts[i].textInfo.characterCount; y++)
+                    {
+                        //Debug.LogWarning("current character = " + currentCharacter);
+                        // Get the index of the material used by the current character.
+                        int materialIndex = textInfo.characterInfo[y].materialReferenceIndex;
+                        //Debug.Log("material Index = " + materialIndex);
 
-                // Get the vertex colors of the mesh used by this text element (character or sprite).
-                vertexNewColor = textInfo.meshInfo[0].colors32;
-                // Get the index of the first vertex used by this text element.
-                int vertexIndex = textInfo.characterInfo[y].vertexIndex;
+                        // Get the vertex colors of the mesh used by this text element (character or sprite).
+                        vertexNewColor = textInfo.meshInfo[materialIndex].colors32;
+                        // Get the index of the first vertex used by this text element.
+                        int vertexIndex = textInfo.characterInfo[y].vertexIndex;
 
-                // Set all to full alpha
-                vertexNewColor[vertexIndex + 0].a = 0;
-                vertexNewColor[vertexIndex + 1].a = 0;
-                vertexNewColor[vertexIndex + 2].a = 0;
-                vertexNewColor[vertexIndex + 3].a = 0;
+                        // Set all to full alpha
+                        vertexNewColor[vertexIndex + 0].a = 0;
+                        vertexNewColor[vertexIndex + 1].a = 0;
+                        vertexNewColor[vertexIndex + 2].a = 0;
+                        vertexNewColor[vertexIndex + 3].a = 0;
 
-                dialogueTexts[i].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
-            }
-        }
+                        dialogueTexts[i].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
+                    }
 
-        this.gameObject.SetActive(false);
+                }
+        */
+        //this.gameObject.SetActive(false);
         //dialogueGo.gameObject.SetActive(false);
     }
 
@@ -777,11 +781,11 @@ public class DialogueSystem : MonoBehaviour
 
             //Debug.LogWarning("current character = " + currentCharacter);
             // Get the index of the material used by the current character.
-            //int materialIndex = textInfo.characterInfo[currentCharacter].materialReferenceIndex;
+            int materialIndex = textInfo.characterInfo[currentCharacter].materialReferenceIndex;
             //Debug.Log("material Index = " + materialIndex);
 
             // Get the vertex colors of the mesh used by this text element (character or sprite).
-            vertexNewColor = textInfo.meshInfo[0].colors32;
+            vertexNewColor = textInfo.meshInfo[materialIndex].colors32;
             // Get the index of the first vertex used by this text element.
             int vertexIndex = textInfo.characterInfo[currentCharacter].vertexIndex;
             //Debug.Log("vertex Index = " + vertexIndex);
@@ -795,6 +799,8 @@ public class DialogueSystem : MonoBehaviour
             lastCharacter = currentCharacter;
 
             //Debug.Log("Last character end = " + lastCharacter);
+
+            dialogueTexts[currentLine].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
 
         }
 
