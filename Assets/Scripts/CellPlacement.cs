@@ -57,20 +57,19 @@ public class CellPlacement : MonoBehaviour
                     {
                         Debug.Log("RaycastHittin");
                         hit.collider.gameObject.GetComponent<CellMovement>().clickDirection = true;
-                        
+
                     }
 
                     hit.collider.gameObject.GetComponent<CellMovement>().originPos = Input.mousePosition;
 
-                    // camM.aboutCamera = false;
                     cB.aboutCamera = false;
-                    
+
                 }
-               
+
 
                 if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
                 {
-                    if(okToSetup && pM.context != hit.collider.gameObject.GetComponent<ScrEnvironment>())
+                    if (okToSetup && pM.context != hit.collider.gameObject.GetComponent<ScrEnvironment>())
                     {
                         pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
 
@@ -81,7 +80,9 @@ public class CellPlacement : MonoBehaviour
             else
             {
                 // camM.aboutCamera = true;
-                cB.aboutCamera = true;
+
+                if (cB.switchToUI == false)
+                    cB.aboutCamera = true;
 
                 for (int i = 0; i < cM.Count; i++)
                 {
@@ -111,6 +112,7 @@ public class CellPlacement : MonoBehaviour
                 once = false;
             }
         }
+
     }
 
 

@@ -60,6 +60,8 @@ public class CameraBehaviour : MonoBehaviour
     private float currentSlowTime;
     private float remainingSpeed;
     public float slowTimeRatio;
+    public float verticalSlowRatio;
+    public float horizontalSlowRatio;
 
     public float lastHorizontalSpeedRecord;
     public float lastVerticalSpeedRecord;
@@ -70,7 +72,7 @@ public class CameraBehaviour : MonoBehaviour
     private Vector3 moveRecorder;
     private Vector3 lastPosition;
 
-    private float currentDistance;
+    public float currentDistance;
 
     private bool lastPositionUpdated;
 
@@ -118,7 +120,7 @@ public class CameraBehaviour : MonoBehaviour
     public float switchDurationRatioModifier;
 
     private float currentPathPos;
-    private float continuePosDifference;
+    public float continuePosDifference;
     private float reversePosDifference;
     private float animationPosDifference;
     private float positionMax;
@@ -605,7 +607,7 @@ public class CameraBehaviour : MonoBehaviour
                 dollyTransform.localScale = new Vector3(currentDollyScale.x + dollyDiff.x * repoPercent, currentDollyScale.y + dollyDiff.y * repoPercent, currentDollyScale.z + dollyDiff.z * repoPercent);
 
                 //Changement de la focale
-                virtualCamera.m_Lens.FieldOfView = currentFOV + fovDiff * repoPercent;
+                //virtualCamera.m_Lens.FieldOfView = currentFOV + fovDiff * repoPercent;
             }
         }
         else
@@ -618,7 +620,7 @@ public class CameraBehaviour : MonoBehaviour
             dollyTransform.localScale = new Vector3(currentDollyScale.x - dollyDiff.x * repoPercent, currentDollyScale.y - dollyDiff.y * repoPercent, currentDollyScale.z - dollyDiff.z * repoPercent);
 
             //Changement de la focale
-            virtualCamera.m_Lens.FieldOfView = currentFOV - fovDiff * repoPercent;
+            //virtualCamera.m_Lens.FieldOfView = currentFOV - fovDiff * repoPercent;
         }
 
     }
