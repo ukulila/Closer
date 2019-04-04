@@ -976,12 +976,13 @@ public class CellMovement : MonoBehaviour
 
 
 
-    public void OnTriggerStay(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
 
         if (other.transform.name.Contains("Player"))
         {
             isOpen = false;
+            transform.parent.GetComponent<CellMovement>().selected = true;
             isSpawn = true;
             other.transform.SetParent(transform);
         }
@@ -991,6 +992,7 @@ public class CellMovement : MonoBehaviour
     {
         if(other.transform.name.Contains("Player"))
         {
+            Debug.Log("Iexit");
             isSpawn = false;
 
             for (int i = 0; i < transform.childCount; i++)
