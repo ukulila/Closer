@@ -41,7 +41,7 @@ public class CellMovement : MonoBehaviour
     public CellPlacement cP;
     public bool moveVerticalX;
     public Cell_Renamer renameManager;
-    public PlayerMovement pM;
+    public PlayerBehaviour pM;
     public bool clickDirection;
 
 

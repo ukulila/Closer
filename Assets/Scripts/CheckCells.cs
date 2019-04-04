@@ -11,7 +11,7 @@ public class CheckCells : MonoBehaviour
     public bool desactivate;
     public List<GameObject> cells;
     public bool isWaiting;
-    public PlayerMovement pM;
+    public PlayerBehaviour pM;
 
 
     void Update()

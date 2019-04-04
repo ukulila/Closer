@@ -17,7 +17,7 @@ public class CellPlacement : MonoBehaviour
     public CinemachineBrain myBrain;
     public bool once;
     public GameObject facingPlane;
-    public PlayerMovement pM;
+    public PlayerBehaviour pM;
 
     public CameraMovement camM;
     public CameraBehaviour cB;
