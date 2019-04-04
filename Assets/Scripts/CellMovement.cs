@@ -983,6 +983,7 @@ public class CellMovement : MonoBehaviour
         {
             isOpen = false;
             isSpawn = true;
+            other.transform.SetParent(transform);
         }
     }
 
@@ -997,6 +998,7 @@ public class CellMovement : MonoBehaviour
                 if (transform.GetChild(i).name.Contains("Plane"))
                 {
                     transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 0);
+
                 }
 
             }

@@ -52,8 +52,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        
         if(lookCam)
         {
+            reset = true;
             transform.LookAt(Camera.transform.position);
         }
 
