@@ -2,22 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.UI;
 
 
 public class CameraBehaviour : MonoBehaviour
 {
     [Header("Ralentissement de rotation CUBE")]
     public Camera fingerCamera; //Camera fixe pour la récupération des positions du doigt pendant une rotation CUBE/Camera
-    public CinemachineDollyCart camDollyHorizontal; //Récupération de la vitesse de rotation du script DollyCart utilisant le Dolly Horizontal
-    public CinemachineVirtualCamera camTargetingOffset; //Récupération de l'offset du target
-    public Transform camVertical; //Récupération de la vitesse de rotation du script DollyCart utilisant le Dolly Vertical
+    public CinemachineDollyCart dollyCart; //Récupération de la vitesse de rotation du script DollyCart utilisant le Dolly Horizontal
+    public CinemachineVirtualCamera virtualCamera; //Récupération de l'offset du target
+    public Transform dollyTransform; //Récupération de la vitesse de rotation du script DollyCart utilisant le Dolly Vertical
+    public CinemachineBrain brain;
 
     //Assignation des valeurs pour les rotations CUBE
+    [SerializeField]
     private float pathSpeed;
+    [SerializeField]
     private float pathOffset;
 
 
-    public bool rotateAroundCube;
+    public bool aboutCamera;
 
 
     public bool isFingerMoving;
@@ -48,18 +52,18 @@ public class CameraBehaviour : MonoBehaviour
     private bool onVertical;
 
     //Distance minimum avant de la prise en compte du mouvement (éviter les   glissements de doigt/rotations de camera   inopinés)
-    public float testing = 0.05f;
+    public float minimumMove = 0.05f;
     private bool isOrientationSet;
 
     [Header("Ralentissement de la Rotation Horizontale")]
     public AnimationCurve descreasingCurve;
     private float currentSlowTime;
     private float remainingSpeed;
+    public float slowTimeRatio;
 
-
-    private float lastHorizontalSpeedRecord;
-    private float lastVerticalSpeedRecord;
-    private bool setRecord;
+    public float lastHorizontalSpeedRecord;
+    public float lastVerticalSpeedRecord;
+    public bool setRecord;
 
 
     private Vector3 currentFingerPosition;
@@ -71,14 +75,14 @@ public class CameraBehaviour : MonoBehaviour
     private bool lastPositionUpdated;
 
     [Header("Set Up de la Rotation Verticale")]
-    [Range(0,1)]
+    [Range(0, 1)]
     public float verticalSpeedRatioModifier;
 
     private float targetOffset;
     public AnimationCurve targetOffsetCurve;
     private Vector3 targetVectorOffset;
 
-    [Header("Set Up de la Rotation Verticale")]
+
     private float fieldOfView;
     public float maxFOV;
     public float minFOV;
@@ -87,6 +91,50 @@ public class CameraBehaviour : MonoBehaviour
     private float minDistance;
     public enum Zoom { into, outo, none }
     public Zoom iZoom;
+
+
+    [Header("Switching Interface Parameters")]
+
+    public List<Vector3> targetOffsets;
+    public List<float> uiPathPosition;
+    public Vector3 uiDollyScale;
+    public Vector3 gameDollyScale;
+    public float uiFOV;
+    public float gameFOV;
+
+    public Image selectionTimingImage;
+    public string currentSelectedCell;
+    public float timingOfSelection;
+    public bool switchToUI;
+
+    public AnimationCurve cameraRepositioningCurve;
+    public AnimationCurve targetRepositioningCurve;
+    public float animationCurveTimingMax;
+    public float currentRepositionTime;
+    private float repoPercent;
+    private float retarPercent;
+
+    [Range(0.1f, 1)]
+    public float switchDurationRatioModifier;
+
+    private float currentPathPos;
+    private float continuePosDifference;
+    private float reversePosDifference;
+    private float animationPosDifference;
+    private float positionMax;
+
+    public float currentFOV;
+    public float fovDiff;
+
+    public Vector3 currentDollyScale;
+    public Vector3 dollyDiff;
+
+    public Vector3 currentTargetOffset;
+    public Vector3 targetOffsetDiff;
+
+    public bool cameraReposition = true;
+
+
 
     public static CameraBehaviour Instance;
 
@@ -98,6 +146,9 @@ public class CameraBehaviour : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        positionMax = dollyTransform.gameObject.GetComponent<CinemachineSmoothPath>().MaxUnit(CinemachinePathBase.PositionUnits.Distance);
+        dollyDiff = uiDollyScale - dollyTransform.localScale;
     }
 
     /// <summary>
@@ -119,6 +170,264 @@ public class CameraBehaviour : MonoBehaviour
 
     void Update()
     {
+
+        if (switchToUI)
+        {
+            if (cameraReposition)
+            {
+                animationCurveTimingMax = 1.5f;
+
+                if (Input.GetMouseButtonDown(0) && Input.touchCount < 2)
+                {
+                    RaycastHit selectedCube;
+
+                    currentPathPos = dollyCart.m_Position;
+                    currentDollyScale = dollyTransform.localScale;
+                    currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
+                    currentFOV = virtualCamera.m_Lens.FieldOfView;
+                    currentRepositionTime = 0;
+
+
+                    if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube) && cameraReposition)
+                    {
+                        if (selectedCube.collider)
+                        {
+                            switchToUI = false;
+                            cameraReposition = false;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0) && !aboutCamera && cameraReposition)
+            {
+                RaycastHit selectedCube;
+
+                currentPathPos = dollyCart.m_Position;
+                currentDollyScale = dollyTransform.localScale;
+                currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
+                currentFOV = virtualCamera.m_Lens.FieldOfView;
+                currentRepositionTime = 0;
+
+
+                if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube) && cameraReposition)
+                {
+
+                    currentSelectedCell = selectedCube.collider.gameObject.name;
+                    fovDiff = uiFOV - currentFOV;
+
+                    Debug.Log("We are touching something ... and it's cubic");
+                    
+                    if (currentSelectedCell == "E_u1_Cell_Up_BackLeft" || currentSelectedCell == "D_d4_Cell_Down_BackLeft")
+                    {
+                        Debug.Log("1");
+                        continuePosDifference = (uiPathPosition[1] - currentPathPos);
+
+
+                        if (continuePosDifference < 0)
+                        {
+                            reversePosDifference = positionMax - (continuePosDifference * -1);
+
+                            if ((continuePosDifference * -1) > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+                        else
+                        {
+                            reversePosDifference = positionMax - continuePosDifference;
+
+                            if (continuePosDifference > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+
+                        if (animationPosDifference < 0)
+                        {
+                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                        }
+                        else
+                        {
+                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                        }
+
+                        targetOffsetDiff = targetOffsets[1] - currentTargetOffset;
+                    }
+
+                    if (currentSelectedCell == "A_d1_Cell_Down_FrontLeft" || currentSelectedCell == "H_u4_Cell _Up_FrontLeft")
+                    {
+                        Debug.Log("0");
+                        continuePosDifference = (uiPathPosition[0] - currentPathPos);
+
+                        if (continuePosDifference < 0)
+                        {
+                            reversePosDifference = positionMax - (continuePosDifference * -1);
+
+                            if ((continuePosDifference * -1) > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+                        else
+                        {
+                            reversePosDifference = positionMax - continuePosDifference;
+
+                            if (continuePosDifference > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+
+                        if (animationPosDifference < 0)
+                        {
+                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                        }
+                        else
+                        {
+                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                        }
+
+                        targetOffsetDiff = targetOffsets[0] - currentTargetOffset;
+                    }
+
+                    if (currentSelectedCell == "B_d2_Cell_Down_FrontRight" || currentSelectedCell == "G_u3_Cell_Up_FrontRight")
+                    {
+                        //Debug.Log("3");
+                        continuePosDifference = (uiPathPosition[3] - currentPathPos);
+
+                        if (continuePosDifference < 0)
+                        {
+                            reversePosDifference = positionMax - (continuePosDifference * -1);
+
+                            if ((continuePosDifference * -1) > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+                        else
+                        {
+                            reversePosDifference = positionMax - continuePosDifference;
+
+                            if (continuePosDifference > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+
+                        if (animationPosDifference < 0)
+                        {
+                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                        }
+                        else
+                        {
+                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                        }
+
+                        targetOffsetDiff = targetOffsets[3] - currentTargetOffset;
+                    }
+
+                    if (currentSelectedCell == "F_u2_Cell_Up_BackRight" || currentSelectedCell == "C_d3_Cell_Down_BackRight")
+                    {
+                        Debug.Log("2");
+                        continuePosDifference = (uiPathPosition[2] - currentPathPos);
+
+                        if (continuePosDifference < 0)
+                        {
+                            reversePosDifference = positionMax - (continuePosDifference * -1);
+
+                            if ((continuePosDifference * -1) > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+                        else
+                        {
+                            reversePosDifference = positionMax - continuePosDifference;
+
+                            if (continuePosDifference > reversePosDifference)
+                            {
+                                animationPosDifference = reversePosDifference;
+                            }
+                            else
+                            {
+                                animationPosDifference = continuePosDifference;
+                            }
+                        }
+
+                        if (animationPosDifference < 0)
+                        {
+                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                        }
+                        else
+                        {
+                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                        }
+
+                        targetOffsetDiff = targetOffsets[2] - currentTargetOffset;
+                    }
+                }
+            }
+        }
+
+
+        if (Input.GetMouseButton(0) && !aboutCamera && cameraReposition && !switchToUI)
+        {
+            //Debug raycast d'ouverture UI (actions contextuelles)
+            Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
+
+            RaycastHit selectedCube;
+
+            if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube))
+            {
+                if (currentSelectedCell == selectedCube.collider.gameObject.name && selectedCube.collider.gameObject.GetComponent<CellMovement>().once == false && cameraReposition == true)
+                {
+                    selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
+
+                    if (selectionTimingImage.fillAmount == 1)
+                    {
+                        switchToUI = true;
+                        cameraReposition = false;
+                    }
+                }
+                else
+                {
+                    Debug.LogError("No selection valid");
+                }
+            }
+        }
+
+
         if (Input.GetMouseButtonDown(0))
         {
             currentFingerPosition = GetWorldPositionOnPlane(1);
@@ -133,6 +442,8 @@ public class CameraBehaviour : MonoBehaviour
             setRecord = true;
             onHorizontal = false;
             onVertical = false;
+
+            selectionTimingImage.fillAmount = 0;
         }
 
 
@@ -145,18 +456,18 @@ public class CameraBehaviour : MonoBehaviour
 
 
             //Si le sens d'orientation n'a pas encore été set
-            if(!isOrientationSet)
+            if (!isOrientationSet)
             {
                 //Si un mouvement a été initié
                 if (currentDistance != 0)
                 {
-                    if (currentX > testing || currentX < -testing)
+                    if (currentX > minimumMove || currentX < -minimumMove)
                     {
                         onHorizontal = true;
                         isOrientationSet = true;
                     }
 
-                    if (currentY > testing || currentY < -testing)
+                    if (currentY > minimumMove || currentY < -minimumMove)
                     {
                         onVertical = true;
                         isOrientationSet = true;
@@ -193,7 +504,7 @@ public class CameraBehaviour : MonoBehaviour
             }
 
 
-            if (rotateAroundCube)
+            if (aboutCamera)
             {
                 Move();
             }
@@ -202,7 +513,7 @@ public class CameraBehaviour : MonoBehaviour
                 pathSpeed = 0;
             }
 
-            
+
 
             //Check si le doight du joueur est en mouvement
             if (moveRecorder == currentFingerPosition)
@@ -222,17 +533,18 @@ public class CameraBehaviour : MonoBehaviour
                 setRecord = true;
             }
         }
-        
 
+        if (!cameraReposition)
+            RepositionCamera();
 
 
         //Distance la distance entre le vecteur du doight et sa dernière position enregistré jusqu'au moment où son doigt a bougé
         currentDistance = Vector3.Distance(lastPosition, currentFingerPosition);
 
         //Update des valeurs concernées
-        camDollyHorizontal.m_Speed = pathSpeed;
-        camVertical.position = new Vector3(camVertical.position.x, pathOffset, camVertical.position.z);
-        camTargetingOffset.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = targetVectorOffset;
+        dollyCart.m_Speed = pathSpeed;
+        dollyTransform.position = new Vector3(dollyTransform.position.x, pathOffset, dollyTransform.position.z);
+        virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = targetVectorOffset;
 
         targetOffset = targetOffsetCurve.Evaluate(pathOffset);
 
@@ -242,10 +554,6 @@ public class CameraBehaviour : MonoBehaviour
         if (!isFingerMoving)
         {
             SlowDownSpeed();
-            /*
-            onHorizontal = false;
-            onVertical = false;
-            */
         }
 
 
@@ -266,16 +574,63 @@ public class CameraBehaviour : MonoBehaviour
     }
 
 
+    void RepositionCamera()
+    {
+        if (currentRepositionTime < animationCurveTimingMax)
+        {
+            currentRepositionTime += Time.deltaTime;
+        }
+        else
+        {
+            cameraReposition = true;
+        }
 
+        repoPercent = cameraRepositioningCurve.Evaluate(currentRepositionTime / animationCurveTimingMax);
+
+        retarPercent = targetRepositioningCurve.Evaluate(currentRepositionTime / animationCurveTimingMax);
+
+        if (switchToUI)
+        {
+            if (!cameraReposition)
+            {
+                //Changement de la position
+                dollyCart.m_Position = currentPathPos + animationPosDifference * repoPercent;
+
+
+                //Changement de la Target Offset
+                virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x + targetOffsetDiff.x * retarPercent,
+                    currentTargetOffset.y + targetOffsetDiff.y * retarPercent, currentTargetOffset.z + targetOffsetDiff.z * retarPercent);
+
+                //Changement du Scale du dolly
+                dollyTransform.localScale = new Vector3(currentDollyScale.x + dollyDiff.x * repoPercent, currentDollyScale.y + dollyDiff.y * repoPercent, currentDollyScale.z + dollyDiff.z * repoPercent);
+
+                //Changement de la focale
+                virtualCamera.m_Lens.FieldOfView = currentFOV + fovDiff * repoPercent;
+            }
+        }
+        else
+        {
+            //Changement de la Target Offset
+            virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x - targetOffsetDiff.x * retarPercent,
+                currentTargetOffset.y - targetOffsetDiff.y * retarPercent, currentTargetOffset.z - targetOffsetDiff.z * retarPercent);
+
+            //Changement du Scale du dolly
+            dollyTransform.localScale = new Vector3(currentDollyScale.x - dollyDiff.x * repoPercent, currentDollyScale.y - dollyDiff.y * repoPercent, currentDollyScale.z - dollyDiff.z * repoPercent);
+
+            //Changement de la focale
+            virtualCamera.m_Lens.FieldOfView = currentFOV - fovDiff * repoPercent;
+        }
+
+    }
 
     void Move()
     {
-        if(onHorizontal)
+        if (onHorizontal)
         {
             CameraTracking();
         }
-        
-        if(onVertical)
+
+        if (onVertical)
         {
             AdjustHeight();
         }
@@ -321,7 +676,7 @@ public class CameraBehaviour : MonoBehaviour
 
             if (yDirection == VerticalDirection.up && currentDistance > 0 && pathOffset > minHeigh)
             {
-                pathOffset = - currentVerticalSpeed + lastVerticalSpeedRecord;
+                pathOffset = -currentVerticalSpeed + lastVerticalSpeedRecord;
             }
 
             if (yDirection == VerticalDirection.down && currentDistance > 0 && pathOffset < maxHeigh)
@@ -344,7 +699,7 @@ public class CameraBehaviour : MonoBehaviour
 
         if (currentSlowTime < 1)
         {
-            currentSlowTime += Time.deltaTime;
+            currentSlowTime += Time.deltaTime * slowTimeRatio;
         }
 
         remainingSpeed = descreasingCurve.Evaluate(currentSlowTime);

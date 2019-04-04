@@ -63,7 +63,7 @@ public class CellPlacement : MonoBehaviour
                     hit.collider.gameObject.GetComponent<CellMovement>().originPos = Input.mousePosition;
 
                     // camM.aboutCamera = false;
-                    cB.rotateAroundCube = false;
+                    cB.aboutCamera = false;
                     
                 }
                
@@ -81,7 +81,7 @@ public class CellPlacement : MonoBehaviour
             else
             {
                 // camM.aboutCamera = true;
-                cB.rotateAroundCube = true;
+                cB.aboutCamera = true;
 
                 for (int i = 0; i < cM.Count; i++)
                 {
