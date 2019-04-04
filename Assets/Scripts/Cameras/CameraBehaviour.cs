@@ -115,6 +115,7 @@ public class CameraBehaviour : MonoBehaviour
     public AnimationCurve cameraRepositioningCurve;
     public AnimationCurve targetRepositioningCurve;
     public float animationCurveTimingMax;
+    public float animationTimingMin;
     public float currentRepositionTime;
     private float repoPercent;
     private float retarPercent;
@@ -267,11 +268,11 @@ public class CameraBehaviour : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[1] - currentTargetOffset;
@@ -313,11 +314,11 @@ public class CameraBehaviour : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[0] - currentTargetOffset;
@@ -359,11 +360,11 @@ public class CameraBehaviour : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[3] - currentTargetOffset;
@@ -405,11 +406,11 @@ public class CameraBehaviour : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[2] - currentTargetOffset;
@@ -452,11 +453,11 @@ public class CameraBehaviour : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[4] - currentTargetOffset;
@@ -497,11 +498,11 @@ public class CameraBehaviour : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[5] - currentTargetOffset;
@@ -543,11 +544,11 @@ public class CameraBehaviour : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[7] - currentTargetOffset;
@@ -589,11 +590,11 @@ public class CameraBehaviour : MonoBehaviour
 
                         if (animationPosDifference < 0)
                         {
-                            animationCurveTimingMax = (animationPosDifference * -1) * switchDurationRatioModifier;
+                            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
                         }
                         else
                         {
-                            animationCurveTimingMax = animationPosDifference * switchDurationRatioModifier;
+                            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
                         }
 
                         targetOffsetDiff = targetOffsets[6] - currentTargetOffset;
@@ -800,6 +801,9 @@ public class CameraBehaviour : MonoBehaviour
         {
             if (!cameraReposition)
             {
+                targetOffset = new Vector3(currentTargetOffset.x + targetOffsetDiff.x * retarPercent,
+                    currentTargetOffset.y + targetOffsetDiff.y * retarPercent, currentTargetOffset.z + targetOffsetDiff.z * retarPercent); ;
+
                 //Changement de la position
                 dollyCart.m_Position = currentPathPos + animationPosDifference * repoPercent;
 

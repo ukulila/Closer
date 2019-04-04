@@ -93,6 +93,7 @@ public class CameraMovement : MonoBehaviour
     public AnimationCurve cameraRepositioningCurve;
     public AnimationCurve targetRepositioningCurve;
     public float animationCurveTimingMax;
+    public float animationTimingMin;
     public float currentRepositionTime;
     private float repoPercent;
     private float retarPercent;
