@@ -70,10 +70,10 @@ public class CameraMovement : MonoBehaviour
     private float distanceDiff;
     private float oneTouchDistance;
 
-    /*
+    
     [Header("Debug texts")]
     public List<TextMeshProUGUI> debugTexts;
-    */
+    
 
     [Header("Switching Interface Parameters")]
 
@@ -621,7 +621,7 @@ public class CameraMovement : MonoBehaviour
 
 
         #region DEBUG TEXT
-        /*
+        
         debugTexts[0].text = ("onZoom : " + onZoom);
         debugTexts[1].text = ("distanceDiff : " + distanceDiff);
         debugTexts[2].text = ("isOrientationSet : " + isOrientationSet);
@@ -632,11 +632,11 @@ public class CameraMovement : MonoBehaviour
         debugTexts[7].text = ("speed : " + speed);
         debugTexts[8].text = ("fieldOfView : " + fieldOfView);
         debugTexts[9].text = ("currentSlowTime : " + currentSlowTime);
-        debugTexts[10].text = ("aboutCamera : " + aboutCamera);
-        debugTexts[11].text = ("currentSlowTime : " + currentSlowTime);
+        debugTexts[10].text = ("currentX : " + currentX);
+        debugTexts[11].text = ("currentY : " + currentY);
         debugTexts[12].text = ("pathOffset : " + pathOffset);
         debugTexts[13].text = ("pathSpeed : " + pathSpeed);
-        */
+        
         #endregion
 
 
