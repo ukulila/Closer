@@ -94,13 +94,13 @@ public class OpacityKiller : MonoBehaviour
 
     public void Outliner()
     {
-        if (transform.parent.name.Contains("Current") == false || transform.parent.name.Contains("Exit") == false)
+        if (/*transform.parent.name.Contains("Current") == false ||*/ transform.parent.name.Contains("Exit") == false)
         {
             if (transform.parent.GetComponent<CellMovement>().selected && myMaterial.GetInt("_isActive") != 1)
             {
                 myMaterial.SetColor("_myColor", Color.green);
 
-               myMaterial.SetInt("_isActive", 1);
+                myMaterial.SetInt("_isActive", 1);
             }
             else if (transform.parent.GetComponent<CellMovement>().selected == false && myMaterial.GetInt("_isActive") != 0)
             {
