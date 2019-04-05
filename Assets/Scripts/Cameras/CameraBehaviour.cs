@@ -244,7 +244,8 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "B_d2_Cell_Down_FrontRight")
                     {
-                        Debug.Log("1");
+                        Debug.Log("continuePosDifference" + continuePosDifference);
+
                         continuePosDifference = (uiPathPosition[1] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - gameDollyPos;
 
@@ -257,7 +258,8 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "G_u3_Cell_Up_FrontRight")
                     {
-                        Debug.Log("0");
+                        Debug.Log("continuePosDifference" + continuePosDifference);
+
                         continuePosDifference = (uiPathPosition[0] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - gameDollyPos;
 
@@ -271,7 +273,8 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "A_d1_Cell_Down_FrontLeft")
                     {
-                        Debug.Log("3");
+                        Debug.Log("continuePosDifference" + continuePosDifference);
+
                         continuePosDifference = (uiPathPosition[3] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - gameDollyPos;
 
@@ -283,7 +286,8 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "H_u4_Cell _Up_FrontLeft")
                     {
-                        Debug.Log("2");
+                        Debug.Log("continuePosDifference" + continuePosDifference);
+
                         continuePosDifference = (uiPathPosition[2] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - gameDollyPos;
 
@@ -297,7 +301,8 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "E_u1_Cell_Up_BackLeft")
                     {
-                        Debug.Log("4");
+                        Debug.Log("continuePosDifference" + continuePosDifference);
+
                         continuePosDifference = (uiPathPosition[4] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - gameDollyPos;
 
@@ -310,7 +315,8 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "D_d4_Cell_Down_BackLeft")
                     {
-                        Debug.Log("5");
+                        Debug.Log("continuePosDifference" + continuePosDifference);
+                        
                         continuePosDifference = (uiPathPosition[5] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - gameDollyPos;
 
@@ -323,7 +329,8 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "C_d3_Cell_Down_BackRight")
                     {
-                        Debug.Log("7");
+                        Debug.Log("continuePosDifference" + continuePosDifference);
+
                         continuePosDifference = (uiPathPosition[7] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - gameDollyPos;
 
@@ -335,7 +342,7 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "F_u2_Cell_Up_BackRight")
                     {
-                        Debug.Log("6");
+                        Debug.Log("continuePosDifference" + continuePosDifference);
                         continuePosDifference = (uiPathPosition[6] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - gameDollyPos;
 
@@ -515,45 +522,58 @@ public class CameraBehaviour : MonoBehaviour
     {
         if (continuePosDifference < 0)
         {
-            Debug.Log("Continue est négatif");
+            //Debug.Log("Continue est négatif");
 
             reversePosDifference = positionMax - (continuePosDifference * -1);
 
             if ((continuePosDifference * -1) > reversePosDifference)
             {
-                //Debug.Log("reversePosDifference");
+                //Debug.Log("Continue 1");
 
                 animationPosDifference = reversePosDifference;
             }
             else
             {
+                //Debug.Log("Continue 2");
+
                 animationPosDifference = continuePosDifference;
             }
         }
         else
         {
-            Debug.Log("Continue est positif");
+            //Debug.Log("Continue est positif");
 
             reversePosDifference = positionMax - continuePosDifference;
 
             if (continuePosDifference > reversePosDifference)
             {
-                //Debug.Log("reversePosDifference");
+                //Debug.Log("Continue 3");
                 animationPosDifference = reversePosDifference;
             }
             else
             {
-                //Debug.Log("continuePosDifference");
+                //Debug.Log("Continue 4");
+
                 animationPosDifference = continuePosDifference;
             }
         }
 
+        if (continuePosDifference == 0)
+        {
+            animationCurveTimingMax = animationTimingMin;
+        }
+
+
         if (animationPosDifference < 0)
         {
-            animationCurveTimingMax = -animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
+            //Debug.Log("Result 1");
+
+            animationCurveTimingMax = animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
         }
         else
         {
+            //Debug.Log("Result 2");
+
             animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
         }
     }

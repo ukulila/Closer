@@ -146,7 +146,7 @@ public class DialogueSystem : MonoBehaviour
 
     public void StartDialogue()
     {
-        StartCoroutine(StartDialogueIn(1));
+        StartCoroutine(StartDialogueIn(2));
     }
 
 
@@ -670,11 +670,11 @@ public class DialogueSystem : MonoBehaviour
             dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
         }
 
-        DesactivateIcons();
+        
 
         dialogueGo.anchoredPosition = new Vector2(0, 0);
 
-        ROOM_Manager.Instance.LaunchUI();
+        //ROOM_Manager.Instance.LaunchUI();
 
         endOfTheLine = false;
         writting = false;
@@ -807,6 +807,8 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
+            DesactivateIcons();
+            ROOM_Manager.Instance.LaunchUI();
             ending = false;
         }
 
