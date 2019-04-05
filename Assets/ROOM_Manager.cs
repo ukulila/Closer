@@ -19,7 +19,8 @@ public class ROOM_Manager : MonoBehaviour
     /// </summary>
     public void LaunchUI()
     {
-        currentRoom.InteractionAppears();
+        if (currentRoom != null)
+            currentRoom.InteractionAppears();
     }
 
     /// <summary>
@@ -27,6 +28,7 @@ public class ROOM_Manager : MonoBehaviour
     /// </summary>
     public void DeactivateUI()
     {
-        currentRoom.DisableUI();
+        if (currentRoom != null)
+            currentRoom.DisableUI();
     }
 }
