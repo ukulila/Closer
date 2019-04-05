@@ -1103,7 +1103,7 @@ MonoBehaviour:
   cP: {fileID: 721795838}
   moveVerticalX: 0
   renameManager: {fileID: 706482109}
-  pM: {fileID: 2061336246}
+  pM: {fileID: 1118687005}
   clickDirection: 0
 --- !u!65 &159203163
 BoxCollider:
@@ -1840,7 +1840,7 @@ MonoBehaviour:
   cP: {fileID: 721795838}
   moveVerticalX: 0
   renameManager: {fileID: 706482109}
-  pM: {fileID: 2061336246}
+  pM: {fileID: 1118687005}
   clickDirection: 0
 --- !u!65 &305682997
 BoxCollider:
@@ -2639,7 +2639,7 @@ MonoBehaviour:
   cP: {fileID: 721795838}
   moveVerticalX: 0
   renameManager: {fileID: 706482109}
-  pM: {fileID: 2061336246}
+  pM: {fileID: 1118687005}
   clickDirection: 0
 --- !u!65 &439171788
 BoxCollider:
@@ -4556,7 +4556,7 @@ MonoBehaviour:
   myBrain: {fileID: 534669906}
   once: 0
   facingPlane: {fileID: 0}
-  pM: {fileID: 2061336246}
+  pM: {fileID: 0}
   camM: {fileID: 0}
   cB: {fileID: 2024939151}
   okToSetup: 0
@@ -7122,6 +7122,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1115066354}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1118686999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 153623347169332258, guid: ea7ef20ea2eb33446b8f3a3cba87b3d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 153623346811073171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1118687005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118686999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de354d22ee10e31479762f8bec30e8d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reset: 1
+  movement: 0
+  origin: {x: 0, y: 0, z: 0}
+  once: 0
+  waypoints:
+    listOfWaypoint: []
+  context: {fileID: 1798898180}
+  nextContext: {fileID: 0}
+  distance: 0
+  minDist: 0.01
+  direction: {x: 0, y: 0, z: 0}
+  myPath: 4
+  ways: 
+  index: 0
+  next: 1
+  boolIndex: 0
+  animspeed: 2
+  openDoor: 0
+  baseMovement: 0
+  door: {fileID: 0}
+  nextDoor: {fileID: 0}
+  doorDirection: {fileID: 0}
+  isValid: 0
+  inverseList: []
+  myDoor: {fileID: 0}
+  reverse: 0
+  closeDoor: 0
+  add: 0
+  Camera: {fileID: 534669906}
+  ultimateList: []
+  castingRay: 0
+  cP: {fileID: 721795838}
 --- !u!1 &1132392712 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1298653405383838, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -7506,7 +7556,7 @@ MonoBehaviour:
   cP: {fileID: 721795838}
   moveVerticalX: 0
   renameManager: {fileID: 706482109}
-  pM: {fileID: 2061336246}
+  pM: {fileID: 1118687005}
   clickDirection: 0
 --- !u!65 &1206990012
 BoxCollider:
@@ -10169,7 +10219,7 @@ MonoBehaviour:
   cP: {fileID: 721795838}
   moveVerticalX: 0
   renameManager: {fileID: 706482109}
-  pM: {fileID: 2061336246}
+  pM: {fileID: 1118687005}
   clickDirection: 0
 --- !u!65 &1578821661
 BoxCollider:
@@ -11560,7 +11610,7 @@ MonoBehaviour:
   cP: {fileID: 721795838}
   moveVerticalX: 0
   renameManager: {fileID: 706482109}
-  pM: {fileID: 2061336246}
+  pM: {fileID: 1118687005}
   clickDirection: 0
 --- !u!65 &1798898177
 BoxCollider:
@@ -11599,7 +11649,7 @@ MonoBehaviour:
   - {fileID: 1206990010}
   - {fileID: 305682995}
   isWaiting: 0
-  pM: {fileID: 2061336246}
+  pM: {fileID: 0}
 --- !u!114 &1798898179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11866,7 +11916,7 @@ MonoBehaviour:
   cP: {fileID: 721795838}
   moveVerticalX: 0
   renameManager: {fileID: 706482109}
-  pM: {fileID: 2061336246}
+  pM: {fileID: 1118687005}
   clickDirection: 0
 --- !u!65 &1862047797
 BoxCollider:
@@ -13076,6 +13126,9 @@ MonoBehaviour:
   gameDollyScale: {x: 1, y: 1, z: 1}
   uiFOV: 45
   gameFOV: 43
+  uiUpDollyPos: {x: 0, y: 0, z: 0}
+  uiDownDollyPos: {x: 0, y: 0, z: 0}
+  gameDollyPos: {x: 0, y: 0, z: 0}
   selectionTimingImage: {fileID: 1048468820}
   currentSelectedCell: 
   timingOfSelection: 1.2
@@ -13129,6 +13182,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   animationCurveTimingMax: 0
+  animationTimingMin: 0
   currentRepositionTime: 0
   switchDurationRatioModifier: 0.9
   continuePosDifference: 0
@@ -13138,6 +13192,8 @@ MonoBehaviour:
   dollyDiff: {x: 0, y: 0, z: 0}
   currentTargetOffset: {x: 0, y: 0, z: 0}
   targetOffsetDiff: {x: 0, y: 0, z: 0}
+  currentDollyPosition: {x: 0, y: 0, z: 0}
+  dollyPositionDiff: {x: 0, y: 0, z: 0}
   cameraReposition: 1
 --- !u!114 &2024939152
 MonoBehaviour:
@@ -13179,18 +13235,6 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
---- !u!114 &2061336246 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 153623347169332261, guid: ea7ef20ea2eb33446b8f3a3cba87b3d4,
-    type: 3}
-  m_PrefabInstance: {fileID: 153623346811073171}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8959354c4a43d57449e529d630900566, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2065593259
 GameObject:
   m_ObjectHideFlags: 0
@@ -13446,7 +13490,7 @@ MonoBehaviour:
   cP: {fileID: 721795838}
   moveVerticalX: 0
   renameManager: {fileID: 706482109}
-  pM: {fileID: 2061336246}
+  pM: {fileID: 1118687005}
   clickDirection: 0
 --- !u!65 &2101178853
 BoxCollider:
@@ -13768,7 +13812,8 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.096059516
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 153623347169332261, guid: ea7ef20ea2eb33446b8f3a3cba87b3d4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ea7ef20ea2eb33446b8f3a3cba87b3d4, type: 3}
 --- !u!1001 &3212891351369923662
 PrefabInstance:

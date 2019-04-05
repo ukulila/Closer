@@ -43,6 +43,7 @@ public class CellMovement : MonoBehaviour
     public Cell_Renamer renameManager;
     public PlayerBehaviour pM;
     public bool clickDirection;
+    public bool raycastAutor;
 
 
 
@@ -87,7 +88,7 @@ public class CellMovement : MonoBehaviour
 
     void Update()
     {
-        if(isSpawn)
+        if (isSpawn)
         {
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -100,10 +101,12 @@ public class CellMovement : MonoBehaviour
 
             }
 
-            if(selected && Input.GetMouseButtonUp(0))
+            if (selected && raycastAutor)
             {
                 pM.castingRay = true;
-                selected = false;
+                raycastAutor = false;
+                //selected = false;
+                
             }
         }
 
@@ -133,10 +136,10 @@ public class CellMovement : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             once = false;
-            
+
             click = false;
             timer = 0;
-            
+
         }
 
         if (toRotate.Count < 4)
@@ -162,7 +165,7 @@ public class CellMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isSpawn && gameObject.name.Contains("Exit") == false)
         {
             selected = false;
-            isOpen = false;
+            //isOpen = false;
 
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -174,8 +177,8 @@ public class CellMovement : MonoBehaviour
             }
         }
 
-        
-       
+
+
         #endregion
 
         #region ---- Update Movement ----
@@ -226,7 +229,7 @@ public class CellMovement : MonoBehaviour
         if (click)
         {
             timer++;
-            
+
         }
 
         //Stores position of The Mouse after timer is 30
@@ -984,7 +987,7 @@ public class CellMovement : MonoBehaviour
         if (other.transform.name.Contains("Player"))
         {
             isOpen = false;
-            transform.parent.GetComponent<CellMovement>().selected = true;
+            selected = true;
             isSpawn = true;
             other.transform.SetParent(transform);
         }
@@ -992,10 +995,10 @@ public class CellMovement : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if(other.transform.name.Contains("Player"))
+        if (other.transform.name.Contains("Player"))
         {
-            Debug.Log("Iexit");
             isSpawn = false;
+            selected = false;
 
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -1013,7 +1016,7 @@ public class CellMovement : MonoBehaviour
     #endregion
 
 
-    
+
 
 }
 
