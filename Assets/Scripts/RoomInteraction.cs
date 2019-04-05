@@ -31,6 +31,8 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void InteractionAppears()
     {
+        Debug.Log("Enable UI");
+
         if (isDialogue)
         {
             buttonsAnimator[0].SetTrigger("Enabled");
@@ -52,6 +54,7 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void DisableUI()
     {
+        Debug.Log("Disable UI");
         talkTo.interactable = false;
         buttonsAnimator[0].SetTrigger("Disabled");
 

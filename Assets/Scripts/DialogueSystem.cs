@@ -668,7 +668,7 @@ public class DialogueSystem : MonoBehaviour
         for (int i = 0; i < maxLines; i++)
         {
             dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
-
+            /*
             for (int y = 0; y < dialogueTexts[i].textInfo.characterCount; y++)
             {
                 //Debug.Log("Last character begin = " + lastCharacter);
@@ -691,7 +691,7 @@ public class DialogueSystem : MonoBehaviour
                 vertexNewColor[vertexIndex + 3].a = 0;
 
                 dialogueTexts[i].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
-            }
+            }*/
         }
 
         

@@ -209,6 +209,7 @@ public class CameraBehaviour : MonoBehaviour
                         if (selectedCube.collider)
                         {
                             switchToUI = false;
+                            ROOM_Manager.Instance.DeactivateUI();
                             cameraReposition = false;
                         }
                     }
@@ -219,7 +220,7 @@ public class CameraBehaviour : MonoBehaviour
         {
             Debug.Log("Room unset");
 
-            ROOM_Manager.Instance.DeactivateUI();
+            
 
 
             if (Input.GetMouseButtonDown(0) && !aboutCamera && cameraReposition)
