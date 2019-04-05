@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,47 +7,97 @@ public class RoomInteraction : MonoBehaviour
     public bool isDialogue;
     public bool isInteraction;
     public bool isSecondFloor;
+
+    public NPCInteractions npc;
+
     public Button talkTo;
     public Button interactWith;
     public Button changeFloor;
 
-    public bool isThereAnObject;
+
+    public List<Animator> buttonsAnimator;
 
 
 
+
+    private void Awake()
+    {
+        if (npc != null)
+            isDialogue = true;
+    }
+
+    /// <summary>
+    /// Lance l'apparition de l'UI selon les actions disponibles
+    /// </summary>
     public void InteractionAppears()
     {
         if (isDialogue)
-            talkTo.interactable = true;
+        {
+            buttonsAnimator[0].SetTrigger("Enabled");
+        }
 
         if (isInteraction)
-            interactWith.interactable = true;
+        {
+            buttonsAnimator[1].SetTrigger("Enabled");
+        }
 
         if (isSecondFloor)
-            changeFloor.interactable = true;
+        {
+            buttonsAnimator[2].SetTrigger("Enabled");
+        }
     }
 
-
-    public void LookAround()
+    /// <summary>
+    /// Assure la disparition de l'UI
+    /// </summary>
+    public void DisableUI()
     {
+        talkTo.interactable = false;
+        buttonsAnimator[0].SetTrigger("Disabled");
 
+        interactWith.interactable = false;
+        buttonsAnimator[1].SetTrigger("Disabled");
+
+        changeFloor.interactable = false;
+        buttonsAnimator[2].SetTrigger("Disabled");
     }
 
-
-    public void InteractWith()
+    /// <summary>
+    /// Set les Animators
+    /// </summary>
+    public void SetAnimators()
     {
+        buttonsAnimator.Clear();
 
+        if (talkTo != null)
+            buttonsAnimator.Add(talkTo.gameObject.GetComponent<Animator>());
+        else
+            Debug.LogWarning("This Button is not assigned");
+
+        if (interactWith != null)
+            buttonsAnimator.Add(interactWith.gameObject.GetComponent<Animator>());
+        else
+            Debug.LogWarning("This Button is not assigned");
+
+        if (changeFloor != null)
+            buttonsAnimator.Add(changeFloor.gameObject.GetComponent<Animator>());
+        else
+            Debug.LogWarning("This Button is not assigned");
     }
 
-
-    public void DialogueWith()
+    private void OnTriggerEnter(Collider other)
     {
+        //Set le current NPC du manager à l'entrée du joueur
+        if (other.gameObject.name.Contains("Player"))
+        {
+            NPC_Manager.Instance.currentNPC = npc;
+            ROOM_Manager.Instance.currentRoom = this;
+        }
 
-    }
-
-
-    public void GoTo()
-    {
-
+        //Set le NPC de la room
+        if (other.gameObject.name.Contains("NPC"))
+        {
+            npc = other.gameObject.GetComponent<NPCInteractions>();
+        }
     }
 }

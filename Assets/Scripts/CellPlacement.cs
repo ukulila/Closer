@@ -53,12 +53,23 @@ public class CellPlacement : MonoBehaviour
                         cellmove.hasEnded = false;
                     }
 
-                    //Debug.Log("ok so I work");
-                    if (!isInRotation)
+                    if(cellmove.isSpawn == true)
                     {
+                        
+                        for (int i = 0; i < cM.Count; i++)
+                        {
+                            cM[i].isOpen = false;
+                        }
+                        cellmove.raycastAutor = true;
+
+                    }
+
+                    //Debug.Log("ok so I work");
+                   /* if (!isInRotation)
+                    {*/
                         hit.collider.gameObject.GetComponent<CellMovement>().click = true;
                         hit.collider.gameObject.GetComponent<CellMovement>().over = true;
-                    }
+                   // }
 
                     if (hit.collider.gameObject.GetComponent<CellMovement>().isOpen)
                     {
@@ -76,12 +87,15 @@ public class CellPlacement : MonoBehaviour
 
                 if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
                 {
-                    if (okToSetup && pM.context != hit.collider.gameObject.GetComponent<ScrEnvironment>())
-                    {
-                        pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
+                   // Debug.LogError(hit.transform.name);
 
-                    }
-                    hit.collider.gameObject.GetComponent<ScrEnvironment>().touched = true;
+                  //  if (/*okToSetup && */pM.context != hit.collider.gameObject.GetComponent<ScrEnvironment>())
+                   // {
+
+                    //    pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
+
+                    //}
+                  //  hit.collider.gameObject.GetComponent<ScrEnvironment>().touched = true;
                 }
 
                 if (hit.collider.gameObject.GetComponent<CellScript>() != null)
