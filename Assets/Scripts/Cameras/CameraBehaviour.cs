@@ -114,6 +114,7 @@ public class CameraBehaviour : MonoBehaviour
     public float timingOfSelection;
     public bool switchToUI;
     public bool isPlayerHere;
+    public CellMovement cellMove;
     public AnimationCurve cameraRepositioningCurve;
     public AnimationCurve targetRepositioningCurve;
     public float animationCurveTimingMax;
@@ -236,7 +237,9 @@ public class CameraBehaviour : MonoBehaviour
                 {
 
                     currentSelectedCell = selectedCube.collider.gameObject.name;
-                    isPlayerHere = selectedCube.collider.gameObject.GetComponent<CellMovement>().isSpawn;
+                    cellMove = selectedCube.collider.gameObject.GetComponent<CellMovement>();
+                    if (cellMove != null)
+                        isPlayerHere = cellMove.isSpawn;
                     fovDiff = uiFOV - currentFOV;
 
 
@@ -316,7 +319,7 @@ public class CameraBehaviour : MonoBehaviour
                     if (currentSelectedCell == "D_d4_Cell_Down_BackLeft")
                     {
                         Debug.Log("continuePosDifference" + continuePosDifference);
-                        
+
                         continuePosDifference = (uiPathPosition[5] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - gameDollyPos;
 
@@ -366,7 +369,7 @@ public class CameraBehaviour : MonoBehaviour
                 //Debug raycast d'ouverture UI (actions contextuelles)
                 Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
 
-                if (currentSelectedCell == selectedCube.collider.gameObject.name && selectedCube.collider.gameObject.GetComponent<CellMovement>().once == false && cameraReposition == true && !isFingerMoving && isPlayerHere)
+                if (currentSelectedCell == selectedCube.collider.gameObject.name && selectedCube.collider.gameObject.GetComponent<CellMovement>().once == false && cameraReposition == true && !isFingerMoving && isPlayerHere && cellMove != null)
                 {
                     if (timeBeforeSearch < maxTimeBeforeSearch)
                         timeBeforeSearch += Time.deltaTime;

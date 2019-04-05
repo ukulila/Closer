@@ -517,6 +517,29 @@ MonoBehaviour:
   doorWayPoints:
   - {fileID: 63062926}
   touched: 0
+--- !u!114 &159203166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159203161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a2c041378ead144bfd64848bea6fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDialogue: 0
+  isInteraction: 0
+  isSecondFloor: 0
+  npc: {fileID: 0}
+  talkTo: {fileID: 1770893665}
+  interactWith: {fileID: 1770893663}
+  changeFloor: {fileID: 1770893661}
+  buttonsAnimator:
+  - {fileID: 1770893664}
+  - {fileID: 1770893662}
+  - {fileID: 1770893660}
 --- !u!1 &163200654 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1087639675752208, guid: f02717ddb2fe5e74695beac716f76a02,
@@ -1306,6 +1329,29 @@ MonoBehaviour:
   - {fileID: 1206990010}
   isWaiting: 0
   pM: {fileID: 0}
+--- !u!114 &305683001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305682995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a2c041378ead144bfd64848bea6fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDialogue: 0
+  isInteraction: 0
+  isSecondFloor: 0
+  npc: {fileID: 0}
+  talkTo: {fileID: 1770893665}
+  interactWith: {fileID: 1770893663}
+  changeFloor: {fileID: 1770893661}
+  buttonsAnimator:
+  - {fileID: 1770893664}
+  - {fileID: 1770893662}
+  - {fileID: 1770893660}
 --- !u!4 &329765571 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3621316246306725513, guid: d9f19cc60b444414197e523141d3fcf6,
@@ -1676,6 +1722,29 @@ MonoBehaviour:
   doorWayPoints:
   - {fileID: 1224146790}
   touched: 0
+--- !u!114 &439171791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439171786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a2c041378ead144bfd64848bea6fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDialogue: 0
+  isInteraction: 0
+  isSecondFloor: 0
+  npc: {fileID: 0}
+  talkTo: {fileID: 1770893665}
+  interactWith: {fileID: 1770893663}
+  changeFloor: {fileID: 1770893661}
+  buttonsAnimator:
+  - {fileID: 1770893664}
+  - {fileID: 1770893662}
+  - {fileID: 1770893660}
 --- !u!1 &495154717
 GameObject:
   m_ObjectHideFlags: 0
@@ -4309,7 +4378,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -4468,6 +4537,18 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+--- !u!114 &998071281 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3816407148168214310, guid: 769979663c3ae55479a2ea12124891a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1045550536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ca1e6fe51eb15488f23401e797fa80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1018372446
 GameObject:
   m_ObjectHideFlags: 0
@@ -4713,6 +4794,16 @@ PrefabInstance:
       propertyPath: m_Size.z
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3816407148168214310, guid: 769979663c3ae55479a2ea12124891a8,
+        type: 3}
+      propertyPath: communDialogueSystems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816407148168214310, guid: 769979663c3ae55479a2ea12124891a8,
+        type: 3}
+      propertyPath: communDialogueSystems.Array.data[0]
+      value: 
+      objectReference: {fileID: 1950059057}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 769979663c3ae55479a2ea12124891a8, type: 3}
 --- !u!1 &1045618871
@@ -4874,7 +4965,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1142275360}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5256,7 +5347,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -5330,10 +5421,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1950059056}
   - {fileID: 2056242191}
   - {fileID: 1048468822}
   - {fileID: 1770893659}
-  - {fileID: 1950059056}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5572,6 +5663,29 @@ MonoBehaviour:
   doorWayPoints:
   - {fileID: 0}
   touched: 0
+--- !u!114 &1206990015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206990010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a2c041378ead144bfd64848bea6fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDialogue: 0
+  isInteraction: 0
+  isSecondFloor: 0
+  npc: {fileID: 0}
+  talkTo: {fileID: 1770893665}
+  interactWith: {fileID: 1770893663}
+  changeFloor: {fileID: 1770893661}
+  buttonsAnimator:
+  - {fileID: 1770893664}
+  - {fileID: 1770893662}
+  - {fileID: 1770893660}
 --- !u!4 &1224146790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5933825696915742802, guid: 6e19000d6a3471b46b6dadf5ba53967a,
@@ -6381,7 +6495,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -7247,6 +7361,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1864606564}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1519062209 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3130390540818366187, guid: 53758c8214b89bf488e2cd6a3af36280,
+    type: 3}
+  m_PrefabInstance: {fileID: 506093504}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dfe849f07eaabb4297c21ab1b1807cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1519219915
 GameObject:
   m_ObjectHideFlags: 0
@@ -7386,7 +7512,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -7546,7 +7672,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -7928,6 +8054,29 @@ MonoBehaviour:
   doorWayPoints:
   - {fileID: 2044029533}
   touched: 0
+--- !u!114 &1578821664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578821659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a2c041378ead144bfd64848bea6fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDialogue: 0
+  isInteraction: 0
+  isSecondFloor: 0
+  npc: {fileID: 0}
+  talkTo: {fileID: 1770893665}
+  interactWith: {fileID: 1770893663}
+  changeFloor: {fileID: 1770893661}
+  buttonsAnimator:
+  - {fileID: 1770893664}
+  - {fileID: 1770893662}
+  - {fileID: 1770893660}
 --- !u!1001 &1586449968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8413,7 +8562,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -8485,7 +8634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d793a0a80aac846b5c248c74309394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PositionName: H_u4_Cell _Up_FrontLeft_Current
+  PositionName: H_u4_Cell _Up_FrontLeft
   brothers: []
   manager: 0
 --- !u!54 &1676329015
@@ -9014,7 +9163,7 @@ PrefabInstance:
     - target: {fileID: 2567034981260778203, guid: feef86cee30375e47b043d618a85a218,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2567034981260778203, guid: feef86cee30375e47b043d618a85a218,
         type: 3}
@@ -9110,6 +9259,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567034981125059196, guid: feef86cee30375e47b043d618a85a218,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 50011780186a7cc4ea17360cbfa5d0a9, type: 2}
+    - target: {fileID: 2567034980584096399, guid: feef86cee30375e47b043d618a85a218,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 50011780186a7cc4ea17360cbfa5d0a9, type: 2}
+    - target: {fileID: 2567034980398375658, guid: feef86cee30375e47b043d618a85a218,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 50011780186a7cc4ea17360cbfa5d0a9, type: 2}
+    - target: {fileID: 2567034980398375661, guid: feef86cee30375e47b043d618a85a218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567034980398375661, guid: feef86cee30375e47b043d618a85a218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567034980398375661, guid: feef86cee30375e47b043d618a85a218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567034980398375661, guid: feef86cee30375e47b043d618a85a218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 1519062209}
+    - target: {fileID: 2567034980398375661, guid: feef86cee30375e47b043d618a85a218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: TalkToCurrentNPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 2567034980398375661, guid: feef86cee30375e47b043d618a85a218,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feef86cee30375e47b043d618a85a218, type: 3}
@@ -9332,6 +9526,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.05, y: 1.05, z: 1.05}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1798898178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798898175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a2c041378ead144bfd64848bea6fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDialogue: 0
+  isInteraction: 0
+  isSecondFloor: 0
+  npc: {fileID: 0}
+  talkTo: {fileID: 1770893665}
+  interactWith: {fileID: 1770893663}
+  changeFloor: {fileID: 1770893661}
+  buttonsAnimator:
+  - {fileID: 1770893664}
+  - {fileID: 1770893662}
+  - {fileID: 1770893660}
 --- !u!114 &1798898179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9773,6 +9990,29 @@ MonoBehaviour:
   doorWayPoints:
   - {fileID: 1376563428}
   touched: 0
+--- !u!114 &1862047800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862047795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a2c041378ead144bfd64848bea6fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDialogue: 0
+  isInteraction: 0
+  isSecondFloor: 0
+  npc: {fileID: 0}
+  talkTo: {fileID: 1770893665}
+  interactWith: {fileID: 1770893663}
+  changeFloor: {fileID: 1770893661}
+  buttonsAnimator:
+  - {fileID: 1770893664}
+  - {fileID: 1770893662}
+  - {fileID: 1770893660}
 --- !u!1 &1862571810
 GameObject:
   m_ObjectHideFlags: 0
@@ -10023,7 +10263,7 @@ RectTransform:
   - {fileID: 668081349}
   - {fileID: 275367976}
   m_Father: {fileID: 1142275360}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11506,7 +11746,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
@@ -11643,17 +11883,17 @@ MonoBehaviour:
   pathOffset: 0
   aboutCamera: 0
   isFingerMoving: 0
-  defaultHorizontalSpeed: 1
+  defaultHorizontalSpeed: 4
   xDirection: 2
   onHorizontal: 0
   currentX: 0
   currentY: 0
   currentVerticalSpeed: 0
-  maxHeigh: 1
-  minHeigh: -1
+  maxHeigh: 1.3
+  minHeigh: 0
   yDirection: 2
   onVertical: 0
-  minimumMove: 0.05
+  minimumMove: 0.03
   descreasingCurve:
     serializedVersion: 2
     m_Curve:
@@ -11662,18 +11902,18 @@ MonoBehaviour:
       value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 136
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: -0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
+      value: 0
+      inSlope: -2.6399992
+      outSlope: -2.6399992
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.10416669
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -11685,52 +11925,25 @@ MonoBehaviour:
   lastVerticalSpeedRecord: 0
   setRecord: 0
   currentDistance: 0
-  verticalSpeedRatioModifier: 0.05
+  verticalSpeedRatioModifier: 0.03
   targetOffsetCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -1
-      value: 0.13
-      inSlope: -0.099999994
-      outSlope: -0.099999994
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: -0.5
-      value: 0.08
-      inSlope: -0.13
-      outSlope: -0.13
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -0.16
-      outSlope: -0.16
-      tangentMode: 136
+      inSlope: 1
+      outSlope: -0.26
+      tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.5
-      value: -0.08
-      inSlope: -0.13
-      outSlope: -0.13
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
       value: -0.13
-      inSlope: -0.099999994
-      outSlope: -0.099999994
-      tangentMode: 34
+      inSlope: -0.26
+      outSlope: 1
+      tangentMode: 69
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
@@ -11739,44 +11952,61 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxFOV: 0
   minFOV: 0
-  iZoom: 2
-  targetOffsets: []
-  uiPathPosition: []
-  uiDollyScale: {x: 0, y: 0, z: 0}
-  gameDollyScale: {x: 0, y: 0, z: 0}
-  uiFOV: 0
-  gameFOV: 0
-  uiUpDollyPos: {x: 0, y: 0, z: 0}
-  uiDownDollyPos: {x: 0, y: 0, z: 0}
+  iZoom: 0
+  targetOffsets:
+  - {x: 0, y: 0.17, z: -0.7}
+  - {x: 0, y: -0.3, z: -0.7}
+  - {x: -0.7, y: 0.17, z: 0}
+  - {x: -0.7, y: -0.3, z: 0}
+  - {x: 0, y: 0.17, z: 0.7}
+  - {x: 0, y: -0.3, z: 0.7}
+  - {x: 0.7, y: 0.17, z: 0}
+  - {x: 0.7, y: -0.3, z: 0}
+  uiPathPosition:
+  - 10.65
+  - 10.65
+  - 0.65
+  - 0.65
+  - 3.9
+  - 3.9
+  - 7.3
+  - 7.3
+  uiDollyScale: {x: 1.1, y: 1.1, z: 1.1}
+  gameDollyScale: {x: 1, y: 1, z: 1}
+  uiFOV: 25
+  gameFOV: 43
+  uiUpDollyPos: {x: 0, y: 0.7, z: 0}
+  uiDownDollyPos: {x: 0, y: 0.35, z: 0}
   gameDollyPos: {x: 0, y: 0, z: 0}
   selectionTimingImage: {fileID: 1048468820}
   timeBeforeSearch: 0
-  maxTimeBeforeSearch: 0
+  maxTimeBeforeSearch: 0.2
   currentSelectedCell: 
-  timingOfSelection: 0
+  timingOfSelection: 1.2
   switchToUI: 0
   isPlayerHere: 0
+  cellMove: {fileID: 0}
   cameraRepositioningCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -11786,21 +12016,21 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -12050,7 +12280,7 @@ PrefabInstance:
     - target: {fileID: 9027651028869654921, guid: ab59abfc75d36f2469d65ce8638a967b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027651028869654921, guid: ab59abfc75d36f2469d65ce8638a967b,
         type: 3}
@@ -12304,7 +12534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2086085572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12647,7 +12877,7 @@ MonoBehaviour:
   isDialogue: 0
   isInteraction: 0
   isSecondFloor: 0
-  npc: {fileID: 0}
+  npc: {fileID: 998071281}
   talkTo: {fileID: 1770893665}
   interactWith: {fileID: 1770893663}
   changeFloor: {fileID: 1770893661}
