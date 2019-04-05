@@ -15,7 +15,6 @@ public class Cell_Renamer : MonoBehaviour
         if (other.gameObject.tag == "Cell" && other.gameObject.name.Contains(PositionName) == false)
         {
             other.gameObject.name = PositionName;
-            
         }
     }
     /*
