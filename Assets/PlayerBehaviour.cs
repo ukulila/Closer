@@ -48,6 +48,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         // minDist = 0.1f;
         add = false;
+        reset = true;
     }
 
     void Update()
@@ -64,7 +65,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             for (int u = 0; u < context.doorWayPoints.Count; u++)
             {
-
+                Debug.Log("Je me tire premier ray");
                 RaycastHit hit;
                 int layerMaskDoor = LayerMask.GetMask("Door");
 
@@ -140,6 +141,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (/*(context.touched && nextContext != context &&*/ add)
         {
             //myDoorList = context.doorWayPoints;
+            Debug.Log("Je me tire Second ray");
 
             for (int u = 0; u < context.doorWayPoints.Count; u++)
             {

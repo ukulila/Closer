@@ -96,17 +96,39 @@ public class OpacityKiller : MonoBehaviour
     {
         if (/*transform.parent.name.Contains("Current") == false ||*/ transform.parent.name.Contains("Exit") == false)
         {
-            if (transform.parent.GetComponent<CellMovement>().selected && myMaterial.GetInt("_isActive") != 1)
-            {
-                myMaterial.SetColor("_myColor", Color.green);
+           /* if (transform.parent.GetComponent<CellMovement>()!=null)
+            {*/
+                if ((transform.parent.GetComponent<CellMovement>().selected  && myMaterial.GetInt("_isActive") != 1))
+                {
+                    myMaterial.SetColor("_myColor", Color.green);
 
-                myMaterial.SetInt("_isActive", 1);
-            }
-            else if (transform.parent.GetComponent<CellMovement>().selected == false && myMaterial.GetInt("_isActive") != 0)
-            {
+                    myMaterial.SetInt("_isActive", 1);
+                }
+                else if (transform.parent.GetComponent<CellMovement>().selected == false && myMaterial.GetInt("_isActive") != 0)
+                {
 
-                myMaterial.SetInt("_isActive", 0);
-            }
+                    myMaterial.SetInt("_isActive", 0);
+                }
+          //  }
+            /*
+            if ( transform.parent.parent.parent.parent.GetComponent<CellMovement>() != null)
+            {
+                if ( transform.parent.parent.parent.parent.GetComponent<CellMovement>().selected && myMaterial.GetInt("_isActive") != 1)
+                {
+                    myMaterial.SetColor("_myColor", Color.green);
+
+                    myMaterial.SetInt("_isActive", 1);
+                }
+                else if (transform.parent.parent.parent.parent.GetComponent<CellMovement>().selected == false && myMaterial.GetInt("_isActive") != 0)
+                {
+
+                    myMaterial.SetInt("_isActive", 0);
+                }
+            }*/
+
+
+
+
         }
 
         if (/*(transform.parent.name.Contains("Current") ||*/ transform.parent.name.Contains("Exit") && myMaterial.GetInt("_isActive") != 1)
