@@ -191,10 +191,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 2042732199}
   m_HandleRect: {fileID: 1984330952}
   m_Direction: 0
-  m_MinValue: 1
-  m_MaxValue: 100
+  m_MinValue: 0
+  m_MaxValue: 0.1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -585,7 +585,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 5
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1422,7 +1422,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1491003094}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 10
+  m_MaxValue: 4
   m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
@@ -1701,7 +1701,7 @@ Camera:
   far clip plane: 50
   field of view: 40
   orthographic: 1
-  orthographic size: 8.3
+  orthographic size: 7.939034
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2499,6 +2499,8 @@ GameObject:
   - component: {fileID: 1473566950}
   - component: {fileID: 1473566952}
   - component: {fileID: 1473566953}
+  - component: {fileID: 1473566954}
+  - component: {fileID: 1473566955}
   m_Layer: 0
   m_Name: CM_CUBE
   m_TagString: Untagged
@@ -2528,7 +2530,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 8.3
+    OrthographicSize: 7.939034
     NearClipPlane: 0.1
     FarClipPlane: 50
     Dutch: 0
@@ -2592,14 +2594,17 @@ MonoBehaviour:
   dollyTransform: {fileID: 733101610}
   brain: {fileID: 802132235}
   aboutCamera: 1
+  minimumMoveNecessary: 7
   yDirection: 2
   xDirection: 2
   currentHorizontalPos: 120.9629
-  currentVerticalPos: 0
+  currentVerticalPos: 6
   nextHorizontalPos: 120.9629
   nextVerticalPos: 0
-  rotationRatio: 0.075
-  slowValueRatio: 0.5
+  horizontalRotationRatio: 0.075
+  verticalRotationRatio: 0.015
+  maxHeight: 15
+  minHeight: 0
   slowTimeCurve:
     serializedVersion: 2
     m_Curve:
@@ -2625,17 +2630,17 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   slowPercent: 0
-  slowTimeRatio: 2
   currentSlowTime: 0
   maxSlowTime: 1
-  slowValue: 0
-  floatRef: 0
-  smoothTime: 1
-  smoothSpeed: 1
+  horizontalSlowTimeRatio: 2
+  horizontalSlowValueRatio: 0.5
+  horizontalSmoothTime: 1
+  verticalSlowTimeRatio: 0.17
+  verticalSlowValueRatio: 0.012
+  verticalSmoothTime: 2
   debugSlider: {fileID: 56549978}
   debugSlider00: {fileID: 647350197}
   debugSlider01: {fileID: 251371218}
-  minimumMoveNecessary: 7
   debugTexts:
   - {fileID: 739417392}
   - {fileID: 182278169}
@@ -2653,6 +2658,86 @@ MonoBehaviour:
   - {fileID: 2030456669}
   - {fileID: 1643396481}
   - {fileID: 1017587473}
+--- !u!114 &1473566954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473566949}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7388b12aed934c241a697ede0838bbf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 1473566950}
+  minFOV: 6.5
+  maxFOV: 10
+  zDirection: 2
+  currentZoomPos: 0
+  nextZoomPos: 0
+  smoothTime: 0.1
+  zoomRatio: 0.005
+  minimumDistanceNecessary: 1
+  slowDownZoomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.6399992
+      outSlope: -2.6399992
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10416669
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  zoomSlowTimeRatio: 0
+  zoomSlowValueRatio: 0
+  debugTextes:
+  - {fileID: 739417392}
+  - {fileID: 182278169}
+  - {fileID: 1703611396}
+  - {fileID: 1941413089}
+  - {fileID: 1147848133}
+  - {fileID: 1672960800}
+  - {fileID: 370012467}
+  - {fileID: 592435685}
+  - {fileID: 1581967561}
+  - {fileID: 615994505}
+  - {fileID: 1343222377}
+  - {fileID: 1850091951}
+  - {fileID: 1030818235}
+  - {fileID: 2030456669}
+  - {fileID: 1643396481}
+  - {fileID: 1017587473}
+  debugSliders:
+  - {fileID: 56549978}
+  - {fileID: 647350197}
+  - {fileID: 251371218}
+--- !u!114 &1473566955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473566949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cc2f7b60c3cacc459904f02944bf152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1486037474
 GameObject:
   m_ObjectHideFlags: 3
