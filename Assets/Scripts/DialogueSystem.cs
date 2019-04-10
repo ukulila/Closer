@@ -226,8 +226,8 @@ public class DialogueSystem : MonoBehaviour
     public void SetUpTextFile()
     {
         textOfAsset = asset.ToString();
-
         characters = textOfAsset.ToCharArray();
+        dialogueGo = this.gameObject.GetComponent<RectTransform>();
 
         if (dialogueGo == null)
         {
