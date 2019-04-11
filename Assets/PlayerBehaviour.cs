@@ -322,7 +322,6 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
     }
-    //1,758842e-06
 
 
     public void CheckList()

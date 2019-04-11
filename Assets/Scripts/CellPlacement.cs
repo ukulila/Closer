@@ -191,7 +191,6 @@ public class CellPlacement : MonoBehaviour
             if (SecondTouched != null)
             {
                 direction = SecondTouched.transform.position - FirstTouched.transform.position;
-                // Debug.Log(direction);
                 FirstTouched = null;
                 SecondTouched = null;
             }

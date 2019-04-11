@@ -21,7 +21,6 @@ public class CellMovement : MonoBehaviour
     public Vector3 distanceMove;
     public int direction;
 
-    private string myName;
     public GameObject exitCell;
     public GameObject actualCell;
     public List<Transform> brothers;
@@ -49,16 +48,11 @@ public class CellMovement : MonoBehaviour
 
 
     #region Init
-    void Start()
-    {
-        over = true;
-        myName = gameObject.name;
-
-    }
-
 
     public void OnEnable()
     {
+        over = true;
+
         // Fills List of other Cells
         for (int x = 0; x < transform.parent.childCount; x++)
         {
@@ -69,7 +63,8 @@ public class CellMovement : MonoBehaviour
         hasEnded = true;
         freezePosValue = true;
 
-        if (/*gameObject.name.Contains("Current") ||*/ gameObject.name.Contains("Exit"))
+        //Wait a minute, this is not necesssary right ?
+        if (gameObject.name.Contains("Exit"))
         {
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -105,7 +100,6 @@ public class CellMovement : MonoBehaviour
             {
                 pM.castingRay = true;
                 raycastAutor = false;
-                //selected = false;
                 
             }
         }
@@ -165,7 +159,6 @@ public class CellMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isSpawn && gameObject.name.Contains("Exit") == false)
         {
             selected = false;
-            //isOpen = false;
 
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -242,7 +235,6 @@ public class CellMovement : MonoBehaviour
         //Stores the position value when true
         if (freezePosValue)
         {
-            // Debug.Log(myName + "      ResetGood");
             myPosFreeze = transform.position;
 
             freezePosValue = false;
@@ -260,18 +252,12 @@ public class CellMovement : MonoBehaviour
         if (moveHorizontal)
         {
 
-
-            //Debug.Log(gameObject.name);
-
             for (int r = 0; r < brothers.Count; r++)
             {
                 brothers[r].GetComponent<CellMovement>().hasEnded = false;
 
             }
-            /*toRotate[0].GetComponent<CellMovement>().hasEnded = false;
-            toRotate[1].GetComponent<CellMovement>().hasEnded = false;
-            toRotate[2].GetComponent<CellMovement>().hasEnded = false;
-            toRotate[3].GetComponent<CellMovement>().hasEnded = false;*/
+
 
             for (int v = 0; v < toRotate.Count; v++)
             {
@@ -286,7 +272,6 @@ public class CellMovement : MonoBehaviour
 
                 }
 
-                ///Maybe CHECK THIS ---EDIT : SEEMS OK BUT LATE ?
             }
 
             ///There May Be A Delay Between Two Movement with this way to check
@@ -301,23 +286,11 @@ public class CellMovement : MonoBehaviour
                 toRotate[2].GetComponent<CellMovement>().freezePosValue = true;
                 toRotate[3].GetComponent<CellMovement>().freezePosValue = true;
 
-                /*toRotate[0].GetComponent<CellMovement>().hasEnded = true;
-                toRotate[1].GetComponent<CellMovement>().hasEnded = true;
-                toRotate[2].GetComponent<CellMovement>().hasEnded = true;
-                toRotate[3].GetComponent<CellMovement>().hasEnded = true;*/
-
                 for (int o = 0; o < brothers.Count; o++)
                 {
                     brothers[o].GetComponent<CellMovement>().hasEnded = true;
                 }
 
-                /*
-                toRotate[0].GetComponent<CellMovement>().distanceMove = new Vector2(0, 0);
-                toRotate[1].GetComponent<CellMovement>().distanceMove = new Vector2(0, 0);
-                toRotate[2].GetComponent<CellMovement>().distanceMove = new Vector2(0, 0);
-                toRotate[3].GetComponent<CellMovement>().distanceMove = new Vector2(0, 0);
-                */
-                //distanceMove = new Vector2(0,0);
                 once = false;
                 selected = false;
                 click = false;
@@ -341,11 +314,6 @@ public class CellMovement : MonoBehaviour
                 brothers[r].GetComponent<CellMovement>().hasEnded = false;
 
             }
-            /*
-            toRotate[0].GetComponent<CellMovement>().hasEnded = false;
-            toRotate[1].GetComponent<CellMovement>().hasEnded = false;
-            toRotate[2].GetComponent<CellMovement>().hasEnded = false;
-            toRotate[3].GetComponent<CellMovement>().hasEnded = false;*/
 
             for (int v = 0; v < toRotate.Count; v++)
             {
@@ -382,12 +350,6 @@ public class CellMovement : MonoBehaviour
                 }
 
 
-                /*
-                toRotate[0].GetComponent<CellMovement>().hasEnded = true;
-                toRotate[1].GetComponent<CellMovement>().hasEnded = true;
-                toRotate[2].GetComponent<CellMovement>().hasEnded = true;
-                toRotate[3].GetComponent<CellMovement>().hasEnded = true;*/
-
                 once = false;
                 selected = false;
                 click = false;
@@ -407,10 +369,6 @@ public class CellMovement : MonoBehaviour
 
             }
 
-            /*toRotate[0].GetComponent<CellMovement>().hasEnded = false;
-            toRotate[1].GetComponent<CellMovement>().hasEnded = false;
-            toRotate[2].GetComponent<CellMovement>().hasEnded = false;
-            toRotate[3].GetComponent<CellMovement>().hasEnded = false;*/
 
             for (int v = 0; v < toRotate.Count; v++)
             {
@@ -445,10 +403,6 @@ public class CellMovement : MonoBehaviour
                     brothers[o].GetComponent<CellMovement>().hasEnded = true;
                 }
 
-                /*toRotate[0].GetComponent<CellMovement>().hasEnded = true;
-                toRotate[1].GetComponent<CellMovement>().hasEnded = true;
-                toRotate[2].GetComponent<CellMovement>().hasEnded = true;
-                toRotate[3].GetComponent<CellMovement>().hasEnded = true;*/
 
                 once = false;
                 selected = false;
@@ -478,8 +432,6 @@ public class CellMovement : MonoBehaviour
             {
                 toRotate.Clear();
                 HorizontalRotateSide(1);
-                //CastRay(1);
-                //once = true;
             }
         }
         else if (distanceMove.x <= -100)
@@ -490,8 +442,6 @@ public class CellMovement : MonoBehaviour
             {
                 toRotate.Clear();
                 HorizontalRotateSide(2);
-                //CastRay(2);
-                //once = true;
             }
         }
         else if (distanceMove.y <= -100)
@@ -502,9 +452,6 @@ public class CellMovement : MonoBehaviour
             {
                 toRotate.Clear();
                 HorizontalRotateSide(3);
-
-                //CastRay(3);
-                // once = true;
             }
         }
         else if (distanceMove.y >= 100)
@@ -515,9 +462,6 @@ public class CellMovement : MonoBehaviour
             {
                 toRotate.Clear();
                 HorizontalRotateSide(4);
-
-                //CastRay(4);
-                // once = true;
             }
         }
         else
@@ -530,106 +474,13 @@ public class CellMovement : MonoBehaviour
     #endregion
 
 
-    #region [Commentée] ---- ShootRay ----
-    /*
-    //Function that checks if there is something to rotate in the direction of the swipe by drawing a ray in the swipe direction
-    public void CastRay(int direction)
-    {
-        ///CHECK THE OUTPUT AND CHANGE LEFT IF UP AND RIGHT IF DOWN 
-        RaycastHit hit;
-
-        switch (direction)
-        {
-            case 1:                                                                 //RIGHT
-
-
-                if (Physics.Raycast(transform.position, new Vector3(0, 0, -1), out hit))
-                {
-                    Debug.DrawRay(transform.position, new Vector3(0, 0, -1), Color.green, 100);
-                    Debug.Log(hit.transform.name);
-                    directionObj = hit.transform;
-
-                    HorizontalRotateSide(0);
-
-                }
-                else
-                {
-                    Debug.DrawRay(transform.position, Vector3.up, Color.red, 100);
-
-                }
-                direction = 0;
-
-                break;
-            case 2:                                                                 //LEFT
-
-                if (Physics.Raycast(transform.position, new Vector3(0, 0, 1), out hit))
-                {
-                    Debug.DrawRay(transform.position, new Vector3(0, 0, 1), Color.green, 100);
-                    Debug.Log(hit.transform.name);
-                    directionObj = hit.transform;
-
-                    HorizontalRotateSide(0);
-
-                }
-                else
-                {
-                    Debug.DrawRay(transform.position, Vector3.up, Color.red, 100);
-
-                }
-                direction = 0;
-
-                break;
-            case 3:                                                                 //DOWN
-
-                if (Physics.Raycast(transform.position, -Vector3.up, out hit))
-                {
-                    Debug.DrawRay(transform.position, -Vector3.up, Color.green, 100);
-                    Debug.Log(hit.transform.name);
-                }
-                else
-                {
-                    Debug.DrawRay(transform.position, Vector3.up, Color.red, 100);
-
-                }
-                direction = 0;
-                break;
-            case 4:                                                                   //UP
-                if (Physics.Raycast(transform.position, Vector3.up, out hit))
-                {
-                    Debug.DrawRay(transform.position, Vector3.up, Color.green, 100);
-                    Debug.Log(hit.transform.name);
-                }
-                else
-                {
-                    Debug.DrawRay(transform.position, Vector3.up, Color.red, 100);
-
-                }
-                direction = 0;
-
-                break;
-
-
-
-        }
-
-
-    }
-    */
-    #endregion
-
-
     #region ---- CreateList ----
+
 
     //Rotation for Horizontal sclice of the cube, pairs every cell on the same level and triggers the movement.
     ///ADD STUFF IF UP OR DOWN && MAYBE IF RIGHT AND LEFT
     public void HorizontalRotateSide(int dir)
     {
-
-        //    11  >0    --> LEFT MOVEMENT IS OK, RIGHT IS LEFT TOO
-        //    00  <0    --> RIGHT MOVEMENT IS OK, LEFT IS RIGHT TOO
-
-        // 1 = RIGHT
-        // 2 = LEFT
 
 
         //Debug.Log("I play myself normaly");
@@ -652,7 +503,6 @@ public class CellMovement : MonoBehaviour
 
                         moveHorizontal = true;
                         once = true;
-                        //return;
                     }
                     else if (brothers[u].transform.position.y > 0 && transform.position.y > 0)
                     {
@@ -665,7 +515,6 @@ public class CellMovement : MonoBehaviour
 
                         moveHorizontal = true;
                         once = true;
-                        //return;
 
                     }
 
@@ -685,7 +534,6 @@ public class CellMovement : MonoBehaviour
 
                             moveHorizontal = true;
                             once = true;
-                            // return;
 
                         }
                         else if (brothers[u].transform.position.y > 0 && transform.position.y > 0)
@@ -696,7 +544,6 @@ public class CellMovement : MonoBehaviour
                             }
                             moveHorizontal = true;
                             once = true;
-                            // return;
 
                         }
                     }
@@ -705,16 +552,10 @@ public class CellMovement : MonoBehaviour
 
                 case 3:   ///so the swipe is down                                                                           ////////
 
-
-                    /* if (brothers[u].position.z == transform.position.z)
-                     {*/
-
                     if (cP.facingPlane.name == "PlaneForward")
                     {
-                        // Debug.Log("I play Forward");
                         if (brothers[u].transform.position.z < 0 && transform.position.z < 0)
                         {
-                            // Debug.Log("I play Forward Two");
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
@@ -723,7 +564,6 @@ public class CellMovement : MonoBehaviour
 
                             moveVerticalZ = true;
                             once = true;
-                            //return;
                         }
 
                         else if (brothers[u].transform.position.z > 0 && transform.position.z > 0)
@@ -731,32 +571,26 @@ public class CellMovement : MonoBehaviour
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
-                                //reverse = true;
                             }
 
 
                             moveVerticalZ = true;
                             once = true;
-                            //return;
 
                         }
                     }
 
                     if (cP.facingPlane.name == "PlaneAway")
                     {
-                        //Debug.Log("I play Away");
                         if (brothers[u].transform.position.z < 0 && transform.position.z < 0)
                         {
-                            //Debug.Log("I play Away Two");
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
-                                //reverse = true;
                             }
 
                             moveVerticalZ = true;
                             once = true;
-                            //return;
                         }
 
                         else if (brothers[u].transform.position.z > 0 && transform.position.z > 0)
@@ -770,17 +604,14 @@ public class CellMovement : MonoBehaviour
 
                             moveVerticalZ = true;
                             once = true;
-                            //return;
 
                         }
                     }
 
                     if (cP.facingPlane.name == "PlaneRight")
                     {
-                        // Debug.Log("I play Right");
                         if (brothers[u].transform.position.x < 0 && transform.position.x < 0)
                         {
-                            //  Debug.Log("I play Right Two");
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
@@ -789,7 +620,6 @@ public class CellMovement : MonoBehaviour
 
                             moveVerticalX = true;
                             once = true;
-                            //return;
                         }
 
                         else if (brothers[u].transform.position.x > 0 && transform.position.x > 0)
@@ -803,26 +633,20 @@ public class CellMovement : MonoBehaviour
 
                             moveVerticalX = true;
                             once = true;
-                            //return;
-
                         }
                     }
 
                     if (cP.facingPlane.name == "PlaneLeft")
                     {
-                        // Debug.Log("I play Left");
                         if (brothers[u].transform.position.x < 0 && transform.position.x < 0)
                         {
-                            //   Debug.Log("I play Left Two");
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
-                                //reverse = true;
                             }
 
                             moveVerticalX = true;
                             once = true;
-                            //return;
                         }
 
                         else if (brothers[u].transform.position.x > 0 && transform.position.x > 0)
@@ -830,25 +654,19 @@ public class CellMovement : MonoBehaviour
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
-                                //reverse = true;
                             }
-
 
                             moveVerticalX = true;
                             once = true;
-                            //return;
 
                         }
                     }
-                    // }
                     break;
 
 
-                case 4:   ///so the swipe is UP                                                                                     ////////
+                case 4:   ///so the swipe is UP
 
 
-                    /*if (brothers[u].position.z == transform.position.z)
-                    {*/
                     if (cP.facingPlane.name == "PlaneForward")
                     {
                         if (brothers[u].transform.position.z < 0 && transform.position.z < 0)
@@ -856,12 +674,10 @@ public class CellMovement : MonoBehaviour
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
-                                //reverse = true;
                             }
 
                             moveVerticalZ = true;
                             once = true;
-                            //return;
                         }
 
                         else if (brothers[u].transform.position.z > 0 && transform.position.z > 0)
@@ -875,7 +691,6 @@ public class CellMovement : MonoBehaviour
 
                             moveVerticalZ = true;
                             once = true;
-                            //return;
 
                         }
                     }
@@ -892,7 +707,6 @@ public class CellMovement : MonoBehaviour
 
                             moveVerticalZ = true;
                             once = true;
-                            //return;
                         }
 
                         else if (brothers[u].transform.position.z > 0 && transform.position.z > 0)
@@ -900,13 +714,9 @@ public class CellMovement : MonoBehaviour
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
-                                //reverse = true;
                             }
-
-
                             moveVerticalZ = true;
                             once = true;
-                            //return;
 
                         }
                     }
@@ -918,12 +728,10 @@ public class CellMovement : MonoBehaviour
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
-                                //reverse = true;
                             }
 
                             moveVerticalX = true;
                             once = true;
-                            //return;
                         }
 
                         else if (brothers[u].transform.position.x > 0 && transform.position.x > 0)
@@ -931,14 +739,10 @@ public class CellMovement : MonoBehaviour
                             if (toRotate.Count <= 4)
                             {
                                 toRotate.Add(brothers[u]);
-                                //reverse = true;
                             }
-
 
                             moveVerticalX = true;
                             once = true;
-                            //return;
-
                         }
                     }
 
@@ -954,7 +758,6 @@ public class CellMovement : MonoBehaviour
 
                             moveVerticalX = true;
                             once = true;
-                            //return;
                         }
 
                         else if (brothers[u].transform.position.x > 0 && transform.position.x > 0)
@@ -968,7 +771,6 @@ public class CellMovement : MonoBehaviour
 
                             moveVerticalX = true;
                             once = true;
-                            //return;
 
                         }
                     }
@@ -1013,10 +815,7 @@ public class CellMovement : MonoBehaviour
 
 
     }
+
     #endregion
-
-
-
-
 }
 
