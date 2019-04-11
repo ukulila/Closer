@@ -20,15 +20,15 @@ public class Camera_Rotation : MonoBehaviour
     private bool isFingerMoving;
     private bool isOrientationSet;
 
-    private Touch touchOne;
+    private Touch touchZero;
 
-    private Vector2 currentOnePos;
-    private Vector2 previousOnePos;
+    private Vector2 currentZeroPos;
+    private Vector2 previousZeroPos;
     private float oneTouchDistance;
 
     private float currentX;
     private float currentY;
-    public float minimumMoveNecessary;
+    public float minimumMoveNecessary = 8f;
 
     public enum VerticalDirection { up, down, center }
     public VerticalDirection yDirection;
@@ -100,18 +100,18 @@ public class Camera_Rotation : MonoBehaviour
             if (Input.touchCount == 1)
             {
                 //Get finger's positions related to the screen, and update related values from it
-                touchOne = Input.GetTouch(0);
-                currentOnePos = touchOne.position;
+                touchZero = Input.GetTouch(0);
+                currentZeroPos = touchZero.position;
 
-                previousOnePos = currentOnePos - touchOne.deltaPosition;
+                previousZeroPos = currentZeroPos - touchZero.deltaPosition;
 
-                currentX = currentOnePos.x - previousOnePos.x;
-                currentY = currentOnePos.y - previousOnePos.y;
+                currentX = currentZeroPos.x - previousZeroPos.x;
+                currentY = currentZeroPos.y - previousZeroPos.y;
 
-                oneTouchDistance = (currentOnePos - previousOnePos).magnitude;
+                oneTouchDistance = (currentZeroPos - previousZeroPos).magnitude;
 
                 //Do stuff depending on touch phase et bla bla bla ...
-                switch (touchOne.phase)
+                switch (touchZero.phase)
                 {
                     //When a touch has first been detected, change the message and record the starting position
                     case TouchPhase.Began:
@@ -360,19 +360,14 @@ public class Camera_Rotation : MonoBehaviour
 
             if (dollyTransform.position.y < maxHeight || dollyTransform.position.y > minHeight)
                 dollyTransform.position = new Vector3(dollyTransform.position.x, Mathf.Lerp(currentVerticalPos, nextVerticalPos, verticalSmoothTime), dollyTransform.position.z);
-
-            if (dollyTransform.position.y > maxHeight || dollyTransform.position.y < minHeight)
-                dollyTransform.position = new Vector3(dollyTransform.position.x, Mathf.Clamp(dollyTransform.position.y, minHeight, maxHeight), dollyTransform.position.z);
         }
         else
         {
             SlowDown();
-
-            if (dollyTransform.position.y > maxHeight || dollyTransform.position.y < minHeight)
-                dollyTransform.position = new Vector3(dollyTransform.position.x, Mathf.Clamp(dollyTransform.position.y, minHeight, maxHeight), dollyTransform.position.z);
         }
 
-
+        if (dollyTransform.position.y > maxHeight || dollyTransform.position.y < minHeight)
+            dollyTransform.position = new Vector3(dollyTransform.position.x, Mathf.Clamp(dollyTransform.position.y, minHeight, maxHeight), dollyTransform.position.z);
     }
 
 

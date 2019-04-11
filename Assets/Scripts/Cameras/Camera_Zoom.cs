@@ -20,7 +20,6 @@ public class Camera_Zoom : MonoBehaviour
     private bool onZoom;
 
 
-
     private Touch touchOne;
     private Touch touchTwo;
 
@@ -33,9 +32,9 @@ public class Camera_Zoom : MonoBehaviour
 
     public float currentZoomPos;
     public float nextZoomPos;
-    public float smoothTime = 1f;
-    public float zoomRatio;
-    public float minimumDistanceNecessary;
+    public float smoothTime = 0.5f;
+    public float zoomRatio = 0.009f;
+    public float minimumDistanceNecessary = 1f;
 
     private bool areFingersMoving;
 
@@ -45,8 +44,8 @@ public class Camera_Zoom : MonoBehaviour
     private float maxSlowTime = 1f;
     private float slowDownPercent;
 
-    public float zoomSlowTimeRatio;
-    public float zoomSlowValueRatio;
+    public float zoomSlowTimeRatio = 0.012f;
+    public float zoomSlowValueRatio = 0.025f;
     private float zoomSlowValue;
 
 
@@ -72,6 +71,8 @@ public class Camera_Zoom : MonoBehaviour
         if (Input.touchCount == 2)
         {
             touchOne = Input.GetTouch(0);
+            touchTwo = Input.GetTouch(1);
+
             currentOnePos = touchOne.position;
             currentTwoPos = touchTwo.position;
 
@@ -137,21 +138,22 @@ public class Camera_Zoom : MonoBehaviour
         }
 
         #region DEBUG TEXT
-
+/*
         debugTextes[2].text = ("zoomRatio : " + zoomRatio);
         debugTextes[3].text = ("touchesDistanceTest : " + touchesDistanceTest);
         debugTextes[4].text = ("areFingersMoving : " + areFingersMoving);
         debugTextes[5].text = ("currentZoomPos : " + currentZoomPos);
         debugTextes[6].text = ("nextZoomPos : " + nextZoomPos);
         debugTextes[10].text = ("touchesDistance : " + touchesDistance);
-        debugTextes[11].text = ("minimumDistanceNecessary : " + minimumDistanceNecessary);
-        debugTextes[7].text = ("onZoom : " + onZoom);
-        debugTextes[8].text = ("zDirection : " + zDirection);
+        debugTextes[11].text = ("smoothTime : " + smoothTime);
+        debugTextes[7].text = ("zoomSlowValueRatio : " + zoomSlowValueRatio);
+        debugTextes[8].text = ("zoomSlowTimeRatio : " + zoomSlowTimeRatio);
 
-        zoomRatio = debugSliders[0].value;
-        minimumDistanceNecessary = debugSliders[1].value;
+        
+        zoomSlowTimeRatio = debugSliders[0].value;
+        zoomSlowValueRatio = debugSliders[1].value;
         smoothTime = debugSliders[2].value;
-
+        */
 
         #endregion
 
@@ -164,19 +166,20 @@ public class Camera_Zoom : MonoBehaviour
     {
         if (areFingersMoving)
         {
+            if (virtualCamera.m_Lens.OrthographicSize > minFOV || virtualCamera.m_Lens.OrthographicSize < maxFOV)
+                virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(currentZoomPos, nextZoomPos, smoothTime);
+
             zoomSlowValue = currentZoomPos - nextZoomPos;
             currentSlowTime = 0;
         }
         else
         {
-
+            SmoothZoom();
         }
-
-        if (virtualCamera.m_Lens.OrthographicSize > minFOV || virtualCamera.m_Lens.OrthographicSize < maxFOV)
-            virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(currentZoomPos, nextZoomPos, smoothTime);
 
         if (virtualCamera.m_Lens.OrthographicSize < minFOV || virtualCamera.m_Lens.OrthographicSize > maxFOV)
             virtualCamera.m_Lens.OrthographicSize = Mathf.Clamp(virtualCamera.m_Lens.OrthographicSize, minFOV, maxFOV);
+
     }
 
 
@@ -201,12 +204,12 @@ public class Camera_Zoom : MonoBehaviour
 
         if (zDirection == ZoomDirection.inside)
         {
-
+            virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(currentZoomPos, nextZoomPos, smoothTime) - ((zoomSlowValue * zoomSlowValueRatio) * slowDownPercent);
         }
 
         if (zDirection == ZoomDirection.outside)
         {
-
+            virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(currentZoomPos, nextZoomPos, smoothTime) - ((zoomSlowValue * zoomSlowValueRatio) * slowDownPercent);
         }
     }
 }

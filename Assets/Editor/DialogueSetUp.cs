@@ -6,10 +6,19 @@ using UnityEditor;
 [CustomEditor(typeof(DialogueSystem))]
 public class DialogueSetUp : Editor
 {
+    public GameObject dialogueBoxPrefabReference;
 
     public override void OnInspectorGUI()
     {
         DialogueSystem dialogueSystem = (DialogueSystem)target;
+
+
+        if (GUILayout.Button("Get Prefabs"))
+        {
+            dialogueSystem.dialogueBoxPrefab = dialogueBoxPrefabReference;
+            dialogueSystem.dialogueGo = dialogueSystem.gameObject.GetComponent<RectTransform>();
+        }
+
 
         if (GUILayout.Button("Update Dialogue Parameters"))
         {
