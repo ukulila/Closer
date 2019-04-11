@@ -52,23 +52,23 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("Dialogue Box Image Parameters")]
     //Parametres BOX des rectTransform
-    public float dialogueBoxSpacing;
-    private float boxMaxWidth = 363f;
-    //private float boxMinWidth = 152f;
+    public float dialogueBoxSpacing = 2000f;
+    public float boxMaxWidth = 363f;
+    public float boxMinWidth = 152f;
 
-    private float boxMinHeight = 80f;
+    public float boxMinHeight = 80f;
     public float boxHeigthPerLine = 25f;
 
-    private float boxInitPos_X = -445f;
-    private float boxInitPos_Y = -150f;
+    public float boxInitPos_X = -445f;
+    public float boxInitPos_Y = -150f;
 
-    private float boxInitPos_X2 = -125f;
-    private float boxInitPos_Y2 = -150f;
+    public float boxInitPos_X2 = -125f;
+    public float boxInitPos_Y2 = -150f;
 
 
     //Parametres TEXT des rectTransform
-    private float textHeightPerLine = 35f;
-    private float textMinHeight = 35f;
+    public float textHeightPerLine = 35f;
+    public float textMinHeight = 35f;
     public float textWidth = 320;
 
     [Header("Writting Parameters")]
@@ -124,6 +124,7 @@ public class DialogueSystem : MonoBehaviour
     //Adapter les boxes à leur text
     public Vector2 textSize;
     public float rendWidth;
+    public float rendHeight;
 
 
 
@@ -184,12 +185,12 @@ public class DialogueSystem : MonoBehaviour
         if (endOfTheLine && !isDialogueFinished && currentCharacter > 0)
             currentCharacter = 0;
 
-        
+
         if (Input.GetMouseButtonDown(1))
         {
             StartDialogue();
         }
-        
+
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -229,6 +230,23 @@ public class DialogueSystem : MonoBehaviour
     {
         textOfAsset = asset.ToString();
         characters = textOfAsset.ToCharArray();
+
+        dialogueBoxSpacing = 140f;
+        boxMaxWidth = 363f;
+        boxMinHeight = 74.63f;
+        boxHeigthPerLine = 26.59f;
+
+        boxInitPos_X = -440f;
+        boxInitPos_Y = -150f;
+
+        boxInitPos_X2 = -130f;
+        boxInitPos_Y2 = -150f;
+
+
+        //Parametres TEXT des rectTransform
+        textHeightPerLine = 26.59f;
+        textMinHeight = 34.63f;
+        textWidth = 320;
 
         if (dialogueGo == null)
         {
@@ -459,12 +477,15 @@ public class DialogueSystem : MonoBehaviour
 
             if (dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount > 1)
             {
-                //Debug.Log("i = " + i + " avec " + dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineInfo.Length + " ligne(s)");
-                //Debug.Log("ie = " + i + " avec " + dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount + " ligne(s)");
+                Debug.Log("i = " + i + " avec " + dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount + " ligne(s)");
+                Debug.Log(textMinHeight + ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount -1) * textHeightPerLine));
 
 
-                dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(textWidth, textMinHeight + ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount - 1) * textHeightPerLine));
-                dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMaxWidth, boxMinHeight + ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount - 1) * boxHeigthPerLine));
+                dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(textWidth, textMinHeight + 
+                    ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount -1) * textHeightPerLine) + ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount - 1) * 4.46f));
+
+                dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMaxWidth, boxMinHeight + 
+                    ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount -1) * boxHeigthPerLine) + ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount - 1) * 4.46f));
             }
             else
             {
@@ -472,9 +493,12 @@ public class DialogueSystem : MonoBehaviour
                 textSize = GUI.skin.box.CalcSize(content);
 
                 rendWidth = dialogueTexts[i].renderedWidth;
+                rendHeight = dialogueTexts[i].renderedHeight;
 
                 float widthRatio = textSize.x / rendWidth;
 
+                //Debug.Log("i = " + i + " avec " + rendHeight + " rendHeight");
+                //Debug.Log("ie = " + i + " avec " + rendWidth + " rendWidth");
 
                 dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMaxWidth, boxMinHeight);
                 dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(textWidth, textMinHeight);
@@ -526,6 +550,9 @@ public class DialogueSystem : MonoBehaviour
         dialogueGo.position = new Vector2(dialogueGo.position.x, dialogueGo.position.y);
         translationCount.Clear();
         activeActorsIndex.Clear();
+        dialogueBoxHeights.Clear();
+        dialogueBoxWidths.Clear();
+
         //listOfCharacterArray.lines.Clear();
         currentWord = "";
     }
@@ -680,7 +707,7 @@ public class DialogueSystem : MonoBehaviour
         for (int i = 0; i < maxLines; i++)
         {
             dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
-            
+
 
             for (int y = 0; y < dialogueTexts[i].textInfo.characterCount; y++)
             {
@@ -707,7 +734,7 @@ public class DialogueSystem : MonoBehaviour
             }
         }
 
-        
+
 
         dialogueGo.anchoredPosition = new Vector2(0, 0);
 
