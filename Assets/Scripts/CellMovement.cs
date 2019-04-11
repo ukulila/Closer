@@ -44,6 +44,8 @@ public class CellMovement : MonoBehaviour
     public bool clickDirection;
     public bool raycastAutor;
 
+    [Range(0.0001f, 5)]
+    public float resetPosValue;
 
 
 
@@ -181,31 +183,31 @@ public class CellMovement : MonoBehaviour
         if (hasEnded)
         {
 
-            if (transform.position.x < 0 && (transform.position.x != 0.255f || transform.position.x != -0.255f))
+            if (transform.position.x < 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
             {
-                transform.position = new Vector3(-0.255f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(-resetPosValue, transform.position.y, transform.position.z);
             }
-            else if (transform.position.x > 0 && (transform.position.x != 0.255f || transform.position.x != -0.255f))
+            else if (transform.position.x > 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
             {
-                transform.position = new Vector3(0.255f, transform.position.y, transform.position.z);
-            }
-
-            if (transform.position.y < 0 && (transform.position.y != 0.255f || transform.position.y != -0.255f))
-            {
-                transform.position = new Vector3(transform.position.x, -0.255f, transform.position.z);
-            }
-            else if (transform.position.y > 0 && (transform.position.y != 0.255f || transform.position.y != -0.255f))
-            {
-                transform.position = new Vector3(transform.position.x, 0.255f, transform.position.z);
+                transform.position = new Vector3(resetPosValue, transform.position.y, transform.position.z);
             }
 
-            if (transform.position.z < 0 && (transform.position.z != 0.255f || transform.position.z != -0.255f))
+            if (transform.position.y < 0 && (transform.position.y != resetPosValue || transform.position.y != -resetPosValue))
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y, -0.255f);
+                transform.position = new Vector3(transform.position.x, -resetPosValue, transform.position.z);
             }
-            else if (transform.position.z > 0 && (transform.position.z != 0.255f || transform.position.z != -0.255f))
+            else if (transform.position.y > 0 && (transform.position.y != resetPosValue || transform.position.y != -resetPosValue))
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y, 0.255f);
+                transform.position = new Vector3(transform.position.x, resetPosValue, transform.position.z);
+            }
+
+            if (transform.position.z < 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y, -resetPosValue);
+            }
+            else if (transform.position.z > 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y, resetPosValue);
             }
 
         }

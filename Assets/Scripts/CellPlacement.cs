@@ -19,8 +19,9 @@ public class CellPlacement : MonoBehaviour
     public GameObject facingPlane;
     public PlayerBehaviour pM;
 
-    public CameraMovement camM;
-    public CameraBehaviour cB;
+    //public CameraMovement camM;
+    public Camera_Rotation cB;
+    public Camera_UI Cui;
     public bool okToSetup;
 
     public bool isInRotation;
@@ -48,7 +49,7 @@ public class CellPlacement : MonoBehaviour
                 {
                     CellMovement cellmove = hit.collider.gameObject.GetComponent<CellMovement>();
 
-                    if (cB.switchToUI == true)
+                    if (Cui.switchToUI == true)
                     {
                         cellmove.hasEnded = false;
                     }
@@ -102,7 +103,7 @@ public class CellPlacement : MonoBehaviour
                 {
                     CellScript cellscr = hit.collider.gameObject.GetComponent<CellScript>();
 
-                    if (cB.switchToUI == true)
+                    if (Cui.switchToUI == true)
                     {
                         cellscr.rotation = false;
                     }
@@ -112,7 +113,7 @@ public class CellPlacement : MonoBehaviour
             {
                 // camM.aboutCamera = true;
 
-                if (cB.switchToUI == false)
+                if (Cui.switchToUI == false)
                     cB.aboutCamera = true;
 
                 for (int i = 0; i < cM.Count; i++)

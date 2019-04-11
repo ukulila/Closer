@@ -13,6 +13,12 @@ public class OpacityKiller : MonoBehaviour
 
     public bool oui;
 
+    [Range(0.001f, 50)]
+    public float distanceToFade;
+
+    [Range(0.001f, 1)]
+    public float minFade;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,15 +50,15 @@ public class OpacityKiller : MonoBehaviour
 
         if (!isActive)
         {
-            if (distance < 2.5f)
+            if (distance < distanceToFade)
             {
-                if (opaciteVar > (-1.9f + distance) / 2)
+                if (opaciteVar > minFade)
                 {
                     opaciteVar -= 0.01f;
                 }
                 else
                 {
-                    opaciteVar = (-1.9f + distance) / 2;
+                    opaciteVar = minFade;
                 }
             }
             else
