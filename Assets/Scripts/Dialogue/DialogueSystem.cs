@@ -43,6 +43,7 @@ public class DialogueSystem : MonoBehaviour
     public Actors currentActor;
     public List<Actors> actors;
     public List<int> activeActorsIndex;
+    public GameObject actorsIconHierarchyReference;
 
 
 
@@ -226,35 +227,71 @@ public class DialogueSystem : MonoBehaviour
 
 
     #region Dialogue EDITOR SET UP
-    public void SetUpTextFile()
+    public void SetUp()
     {
-        textOfAsset = asset.ToString();
-        characters = textOfAsset.ToCharArray();
+        CleanDialogueSetUp();
+        SetUpDefaultValues();
+        CleanDialogueSetUp();
+        SetUpTextFile();
+        SetUpDialogueLines();
+        SetUpDialogueBox();
+        SetActorsParameters();
+    }
 
-        dialogueBoxSpacing = 140f;
+    private void SetUpDefaultValues()
+    {
+        dialogueBoxSpacing = 130f;
         boxMaxWidth = 363f;
+        boxMinWidth = 100f;
         boxMinHeight = 74.63f;
         boxHeigthPerLine = 26.59f;
 
-        boxInitPos_X = -440f;
+        boxInitPos_X = -435f;
         boxInitPos_Y = -150f;
 
-        boxInitPos_X2 = -130f;
+        boxInitPos_X2 = -135f;
         boxInitPos_Y2 = -150f;
-
 
         //Parametres TEXT des rectTransform
         textHeightPerLine = 26.59f;
         textMinHeight = 34.63f;
         textWidth = 320;
 
+        Ydisplacment = 1900f;
+        maxResetTime = 1.5f;
+        maxSlideTime = 0.9f;
+    }
+
+    public void AssignActorsIcon()
+    {
+        if (actorsIconHierarchyReference == null)
+        {
+            //Debug.Log(actorsIconHierarchyReference.GetComponentsInChildren<Image>().Length);
+
+            for (int i = 0; i < actorsIconHierarchyReference.GetComponentsInChildren<Image>().Length - 1; i++)
+            {
+                actorsIcon.Add(actorsIconHierarchyReference.GetComponentsInChildren<Image>()[i]);
+            }
+        }
+        
         if (dialogueGo == null)
         {
             dialogueGo = this.GetComponent<RectTransform>();
         }
+        
     }
 
-    public void SetUpDialogueLines()
+    private void SetUpTextFile()
+    {
+        textOfAsset = asset.ToString();
+        characters = textOfAsset.ToCharArray();
+
+
+
+        
+    }
+
+    private void SetUpDialogueLines()
     {
         for (int i = 0; i < characters.Length; i++)
         {
@@ -262,6 +299,7 @@ public class DialogueSystem : MonoBehaviour
             {
                 spaceCount++;
 
+                //Vérifie si 2 espaces/sauts de ligne consecutifs existent marquant la fin d'une ligne
                 if (spaceCount == lineSpace)
                 {
                     spaceCount = 0;
@@ -275,6 +313,7 @@ public class DialogueSystem : MonoBehaviour
                     */
                 }
 
+                //Vérifie à quelle actor correspond le premier mot
                 if (!actorSet)
                 {
                     if (currentWord != null)
@@ -401,22 +440,20 @@ public class DialogueSystem : MonoBehaviour
                     }
                 }
 
-                //Debug.Log(currentWord);
                 currentWord = "";
             }
             else
             {
                 spaceCount = 0;
 
+                //Une fois l'actor set up, on assigne la suite à sa ligne de dialogue
                 if (actorSet)
                     write = true;
 
                 currentWord = currentWord + characters[i];
             }
 
-            //Debug.Log("Lines count is : " + lines.Count);
-
-
+            //Ecriture d'une ligne de dialogue
             if (write)
             {
                 lines[lines.Count - 1] = lines[lines.Count - 1] + characters[i];
@@ -424,25 +461,30 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-    public void SetUpDialogueBox()
+    private void SetUpDialogueBox()
     {
+        //Set le nombre de lignes
         maxLines = lines.Count;
 
+        //Set les list au nombre de ligne
         dialogueBoxes = new GameObject[maxLines];
         dialogueTexts = new TextMeshProUGUI[maxLines];
         lineTypingSpeed = new List<AnimationCurve>();
-        listOfCharArray.lines = new List<CharacterArray>();
 
+        //listOfCharArray.lines = new List<CharacterArray>();
+
+        //Set des animations curve par défault
         for (int i = 0; i < maxLines; i++)
         {
-
             lineTypingSpeed.Add(new AnimationCurve());
             lineTypingSpeed[i].AddKey(0, 0);
 
+            /*
             charArray.charactersArray = lines[i].ToCharArray();
             CharacterArray array = new CharacterArray();
             array.charactersArray = lines[i].ToCharArray();
             listOfCharArray.lines.Add(array);
+            */
 
 
             float value = (lines[i].ToCharArray().Length / ratioValue);
@@ -452,13 +494,18 @@ public class DialogueSystem : MonoBehaviour
 
             lineTypingSpeed[i].AddKey(value, lines[i].ToCharArray().Length);
 
+            //Pour chaque ligne, on crée un instance du prefab dialogueBOX
             GameObject currentGO = Instantiate(dialogueBoxPrefab, transform);
+            //Et on assigne le GameObject instancié dans une liste
             dialogueBoxes.SetValue(currentGO, i);
-
+            //Et on assigne le TextMeshProGUI du GameObject instancié dans une autre liste
             dialogueTexts.SetValue(dialogueBoxes[i].GetComponentInChildren<TextMeshProUGUI>(), i);
+
+            //Enfin on assigne au text du TextMeshProGUI du GameObject instancié la string de chaque ligne
             dialogueTexts[i].text = lines[i];
 
 
+            //Modification des transforms selon l'actor (Blanche à droite et les autres à gauche)
             if (actors[i] == Actors.Blanche)
             {
                 dialogueBoxes[i].GetComponentInChildren<RectTransform>().anchorMin = new Vector2(0, 1);
@@ -475,39 +522,29 @@ public class DialogueSystem : MonoBehaviour
             }
 
 
+            //Modification des transforms (width et height) du dialogueBox selon son contenu
             if (dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount > 1)
             {
-                Debug.Log("i = " + i + " avec " + dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount + " ligne(s)");
-                Debug.Log(textMinHeight + ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount -1) * textHeightPerLine));
+                dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(textWidth, textMinHeight +
+                    ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount - 1) * textHeightPerLine) + ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount - 1) * 4.46f));
 
-
-                dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(textWidth, textMinHeight + 
-                    ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount -1) * textHeightPerLine) + ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount - 1) * 4.46f));
-
-                dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMaxWidth, boxMinHeight + 
-                    ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount -1) * boxHeigthPerLine) + ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount - 1) * 4.46f));
+                dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMaxWidth, boxMinHeight +
+                    ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount - 1) * boxHeigthPerLine) + ((dialogueTexts[i].GetTextInfo(dialogueTexts[i].text).lineCount - 1) * 4.46f));
             }
             else
             {
-                GUIContent content = new GUIContent(dialogueTexts[i].text);
-                textSize = GUI.skin.box.CalcSize(content);
-
                 rendWidth = dialogueTexts[i].renderedWidth;
-                rendHeight = dialogueTexts[i].renderedHeight;
 
-                float widthRatio = textSize.x / rendWidth;
+                float widthPercent = rendWidth / boxMaxWidth;
 
-                //Debug.Log("i = " + i + " avec " + rendHeight + " rendHeight");
-                //Debug.Log("ie = " + i + " avec " + rendWidth + " rendWidth");
-
-                dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMaxWidth, boxMinHeight);
-                dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(textWidth, textMinHeight);
-
+                dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(boxMinWidth + (widthPercent * (boxMaxWidth - (boxMinWidth - 25f))), boxMinHeight);
+                dialogueTexts[i].GetComponent<RectTransform>().sizeDelta = new Vector2(rendWidth, textMinHeight);
             }
 
 
         }
 
+        //Placement des différentes dialogueBox dans l'espace par rapport au uns et aux autres
         for (int i = 1; i < maxLines; i++)
         {
 
@@ -520,6 +557,7 @@ public class DialogueSystem : MonoBehaviour
                             new Vector2(dialogueBoxes[i].GetComponent<RectTransform>().anchoredPosition.x, (dialogueBoxes[i - 1].GetComponent<RectTransform>().anchoredPosition.y + translationCount[i - 1]));
         }
 
+        //Assignation des valeurs (width et height) de chaque dialogueBox dans 2 listes distincts puis reset de ces dernières en 0 pour la futur animation d'apparition du dialogueBox
         for (int i = 0; i < maxLines; i++)
         {
             dialogueBoxHeights.Add(dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta.y);
@@ -529,7 +567,8 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-    public void CleanDialogueSetUp()
+    //Nettoyage de toutes les valeurs selon le text assigné
+    private void CleanDialogueSetUp()
     {
         textOfAsset = "";
         characters = new char[0];
@@ -557,7 +596,7 @@ public class DialogueSystem : MonoBehaviour
         currentWord = "";
     }
 
-    public void SetActorsParameters()
+    private void SetActorsParameters()
     {
         for (int i = 0; i < actors.Count - 1; i++)
         {
@@ -638,7 +677,7 @@ public class DialogueSystem : MonoBehaviour
         DesactivateIcons();
     }
 
-    public void DesactivateIcons()
+    private void DesactivateIcons()
     {
         for (int i = 0; i < activeActorsIndex.Count; i++)
         {
@@ -648,7 +687,7 @@ public class DialogueSystem : MonoBehaviour
     #endregion
 
 
-    public void ActivateActorsIcons()
+    private void ActivateActorsIcons()
     {
         for (int i = 0; i < activeActorsIndex.Count; i++)
         {
@@ -658,7 +697,7 @@ public class DialogueSystem : MonoBehaviour
         SetDialogueParameters();
     }
 
-    public void SlideDialogueTo()
+    private void SlideDialogueTo()
     {
         if (currentSlideTime < maxSlideTime)
         {
@@ -694,7 +733,7 @@ public class DialogueSystem : MonoBehaviour
     }
 
 
-    public void ResetDialogueParameters()
+    private void ResetDialogueParameters()
     {
         currentTime = 0;
         currentSlideTime = 0;
@@ -704,37 +743,7 @@ public class DialogueSystem : MonoBehaviour
         currentAppearingTime = 0;
         typingTimeRatio = typingSpeedRatio;
 
-        for (int i = 0; i < maxLines; i++)
-        {
-            dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
-
-
-            for (int y = 0; y < dialogueTexts[i].textInfo.characterCount; y++)
-            {
-                //Debug.Log("Last character begin = " + lastCharacter);
-
-                //Debug.LogWarning("current character = " + currentCharacter);
-                // Get the index of the material used by the current character.
-                int materialIndex = textInfo.characterInfo[y].materialReferenceIndex;
-                //Debug.Log("material Index = " + materialIndex);
-
-                // Get the vertex colors of the mesh used by this text element (character or sprite).
-                vertexNewColor = textInfo.meshInfo[materialIndex].colors32;
-                // Get the index of the first vertex used by this text element.
-                int vertexIndex = textInfo.characterInfo[y].vertexIndex;
-                //Debug.Log("vertex Index = " + vertexIndex);
-
-                // Set all to full alpha
-                vertexNewColor[vertexIndex + 0].a = 0;
-                vertexNewColor[vertexIndex + 1].a = 0;
-                vertexNewColor[vertexIndex + 2].a = 0;
-                vertexNewColor[vertexIndex + 3].a = 0;
-
-                dialogueTexts[i].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
-            }
-        }
-
-
+        SetUp();
 
         dialogueGo.anchoredPosition = new Vector2(0, 0);
 
@@ -748,7 +757,7 @@ public class DialogueSystem : MonoBehaviour
         dialogueHasStarted = false;
     }
 
-    public void SetDialogueParameters()
+    private void SetDialogueParameters()
     {
         currentTime = 0;
         currentCharacter = 0;
@@ -793,7 +802,7 @@ public class DialogueSystem : MonoBehaviour
     }
 
 
-    public void DialogueUpdate()
+    private void DialogueUpdate()
     {
         if (currentTime < maxTime)
         {
@@ -842,7 +851,7 @@ public class DialogueSystem : MonoBehaviour
 
     }
 
-    public void NextLine()
+    private void NextLine()
     {
         currentLine += 1;
 
@@ -863,7 +872,7 @@ public class DialogueSystem : MonoBehaviour
         boxReady = false;
     }
 
-    public void EndDialogueAnimation()
+    private void EndDialogueAnimation()
     {
         if (currentResetTime < maxResetTime)
         {
@@ -881,7 +890,52 @@ public class DialogueSystem : MonoBehaviour
 
         percentY = resetDialogueCurve.Evaluate(currentResetTime);
 
-        dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, lastY + Ydisplacment * (percentY / maxResetTime));
+        dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, lastY + Ydisplacment * (percentY - maxResetTime));
+
+        float numberOfActors = activeActorsIndex.Count;
+
+        if (numberOfActors == 1)
+        {
+            actorsIcon[activeActorsIndex[0]].color = new Color32((byte)actorsIcon[activeActorsIndex[0]].color.r, (byte)actorsIcon[activeActorsIndex[0]].color.g,
+            (byte)actorsIcon[activeActorsIndex[0]].color.b, (byte)(actorsIcon[activeActorsIndex[0]].color.a - 255 * (percentY - maxResetTime)));
+        }
+
+        if (numberOfActors == 2)
+        {
+            actorsIcon[activeActorsIndex[0]].color = new Color32((byte)actorsIcon[activeActorsIndex[0]].color.r, (byte)actorsIcon[activeActorsIndex[0]].color.g,
+            (byte)actorsIcon[activeActorsIndex[0]].color.b, (byte)(actorsIcon[activeActorsIndex[0]].color.a - 255 * (percentY - maxResetTime)));
+
+            actorsIcon[activeActorsIndex[1]].color = new Color32((byte)actorsIcon[activeActorsIndex[1]].color.r, (byte)actorsIcon[activeActorsIndex[1]].color.g,
+            (byte)actorsIcon[activeActorsIndex[1]].color.b, (byte)(actorsIcon[activeActorsIndex[1]].color.a - 255 * (percentY - maxResetTime)));
+        }
+
+        if (numberOfActors == 3)
+        {
+            actorsIcon[activeActorsIndex[0]].color = new Color32((byte)actorsIcon[activeActorsIndex[0]].color.r, (byte)actorsIcon[activeActorsIndex[0]].color.g,
+            (byte)actorsIcon[activeActorsIndex[0]].color.b, (byte)(actorsIcon[activeActorsIndex[0]].color.a - 255 * (percentY - maxResetTime)));
+
+            actorsIcon[activeActorsIndex[1]].color = new Color32((byte)actorsIcon[activeActorsIndex[1]].color.r, (byte)actorsIcon[activeActorsIndex[1]].color.g,
+            (byte)actorsIcon[activeActorsIndex[1]].color.b, (byte)(actorsIcon[activeActorsIndex[1]].color.a - 255 * (percentY - maxResetTime)));
+
+            actorsIcon[activeActorsIndex[2]].color = new Color32((byte)actorsIcon[activeActorsIndex[2]].color.r, (byte)actorsIcon[activeActorsIndex[2]].color.g,
+            (byte)actorsIcon[activeActorsIndex[2]].color.b, (byte)(actorsIcon[activeActorsIndex[2]].color.a - 255 * (percentY - maxResetTime)));
+        }
+
+        if (numberOfActors == 4)
+        {
+            actorsIcon[activeActorsIndex[0]].color = new Color32((byte)actorsIcon[activeActorsIndex[0]].color.r, (byte)actorsIcon[activeActorsIndex[0]].color.g,
+            (byte)actorsIcon[activeActorsIndex[0]].color.b, (byte)(actorsIcon[activeActorsIndex[0]].color.a - 255 * (percentY - maxResetTime)));
+
+            actorsIcon[activeActorsIndex[1]].color = new Color32((byte)actorsIcon[activeActorsIndex[1]].color.r, (byte)actorsIcon[activeActorsIndex[1]].color.g,
+            (byte)actorsIcon[activeActorsIndex[1]].color.b, (byte)(actorsIcon[activeActorsIndex[1]].color.a - 255 * (percentY - maxResetTime)));
+
+            actorsIcon[activeActorsIndex[2]].color = new Color32((byte)actorsIcon[activeActorsIndex[2]].color.r, (byte)actorsIcon[activeActorsIndex[2]].color.g,
+            (byte)actorsIcon[activeActorsIndex[2]].color.b, (byte)(actorsIcon[activeActorsIndex[2]].color.a - 255 * (percentY - maxResetTime)));
+
+            actorsIcon[activeActorsIndex[3]].color = new Color32((byte)actorsIcon[activeActorsIndex[3]].color.r, (byte)actorsIcon[activeActorsIndex[3]].color.g,
+            (byte)actorsIcon[activeActorsIndex[3]].color.b, (byte)(actorsIcon[activeActorsIndex[3]].color.a - 255 * (percentY - maxResetTime)));
+        }
+
     }
 
 }

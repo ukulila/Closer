@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 // Custom Editor using SerializedProperties.
 // Automatic handling of multi-object editing, undo, and Prefab overrides.
@@ -7,26 +8,22 @@ using UnityEditor;
 public class DialogueSetUp : Editor
 {
     public GameObject dialogueBoxPrefabReference;
+    public GameObject actorIconsPrefabReference;
+
+
 
     public override void OnInspectorGUI()
     {
         DialogueSystem dialogueSystem = (DialogueSystem)target;
 
-
-        if (GUILayout.Button("Get Prefabs"))
+        if (GUILayout.Button("Update Dialogue Parameters"))
         {
             dialogueSystem.dialogueBoxPrefab = dialogueBoxPrefabReference;
             dialogueSystem.dialogueGo = dialogueSystem.gameObject.GetComponent<RectTransform>();
-        }
 
+            dialogueSystem.actorsIconHierarchyReference = GameObject.Find(actorIconsPrefabReference.name);
 
-        if (GUILayout.Button("Update Dialogue Parameters"))
-        {
-            dialogueSystem.CleanDialogueSetUp();
-            dialogueSystem.SetUpTextFile();
-            dialogueSystem.SetUpDialogueLines();
-            dialogueSystem.SetUpDialogueBox();
-            dialogueSystem.SetActorsParameters();
+            dialogueSystem.SetUp();
         }
 
         base.OnInspectorGUI();
