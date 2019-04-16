@@ -24,6 +24,8 @@ public class DialogueSystem : MonoBehaviour
     public GameObject dialogueBoxPrefab;
     public TMP_Vertex vertex;
     public List<Image> actorsIcon;
+    public Image[] iconsList;
+
 
     public CharacterArray charArray;
     public ListOfCharacterArray listOfCharArray;
@@ -44,7 +46,7 @@ public class DialogueSystem : MonoBehaviour
     public List<Actors> actors;
     public List<int> activeActorsIndex;
     public GameObject actorsIconHierarchyReference;
-
+    public List<Color> actorsboxColor;
 
 
     [Header("Dialogue 'Content'")]
@@ -229,9 +231,9 @@ public class DialogueSystem : MonoBehaviour
     #region Dialogue EDITOR SET UP
     public void SetUp()
     {
-        CleanDialogueSetUp();
+        //CleanDialogueSetUp();
         SetUpDefaultValues();
-        CleanDialogueSetUp();
+        SetUpActorIcons();
         SetUpTextFile();
         SetUpDialogueLines();
         SetUpDialogueBox();
@@ -259,7 +261,25 @@ public class DialogueSystem : MonoBehaviour
 
         Ydisplacment = 1900f;
         maxResetTime = 1.5f;
+
+        ratioValue = 10f;
+        maxTime = 3f;
+        lastCharacter = -1;
         maxSlideTime = 0.9f;
+
+        actors = new List<Actors>();
+        lines = new List<string>();
+        dialogueBoxes = new GameObject[0];
+        dialogueTexts = new TextMeshProUGUI[0];
+        lineTypingSpeed = new List<AnimationCurve>();
+        boxAppearingCurve = new AnimationCurve();
+        boxSlidingCurve = new AnimationCurve();
+        resetDialogueCurve = new AnimationCurve();
+        translationCount = new List<float>();
+        activeActorsIndex = new List<int>();
+        dialogueBoxHeights = new List<float>();
+        dialogueBoxWidths = new List<float>();
+        actorsboxColor = new List<Color>();
     }
 
     public void AssignActorsIcon()
@@ -273,22 +293,44 @@ public class DialogueSystem : MonoBehaviour
                 actorsIcon.Add(actorsIconHierarchyReference.GetComponentsInChildren<Image>()[i]);
             }
         }
-        
+
         if (dialogueGo == null)
         {
             dialogueGo = this.GetComponent<RectTransform>();
         }
-        
+
+        actors = new List<Actors>();
     }
 
     private void SetUpTextFile()
     {
         textOfAsset = asset.ToString();
         characters = textOfAsset.ToCharArray();
+    }
 
+    private void SetUpActorIcons()
+    {
+        for (int i = 0; i < actorsIconHierarchyReference.transform.childCount; i++)
+        {
+            actorsIconHierarchyReference.transform.GetChild(i).gameObject.SetActive(true);
+        }
 
+        actorsIcon = new List<Image>();
+        iconsList = new Image[actorsIconHierarchyReference.GetComponentsInChildren<Image>().Length];
 
-        
+        for (int i = 0; i < iconsList.Length; i++)
+        {
+            iconsList.SetValue(actorsIconHierarchyReference.GetComponentsInChildren<Image>()[i], i);
+        }
+
+        if (iconsList != null)
+        {
+            for (int i = 0; i < iconsList.Length; i++)
+            {
+                actorsIcon.Add(iconsList[i]);
+                actorsIcon[i].gameObject.SetActive(false);
+            }
+        }
     }
 
     private void SetUpDialogueLines()
@@ -298,6 +340,7 @@ public class DialogueSystem : MonoBehaviour
             if (char.IsWhiteSpace(characters[i]))
             {
                 spaceCount++;
+
 
                 //Vérifie si 2 espaces/sauts de ligne consecutifs existent marquant la fin d'une ligne
                 if (spaceCount == lineSpace)
@@ -470,7 +513,20 @@ public class DialogueSystem : MonoBehaviour
         dialogueBoxes = new GameObject[maxLines];
         dialogueTexts = new TextMeshProUGUI[maxLines];
         lineTypingSpeed = new List<AnimationCurve>();
+        boxAppearingCurve = new AnimationCurve();
+        boxSlidingCurve = new AnimationCurve();
+        resetDialogueCurve = new AnimationCurve();
+        actorsboxColor = new List<Color>();
 
+
+
+        boxAppearingCurve.AddKey(0, 0);
+        boxSlidingCurve.AddKey(0, 0);
+        resetDialogueCurve.AddKey(0, 0);
+
+        boxAppearingCurve.AddKey(1, 1);
+        boxSlidingCurve.AddKey(1, 1);
+        resetDialogueCurve.AddKey(1, 1);
         //listOfCharArray.lines = new List<CharacterArray>();
 
         //Set des animations curve par défault
@@ -478,6 +534,7 @@ public class DialogueSystem : MonoBehaviour
         {
             lineTypingSpeed.Add(new AnimationCurve());
             lineTypingSpeed[i].AddKey(0, 0);
+
 
             /*
             charArray.charactersArray = lines[i].ToCharArray();
@@ -563,27 +620,35 @@ public class DialogueSystem : MonoBehaviour
             dialogueBoxHeights.Add(dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta.y);
             dialogueBoxWidths.Add(dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta.x);
 
+            actorsboxColor.Add(dialogueBoxes[i].GetComponent<Image>().color);
+
             dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
         }
     }
 
     //Nettoyage de toutes les valeurs selon le text assigné
-    private void CleanDialogueSetUp()
+    public void CleanDialogueSetUp()
     {
         textOfAsset = "";
         characters = new char[0];
         actorSet = false;
         write = false;
 
-        for (int i = 0; i < dialogueBoxes.Length; i++)
+        if (dialogueBoxes.Length != 0)
         {
-            if (dialogueBoxes[i] != null)
-                DestroyImmediate(dialogueBoxes[i]);
+            for (int i = 0; i < dialogueBoxes.Length; i++)
+            {
+                if (dialogueBoxes[i] != null)
+                    DestroyImmediate(dialogueBoxes[i]);
+            }
         }
 
         dialogueBoxes = new GameObject[0];
         dialogueTexts = new TextMeshProUGUI[0];
-        lineTypingSpeed.Clear();
+
+        if (lineTypingSpeed.Count != 0)
+            lineTypingSpeed.Clear();
+
         lines.Clear();
         actors.Clear();
         dialogueGo.position = new Vector2(dialogueGo.position.x, dialogueGo.position.y);
@@ -591,6 +656,7 @@ public class DialogueSystem : MonoBehaviour
         activeActorsIndex.Clear();
         dialogueBoxHeights.Clear();
         dialogueBoxWidths.Clear();
+        actorsboxColor.Clear();
 
         //listOfCharacterArray.lines.Clear();
         currentWord = "";
