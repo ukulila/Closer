@@ -28,7 +28,7 @@ public class OpacityKiller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         Outliner();
 
         if (Input.GetKeyDown(KeyCode.Space) && oui)
@@ -100,10 +100,9 @@ public class OpacityKiller : MonoBehaviour
 
     public void Outliner()
     {
-        if (/*transform.parent.name.Contains("Current") == false ||*/ transform.parent.name.Contains("Exit") == false)
+        if ( transform.parent.name.Contains("Exit") == false)
         {
-           /* if (transform.parent.GetComponent<CellMovement>()!=null)
-            {*/
+           
                 if ((transform.parent.GetComponent<CellMovement>().selected  && myMaterial.GetInt("_isActive") != 1))
                 {
                     myMaterial.SetColor("_myColor", Color.green);
@@ -115,29 +114,10 @@ public class OpacityKiller : MonoBehaviour
 
                     myMaterial.SetInt("_isActive", 0);
                 }
-          //  }
-            /*
-            if ( transform.parent.parent.parent.parent.GetComponent<CellMovement>() != null)
-            {
-                if ( transform.parent.parent.parent.parent.GetComponent<CellMovement>().selected && myMaterial.GetInt("_isActive") != 1)
-                {
-                    myMaterial.SetColor("_myColor", Color.green);
-
-                    myMaterial.SetInt("_isActive", 1);
-                }
-                else if (transform.parent.parent.parent.parent.GetComponent<CellMovement>().selected == false && myMaterial.GetInt("_isActive") != 0)
-                {
-
-                    myMaterial.SetInt("_isActive", 0);
-                }
-            }*/
-
-
-
 
         }
 
-        if (/*(transform.parent.name.Contains("Current") ||*/ transform.parent.name.Contains("Exit") && myMaterial.GetInt("_isActive") != 1)
+        if (transform.parent.name.Contains("Exit") && myMaterial.GetInt("_isActive") != 1)
         {
 
 

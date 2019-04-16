@@ -15,6 +15,8 @@ public class PlayerBehaviour : MonoBehaviour
     public ScrEnvironment context;
     public ScrEnvironment nextContext;
     public float distance;
+
+    [Range(0.1f,2)]
     public float minDist = 0.1f;
     public Vector3 direction;
 
@@ -46,7 +48,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
-        // minDist = 0.1f;
         add = false;
         reset = true;
     }
@@ -138,7 +139,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if (/*(context.touched && nextContext != context &&*/ add)
+        if (add)
         {
             //myDoorList = context.doorWayPoints;
             Debug.Log("Je me tire Second ray");
@@ -211,7 +212,7 @@ public class PlayerBehaviour : MonoBehaviour
             ways.RemoveAt(ways.Count - 1);
         }
 
-        /* = context.paths.list;*/
+        
 
         if (reset)
         {

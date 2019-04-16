@@ -6,35 +6,23 @@ using UnityEngine.UI;
 
 public class CellPlacement : MonoBehaviour
 {
-
+    [Header("   ***** Values : Need Assignment *****")]
     public List<CellMovement> cM;
-    public int nbrTouch;
-    public GameObject FirstTouched;
-    public GameObject SecondTouched;
-    public Vector3 direction;
-
-    public Camera fingerCamera;
     public CinemachineBrain myBrain;
-    public bool once;
-    public GameObject facingPlane;
-    public PlayerBehaviour pM;
-
-    //public CameraMovement camM;
-    public Camera_Rotation cB;
+    public CameraBehaviour cB;
     public Camera_UI Cui;
-    public bool okToSetup;
 
+    [Header("   Bool Manager")]
+    public bool once;
+    public bool okToSetup;
     public bool isInRotation;
 
-    void Start()
-    {
-        nbrTouch = 0;
-    }
+    public GameObject facingPlane;
+
+
 
     void Update()
     {
-
-        //CheckForDirection();
 
 
         if (Input.GetMouseButtonDown(0))
@@ -42,21 +30,29 @@ public class CellPlacement : MonoBehaviour
             once = true;
 
             RaycastHit hit;
+            int LayerMaskCells = LayerMask.GetMask("Cell");
 
-            if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit))
+            if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit,250, LayerMaskCells))
             {
+
                 if (hit.collider.gameObject.GetComponent<CellMovement>() != null)
                 {
+                    Debug.Log("touched" + hit.transform.name);
+
                     CellMovement cellmove = hit.collider.gameObject.GetComponent<CellMovement>();
+
+                    hit.collider.gameObject.GetComponent<CellMovement>().click = true;
+                    hit.collider.gameObject.GetComponent<CellMovement>().over = true;
+
 
                     if (Cui.switchToUI == true)
                     {
                         cellmove.hasEnded = false;
                     }
 
-                    if(cellmove.isSpawn == true)
+                    if (cellmove.isSpawn == true)
                     {
-                        
+
                         for (int i = 0; i < cM.Count; i++)
                         {
                             cM[i].isOpen = false;
@@ -65,12 +61,8 @@ public class CellPlacement : MonoBehaviour
 
                     }
 
-                    //Debug.Log("ok so I work");
-                   /* if (!isInRotation)
-                    {*/
-                        hit.collider.gameObject.GetComponent<CellMovement>().click = true;
-                        hit.collider.gameObject.GetComponent<CellMovement>().over = true;
-                   // }
+                    
+                    
 
                     if (hit.collider.gameObject.GetComponent<CellMovement>().isOpen)
                     {
@@ -86,18 +78,7 @@ public class CellPlacement : MonoBehaviour
                 }
 
 
-                if (hit.collider.gameObject.GetComponent<ScrEnvironment>() != null)
-                {
-                   // Debug.LogError(hit.transform.name);
-
-                  //  if (/*okToSetup && */pM.context != hit.collider.gameObject.GetComponent<ScrEnvironment>())
-                   // {
-
-                    //    pM.nextContext = hit.collider.gameObject.GetComponent<ScrEnvironment>();
-
-                    //}
-                  //  hit.collider.gameObject.GetComponent<ScrEnvironment>().touched = true;
-                }
+                
 
                 if (hit.collider.gameObject.GetComponent<CellScript>() != null)
                 {
@@ -105,7 +86,7 @@ public class CellPlacement : MonoBehaviour
 
                     if (Cui.switchToUI == true)
                     {
-                        cellscr.rotation = false;
+                        cellscr.isInRotation = false;
                     }
                 }
             }
@@ -127,79 +108,19 @@ public class CellPlacement : MonoBehaviour
 
         if (Input.GetMouseButton(0) && once)
         {
-            RaycastHit[] hits;
+            RaycastHit hit;
 
-            hits = Physics.RaycastAll(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), 25);
+            int layerMaskPlanes = LayerMask.GetMask("Planes");
 
-            if (hits.Length != 0 && hits[0].transform.name.Contains("Cell") == false)
+            if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, layerMaskPlanes))
             {
-                Debug.LogWarning(hits[0].transform.name);
-                facingPlane = hits[0].transform.gameObject;
+                Debug.LogWarning(hit.transform.name);
+                facingPlane = hit.transform.gameObject;
                 once = false;
             }
-            else if (hits.Length > 1)
-            {
-                Debug.LogWarning(hits[1].transform.name);
-                facingPlane = hits[1].transform.gameObject;
-                once = false;
-            }
+
         }
 
     }
 
-
-
-
-
-    public void CheckForDirection()
-    {
-
-        if (Input.GetMouseButton(0))
-        {
-            for (int i = 0; i < cM.Count; i++)
-            {
-
-                if (cM[i].selected == true && cM[i] != FirstTouched)
-                {
-                    if (FirstTouched == null)
-                    {
-
-                        FirstTouched = cM[i].gameObject;
-                        cM[i].selected = false;
-                        cM[i].over = false;
-                    }
-                    else if (FirstTouched != null && cM[i] != FirstTouched)
-                    {
-                        SecondTouched = cM[i].gameObject;
-                        cM[i].selected = false;
-                        cM[i].over = false;
-
-
-                    }
-
-                    nbrTouch += 1;
-
-                }
-
-            }
-
-
-
-        }
-
-        if (nbrTouch > 2 || Input.GetMouseButtonUp(0))
-        {
-            if (SecondTouched != null)
-            {
-                direction = SecondTouched.transform.position - FirstTouched.transform.position;
-                FirstTouched = null;
-                SecondTouched = null;
-            }
-
-
-            nbrTouch = 0;
-
-        }
-
-    }
 }
