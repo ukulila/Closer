@@ -77,7 +77,7 @@ public class CameraBehaviour : MonoBehaviour
     private bool lastPositionUpdated;
 
     [Header("Set Up de la Rotation Verticale")]
-    [Range(0, 1)]
+    [Range(0, 0.3f)]
     public float verticalSpeedRatioModifier;
 
     private float targetOffset;

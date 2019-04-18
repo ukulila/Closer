@@ -28,8 +28,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241135056598317769}
-  m_LocalRotation: {x: -0.09097823, y: 0.63228744, z: -0.07512686, w: -0.76569676}
-  m_LocalPosition: {x: 21.761032, y: 4.7405477, z: -4.5771894}
+  m_LocalRotation: {x: -0.066768296, y: 0.5535112, z: -0.0445822, w: -0.8289631}
+  m_LocalPosition: {x: 22.786007, y: 4, z: -9.455389}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1241135058228366032}
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 7.939034
+    OrthographicSize: 8
     NearClipPlane: 0.1
     FarClipPlane: 50
     Dutch: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_UpdateMethod: 0
   m_PositionUnits: 1
   m_Speed: 0
-  m_Position: 120.9629
+  m_Position: 126
 --- !u!114 &1241135056598317765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +106,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1241135056598317763}
   dollyTransform: {fileID: 1241135057083059885}
   brain: {fileID: 1241135057184425488}
-  aboutCamera: 1
+  aboutCamera: 0
   minimumMoveNecessary: 8
   yDirection: 2
   xDirection: 2
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241135056598317769}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cc2f7b60c3cacc459904f02944bf152, type: 3}
   m_Name: 
@@ -255,31 +255,52 @@ MonoBehaviour:
   virtualCamera: {fileID: 1241135056598317763}
   dollyTransform: {fileID: 1241135057083059885}
   brain: {fileID: 1241135057184425488}
-  targetOffsets: []
-  uiPathPosition: []
-  uiDollyScale: {x: 0, y: 0, z: 0}
-  gameDollyScale: {x: 0, y: 0, z: 0}
-  uiFOV: 0
-  gameFOV: 0
-  uiUpDollyPos: {x: 0, y: 0, z: 0}
-  uiDownDollyPos: {x: 0, y: 0, z: 0}
-  gameDollyPos: {x: 0, y: 0, z: 0}
-  selectionTimingImage: {fileID: 0}
-  timeBeforeSearch: 0
-  maxTimeBeforeSearch: 0
-  currentSelectedCell: 
-  timingOfSelection: 0
   switchToUI: 0
   isPlayerHere: 0
   cellMove: {fileID: 0}
+  currentSelectedCell: 
+  targetOffsets:
+  - {x: 0, y: 2.3, z: -7.45}
+  - {x: 0, y: -4.3, z: -7.45}
+  - {x: -7.45, y: 2.3, z: 0}
+  - {x: -7.45, y: -4.3, z: 0}
+  - {x: 0, y: 2.3, z: 7.45}
+  - {x: 0, y: -4.3, z: 7.45}
+  - {x: 7.45, y: 2.3, z: 0}
+  - {x: 7.45, y: -4.3, z: 0}
+  currentTargetOffset: {x: 0, y: 0, z: 0}
+  targetOffsetDiff: {x: 0, y: 0, z: 0}
+  uiPathPosition:
+  - 125
+  - 125
+  - 9
+  - 9
+  - 48
+  - 48
+  - 86
+  - 86
+  continuePosDifference: 0
+  uiFOV: 3.9
+  gameFOV: 8.5
+  currentFOV: 0
+  fovDiff: 0
+  uiUpDollyPos: {x: 0, y: 8, z: 0}
+  uiDownDollyPos: {x: 0, y: 4, z: 0}
+  gameDollyPos: {x: 0, y: 0, z: 0}
+  currentDollyPosition: {x: 0, y: 0, z: 0}
+  dollyPositionDiff: {x: 0, y: 0, z: 0}
+  selectionTimingImage: {fileID: 0}
+  timeBeforeSearch: 0
+  maxTimeBeforeSearch: 0.3
+  timingOfSelection: 1
   cameraRepositioningCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -287,8 +308,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -302,8 +323,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -311,8 +332,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -323,16 +344,7 @@ MonoBehaviour:
   animationCurveTimingMax: 0
   animationTimingMin: 0
   currentRepositionTime: 0
-  switchDurationRatioModifier: 0.9
-  continuePosDifference: 0
-  currentFOV: 0
-  fovDiff: 0
-  currentDollyScale: {x: 0, y: 0, z: 0}
-  dollyDiff: {x: 0, y: 0, z: 0}
-  currentTargetOffset: {x: 0, y: 0, z: 0}
-  targetOffsetDiff: {x: 0, y: 0, z: 0}
-  currentDollyPosition: {x: 0, y: 0, z: 0}
-  dollyPositionDiff: {x: 0, y: 0, z: 0}
+  switchDurationRatioModifier: 0.077
   cameraReposition: 1
   debugTexts: []
   sliders: []
@@ -361,7 +373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241135057083059884}
   m_LocalRotation: {x: 1.0255803e-15, y: 0.000000019142721, z: 1.6235834e-16, w: 1}
-  m_LocalPosition: {x: -2.6820202, y: 4.7405477, z: 0.13087271}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1241135057599476109}
@@ -421,8 +433,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241135057184425490}
-  m_LocalRotation: {x: -0.09097823, y: 0.63228744, z: -0.07512686, w: -0.76569676}
-  m_LocalPosition: {x: 21.761032, y: 4.7405477, z: -4.5771894}
+  m_LocalRotation: {x: -0.066768296, y: 0.5535112, z: -0.0445822, w: -0.8289631}
+  m_LocalPosition: {x: 22.786007, y: 4, z: -9.455389}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1241135057599476109}
@@ -437,8 +449,8 @@ Camera:
   m_GameObject: {fileID: 1241135057184425490}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.2629447, g: 0.15076537, b: 0.26415092, a: 1}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -454,7 +466,7 @@ Camera:
   far clip plane: 50
   field of view: 40
   orthographic: 1
-  orthographic size: 7.939034
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

@@ -11,6 +11,7 @@ public class CellPlacement : MonoBehaviour
     public CinemachineBrain myBrain;
     public CameraBehaviour cB;
     public Camera_UI Cui;
+    public Camera_Rotation Cr;
 
     [Header("   Bool Manager")]
     public bool once;
@@ -32,7 +33,7 @@ public class CellPlacement : MonoBehaviour
             RaycastHit hit;
             int LayerMaskCells = LayerMask.GetMask("Cell");
 
-            if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit,250, LayerMaskCells))
+            if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, LayerMaskCells))
             {
 
                 if (hit.collider.gameObject.GetComponent<CellMovement>() != null)
@@ -52,17 +53,15 @@ public class CellPlacement : MonoBehaviour
 
                     if (cellmove.isSpawn == true)
                     {
-
                         for (int i = 0; i < cM.Count; i++)
                         {
                             cM[i].isOpen = false;
                         }
                         cellmove.raycastAutor = true;
-
                     }
 
-                    
-                    
+
+
 
                     if (hit.collider.gameObject.GetComponent<CellMovement>().isOpen)
                     {
@@ -73,12 +72,15 @@ public class CellPlacement : MonoBehaviour
 
                     hit.collider.gameObject.GetComponent<CellMovement>().originPos = Input.mousePosition;
 
-                    cB.aboutCamera = false;
+                    if (cB != null)
+                        cB.aboutCamera = false;
 
+                    if (Cr != null)
+                        Cr.aboutCamera = false;
                 }
 
 
-                
+
 
                 if (hit.collider.gameObject.GetComponent<CellScript>() != null)
                 {
@@ -94,8 +96,11 @@ public class CellPlacement : MonoBehaviour
             {
                 // camM.aboutCamera = true;
 
-                if (Cui.switchToUI == false)
+                if (Cui.switchToUI == false && cB != null)
                     cB.aboutCamera = true;
+
+                if (Cui.switchToUI == false && Cr != null)
+                    Cr.aboutCamera = true;
 
                 for (int i = 0; i < cM.Count; i++)
                 {

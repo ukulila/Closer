@@ -41,12 +41,13 @@ public class DialogueSystem : MonoBehaviour
     public int currentCharacter;
     public int lastCharacter;
 
-    public enum Actors { Blanche, Mireille, Louis, MmeBerleau, Dotty, Jolly, Dolores, Maggie, Esdie, Walter, Ray, Barney, Irina };
+    public enum Actors { Blanche, Mireille, Louis, MmeBerleau, Dotty, Jolly, Dolores, Maggie, Esdie, Walter, Ray, Barney, Nikky, Irina };
     public Actors currentActor;
     public List<Actors> actors;
     public List<int> activeActorsIndex;
     public GameObject actorsIconHierarchyReference;
-    public List<Color> actorsboxColor;
+    public List<Color> boxColor;
+    public List<Color> actorsColor;
 
 
     [Header("Dialogue 'Content'")]
@@ -148,7 +149,7 @@ public class DialogueSystem : MonoBehaviour
             isThereAnotherLine = true;
         }
 
-        StartDialogue(); ;
+        //StartDialogue();
     }
 
 
@@ -234,6 +235,7 @@ public class DialogueSystem : MonoBehaviour
         //CleanDialogueSetUp();
         SetUpDefaultValues();
         SetUpActorIcons();
+        SetUpActorCalorDefaultValue();
         SetUpTextFile();
         SetUpDialogueLines();
         SetUpDialogueBox();
@@ -248,10 +250,10 @@ public class DialogueSystem : MonoBehaviour
         boxMinHeight = 74.63f;
         boxHeigthPerLine = 26.59f;
 
-        boxInitPos_X = -435f;
+        boxInitPos_X = -477f;
         boxInitPos_Y = -150f;
 
-        boxInitPos_X2 = -135f;
+        boxInitPos_X2 = -177f;
         boxInitPos_Y2 = -150f;
 
         //Parametres TEXT des rectTransform
@@ -279,7 +281,8 @@ public class DialogueSystem : MonoBehaviour
         activeActorsIndex = new List<int>();
         dialogueBoxHeights = new List<float>();
         dialogueBoxWidths = new List<float>();
-        actorsboxColor = new List<Color>();
+        boxColor = new List<Color>();
+        actorsColor = new List<Color>();
     }
 
     public void AssignActorsIcon()
@@ -321,6 +324,7 @@ public class DialogueSystem : MonoBehaviour
         for (int i = 0; i < iconsList.Length; i++)
         {
             iconsList.SetValue(actorsIconHierarchyReference.GetComponentsInChildren<Image>()[i], i);
+            actorsColor.Add(new Color());
         }
 
         if (iconsList != null)
@@ -331,6 +335,11 @@ public class DialogueSystem : MonoBehaviour
                 actorsIcon[i].gameObject.SetActive(false);
             }
         }
+    }
+
+    private void SetUpActorCalorDefaultValue()
+    {
+
     }
 
     private void SetUpDialogueLines()
@@ -516,7 +525,7 @@ public class DialogueSystem : MonoBehaviour
         boxAppearingCurve = new AnimationCurve();
         boxSlidingCurve = new AnimationCurve();
         resetDialogueCurve = new AnimationCurve();
-        actorsboxColor = new List<Color>();
+        boxColor = new List<Color>();
 
 
 
@@ -620,7 +629,7 @@ public class DialogueSystem : MonoBehaviour
             dialogueBoxHeights.Add(dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta.y);
             dialogueBoxWidths.Add(dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta.x);
 
-            actorsboxColor.Add(dialogueBoxes[i].GetComponent<Image>().color);
+            boxColor.Add(dialogueBoxes[i].GetComponent<Image>().color);
 
             dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
         }
@@ -656,7 +665,8 @@ public class DialogueSystem : MonoBehaviour
         activeActorsIndex.Clear();
         dialogueBoxHeights.Clear();
         dialogueBoxWidths.Clear();
-        actorsboxColor.Clear();
+        boxColor.Clear();
+        actorsColor.Clear();
 
         //listOfCharacterArray.lines.Clear();
         currentWord = "";

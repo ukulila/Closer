@@ -15,25 +15,44 @@ public class Camera_UI : MonoBehaviour
     public CinemachineBrain brain;
 
     [Header("Switching Interface Parameters")]
-
-    public List<Vector3> targetOffsets;
-    public List<float> uiPathPosition;
-    public Vector3 uiDollyScale;
-    public Vector3 gameDollyScale;
-    public float uiFOV;
-    public float gameFOV;
-    public Vector3 uiUpDollyPos;
-    public Vector3 uiDownDollyPos;
-    public Vector3 gameDollyPos;
-
-    public Image selectionTimingImage;
-    public float timeBeforeSearch;
-    public float maxTimeBeforeSearch;
-    public string currentSelectedCell;
-    public float timingOfSelection;
     public bool switchToUI;
     public bool isPlayerHere;
     public CellMovement cellMove;
+    public string currentSelectedCell;
+
+    [Header("   Target Offset")]
+    public List<Vector3> targetOffsets;
+    public Vector3 currentTargetOffset;
+    public Vector3 targetOffsetDiff;
+
+    [Header("   Path Position")]
+    public List<float> uiPathPosition;
+    private float currentPathPos;
+    public float continuePosDifference;
+    private float reversePosDifference;
+    private float animationPosDifference;
+    private float positionMax;
+
+    [Header("   FOV")]
+    public float uiFOV;
+    public float gameFOV;
+    public float currentFOV;
+    public float fovDiff;
+
+    [Header("   Dolly Position")]
+    public Vector3 uiUpDollyPos;
+    public Vector3 uiDownDollyPos;
+    public Vector3 gameDollyPos;
+    public Vector3 currentDollyPosition;
+    public Vector3 dollyPositionDiff;
+
+    [Header("   Animation Parameters")]
+    public Image selectionTimingImage;
+    public float timeBeforeSearch;
+    public float maxTimeBeforeSearch;
+
+    public float timingOfSelection;
+
     public AnimationCurve cameraRepositioningCurve;
     public AnimationCurve targetRepositioningCurve;
     public float animationCurveTimingMax;
@@ -42,26 +61,11 @@ public class Camera_UI : MonoBehaviour
     private float repoPercent;
     private float retarPercent;
 
-    [Range(0.1f, 1)]
+    [Range(0, 0.3f)]
     public float switchDurationRatioModifier;
 
-    private float currentPathPos;
-    public float continuePosDifference;
-    private float reversePosDifference;
-    private float animationPosDifference;
-    private float positionMax;
 
-    public float currentFOV;
-    public float fovDiff;
 
-    public Vector3 currentDollyScale;
-    public Vector3 dollyDiff;
-
-    public Vector3 currentTargetOffset;
-    public Vector3 targetOffsetDiff;
-
-    public Vector3 currentDollyPosition;
-    public Vector3 dollyPositionDiff;
 
     public bool cameraReposition = true;
 
@@ -89,7 +93,7 @@ public class Camera_UI : MonoBehaviour
             {
                 animationCurveTimingMax = 1.5f;
 
-                Debug.Log("Room set");
+                //Debug.Log("Room set");
 
 
                 if (Input.GetMouseButtonDown(0))
@@ -97,10 +101,9 @@ public class Camera_UI : MonoBehaviour
                     RaycastHit selectedCube;
 
                     currentPathPos = dollyCart.m_Position;
-                    currentDollyScale = dollyTransform.localScale;
                     currentDollyPosition = dollyTransform.localPosition;
                     currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
-                    currentFOV = virtualCamera.m_Lens.FieldOfView;
+                    currentFOV = virtualCamera.m_Lens.OrthographicSize;
                     currentRepositionTime = 0;
 
 
@@ -118,26 +121,32 @@ public class Camera_UI : MonoBehaviour
         }
         else
         {
-            Debug.Log("Room unset");
+            //Debug.Log("Room unset");
 
             if (Input.GetMouseButtonDown(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition)
             {
                 RaycastHit selectedCube;
 
                 currentPathPos = dollyCart.m_Position;
-                currentDollyScale = dollyTransform.localScale;
                 currentDollyPosition = dollyTransform.localPosition;
                 currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
-                currentFOV = virtualCamera.m_Lens.FieldOfView;
+                currentFOV = virtualCamera.m_Lens.OrthographicSize;
                 currentRepositionTime = 0;
 
                 if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube) && cameraReposition)
                 {
 
-                    currentSelectedCell = selectedCube.collider.gameObject.name;
-                    cellMove = selectedCube.collider.gameObject.GetComponent<CellMovement>();
+                    //Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 25, Color.red, 1);
+
+                    Debug.Log("Target cell");
+
+                    currentSelectedCell = selectedCube.collider.gameObject.transform.parent.name;
+                    cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
+
+
                     if (cellMove != null)
                         isPlayerHere = cellMove.isSpawn;
+
                     fovDiff = uiFOV - currentFOV;
 
 
@@ -148,7 +157,7 @@ public class Camera_UI : MonoBehaviour
                         Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[1] - currentPathPos);
-                        dollyPositionDiff = uiDownDollyPos - gameDollyPos;
+                        dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
 
 
                         CheckRepositionWay();
@@ -162,7 +171,7 @@ public class Camera_UI : MonoBehaviour
                         Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[0] - currentPathPos);
-                        dollyPositionDiff = uiUpDollyPos - gameDollyPos;
+                        dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
 
 
                         CheckRepositionWay();
@@ -177,7 +186,7 @@ public class Camera_UI : MonoBehaviour
                         Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[3] - currentPathPos);
-                        dollyPositionDiff = uiDownDollyPos - gameDollyPos;
+                        dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
 
                         CheckRepositionWay();
 
@@ -190,7 +199,7 @@ public class Camera_UI : MonoBehaviour
                         Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[2] - currentPathPos);
-                        dollyPositionDiff = uiUpDollyPos - gameDollyPos;
+                        dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
 
 
                         CheckRepositionWay();
@@ -205,7 +214,7 @@ public class Camera_UI : MonoBehaviour
                         Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[4] - currentPathPos);
-                        dollyPositionDiff = uiUpDollyPos - gameDollyPos;
+                        dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
 
 
                         CheckRepositionWay();
@@ -219,7 +228,7 @@ public class Camera_UI : MonoBehaviour
                         Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[5] - currentPathPos);
-                        dollyPositionDiff = uiDownDollyPos - gameDollyPos;
+                        dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
 
                         CheckRepositionWay();
 
@@ -233,7 +242,7 @@ public class Camera_UI : MonoBehaviour
                         Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[7] - currentPathPos);
-                        dollyPositionDiff = uiDownDollyPos - gameDollyPos;
+                        dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
 
                         CheckRepositionWay();
 
@@ -245,7 +254,7 @@ public class Camera_UI : MonoBehaviour
                     {
                         Debug.Log("continuePosDifference" + continuePosDifference);
                         continuePosDifference = (uiPathPosition[6] - currentPathPos);
-                        dollyPositionDiff = uiUpDollyPos - gameDollyPos;
+                        dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
 
                         CheckRepositionWay();
 
@@ -256,7 +265,7 @@ public class Camera_UI : MonoBehaviour
             }
         }
 
-        
+
         if (Input.GetMouseButton(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && !switchToUI && isPlayerHere)
         {
 
@@ -264,17 +273,25 @@ public class Camera_UI : MonoBehaviour
 
             if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube))
             {
+                Debug.Log("Drawing Raycast");
+
                 //Debug raycast d'ouverture UI (actions contextuelles)
                 Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
 
-                if (currentSelectedCell == selectedCube.collider.gameObject.name && selectedCube.collider.gameObject.GetComponent<CellMovement>().once == false && cameraReposition == true && isPlayerHere && cellMove != null)
+                currentSelectedCell = selectedCube.collider.gameObject.transform.parent.name;
+                cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
+
+                if (currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().once == false
+                    && cameraReposition == true && isPlayerHere && cellMove != null)
                 {
+                    Debug.Log("COME ON !");
+
                     if (timeBeforeSearch < maxTimeBeforeSearch)
                         timeBeforeSearch += Time.deltaTime;
                     else
                         selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
 
-                    if (selectionTimingImage.fillAmount == 1 && currentSelectedCell == selectedCube.collider.gameObject.name && isPlayerHere)
+                    if (selectionTimingImage.fillAmount == 1 && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && isPlayerHere)
                     {
                         switchToUI = true;
                         cameraReposition = false;
@@ -298,13 +315,13 @@ public class Camera_UI : MonoBehaviour
 
         #region DEBUG TEXT
 
-        debugTexts[0].text = ("cameraReposition : " + cameraReposition);
-        debugTexts[1].text = ("selectionTimingImage.fillAmount : " + selectionTimingImage.fillAmount);
-        debugTexts[2].text = ("switchToUI : " + switchToUI);
-        debugTexts[3].text = ("isZooming : " + timeBeforeSearch);
-        debugTexts[4].text = ("isPlayerHere : " + isPlayerHere);
-        debugTexts[5].text = ("animationCurveTimingMax : " + animationCurveTimingMax);
-        debugTexts[6].text = ("currentRepositionTime : " + currentRepositionTime);
+        //debugTexts[0].text = ("cameraReposition : " + cameraReposition);
+        //debugTexts[1].text = ("selectionTimingImage.fillAmount : " + selectionTimingImage.fillAmount);
+        //debugTexts[2].text = ("switchToUI : " + switchToUI);
+        //debugTexts[3].text = ("isZooming : " + timeBeforeSearch);
+        //debugTexts[4].text = ("isPlayerHere : " + isPlayerHere);
+        //debugTexts[5].text = ("animationCurveTimingMax : " + animationCurveTimingMax);
+        //debugTexts[6].text = ("currentRepositionTime : " + currentRepositionTime);
         //debugTexts[7].text = ("speed : " + curr);
         //debugTexts[8].text = ("fieldOfView : " + fieldOfView);
         //debugTexts[9].text = ("currentSlowTime : " + currentSlowTime);
@@ -347,11 +364,12 @@ public class Camera_UI : MonoBehaviour
                 virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x + targetOffsetDiff.x * retarPercent,
                     currentTargetOffset.y + targetOffsetDiff.y * retarPercent, currentTargetOffset.z + targetOffsetDiff.z * retarPercent);
 
-                //Changement du Scale du dolly
-                dollyTransform.localScale = new Vector3(currentDollyScale.x + dollyDiff.x * repoPercent, currentDollyScale.y + dollyDiff.y * repoPercent, currentDollyScale.z + dollyDiff.z * repoPercent);
+                //Changement du Transform du dolly
+                dollyTransform.position = new Vector3(currentDollyPosition.x + dollyPositionDiff.x * repoPercent, currentDollyPosition.y + dollyPositionDiff.y * repoPercent,
+                    currentDollyPosition.z + dollyPositionDiff.z * repoPercent);
 
                 //Changement de la focale
-                virtualCamera.m_Lens.FieldOfView = currentFOV + fovDiff * repoPercent;
+                virtualCamera.m_Lens.OrthographicSize = currentFOV + fovDiff * repoPercent;
             }
         }
         else
@@ -360,11 +378,14 @@ public class Camera_UI : MonoBehaviour
             virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x - targetOffsetDiff.x * retarPercent,
                 currentTargetOffset.y - targetOffsetDiff.y * retarPercent, currentTargetOffset.z - targetOffsetDiff.z * retarPercent);
 
-            //Changement du Scale du dolly
-            dollyTransform.localScale = new Vector3(currentDollyScale.x - dollyDiff.x * repoPercent, currentDollyScale.y - dollyDiff.y * repoPercent, currentDollyScale.z - dollyDiff.z * repoPercent);
+
+            //Changement du Transform du dolly
+            dollyTransform.position = new Vector3(currentDollyPosition.x - dollyPositionDiff.x * repoPercent, currentDollyPosition.y - dollyPositionDiff.y * repoPercent,
+                    currentDollyPosition.z - dollyPositionDiff.z * repoPercent);
+
 
             //Changement de la focale
-            virtualCamera.m_Lens.FieldOfView = currentFOV - fovDiff * repoPercent;
+            virtualCamera.m_Lens.OrthographicSize = currentFOV - fovDiff * repoPercent;
         }
 
     }
@@ -376,37 +397,37 @@ public class Camera_UI : MonoBehaviour
     {
         if (continuePosDifference < 0)
         {
-            //Debug.Log("Continue est négatif");
+            Debug.Log("Continue est négatif");
 
             reversePosDifference = positionMax - (continuePosDifference * -1);
 
             if ((continuePosDifference * -1) > reversePosDifference)
             {
-                //Debug.Log("Continue 1");
+                Debug.Log("Continue 1");
 
                 animationPosDifference = reversePosDifference;
             }
             else
             {
-                //Debug.Log("Continue 2");
+                Debug.Log("Continue 2");
 
                 animationPosDifference = continuePosDifference;
             }
         }
         else
         {
-            //Debug.Log("Continue est positif");
+            Debug.Log("Continue est positif");
 
             reversePosDifference = positionMax - continuePosDifference;
 
-            if (continuePosDifference > reversePosDifference)
+            if (continuePosDifference * -1 > reversePosDifference)
             {
-                //Debug.Log("Continue 3");
+                Debug.Log("Continue 3");
                 animationPosDifference = reversePosDifference;
             }
             else
             {
-                //Debug.Log("Continue 4");
+                Debug.Log("Continue 4");
 
                 animationPosDifference = continuePosDifference;
             }
@@ -420,13 +441,13 @@ public class Camera_UI : MonoBehaviour
 
         if (animationPosDifference < 0)
         {
-            //Debug.Log("Result 1");
+            Debug.Log("Result 1");
 
             animationCurveTimingMax = animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
         }
         else
         {
-            //Debug.Log("Result 2");
+            Debug.Log("Result 2");
 
             animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
         }
