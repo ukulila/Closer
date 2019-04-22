@@ -23,7 +23,7 @@ public class DialogueSetUp : Editor
     {
         DialogueSystem dialogueSystem = (DialogueSystem)target;
 
-        if (GUILayout.Button("Update Dialogue Parameters"))
+        if (GUILayout.Button("Reset Default Values"))
         {
             dialogueSystem.dialogueBoxPrefab = dialogueBoxPrefabReference;
             dialogueSystem.dialogueGo = dialogueSystem.gameObject.GetComponent<RectTransform>();

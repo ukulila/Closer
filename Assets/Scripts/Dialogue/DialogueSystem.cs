@@ -7,7 +7,12 @@ using System;
 
 public class DialogueSystem : MonoBehaviour
 {
+    [Header("Contenu en lignes du Dialogue")]
     public TextAsset asset;
+    public int currentLine;
+    public int maxLines;
+
+
     private string textOfAsset;
     private char[] characters;
     private string currentWord;
@@ -16,7 +21,7 @@ public class DialogueSystem : MonoBehaviour
     private bool actorSet = false;
     private bool write = false;
 
-
+    [Header("   Répartition et Assignation du Contenu")]
     public List<string> lines;
     public char[] currentLineCharacters;
     public TextMeshProUGUI[] dialogueTexts;
@@ -26,33 +31,32 @@ public class DialogueSystem : MonoBehaviour
     public List<Image> actorsIcon;
     public Image[] iconsList;
 
-
+    /*
     public CharacterArray charArray;
     public ListOfCharacterArray listOfCharArray;
+    */
 
-
+    [Header("   Vitesse d'écriture")]
     public List<AnimationCurve> lineTypingSpeed;
     public float ratioValue;
     public float currentTime;
     public float maxTime;
     public float typingTimeRatio;
-    private float typingSpeedRatio = 1;
-    private float typingFasterRatio = 1;
+    private float typingSpeedRatio = 1.5f;
+    private float typingFasterRatio = 3;
     public int currentCharacter;
     public int lastCharacter;
 
+
+    [Header("   Récupération des acteurs")]
+    public GameObject actorsIconHierarchyReference;
     public enum Actors { Blanche, Mireille, Louis, MmeBerleau, Dotty, Jolly, Dolores, Maggie, Esdie, Walter, Ray, Barney, Nikky, Irina };
     public Actors currentActor;
     public List<Actors> actors;
     public List<int> activeActorsIndex;
-    public GameObject actorsIconHierarchyReference;
-    public List<Color> boxColor;
-    public List<Color> actorsColor;
 
 
-    [Header("Dialogue 'Content'")]
-    public int currentLine;
-    public int maxLines;
+
 
     [Header("Dialogue Box Image Parameters")]
     //Parametres BOX des rectTransform
@@ -69,6 +73,10 @@ public class DialogueSystem : MonoBehaviour
     public float boxInitPos_X2 = -125f;
     public float boxInitPos_Y2 = -150f;
 
+    //Adapter les boxes à leur text
+    public Vector2 textSize;
+    public float rendWidth;
+    public float rendHeight;
 
     //Parametres TEXT des rectTransform
     public float textHeightPerLine = 35f;
@@ -83,6 +91,7 @@ public class DialogueSystem : MonoBehaviour
     public bool isThereAnotherLine;
     public bool ending;
     public bool dialogueHasStarted;
+    public bool isFaster;
 
 
     //Changer la couleur character per character
@@ -90,12 +99,13 @@ public class DialogueSystem : MonoBehaviour
     public TMP_TextInfo textInfo;
     public Color32[] vertexNewColor;
 
-
+    [Header("Box Sliding Set Up Parameters")]
     public List<float> translationCount;
     public RectTransform dialogueGo;
     public bool boxReady = true;
     public Vector2 nextLinePosition;
 
+    [Header("   Box Sliding Animation")]
     public AnimationCurve boxSlidingCurve;
     public float currentSlideTime;
     public float maxSlideTime;
@@ -103,6 +113,7 @@ public class DialogueSystem : MonoBehaviour
     public float currentYPos;
     public float nextYPos;
 
+    [Header("   Dialogue End Animation")]
     public AnimationCurve resetDialogueCurve;
     public float currentResetTime;
     public float maxResetTime;
@@ -116,19 +127,34 @@ public class DialogueSystem : MonoBehaviour
     public List<float> dialogueBoxHeights;
     public bool dialogueBoxReady = true;
 
+    [Header("   Box Apparition Animation")]
     public AnimationCurve boxAppearingCurve;
     public float currentAppearingTime;
     public float maxAppearingTime = 1;
     public float appearingPercent;
-    public float AppearTimeRatio = 3;
+    public float AppearTimeRatio = 5;
+
+    [Header("   Box Color during dialogue")]
 
     public Color speakingColor;
     public Color listeningColor;
+    public List<Color> actorsColorReference;
 
-    //Adapter les boxes à leur text
-    public Vector2 textSize;
-    public float rendWidth;
-    public float rendHeight;
+    [Header("Actors Box Color")]
+    public Color32 blancheColor;
+    public Color32 mireilleColor;
+    public Color32 louisColor;
+    public Color32 berleauColor;
+    public Color32 dottyColor;
+    public Color32 jollyColor;
+    public Color32 doloresColor;
+    public Color32 maggieColor;
+    public Color32 esdieColor;
+    public Color32 walterColor;
+    public Color32 rayColor;
+    public Color32 barneyColor;
+    public Color32 nikkyColor;
+    public Color32 irinaColor;
 
 
 
@@ -155,6 +181,7 @@ public class DialogueSystem : MonoBehaviour
 
     public void StartDialogue()
     {
+        ROOM_Manager.Instance.isInteracting = true;
         StartCoroutine(StartDialogueIn(2));
     }
 
@@ -199,16 +226,35 @@ public class DialogueSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (endOfTheLine && !isThereAnotherLine)
+            {
+                isFaster = false;
                 isDialogueFinished = true;
+            }
 
-            if (endOfTheLine && isThereAnotherLine)
+
+            if (endOfTheLine && isThereAnotherLine && boxReady)
             {
                 endOfTheLine = false;
+                isFaster = false;
+                boxReady = false;
+
                 NextLine();
             }
 
-            if (!endOfTheLine)
+            if (!endOfTheLine && isFaster && boxReady)
+            {
+                dialogueTexts[currentLine].color = new Color32(82, 29, 80, 255);
+                //Debug.Log("End now line " + currentLine);
+                endOfTheLine = true;
+                isFaster = false;
+            }
+
+            if (!endOfTheLine && !isFaster && boxReady)
+            {
                 typingTimeRatio = typingFasterRatio;
+                //Debug.Log("FASTER !");
+                isFaster = true;
+            }
         }
 
 
@@ -224,7 +270,7 @@ public class DialogueSystem : MonoBehaviour
         if (isDialogueFinished && !ending && dialogueBoxReady && dialogueHasStarted)
             ResetDialogueParameters();
 
-        if (!isDialogueFinished && !endOfTheLine && writting)
+        if (!isDialogueFinished && !endOfTheLine && writting && boxReady)
             DialogueUpdate();
     }
 
@@ -235,11 +281,29 @@ public class DialogueSystem : MonoBehaviour
         //CleanDialogueSetUp();
         SetUpDefaultValues();
         SetUpActorIcons();
-        SetUpActorCalorDefaultValue();
+        SetUpDefaultActorsColor();
         SetUpTextFile();
         SetUpDialogueLines();
         SetUpDialogueBox();
         SetActorsParameters();
+    }
+
+    private void SetUpDefaultActorsColor()
+    {
+        actorsColorReference[0] = blancheColor;
+        actorsColorReference[1] = mireilleColor;
+        actorsColorReference[2] = louisColor;
+        actorsColorReference[3] = berleauColor;
+        actorsColorReference[4] = dottyColor;
+        actorsColorReference[5] = jollyColor;
+        actorsColorReference[6] = doloresColor;
+        actorsColorReference[7] = maggieColor;
+        actorsColorReference[8] = esdieColor;
+        actorsColorReference[9] = walterColor;
+        actorsColorReference[10] = rayColor;
+        actorsColorReference[11] = barneyColor;
+        actorsColorReference[12] = nikkyColor;
+        actorsColorReference[13] = irinaColor;
     }
 
     private void SetUpDefaultValues()
@@ -262,12 +326,14 @@ public class DialogueSystem : MonoBehaviour
         textWidth = 320;
 
         Ydisplacment = 1900f;
-        maxResetTime = 1.5f;
+        maxResetTime = 1;
 
         ratioValue = 10f;
         maxTime = 3f;
         lastCharacter = -1;
         maxSlideTime = 0.9f;
+
+        AppearTimeRatio = 5;
 
         actors = new List<Actors>();
         lines = new List<string>();
@@ -281,8 +347,22 @@ public class DialogueSystem : MonoBehaviour
         activeActorsIndex = new List<int>();
         dialogueBoxHeights = new List<float>();
         dialogueBoxWidths = new List<float>();
-        boxColor = new List<Color>();
-        actorsColor = new List<Color>();
+        actorsColorReference = new List<Color>();
+
+        blancheColor = new Color32(255, 255, 255, 255);
+        mireilleColor = new Color32(255, 255, 255, 255);
+        louisColor = new Color32(220, 120, 140, 255); ;
+        berleauColor = new Color32(255, 255, 255, 255);
+        dottyColor = new Color32(155, 100, 135, 255);
+        jollyColor = new Color32(255, 255, 255, 255);
+        doloresColor = new Color32(255, 130, 80, 255);
+        maggieColor = new Color32(255, 255, 255, 255);
+        esdieColor = new Color32(150, 210, 150, 255);
+        walterColor = new Color32(150, 100, 200, 255);
+        rayColor = new Color32(255, 255, 255, 255);
+        barneyColor = new Color32(255, 255, 255, 255);
+        nikkyColor = new Color32(95, 195, 140, 255);
+        irinaColor = new Color32(255, 255, 255, 255);
     }
 
     public void AssignActorsIcon()
@@ -324,8 +404,10 @@ public class DialogueSystem : MonoBehaviour
         for (int i = 0; i < iconsList.Length; i++)
         {
             iconsList.SetValue(actorsIconHierarchyReference.GetComponentsInChildren<Image>()[i], i);
-            actorsColor.Add(new Color());
+            actorsColorReference.Add(new Color());
         }
+
+        //SetUpDefaultActorsColor();
 
         if (iconsList != null)
         {
@@ -335,11 +417,6 @@ public class DialogueSystem : MonoBehaviour
                 actorsIcon[i].gameObject.SetActive(false);
             }
         }
-    }
-
-    private void SetUpActorCalorDefaultValue()
-    {
-
     }
 
     private void SetUpDialogueLines()
@@ -525,8 +602,7 @@ public class DialogueSystem : MonoBehaviour
         boxAppearingCurve = new AnimationCurve();
         boxSlidingCurve = new AnimationCurve();
         resetDialogueCurve = new AnimationCurve();
-        boxColor = new List<Color>();
-
+        //actorsColorReference = new List<Color>();
 
 
         boxAppearingCurve.AddKey(0, 0);
@@ -536,22 +612,12 @@ public class DialogueSystem : MonoBehaviour
         boxAppearingCurve.AddKey(1, 1);
         boxSlidingCurve.AddKey(1, 1);
         resetDialogueCurve.AddKey(1, 1);
-        //listOfCharArray.lines = new List<CharacterArray>();
 
         //Set des animations curve par défault
         for (int i = 0; i < maxLines; i++)
         {
             lineTypingSpeed.Add(new AnimationCurve());
             lineTypingSpeed[i].AddKey(0, 0);
-
-
-            /*
-            charArray.charactersArray = lines[i].ToCharArray();
-            CharacterArray array = new CharacterArray();
-            array.charactersArray = lines[i].ToCharArray();
-            listOfCharArray.lines.Add(array);
-            */
-
 
             float value = (lines[i].ToCharArray().Length / ratioValue);
 
@@ -560,15 +626,20 @@ public class DialogueSystem : MonoBehaviour
 
             lineTypingSpeed[i].AddKey(value, lines[i].ToCharArray().Length);
 
+
+
             //Pour chaque ligne, on crée un instance du prefab dialogueBOX
             GameObject currentGO = Instantiate(dialogueBoxPrefab, transform);
+
             //Et on assigne le GameObject instancié dans une liste
             dialogueBoxes.SetValue(currentGO, i);
+
             //Et on assigne le TextMeshProGUI du GameObject instancié dans une autre liste
             dialogueTexts.SetValue(dialogueBoxes[i].GetComponentInChildren<TextMeshProUGUI>(), i);
 
             //Enfin on assigne au text du TextMeshProGUI du GameObject instancié la string de chaque ligne
             dialogueTexts[i].text = lines[i];
+
 
 
             //Modification des transforms selon l'actor (Blanche à droite et les autres à gauche)
@@ -629,7 +700,7 @@ public class DialogueSystem : MonoBehaviour
             dialogueBoxHeights.Add(dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta.y);
             dialogueBoxWidths.Add(dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta.x);
 
-            boxColor.Add(dialogueBoxes[i].GetComponent<Image>().color);
+            dialogueBoxes[i].GetComponent<Image>().color = actorsColorReference[(int)actors[i]];
 
             dialogueBoxes[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
         }
@@ -665,8 +736,7 @@ public class DialogueSystem : MonoBehaviour
         activeActorsIndex.Clear();
         dialogueBoxHeights.Clear();
         dialogueBoxWidths.Clear();
-        boxColor.Clear();
-        actorsColor.Clear();
+        actorsColorReference.Clear();
 
         //listOfCharacterArray.lines.Clear();
         currentWord = "";
@@ -819,8 +889,6 @@ public class DialogueSystem : MonoBehaviour
         currentAppearingTime = 0;
         typingTimeRatio = typingSpeedRatio;
 
-        SetUp();
-
         dialogueGo.anchoredPosition = new Vector2(0, 0);
 
         ROOM_Manager.Instance.LaunchUI();
@@ -831,6 +899,12 @@ public class DialogueSystem : MonoBehaviour
         boxReady = true;
         dialogueBoxReady = false;
         dialogueHasStarted = false;
+
+        Debug.Log("RESET now");
+
+        SetUp();
+
+
     }
 
     private void SetDialogueParameters()
@@ -966,50 +1040,40 @@ public class DialogueSystem : MonoBehaviour
 
         percentY = resetDialogueCurve.Evaluate(currentResetTime);
 
-        dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, lastY + Ydisplacment * (percentY - maxResetTime));
+        dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, lastY + Ydisplacment * percentY);
 
         float numberOfActors = activeActorsIndex.Count;
 
         if (numberOfActors == 1)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color32((byte)actorsIcon[activeActorsIndex[0]].color.r, (byte)actorsIcon[activeActorsIndex[0]].color.g,
-            (byte)actorsIcon[activeActorsIndex[0]].color.b, (byte)(actorsIcon[activeActorsIndex[0]].color.a - 255 * (percentY - maxResetTime)));
+            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
         }
 
         if (numberOfActors == 2)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color32((byte)actorsIcon[activeActorsIndex[0]].color.r, (byte)actorsIcon[activeActorsIndex[0]].color.g,
-            (byte)actorsIcon[activeActorsIndex[0]].color.b, (byte)(actorsIcon[activeActorsIndex[0]].color.a - 255 * (percentY - maxResetTime)));
+            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
-            actorsIcon[activeActorsIndex[1]].color = new Color32((byte)actorsIcon[activeActorsIndex[1]].color.r, (byte)actorsIcon[activeActorsIndex[1]].color.g,
-            (byte)actorsIcon[activeActorsIndex[1]].color.b, (byte)(actorsIcon[activeActorsIndex[1]].color.a - 255 * (percentY - maxResetTime)));
+            actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
         }
 
         if (numberOfActors == 3)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color32((byte)actorsIcon[activeActorsIndex[0]].color.r, (byte)actorsIcon[activeActorsIndex[0]].color.g,
-            (byte)actorsIcon[activeActorsIndex[0]].color.b, (byte)(actorsIcon[activeActorsIndex[0]].color.a - 255 * (percentY - maxResetTime)));
+            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
-            actorsIcon[activeActorsIndex[1]].color = new Color32((byte)actorsIcon[activeActorsIndex[1]].color.r, (byte)actorsIcon[activeActorsIndex[1]].color.g,
-            (byte)actorsIcon[activeActorsIndex[1]].color.b, (byte)(actorsIcon[activeActorsIndex[1]].color.a - 255 * (percentY - maxResetTime)));
+            actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
-            actorsIcon[activeActorsIndex[2]].color = new Color32((byte)actorsIcon[activeActorsIndex[2]].color.r, (byte)actorsIcon[activeActorsIndex[2]].color.g,
-            (byte)actorsIcon[activeActorsIndex[2]].color.b, (byte)(actorsIcon[activeActorsIndex[2]].color.a - 255 * (percentY - maxResetTime)));
+            actorsIcon[activeActorsIndex[2]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
         }
 
         if (numberOfActors == 4)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color32((byte)actorsIcon[activeActorsIndex[0]].color.r, (byte)actorsIcon[activeActorsIndex[0]].color.g,
-            (byte)actorsIcon[activeActorsIndex[0]].color.b, (byte)(actorsIcon[activeActorsIndex[0]].color.a - 255 * (percentY - maxResetTime)));
+            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
-            actorsIcon[activeActorsIndex[1]].color = new Color32((byte)actorsIcon[activeActorsIndex[1]].color.r, (byte)actorsIcon[activeActorsIndex[1]].color.g,
-            (byte)actorsIcon[activeActorsIndex[1]].color.b, (byte)(actorsIcon[activeActorsIndex[1]].color.a - 255 * (percentY - maxResetTime)));
+            actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
-            actorsIcon[activeActorsIndex[2]].color = new Color32((byte)actorsIcon[activeActorsIndex[2]].color.r, (byte)actorsIcon[activeActorsIndex[2]].color.g,
-            (byte)actorsIcon[activeActorsIndex[2]].color.b, (byte)(actorsIcon[activeActorsIndex[2]].color.a - 255 * (percentY - maxResetTime)));
+            actorsIcon[activeActorsIndex[2]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
-            actorsIcon[activeActorsIndex[3]].color = new Color32((byte)actorsIcon[activeActorsIndex[3]].color.r, (byte)actorsIcon[activeActorsIndex[3]].color.g,
-            (byte)actorsIcon[activeActorsIndex[3]].color.b, (byte)(actorsIcon[activeActorsIndex[3]].color.a - 255 * (percentY - maxResetTime)));
+            actorsIcon[activeActorsIndex[3]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
         }
 
     }

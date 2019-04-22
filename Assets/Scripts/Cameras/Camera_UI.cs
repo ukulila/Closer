@@ -96,7 +96,7 @@ public class Camera_UI : MonoBehaviour
                 //Debug.Log("Room set");
 
 
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && ROOM_Manager.Instance.isInteracting == false)
                 {
                     RaycastHit selectedCube;
 

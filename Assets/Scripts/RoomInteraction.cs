@@ -1,9 +1,18 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RoomInteraction : MonoBehaviour
 {
+    [Header("Room Description")]
+    public string roomName;
+    public string roomDescription;
+
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI descritpionText;
+
+    [Header("Opportunities")]
     public bool isDialogue;
     public bool isInteraction;
     public bool isSecondFloor;
@@ -14,8 +23,10 @@ public class RoomInteraction : MonoBehaviour
     public Button interactWith;
     public Button changeFloor;
 
+    
 
-    public List<Animator> buttonsAnimator;
+    [Header("Animators")]
+    public List<Animator> uiAnimators;
 
 
 
@@ -31,21 +42,24 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void InteractionAppears()
     {
+
         //Debug.Log("Enable UI");
+        uiAnimators[3].SetTrigger("Enabled");
+        uiAnimators[4].SetTrigger("Enabled");
 
         if (isDialogue)
         {
-            buttonsAnimator[0].SetTrigger("Enabled");
+            uiAnimators[0].SetTrigger("Enabled");
         }
 
         if (isInteraction)
         {
-            buttonsAnimator[1].SetTrigger("Enabled");
+            uiAnimators[1].SetTrigger("Enabled");
         }
 
         if (isSecondFloor)
         {
-            buttonsAnimator[2].SetTrigger("Enabled");
+            uiAnimators[2].SetTrigger("Enabled");
         }
     }
 
@@ -55,14 +69,18 @@ public class RoomInteraction : MonoBehaviour
     public void DisableUI()
     {
         //Debug.Log("Disable UI");
+
         talkTo.interactable = false;
-        buttonsAnimator[0].SetTrigger("Disabled");
+        uiAnimators[0].SetTrigger("Disabled");
 
         interactWith.interactable = false;
-        buttonsAnimator[1].SetTrigger("Disabled");
+        uiAnimators[1].SetTrigger("Disabled");
 
         changeFloor.interactable = false;
-        buttonsAnimator[2].SetTrigger("Disabled");
+        uiAnimators[2].SetTrigger("Disabled");
+
+        uiAnimators[3].SetTrigger("Disabled");
+        uiAnimators[4].SetTrigger("Disabled");
     }
 
     /// <summary>
@@ -70,22 +88,38 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void SetAnimators()
     {
-        buttonsAnimator.Clear();
+        uiAnimators.Clear();
 
         if (talkTo != null)
-            buttonsAnimator.Add(talkTo.gameObject.GetComponent<Animator>());
+            uiAnimators.Add(talkTo.gameObject.GetComponent<Animator>());
         else
             Debug.LogWarning("This Button is not assigned");
 
         if (interactWith != null)
-            buttonsAnimator.Add(interactWith.gameObject.GetComponent<Animator>());
+            uiAnimators.Add(interactWith.gameObject.GetComponent<Animator>());
         else
             Debug.LogWarning("This Button is not assigned");
 
         if (changeFloor != null)
-            buttonsAnimator.Add(changeFloor.gameObject.GetComponent<Animator>());
+            uiAnimators.Add(changeFloor.gameObject.GetComponent<Animator>());
         else
             Debug.LogWarning("This Button is not assigned");
+
+        if (nameText != null)
+            uiAnimators.Add(nameText.gameObject.GetComponent<Animator>());
+        else
+            Debug.LogWarning("This Button is not assigned");
+
+        if (descritpionText != null)
+            uiAnimators.Add(descritpionText.gameObject.GetComponent<Animator>());
+        else
+            Debug.LogWarning("This Button is not assigned");
+    }
+
+    private void UiTextUpdate()
+    {
+        nameText.text = roomName;
+        descritpionText.text = roomDescription;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -95,6 +129,7 @@ public class RoomInteraction : MonoBehaviour
         {
             NPC_Manager.Instance.currentNPC = npc;
             ROOM_Manager.Instance.currentRoom = this;
+            UiTextUpdate();
         }
 
         //Set le NPC de la room

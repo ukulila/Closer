@@ -3,6 +3,7 @@
 public class ROOM_Manager : MonoBehaviour
 {
     public RoomInteraction currentRoom;
+    public bool isInteracting = false;
 
 
     public static ROOM_Manager Instance;
@@ -20,7 +21,10 @@ public class ROOM_Manager : MonoBehaviour
     public void LaunchUI()
     {
         if (currentRoom != null)
+        {
             currentRoom.InteractionAppears();
+            isInteracting = true;
+        }
     }
 
     /// <summary>
