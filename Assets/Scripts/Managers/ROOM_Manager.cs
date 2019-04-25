@@ -3,10 +3,10 @@
 public class ROOM_Manager : MonoBehaviour
 {
     public RoomInteraction currentRoom;
-    public bool isInteracting = false;
 
 
     public static ROOM_Manager Instance;
+
 
 
 
@@ -23,7 +23,7 @@ public class ROOM_Manager : MonoBehaviour
         if (currentRoom != null)
         {
             currentRoom.InteractionAppears();
-            isInteracting = true;
+            GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
         }
     }
 
@@ -33,6 +33,10 @@ public class ROOM_Manager : MonoBehaviour
     public void DeactivateUI()
     {
         if (currentRoom != null)
+        {
             currentRoom.DisableUI();
+            GameManager.Instance.currentGameMode = GameManager.GameMode.PuzzleMode;
+        }
+
     }
 }
