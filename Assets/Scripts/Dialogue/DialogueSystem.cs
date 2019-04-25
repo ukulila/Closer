@@ -181,7 +181,6 @@ public class DialogueSystem : MonoBehaviour
 
     public void StartDialogue()
     {
-        ROOM_Manager.Instance.isInteracting = true;
         StartCoroutine(StartDialogueIn(2));
     }
 
@@ -892,6 +891,7 @@ public class DialogueSystem : MonoBehaviour
         dialogueGo.anchoredPosition = new Vector2(0, 0);
 
         ROOM_Manager.Instance.LaunchUI();
+        GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
 
         endOfTheLine = false;
         writting = false;

@@ -19,6 +19,8 @@ public class NPC_Manager : MonoBehaviour
     /// </summary>
     public void TalkToCurrentNPC()
     {
+        //Debug.Log("Lauch Dialogue");
         currentNPC.StartDialogueAbout();
+        GameManager.Instance.currentGameMode = GameManager.GameMode.InteractingMode;
     }
 }

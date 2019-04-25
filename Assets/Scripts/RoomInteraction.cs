@@ -23,19 +23,11 @@ public class RoomInteraction : MonoBehaviour
     public Button interactWith;
     public Button changeFloor;
 
-    
-
     [Header("Animators")]
     public List<Animator> uiAnimators;
 
 
 
-
-    private void Awake()
-    {
-        if (npc != null)
-            isDialogue = true;
-    }
 
     /// <summary>
     /// Lance l'apparition de l'UI selon les actions disponibles
@@ -116,14 +108,23 @@ public class RoomInteraction : MonoBehaviour
             Debug.LogWarning("This Button is not assigned");
     }
 
+
     private void UiTextUpdate()
     {
         nameText.text = roomName;
         descritpionText.text = roomDescription;
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
+        //Set le NPC de la room
+        if (other.gameObject.tag == "NPC")
+        {
+            npc = other.gameObject.GetComponent<NPCInteractions>();
+            isDialogue = true;
+        }
+
         //Set le current NPC du manager à l'entrée du joueur
         if (other.gameObject.name.Contains("Player"))
         {
@@ -132,10 +133,6 @@ public class RoomInteraction : MonoBehaviour
             UiTextUpdate();
         }
 
-        //Set le NPC de la room
-        if (other.gameObject.name.Contains("NPC"))
-        {
-            npc = other.gameObject.GetComponent<NPCInteractions>();
-        }
+        
     }
 }

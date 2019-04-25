@@ -122,6 +122,7 @@ public class DialogueTool : EditorWindow
             if (!isThereCanvas)
             {
                 GameObject go = new GameObject("Canvas", typeof(Canvas));
+                go.AddComponent<GraphicRaycaster>();
                 currentCanvas = go;
             }
 
@@ -157,7 +158,6 @@ public class DialogueTool : EditorWindow
 
             if (yourTextFile != null && npcSelected != null && type != DialogueType.ChéPo && currentCanvas != null)
             {
-
                 if (dialogueName == "")
                 {
                     dialogueName = "NewDialogue";
