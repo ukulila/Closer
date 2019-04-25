@@ -38,7 +38,7 @@ public class CellPlacement : MonoBehaviour
 
                 if (hit.collider.gameObject.GetComponent<CellMovement>() != null)
                 {
-                    Debug.Log("touched" + hit.transform.name);
+                   // Debug.Log("touched" + hit.transform.name);
 
                     CellMovement cellmove = hit.collider.gameObject.GetComponent<CellMovement>();
 

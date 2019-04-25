@@ -447,7 +447,7 @@ public class CellMovement : MonoBehaviour
         ///These return a swipe direction and starts the Moving Functions accordingly.
         if (distanceMove.x >= 80)
         {
-            Debug.Log("Right");
+            //Debug.Log("Right");
             movement = false;
 
             if (!once)
@@ -458,7 +458,7 @@ public class CellMovement : MonoBehaviour
         }
         else if (distanceMove.x <= -80)
         {
-            Debug.Log("Left");
+           // Debug.Log("Left");
             movement = false;
             if (!once)
             {
@@ -468,7 +468,7 @@ public class CellMovement : MonoBehaviour
         }
         else if (distanceMove.y <= -80)
         {
-            Debug.Log("Down");
+         //   Debug.Log("Down");
             movement = false;
             if (!once)
             {
@@ -478,7 +478,7 @@ public class CellMovement : MonoBehaviour
         }
         else if (distanceMove.y >= 80)
         {
-            Debug.Log("Up");
+          //  Debug.Log("Up");
             movement = false;
             if (!once)
             {
