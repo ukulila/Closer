@@ -1,18 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class Objet_Interaction : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Definition de l'objet")]
+    public string objectName;
+    public string objectDescription;
+    public Sprite objectImage;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Description Parameters & Co")]
+    public Image uiObjectImage;
+    public TextMeshProUGUI uiObjectDescritpion;
+
+
+    public void UpdateUItext()
     {
-        
+       
     }
 }
