@@ -7,21 +7,21 @@ using TMPro;
 
 public class InventorySystem : MonoBehaviour
 {
-    public GameObject inventoryPos;
-    
+    public Image inventoryInputImage;
+    public Button inventoryButton;
+    public RectTransform startPos;
     public bool isInventoryDisplayed = false;
     public bool isAnimationOver = true;
 
     [Header("Slot")]
-    public List<Image> inventoryIconsImage;
-    public List<Button> inventoryIconsInteractable;
-    public List<Objet_Interaction> inventoryObjets;
-    public RectTransform startPos;
+    public List<Slot_Behaviour> slotsBehaviour;
+    public List<RectTransform> slotsRectTransform;
+
     public List<Vector2> iconsPosition;
     public List<Vector2> positionDiff;
 
     [Header("Animation Parameters")]
-    public AnimationCurve apparitionCurve;
+    public AnimationCurve inventoryApparitionCurve;
     public float apparitionPercent;
     public float apparitionTimeMax;
     public float apparitionCurrentTime;
@@ -33,41 +33,35 @@ public class InventorySystem : MonoBehaviour
         positionDiff.Clear();
         positionDiff = new List<Vector2>();
 
-        for (int i = 0; i < iconsPosition.Count - 1; i++)
+        for (int i = 0; i < iconsPosition.Count; i++)
         {
             positionDiff.Add(new Vector2());
             positionDiff[i] = new Vector2(startPos.localPosition.x - iconsPosition[i].x, startPos.localPosition.y - iconsPosition[i].y);
         }
 
-        for (int i = 0; i < iconsPosition.Count - 1; i++)
+        for (int i = 0; i < iconsPosition.Count; i++)
         {
-            inventoryIconsImage[i].GetComponent<RectTransform>().localPosition = startPos.localPosition;
+            slotsRectTransform[i].localPosition = startPos.localPosition;
         }
     }
 
     private void Update()
     {
-        if (!isAnimationOver)
+        if (!isInventoryDisplayed)
         {
-            if (isInventoryDisplayed)
-            {
-                for (int i = 0; i < inventoryIconsInteractable.Count - 1; i++)
-                {
-                    inventoryIconsInteractable[i].interactable = false;
-                }
+            InventoryHide();
+        }
 
-                InventoryHide();
-            }
-
-            if (!isInventoryDisplayed)
-            {
-                InventoryAppears();
-            }
+        if (isInventoryDisplayed)
+        {
+            InventoryAppears();
         }
     }
 
-    public void ResetTimer()
+    public void InventoryAnimation()
     {
+        isInventoryDisplayed = !isInventoryDisplayed;
+        isAnimationOver = false;
         apparitionCurrentTime = 0;
     }
 
@@ -76,22 +70,22 @@ public class InventorySystem : MonoBehaviour
     /// </summary>
     private void InventoryAppears()
     {
-        if(apparitionCurrentTime < apparitionTimeMax)
+        if (apparitionCurrentTime <= apparitionTimeMax)
         {
             apparitionCurrentTime += Time.deltaTime;
+            inventoryButton.interactable = false;
         }
         else
         {
+            inventoryButton.interactable = true;
             isAnimationOver = true;
-            isInventoryDisplayed = true;
         }
 
-        apparitionPercent = apparitionCurve.Evaluate(apparitionCurrentTime);
+        apparitionPercent = inventoryApparitionCurve.Evaluate(apparitionCurrentTime / apparitionTimeMax);
 
-        iconsPosition[0] = new Vector2(iconsPosition[0].x + positionDiff[0].x * apparitionPercent, iconsPosition[0].y + positionDiff[0].y * apparitionPercent);
-        iconsPosition[1] = new Vector2(iconsPosition[1].x + positionDiff[1].x * apparitionPercent, iconsPosition[1].y + positionDiff[1].y * apparitionPercent);
-        iconsPosition[2] = new Vector2(iconsPosition[2].x + positionDiff[2].x * apparitionPercent, iconsPosition[2].y + positionDiff[2].y * apparitionPercent);
-        iconsPosition[3] = new Vector2(iconsPosition[3].x + positionDiff[3].x * apparitionPercent, iconsPosition[3].y + positionDiff[3].y * apparitionPercent);
+        slotsRectTransform[0].localPosition = new Vector2(startPos.localPosition.x - (positionDiff[0].x * apparitionPercent), startPos.localPosition.y - (positionDiff[0].y * apparitionPercent));
+        slotsRectTransform[1].localPosition = new Vector2(startPos.localPosition.x - (positionDiff[1].x * apparitionPercent), startPos.localPosition.y - (positionDiff[1].y * apparitionPercent));
+        slotsRectTransform[2].localPosition = new Vector2(startPos.localPosition.x - (positionDiff[2].x * apparitionPercent), startPos.localPosition.y - (positionDiff[2].y * apparitionPercent));
     }
 
     /// <summary>
@@ -99,40 +93,39 @@ public class InventorySystem : MonoBehaviour
     /// </summary>
     private void InventoryHide()
     {
-        if (apparitionCurrentTime < apparitionTimeMax)
+        if (apparitionCurrentTime <= apparitionTimeMax)
         {
             apparitionCurrentTime += Time.deltaTime;
+            inventoryButton.interactable = false;
         }
         else
         {
+            inventoryButton.interactable = true;
             isAnimationOver = true;
-            isInventoryDisplayed = false;
         }
 
-        apparitionPercent = apparitionCurve.Evaluate(apparitionCurrentTime);
+        apparitionPercent = inventoryApparitionCurve.Evaluate(apparitionCurrentTime / apparitionTimeMax);
 
-        iconsPosition[0] = new Vector2(iconsPosition[0].x - positionDiff[0].x * apparitionPercent, iconsPosition[0].y - positionDiff[0].y * apparitionPercent);
-        iconsPosition[1] = new Vector2(iconsPosition[1].x - positionDiff[1].x * apparitionPercent, iconsPosition[1].y - positionDiff[1].y * apparitionPercent);
-        iconsPosition[2] = new Vector2(iconsPosition[2].x - positionDiff[2].x * apparitionPercent, iconsPosition[2].y - positionDiff[2].y * apparitionPercent);
-        iconsPosition[3] = new Vector2(iconsPosition[3].x - positionDiff[3].x * apparitionPercent, iconsPosition[3].y - positionDiff[3].y * apparitionPercent);
+        slotsRectTransform[0].localPosition = new Vector2(iconsPosition[0].x + (positionDiff[0].x * apparitionPercent), iconsPosition[0].y + (positionDiff[0].y * apparitionPercent));
+        slotsRectTransform[1].localPosition = new Vector2(iconsPosition[1].x + (positionDiff[1].x * apparitionPercent), iconsPosition[1].y + (positionDiff[1].y * apparitionPercent));
+        slotsRectTransform[2].localPosition = new Vector2(iconsPosition[2].x + (positionDiff[2].x * apparitionPercent), iconsPosition[2].y + (positionDiff[2].y * apparitionPercent));
     }
 
-    public void CollectObject()
+    public void AssignToAvailableSlot(Objet_Interaction collectedObject)
     {
-
+        for (int i = 0; i < slotsBehaviour.Count; i++)
+        {
+            if(slotsBehaviour[i].isAssigned == false)
+            {
+                slotsBehaviour[i].uiObjectImage.sprite = collectedObject.objectImage;
+                slotsBehaviour[i].uiObjectName.text = collectedObject.objectName;
+                slotsBehaviour[i].uiObjectDescritpion.text = collectedObject.objectDescription;
+                return;
+            }
+        }
     }
 
     public void DropAnObject()
-    {
-
-    }
-
-    public void AssignDescription()
-    {
-
-    }
-
-    public void ShowDescription()
     {
 
     }

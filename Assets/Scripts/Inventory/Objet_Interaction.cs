@@ -11,14 +11,4 @@ public class Objet_Interaction : MonoBehaviour
     public string objectName;
     public string objectDescription;
     public Sprite objectImage;
-
-    [Header("Description Parameters & Co")]
-    public Image uiObjectImage;
-    public TextMeshProUGUI uiObjectDescritpion;
-
-
-    public void UpdateUItext()
-    {
-       
-    }
 }

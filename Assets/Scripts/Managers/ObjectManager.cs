@@ -6,7 +6,7 @@ public class ObjectManager : MonoBehaviour
 {
 
     public Objet_Interaction currentObjet;
-
+    public InventorySystem inventorySystem;
 
     public static ObjectManager Instance;
 
@@ -17,8 +17,10 @@ public class ObjectManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ExamineCurrentObject()
+    public void CollectCurrentObject()
     {
-
+        inventorySystem.AssignToAvailableSlot(currentObjet);
+        currentObjet.gameObject.SetActive(false);
+        currentObjet = null;
     }
 }
