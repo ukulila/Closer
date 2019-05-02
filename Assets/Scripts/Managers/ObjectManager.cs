@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public Objet_Interaction currentObjet;
+    public InventorySystem inventorySystem;
+
+    public static ObjectManager Instance;
+
+
+
+    private void Awake()
     {
-        
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CollectCurrentObject()
     {
-        
+        inventorySystem.AssignToAvailableSlot(currentObjet);
+        currentObjet.gameObject.SetActive(false);
+        currentObjet = null;
     }
 }

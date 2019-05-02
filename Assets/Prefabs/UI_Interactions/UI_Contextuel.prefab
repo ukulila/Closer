@@ -157,16 +157,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8357026983984125954, guid: 45b762e62d698b043985bdad3ed60cdc,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357026983984125954, guid: 45b762e62d698b043985bdad3ed60cdc,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45b762e62d698b043985bdad3ed60cdc, type: 3}
 --- !u!224 &7932961286903172733 stripped
@@ -294,6 +284,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3638772524917311449, guid: 7355ad85181fd3049956e6c376e7d189,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638772524917311449, guid: 7355ad85181fd3049956e6c376e7d189,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2567034980398375658}
@@ -302,15 +297,25 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 2567034981125059196}
-    - target: {fileID: 3638772526418952921, guid: 7355ad85181fd3049956e6c376e7d189,
+    - target: {fileID: 3638772524917311449, guid: 7355ad85181fd3049956e6c376e7d189,
         type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 0
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: CollectCurrentObject
       objectReference: {fileID: 0}
-    - target: {fileID: 3638772526418952921, guid: 7355ad85181fd3049956e6c376e7d189,
+    - target: {fileID: 3638772524917311449, guid: 7355ad85181fd3049956e6c376e7d189,
         type: 3}
-      propertyPath: m_isInputParsingRequired
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638772524917311449, guid: 7355ad85181fd3049956e6c376e7d189,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638772524917311449, guid: 7355ad85181fd3049956e6c376e7d189,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7355ad85181fd3049956e6c376e7d189, type: 3}
@@ -453,16 +458,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2567034980584096399}
-    - target: {fileID: 4140817923254254959, guid: d1dc7f7097a63bd4cab1e609b09d4c15,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4140817923254254959, guid: d1dc7f7097a63bd4cab1e609b09d4c15,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1dc7f7097a63bd4cab1e609b09d4c15, type: 3}
 --- !u!224 &2567034981125059184 stripped
@@ -594,16 +589,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 6768732179869723705, guid: dc6e969541173e641b8e5634d5178d67,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6768732179869723705, guid: dc6e969541173e641b8e5634d5178d67,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc6e969541173e641b8e5634d5178d67, type: 3}
 --- !u!224 &6587476590026581516 stripped
@@ -731,6 +716,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8978794333996853924, guid: ed119238430eab14ba01a716e8f9ff76,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978794333996853924, guid: ed119238430eab14ba01a716e8f9ff76,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2567034980584096399}
@@ -739,15 +729,25 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2567034981125059196}
-    - target: {fileID: 8978794334840128838, guid: ed119238430eab14ba01a716e8f9ff76,
+    - target: {fileID: 8978794333996853924, guid: ed119238430eab14ba01a716e8f9ff76,
         type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 0
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: TalkToCurrentNPC
       objectReference: {fileID: 0}
-    - target: {fileID: 8978794334840128838, guid: ed119238430eab14ba01a716e8f9ff76,
+    - target: {fileID: 8978794333996853924, guid: ed119238430eab14ba01a716e8f9ff76,
         type: 3}
-      propertyPath: m_isInputParsingRequired
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978794333996853924, guid: ed119238430eab14ba01a716e8f9ff76,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978794333996853924, guid: ed119238430eab14ba01a716e8f9ff76,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed119238430eab14ba01a716e8f9ff76, type: 3}
