@@ -12,6 +12,7 @@ public class InventorySystem : MonoBehaviour
     public RectTransform startPos;
     public bool isInventoryDisplayed = false;
     public bool isAnimationOver = true;
+    public bool isThereAnyObjectInInventory;
 
     [Header("Slot")]
     public List<Slot_Behaviour> slotsBehaviour;
@@ -26,7 +27,7 @@ public class InventorySystem : MonoBehaviour
     public float apparitionTimeMax;
     public float apparitionCurrentTime;
 
-
+    
     private void Awake()
     {
         //Set up les parametres d'animation des icons d'inventaire
@@ -58,11 +59,18 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Function to call to un/fold the inventory
+    /// </summary>
     public void InventoryAnimation()
     {
-        isInventoryDisplayed = !isInventoryDisplayed;
-        isAnimationOver = false;
-        apparitionCurrentTime = 0;
+        if (isThereAnyObjectInInventory)
+        {
+            isInventoryDisplayed = !isInventoryDisplayed;
+            isAnimationOver = false;
+            apparitionCurrentTime = 0;
+        }
+
     }
 
     /// <summary>
@@ -111,22 +119,66 @@ public class InventorySystem : MonoBehaviour
         slotsRectTransform[2].localPosition = new Vector2(iconsPosition[2].x + (positionDiff[2].x * apparitionPercent), iconsPosition[2].y + (positionDiff[2].y * apparitionPercent));
     }
 
+    /// <summary>
+    /// Ajoute un objet dans l'inventaire et assigne les 
+    /// </summary>
+    /// <param name="collectedObject"></param>
     public void AssignToAvailableSlot(Objet_Interaction collectedObject)
     {
         for (int i = 0; i < slotsBehaviour.Count; i++)
         {
-            if(slotsBehaviour[i].isAssigned == false)
+            if (slotsBehaviour[i].isAssigned == false)
             {
                 slotsBehaviour[i].uiObjectImage.sprite = collectedObject.objectImage;
                 slotsBehaviour[i].uiObjectName.text = collectedObject.objectName;
                 slotsBehaviour[i].uiObjectDescritpion.text = collectedObject.objectDescription;
                 return;
             }
+
+            isThereAnyObjectInInventory = true;
         }
     }
 
-    public void DropAnObject()
+    /// <summary>
+    /// Check si au moins 1 objet se trouve dans l'inventaire
+    /// </summary>
+    private void CheckInventory()
     {
+        for (int i = 0; i < slotsBehaviour.Count; i++)
+        {
+            bool atLeastOne = false;
 
+            if (slotsBehaviour[i].isAssigned == true)
+            {
+                atLeastOne = true;
+            }
+
+            if (atLeastOne)
+                isThereAnyObjectInInventory = true;
+            else
+                isThereAnyObjectInInventory = false;
+        }
+    }
+
+    /// <summary>
+    /// Retire un objet de l'inventaire
+    /// </summary>
+    public void DropAnObject(string objectNameToDrop)
+    {
+        for (int i = 0; i < slotsBehaviour.Count; i++)
+        {
+            if (slotsBehaviour[i].isAssigned == true)
+            {
+                if(slotsBehaviour[i].uiObjectName.text == objectNameToDrop)
+                {
+                    slotsBehaviour[i].isAssigned = false;
+                    slotsBehaviour[i].uiObjectDescritpion = null;
+                    slotsBehaviour[i].uiObjectImage = null;
+                    slotsBehaviour[i].uiObjectName = null;
+                }
+            }
+
+            isThereAnyObjectInInventory = true;
+        }
     }
 }

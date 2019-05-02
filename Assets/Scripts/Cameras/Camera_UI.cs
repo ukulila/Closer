@@ -280,7 +280,7 @@ public class Camera_UI : MonoBehaviour
                 currentSelectedCell = selectedCube.collider.gameObject.transform.parent.name;
                 cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
 
-                if (currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().once == false
+                if (currentSelectedCell != null && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().once == false
                     && cameraReposition == true && isPlayerHere && cellMove != null)
                 {
                     //Debug.Log("COME ON !");
