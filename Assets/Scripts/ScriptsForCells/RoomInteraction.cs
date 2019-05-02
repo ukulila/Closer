@@ -18,6 +18,7 @@ public class RoomInteraction : MonoBehaviour
     public bool isSecondFloor;
 
     public NPCInteractions npc;
+    public Objet_Interaction objet;
 
     public Button talkTo;
     public Button interactWith;
@@ -108,7 +109,9 @@ public class RoomInteraction : MonoBehaviour
             Debug.LogWarning("This Button is not assigned");
     }
 
-
+    /// <summary>
+    /// Change le nom et la description de la pièce
+    /// </summary>
     private void UiTextUpdate()
     {
         nameText.text = roomName;
@@ -129,10 +132,25 @@ public class RoomInteraction : MonoBehaviour
         if (other.gameObject.name.Contains("Player"))
         {
             NPC_Manager.Instance.currentNPC = npc;
+            ObjectManager.Instance.currentObjet = objet;
             ROOM_Manager.Instance.currentRoom = this;
             UiTextUpdate();
         }
 
-        
+        if (other.gameObject.name.Contains("Objet"))
+        {
+            objet = other.gameObject.GetComponent<Objet_Interaction>();
+            isInteraction = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name.Contains("Player"))
+        {
+            NPC_Manager.Instance.currentNPC = null;
+            ObjectManager.Instance.currentObjet = null;
+            ROOM_Manager.Instance.currentRoom = null;
+        }
     }
 }
