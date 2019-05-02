@@ -131,13 +131,17 @@ public class RoomInteraction : MonoBehaviour
         //Set le current NPC du manager à l'entrée du joueur
         if (other.gameObject.name.Contains("Player"))
         {
-            NPC_Manager.Instance.currentNPC = npc;
-            ObjectManager.Instance.currentObjet = objet;
+            if (npc != null)
+                NPC_Manager.Instance.currentNPC = npc;
+
+            if (objet != null)
+                ObjectManager.Instance.currentObjet = objet;
+
             ROOM_Manager.Instance.currentRoom = this;
             UiTextUpdate();
         }
 
-        if (other.gameObject.name.Contains("Objet"))
+        if (other.gameObject.tag == "Objet")
         {
             objet = other.gameObject.GetComponent<Objet_Interaction>();
             isInteraction = true;
