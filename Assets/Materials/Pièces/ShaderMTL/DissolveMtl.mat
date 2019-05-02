@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: DissolveMtl
   m_Shader: {fileID: 4800000, guid: b704daaeaad018046a6e86da70ec6caa, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _USENOISE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -28,6 +28,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
+        m_Texture: {fileID: 2800000, guid: c3dd071534175724abc82e028020c62e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainText:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -47,9 +51,13 @@ Material:
         m_Texture: {fileID: 2800000, guid: f9c03807a673fd244b2bd9cee3d82842, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _useTexture:
+        m_Texture: {fileID: 2800000, guid: 6517b53a8198f494c9be32dcec64a3d7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
-    - _Amount: 0.04
+    - _Amount: 1
     - _Blend: 0
     - _BumpScale: 1
     - _Cull: 2
@@ -60,7 +68,7 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Perlin: 40
+    - _Perlin: 80
     - _ReceiveShadows: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -68,6 +76,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _useNoise: 1
     m_Colors:
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
