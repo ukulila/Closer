@@ -110,6 +110,8 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+  distanceToFade: 0
+  minFade: 0
 --- !u!1 &1455093392565685692
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +222,8 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+  distanceToFade: 0
+  minFade: 0
 --- !u!1 &1455093393137566560
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +261,6 @@ Transform:
   - {fileID: 1455093393535573042}
   - {fileID: 1455093393601836699}
   - {fileID: 1455093392362638867}
-  - {fileID: 145876698923621523}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -286,37 +289,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c04562eddc3d647b9e80132ceb8a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionObj: {fileID: 0}
   click: 0
   over: 0
   once: 0
   movement: 0
   selected: 0
   isOpen: 0
-  timer: 0
+  reverse: 0
+  hasEnded: 0
+  isSpawn: 0
+  moveHorizontal: 0
+  moveVerticalZ: 0
+  moveVerticalX: 0
+  freezePosValue: 0
+  clickDirection: 0
+  raycastAutor: 0
+  ready: 0
   originPos: {x: 0, y: 0, z: 0}
   thenPos: {x: 0, y: 0, z: 0}
   distanceMove: {x: 0, y: 0, z: 0}
-  direction: 0
-  exitCell: {fileID: 0}
-  actualCell: {fileID: 0}
-  brothers: []
-  isSpawn: 0
-  cS: {fileID: 0}
-  cB: {fileID: 0}
   toRotate: []
-  moveHorizontal: 0
-  moveVerticalZ: 0
-  freezePosValue: 0
   myPosFreeze: {x: 0, y: 0, z: 0}
-  hasEnded: 0
-  reverse: 0
   cP: {fileID: 0}
-  moveVerticalX: 0
-  renameManager: {fileID: 0}
-  pM: {fileID: 0}
-  clickDirection: 0
-  raycastAutor: 0
+  player: {fileID: 0}
+  brothers: []
+  resetPosValue: 3.05
+  translateSpeed: 0
 --- !u!114 &1455093393137566565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,16 +327,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62212e89d6c3674694d449176db9cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  first: 0
-  timer: 0
-  nbrTouch: 0
-  rotation: 0
-  set: 0
-  myRot: {x: 0, y: 0, z: 0, w: 0}
-  timeRot: 0
+  speed: 3
   fin: 74
-  wtf: {x: 0, y: 0, z: 0, w: 0}
-  isCurrent: 0
+  timeBetweenTwoTouches: 30
+  isInRotation: 0
+  timer: 0
   brothers:
   - {fileID: 0}
   - {fileID: 0}
@@ -348,8 +341,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  renameManager: {fileID: 0}
   cP: {fileID: 0}
+  myBrain: {fileID: 0}
 --- !u!114 &1455093393137566562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,11 +356,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basePos: {fileID: 0}
-  basePosUp: {fileID: 0}
   paths:
     list: []
   doorWayPoints: []
-  touched: 0
+  DriveLinkToDocumentation: https://docs.google.com/document/d/1xnNaKkt93k7VyAbdshTUKTLybfpX1DaPGwhrvcgqN54/edit
 --- !u!1 &1455093393392976646
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,6 +470,8 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+  distanceToFade: 0
+  minFade: 0
 --- !u!1 &1455093393535573055
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +582,8 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+  distanceToFade: 0
+  minFade: 0
 --- !u!1 &1455093393601836772
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,6 +694,8 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+  distanceToFade: 0
+  minFade: 0
 --- !u!1 &1455093393986990723
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,83 +806,5 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
---- !u!1001 &7886681065486805748
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1455093393137566563}
-    m_Modifications:
-    - target: {fileID: 8031427427668142663, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_Name
-      value: couloir1 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427668142663, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6da76f061d11f7a408646a0e7331601c, type: 3}
---- !u!4 &145876698923621523 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8031427427667981927, guid: 6da76f061d11f7a408646a0e7331601c,
-    type: 3}
-  m_PrefabInstance: {fileID: 7886681065486805748}
-  m_PrefabAsset: {fileID: 0}
+  distanceToFade: 0
+  minFade: 0

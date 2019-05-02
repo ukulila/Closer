@@ -110,6 +110,8 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+  distanceToFade: 0
+  minFade: 0
 --- !u!1 &8591332402273993332
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +222,8 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+  distanceToFade: 0
+  minFade: 0
 --- !u!1 &8591332402474477743
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +334,8 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+  distanceToFade: 0
+  minFade: 0
 --- !u!1 &8591332402668248397
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,6 +446,8 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+  distanceToFade: 0
+  minFade: 0
 --- !u!1 &8591332402940828971
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +485,6 @@ Transform:
   - {fileID: 8591332402273993337}
   - {fileID: 8591332402474477776}
   - {fileID: 8591332403780767832}
-  - {fileID: 8559966581075394020}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -506,37 +513,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c04562eddc3d647b9e80132ceb8a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionObj: {fileID: 0}
   click: 0
   over: 0
   once: 0
   movement: 0
   selected: 0
   isOpen: 0
-  timer: 0
+  reverse: 0
+  hasEnded: 0
+  isSpawn: 0
+  moveHorizontal: 0
+  moveVerticalZ: 0
+  moveVerticalX: 0
+  freezePosValue: 0
+  clickDirection: 0
+  raycastAutor: 0
+  ready: 0
   originPos: {x: 0, y: 0, z: 0}
   thenPos: {x: 0, y: 0, z: 0}
   distanceMove: {x: 0, y: 0, z: 0}
-  direction: 0
-  exitCell: {fileID: 0}
-  actualCell: {fileID: 0}
-  brothers: []
-  isSpawn: 0
-  cS: {fileID: 0}
-  cB: {fileID: 0}
   toRotate: []
-  moveHorizontal: 0
-  moveVerticalZ: 0
-  freezePosValue: 0
   myPosFreeze: {x: 0, y: 0, z: 0}
-  hasEnded: 0
-  reverse: 0
   cP: {fileID: 0}
-  moveVerticalX: 0
-  renameManager: {fileID: 0}
-  pM: {fileID: 0}
-  clickDirection: 0
-  raycastAutor: 0
+  player: {fileID: 0}
+  brothers: []
+  resetPosValue: 3.05
+  translateSpeed: 0
 --- !u!114 &8591332402940828974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,16 +551,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62212e89d6c3674694d449176db9cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  first: 0
-  timer: 0
-  nbrTouch: 0
-  rotation: 0
-  set: 0
-  myRot: {x: 0, y: 0, z: 0, w: 0}
-  timeRot: 0
+  speed: 3
   fin: 74
-  wtf: {x: 0, y: 0, z: 0, w: 0}
-  isCurrent: 0
+  timeBetweenTwoTouches: 30
+  isInRotation: 0
+  timer: 0
   brothers:
   - {fileID: 0}
   - {fileID: 0}
@@ -568,8 +565,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  renameManager: {fileID: 0}
   cP: {fileID: 0}
+  myBrain: {fileID: 0}
 --- !u!114 &8591332402940828969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,11 +580,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basePos: {fileID: 0}
-  basePosUp: {fileID: 0}
   paths:
     list: []
   doorWayPoints: []
-  touched: 0
+  DriveLinkToDocumentation: https://docs.google.com/document/d/1xnNaKkt93k7VyAbdshTUKTLybfpX1DaPGwhrvcgqN54/edit
 --- !u!1 &8591332403577459703
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,6 +694,8 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
+  distanceToFade: 0
+  minFade: 0
 --- !u!1 &8591332403780767831
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,66 +806,5 @@ MonoBehaviour:
   distance: 0
   isActive: 0
   oui: 0
---- !u!1001 &8559966581074995020
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 8591332402940828968}
-    m_Modifications:
-    - target: {fileID: 100040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_Name
-      value: salon reception
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a7397c8806ecea347998b6223cedad6d, type: 3}
---- !u!4 &8559966581075394020 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400040, guid: a7397c8806ecea347998b6223cedad6d,
-    type: 3}
-  m_PrefabInstance: {fileID: 8559966581074995020}
-  m_PrefabAsset: {fileID: 0}
+  distanceToFade: 0
+  minFade: 0
