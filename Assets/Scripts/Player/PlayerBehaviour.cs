@@ -59,7 +59,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (lookCam)
         {
             reset = true;
-            transform.LookAt(Camera.transform.position);
+            //transform.LookAt(Camera.transform.position);
         }
 
 

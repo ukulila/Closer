@@ -22,6 +22,7 @@ public class ROOM_Manager : MonoBehaviour
     {
         if (currentRoom != null)
         {
+            Debug.Log("Do it !");
             currentRoom.InteractionAppears();
             GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
         }
