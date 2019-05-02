@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public enum DialogueType { ChéPo, Commun, Quest };
 
 public class DialogueTool : EditorWindow
@@ -37,8 +38,6 @@ public class DialogueTool : EditorWindow
 
 
 
-
-
     [MenuItem("Gameplay Tools/Create a Dialogue")]
     public static void ShowWindow()
     {
@@ -50,7 +49,7 @@ public class DialogueTool : EditorWindow
         GUILayout.Label("Dialogue Text", EditorStyles.boldLabel);
         yourTextFile = EditorGUILayout.ObjectField(yourTextFile, typeof(TextAsset), false);
 
-        selectedNPC = EditorGUILayout.ObjectField("NPC déclencheur",selectedNPC, typeof(NPCInteractions), true);
+        selectedNPC = EditorGUILayout.ObjectField("NPC déclencheur", selectedNPC, typeof(NPCInteractions), true);
 
         GUILayout.Label("Sujet de la conversation", EditorStyles.boldLabel);
         dialogueName = EditorGUILayout.TextField(dialogueName);
@@ -174,7 +173,13 @@ public class DialogueTool : EditorWindow
                     npcSelected.GetComponent<NPCInteractions>().communDialogueSystems.Add(newDialogue.GetComponent<DialogueSystem>());
 
                 if (type == DialogueType.Quest)
+                {
+                    Undo.RecordObject(this, "Bla bla");
                     npcSelected.GetComponent<NPCInteractions>().questDialogueSystems.Add(newDialogue.GetComponent<DialogueSystem>());
+                    npcSelected.GetComponent<NPCInteractions>().questTriggers.Add(new UnityEngine.Events.UnityEvent());
+                    EditorUtility.SetDirty(this);
+                }
+
 
 
                 if (GameObject.Find(actorIcons_Reference.name))

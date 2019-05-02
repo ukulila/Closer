@@ -52,33 +52,63 @@ public class RoomInteractionSetUp : Editor
 
         if (GUILayout.Button("Get References"))
         {
-            if(roomInteraction.talkTo == null)
+            if (roomInteraction.roomName == "")
             {
-                roomInteraction.talkTo = GameObject.Find(talk.name).GetComponent<Button>(); ;
+                Undo.RecordObject(this, "Bla bla");
+                roomInteraction.roomName = "Enter a name";
+                EditorUtility.SetDirty(this);
+            }
+
+
+            if (roomInteraction.roomDescription == "")
+            {
+                Undo.RecordObject(this, "Bla bla");
+                roomInteraction.roomDescription = "Enter a description";
+                EditorUtility.SetDirty(this);
+            }
+
+
+            if (roomInteraction.talkTo == null)
+            {
+                Undo.RecordObject(this, "Bla bla");
+                roomInteraction.talkTo = GameObject.Find(talk.name).GetComponent<Button>();
+                EditorUtility.SetDirty(this);
             }
 
             if (roomInteraction.interactWith == null)
             {
-                roomInteraction.interactWith = GameObject.Find(interact.name).GetComponent<Button>(); ;
+                Undo.RecordObject(this, "Bla bla");
+                roomInteraction.interactWith = GameObject.Find(interact.name).GetComponent<Button>();
+                EditorUtility.SetDirty(this);
             }
 
             if (roomInteraction.changeFloor == null)
             {
-                roomInteraction.changeFloor = GameObject.Find(floor.name).GetComponent<Button>(); ;
+                Undo.RecordObject(this, "Bla bla");
+                roomInteraction.changeFloor = GameObject.Find(floor.name).GetComponent<Button>();
+                EditorUtility.SetDirty(this);
             }
 
             if (roomInteraction.nameText == null)
             {
-                roomInteraction.nameText = GameObject.Find(title.name).GetComponent<TextMeshProUGUI>(); ;
+                Undo.RecordObject(this, "Bla bla");
+                roomInteraction.nameText = GameObject.Find(title.name).GetComponent<TextMeshProUGUI>();
+                EditorUtility.SetDirty(this);
             }
 
             if (roomInteraction.descritpionText == null)
             {
-                roomInteraction.descritpionText = GameObject.Find(description.name).GetComponent<TextMeshProUGUI>(); ;
+                Undo.RecordObject(this, "Bla bla");
+                roomInteraction.descritpionText = GameObject.Find(description.name).GetComponent<TextMeshProUGUI>();
+                EditorUtility.SetDirty(this);
             }
 
 
+            Undo.RecordObject(this, "Bla bla");
             roomInteraction.SetAnimators();
+            EditorUtility.SetDirty(this);
+
+
         }
 
         base.OnInspectorGUI();

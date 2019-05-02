@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 using TMPro;
 
 public class RoomInteraction : MonoBehaviour
 {
     [Header("Room Description")]
-    public string roomName;
-    public string roomDescription;
+    public string roomName = "Enter a room name please";
+    public string roomDescription = "Enter a description please";
 
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descritpionText;
@@ -42,11 +43,13 @@ public class RoomInteraction : MonoBehaviour
 
         if (isDialogue)
         {
+            talkTo.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Talk to " + npc.gameObject.name;
             uiAnimators[0].SetTrigger("Enabled");
         }
 
         if (isInteraction)
         {
+            interactWith.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Interact with" + objet.objectName;
             uiAnimators[1].SetTrigger("Enabled");
         }
 
@@ -84,29 +87,51 @@ public class RoomInteraction : MonoBehaviour
         uiAnimators.Clear();
 
         if (talkTo != null)
+        {
+            Undo.RecordObject(this, "Bla bla");
             uiAnimators.Add(talkTo.gameObject.GetComponent<Animator>());
+            EditorUtility.SetDirty(this);
+        }
         else
             Debug.LogWarning("This Button is not assigned");
 
         if (interactWith != null)
+        {
+            Undo.RecordObject(this, "Bla bla");
             uiAnimators.Add(interactWith.gameObject.GetComponent<Animator>());
+            EditorUtility.SetDirty(this);
+        }
         else
             Debug.LogWarning("This Button is not assigned");
 
         if (changeFloor != null)
+        {
+            Undo.RecordObject(this, "Bla bla");
             uiAnimators.Add(changeFloor.gameObject.GetComponent<Animator>());
+            EditorUtility.SetDirty(this);
+        }
         else
             Debug.LogWarning("This Button is not assigned");
 
         if (nameText != null)
+        {
+            Undo.RecordObject(this, "Bla bla");
             uiAnimators.Add(nameText.gameObject.GetComponent<Animator>());
+            EditorUtility.SetDirty(this);
+        }
         else
             Debug.LogWarning("This Button is not assigned");
 
         if (descritpionText != null)
+        {
+            Undo.RecordObject(this, "Bla bla");
             uiAnimators.Add(descritpionText.gameObject.GetComponent<Animator>());
+            EditorUtility.SetDirty(this);
+        }
         else
             Debug.LogWarning("This Button is not assigned");
+
+
     }
 
     /// <summary>
@@ -114,8 +139,11 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     private void UiTextUpdate()
     {
-        nameText.text = roomName;
-        descritpionText.text = roomDescription;
+        if (roomName != null)
+            nameText.text = roomName;
+
+        if (roomDescription != null)
+            descritpionText.text = roomDescription;
     }
 
 

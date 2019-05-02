@@ -280,7 +280,7 @@ public class Camera_UI : MonoBehaviour
                 currentSelectedCell = selectedCube.collider.gameObject.transform.parent.name;
                 cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
 
-                if (currentSelectedCell != null && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().once == false
+                if (cellMove != null && currentSelectedCell != null && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().once == false
                     && cameraReposition == true && isPlayerHere && cellMove != null)
                 {
                     //Debug.Log("COME ON !");
@@ -461,7 +461,11 @@ public class Camera_UI : MonoBehaviour
     /// <returns></returns>
     IEnumerator UIapparitionTime()
     {
-        yield return new WaitForSeconds(0.5f);
+        Debug.Log("UI will appear");
+
+        yield return new WaitForSeconds(1f);
+
+        Debug.Log("BOOM");
 
         ROOM_Manager.Instance.LaunchUI();
     }
