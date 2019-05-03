@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     public bool reset;
-    private bool lookCam;
+    public bool lookCam;
     public bool movement;
     public Vector3 origin;
     public bool once;
@@ -16,7 +16,7 @@ public class PlayerBehaviour : MonoBehaviour
     public ScrEnvironment nextContext;
     public float distance;
 
-    [Range(0.1f,2)]
+    [Range(0.1f, 2)]
     public float minDist = 0.1f;
     public Vector3 direction;
 
@@ -46,20 +46,23 @@ public class PlayerBehaviour : MonoBehaviour
     public bool castingRay;
     public CellPlacement cP;
     public Vector3 offset;
+    private bool onlyOne;
 
     void Start()
     {
         add = false;
         reset = true;
+        onlyOne = true;
+
     }
 
     void Update()
     {
-
         if (lookCam)
         {
             reset = true;
-            //transform.LookAt(Camera.transform.position);
+            transform.LookAt(Camera.transform.position);
+            onlyOne = false;
         }
 
 
@@ -76,11 +79,11 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, Color.green, 50);
                     cP.okToSetup = true;
-                    
+
 
                     Debug.Log(hit.transform.name);
 
-                    
+
                     if (hit.transform.parent.parent.GetComponent<CellMovement>())
                     {
                         Debug.Log("parentparentconatinsCellmovement");
@@ -92,7 +95,7 @@ public class PlayerBehaviour : MonoBehaviour
                             Debug.Log("here is a door i could take" + hit.transform.parent.parent.name);
                             cellMove.isOpen = true;
                         }
-                        else if(cellMove.isOpen == true)
+                        else if (cellMove.isOpen == true)
                         {
                             Debug.Log("close");
                             cellMove.isOpen = false;
@@ -112,7 +115,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.right, Color.green, 50);
                     cP.okToSetup = true;
-                    
+
 
                     Debug.Log(hit.transform.parent.parent.name);
 
@@ -159,7 +162,7 @@ public class PlayerBehaviour : MonoBehaviour
                 int layerMaskDoor = LayerMask.GetMask("Door");
 
 
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, out hit,10, layerMaskDoor))
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, out hit, 10, layerMaskDoor))
                 {
                     Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, Color.green, 050);
                     //cP.okToSetup = true;
@@ -220,13 +223,31 @@ public class PlayerBehaviour : MonoBehaviour
             ways.RemoveAt(ways.Count - 1);
         }
 
-        
+
 
         if (reset)
         {
             ResetWhenTooFar();
+            
+            
         }
 
+
+        if (onlyOne)
+        {
+            RaycastHit hit;
+            int layerMaskPlane = LayerMask.GetMask("Planes");
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 10, layerMaskPlane))
+            {
+                Debug.LogError("RaycastPerso");
+                Debug.DrawRay(transform.position, transform.forward, Color.green, 100);
+                hit.transform.parent.GetComponent<CellMovement>().isSpawn = true;
+                //reset = true;
+                
+            }
+            
+        }
 
         for (int i = 0; i < ways.Count; i++)
         {
@@ -438,7 +459,8 @@ public class PlayerBehaviour : MonoBehaviour
 
                 isValid = true;
 
-                reset = true;
+                onlyOne = true;
+                reset = true;                                                                                                                                 //////////////////
                 add = false;
                 movement = false;
 
