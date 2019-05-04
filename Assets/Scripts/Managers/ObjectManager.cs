@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectManager : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class ObjectManager : MonoBehaviour
     public void CollectCurrentObject()
     {
         inventorySystem.AssignToAvailableSlot(currentObjet);
-        currentObjet.gameObject.SetActive(false);
+        currentObjet.gameObject.GetComponent<Image>().enabled = false;
+        currentObjet.gameObject.GetComponent<BoxCollider>().enabled = false;
+
         currentObjet = null;
     }
 }

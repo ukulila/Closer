@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
 using TMPro;
 
 public class RoomInteraction : MonoBehaviour
@@ -49,7 +48,7 @@ public class RoomInteraction : MonoBehaviour
 
         if (isInteraction)
         {
-            interactWith.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Interact with" + objet.objectName;
+            interactWith.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Interact with " + objet.objectName;
             uiAnimators[1].SetTrigger("Enabled");
         }
 
@@ -79,60 +78,6 @@ public class RoomInteraction : MonoBehaviour
         uiAnimators[4].SetTrigger("Disabled");
     }
 
-    /// <summary>
-    /// Set les Animators
-    /// </summary>
-    public void SetAnimators()
-    {
-        uiAnimators.Clear();
-
-        if (talkTo != null)
-        {
-            Undo.RecordObject(this, "Bla bla");
-            uiAnimators.Add(talkTo.gameObject.GetComponent<Animator>());
-            EditorUtility.SetDirty(this);
-        }
-        else
-            Debug.LogWarning("This Button is not assigned");
-
-        if (interactWith != null)
-        {
-            Undo.RecordObject(this, "Bla bla");
-            uiAnimators.Add(interactWith.gameObject.GetComponent<Animator>());
-            EditorUtility.SetDirty(this);
-        }
-        else
-            Debug.LogWarning("This Button is not assigned");
-
-        if (changeFloor != null)
-        {
-            Undo.RecordObject(this, "Bla bla");
-            uiAnimators.Add(changeFloor.gameObject.GetComponent<Animator>());
-            EditorUtility.SetDirty(this);
-        }
-        else
-            Debug.LogWarning("This Button is not assigned");
-
-        if (nameText != null)
-        {
-            Undo.RecordObject(this, "Bla bla");
-            uiAnimators.Add(nameText.gameObject.GetComponent<Animator>());
-            EditorUtility.SetDirty(this);
-        }
-        else
-            Debug.LogWarning("This Button is not assigned");
-
-        if (descritpionText != null)
-        {
-            Undo.RecordObject(this, "Bla bla");
-            uiAnimators.Add(descritpionText.gameObject.GetComponent<Animator>());
-            EditorUtility.SetDirty(this);
-        }
-        else
-            Debug.LogWarning("This Button is not assigned");
-
-
-    }
 
     /// <summary>
     /// Change le nom et la description de la pièce
@@ -159,13 +104,15 @@ public class RoomInteraction : MonoBehaviour
         //Set le current NPC du manager à l'entrée du joueur
         if (other.gameObject.name.Contains("Player"))
         {
+            ROOM_Manager.Instance.currentRoom = this;
+
             if (npc != null)
                 NPC_Manager.Instance.currentNPC = npc;
 
             if (objet != null)
                 ObjectManager.Instance.currentObjet = objet;
 
-            ROOM_Manager.Instance.currentRoom = this;
+            
             UiTextUpdate();
         }
 
@@ -180,9 +127,8 @@ public class RoomInteraction : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Player"))
         {
-            NPC_Manager.Instance.currentNPC = null;
-            ObjectManager.Instance.currentObjet = null;
-            ROOM_Manager.Instance.currentRoom = null;
+            //ObjectManager.Instance.currentObjet = null;
+            //ROOM_Manager.Instance.currentRoom = null;
         }
     }
 }

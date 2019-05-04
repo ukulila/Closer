@@ -54,63 +54,105 @@ public class RoomInteractionSetUp : Editor
         {
             if (roomInteraction.roomName == "")
             {
-                Undo.RecordObject(this, "Bla bla");
+                //Undo.RecordObject(this, "Bla bla");
                 roomInteraction.roomName = "Enter a name";
-                EditorUtility.SetDirty(this);
+                //EditorUtility.SetDirty(this);
             }
 
 
             if (roomInteraction.roomDescription == "")
             {
-                Undo.RecordObject(this, "Bla bla");
+                //Undo.RecordObject(this, "Bla bla");
                 roomInteraction.roomDescription = "Enter a description";
-                EditorUtility.SetDirty(this);
+                //EditorUtility.SetDirty(this);
             }
 
 
             if (roomInteraction.talkTo == null)
             {
-                Undo.RecordObject(this, "Bla bla");
+                //Undo.RecordObject(this, "Bla bla");
                 roomInteraction.talkTo = GameObject.Find(talk.name).GetComponent<Button>();
-                EditorUtility.SetDirty(this);
+                //EditorUtility.SetDirty(this);
             }
 
             if (roomInteraction.interactWith == null)
             {
-                Undo.RecordObject(this, "Bla bla");
+                //Undo.RecordObject(this, "Bla bla");
                 roomInteraction.interactWith = GameObject.Find(interact.name).GetComponent<Button>();
-                EditorUtility.SetDirty(this);
+                //EditorUtility.SetDirty(this);
             }
 
             if (roomInteraction.changeFloor == null)
             {
-                Undo.RecordObject(this, "Bla bla");
+                //Undo.RecordObject(this, "Bla bla");
                 roomInteraction.changeFloor = GameObject.Find(floor.name).GetComponent<Button>();
-                EditorUtility.SetDirty(this);
+                //EditorUtility.SetDirty(this);
             }
 
             if (roomInteraction.nameText == null)
             {
-                Undo.RecordObject(this, "Bla bla");
+                //Undo.RecordObject(this, "Bla bla");
                 roomInteraction.nameText = GameObject.Find(title.name).GetComponent<TextMeshProUGUI>();
-                EditorUtility.SetDirty(this);
+                //EditorUtility.SetDirty(this);
             }
 
             if (roomInteraction.descritpionText == null)
             {
-                Undo.RecordObject(this, "Bla bla");
+                //Undo.RecordObject(this, "Bla bla");
                 roomInteraction.descritpionText = GameObject.Find(description.name).GetComponent<TextMeshProUGUI>();
-                EditorUtility.SetDirty(this);
+                //EditorUtility.SetDirty(this);
             }
 
+            roomInteraction.uiAnimators.Clear();
 
-            Undo.RecordObject(this, "Bla bla");
-            roomInteraction.SetAnimators();
-            EditorUtility.SetDirty(this);
+            if (roomInteraction.talkTo != null)
+            {
+                //Undo.RecordObject(this, "Bla bla");
+                roomInteraction.uiAnimators.Add(roomInteraction.talkTo.gameObject.GetComponent<Animator>());
+                //EditorUtility.SetDirty(this);
+            }
+            else
+                Debug.LogWarning("This Button is not assigned");
 
+            if (roomInteraction.interactWith != null)
+            {
+                //Undo.RecordObject(this, "Bla bla");
+                roomInteraction.uiAnimators.Add(roomInteraction.interactWith.gameObject.GetComponent<Animator>());
+                //EditorUtility.SetDirty(this);
+            }
+            else
+                Debug.LogWarning("This Button is not assigned");
+
+            if (roomInteraction.changeFloor != null)
+            {
+                //Undo.RecordObject(this, "Bla bla");
+                roomInteraction.uiAnimators.Add(roomInteraction.changeFloor.gameObject.GetComponent<Animator>());
+                //EditorUtility.SetDirty(this);
+            }
+            else
+                Debug.LogWarning("This Button is not assigned");
+
+            if (roomInteraction.nameText != null)
+            {
+                //Undo.RecordObject(this, "Bla bla");
+                roomInteraction.uiAnimators.Add(roomInteraction.nameText.gameObject.GetComponent<Animator>());
+                //EditorUtility.SetDirty(this);
+            }
+            else
+                Debug.LogWarning("This Button is not assigned");
+
+            if (roomInteraction.descritpionText != null)
+            {
+                //Undo.RecordObject(this, "Bla bla");
+                roomInteraction.uiAnimators.Add(roomInteraction.descritpionText.gameObject.GetComponent<Animator>());
+                //EditorUtility.SetDirty(this);
+            }
+            else
+                Debug.LogWarning("This Button is not assigned");
 
         }
 
         base.OnInspectorGUI();
     }
+
 }

@@ -125,6 +125,7 @@ public class Camera_UI : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
             {
                 RaycastHit selectedCube;
+                LayerMask cellMask = LayerMask.GetMask("Cell");
 
                 currentPathPos = dollyCart.m_Position;
                 currentDollyPosition = dollyTransform.localPosition;
@@ -132,7 +133,7 @@ public class Camera_UI : MonoBehaviour
                 currentFOV = virtualCamera.m_Lens.OrthographicSize;
                 currentRepositionTime = 0;
 
-                if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube) && cameraReposition)
+                if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, cellMask) && cameraReposition)
                 {
 
                     //Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 25, Color.red, 1);
@@ -269,8 +270,9 @@ public class Camera_UI : MonoBehaviour
         {
 
             RaycastHit selectedCube;
+            LayerMask cellMask = LayerMask.GetMask("Cell");
 
-            if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube))
+            if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, cellMask))
             {
                 //Debug.Log("Drawing Raycast");
 
