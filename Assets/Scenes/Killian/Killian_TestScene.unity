@@ -1730,6 +1730,18 @@ PrefabInstance:
       propertyPath: context
       value: 
       objectReference: {fileID: 296397234}
+    - target: {fileID: 2048586838, guid: b3c4e603778467d47b57a8f4de2e7a82, type: 3}
+      propertyPath: RoomChecker
+      value: 
+      objectReference: {fileID: 922713161}
+    - target: {fileID: 1144739651, guid: b3c4e603778467d47b57a8f4de2e7a82, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144739651, guid: b3c4e603778467d47b57a8f4de2e7a82, type: 3}
+      propertyPath: m_Name
+      value: IDLE_Dolores_Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3c4e603778467d47b57a8f4de2e7a82, type: 3}
 --- !u!1 &732839747
@@ -2217,6 +2229,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898458368}
   m_CullTransparentMesh: 0
+--- !u!1 &922713160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 922713161}
+  m_Layer: 0
+  m_Name: RoomChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &922713161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922713160}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.971, z: 6.545}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1470655890}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &926618481
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,11 +2907,6 @@ PrefabInstance:
       propertyPath: selectionTimingImage
       value: 
       objectReference: {fileID: 1048468820}
-    - target: {fileID: 1241135056598317765, guid: 87d0b1113276f8646a9b3a1c91897f9d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1241135057184425490, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_IsActive
@@ -2878,22 +2915,22 @@ PrefabInstance:
     - target: {fileID: 1241135057184425967, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0830126
+      value: -0.08301258
       objectReference: {fileID: 0}
     - target: {fileID: 1241135057184425967, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.55253047
+      value: 0.5525304
       objectReference: {fileID: 0}
     - target: {fileID: 1241135057184425967, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.05542877
+      value: -0.05542875
       objectReference: {fileID: 0}
     - target: {fileID: 1241135057184425967, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.82749426
+      value: -0.8274943
       objectReference: {fileID: 0}
     - target: {fileID: 1241135057184425967, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
@@ -2909,6 +2946,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -9.455389
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241135056598317765, guid: 87d0b1113276f8646a9b3a1c91897f9d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1241135057599476109, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
@@ -2968,22 +3010,22 @@ PrefabInstance:
     - target: {fileID: 1241135056598317766, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0830126
+      value: -3.8060348e-16
       objectReference: {fileID: 0}
     - target: {fileID: 1241135056598317766, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.55253047
+      value: 0.97626966
       objectReference: {fileID: 0}
     - target: {fileID: 1241135056598317766, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.05542877
+      value: 9.660828e-16
       objectReference: {fileID: 0}
     - target: {fileID: 1241135056598317766, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.82749426
+      value: -0.21655837
       objectReference: {fileID: 0}
     - target: {fileID: 1241135056598317766, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
@@ -3524,8 +3566,8 @@ MonoBehaviour:
   currentX: 0
   currentY: 0
   currentVerticalSpeed: 0
-  maxHeigh: 1
-  minHeigh: -1
+  maxHeigh: 5
+  minHeigh: -2
   yDirection: 2
   onVertical: 0
   minimumMove: 0.05
@@ -3560,7 +3602,7 @@ MonoBehaviour:
   lastVerticalSpeedRecord: 0
   setRecord: 0
   currentDistance: 0
-  verticalSpeedRatioModifier: 0
+  verticalSpeedRatioModifier: 0.1
   targetOffsetCurve:
     serializedVersion: 2
     m_Curve: []
@@ -3934,28 +3976,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1470655886 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1144739651, guid: b3c4e603778467d47b57a8f4de2e7a82,
+--- !u!4 &1470655890 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1144834915, guid: b3c4e603778467d47b57a8f4de2e7a82,
     type: 3}
   m_PrefabInstance: {fileID: 679083138}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1470655891
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1470655886}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1492755929
 GameObject:
   m_ObjectHideFlags: 0

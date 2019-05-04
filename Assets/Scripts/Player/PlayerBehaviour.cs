@@ -51,6 +51,8 @@ public class PlayerBehaviour : MonoBehaviour
     private float x;
     private float y;
 
+    public Transform RoomChecker;
+
     void Start()
     {
         add = false;
@@ -264,15 +266,19 @@ public class PlayerBehaviour : MonoBehaviour
         if (onlyOne)
         {
             RaycastHit hit;
-            int layerMaskPlane = LayerMask.GetMask("Planes");
+            int layerMaskCell = LayerMask.GetMask("Cell");
 
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 5, layerMaskPlane))
+            if (Physics.Raycast(RoomChecker.position,  transform.position - RoomChecker.position, out hit, Mathf.Infinity, layerMaskCell))
             {
-                Debug.LogError("RaycastPerso");
-                Debug.DrawRay(transform.position, transform.forward, Color.green, 5);
-                hit.transform.parent.GetComponent<CellMovement>().isSpawn = true;
+                Debug.LogError("RaycastPerso" + hit.transform.name);
+                Debug.DrawRay(RoomChecker.position, transform.position - RoomChecker.position, Color.green, 10);
+                hit.transform.GetComponent<CellMovement>().isSpawn = true;
                 onlyOne = false;
                 
+            }
+            else
+            {
+                Debug.DrawRay(RoomChecker.position, transform.position - RoomChecker.position, Color.red, 10);
             }
             
         }

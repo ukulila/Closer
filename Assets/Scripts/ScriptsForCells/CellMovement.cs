@@ -86,6 +86,10 @@ public class CellMovement : MonoBehaviour
     {
         if (isSpawn)
         {
+            player.transform.SetParent(transform);
+            isOpen = false;
+            selected = true;
+
             for (int i = 0; i < transform.childCount; i++)
             {
                 if (transform.GetChild(i).name.Contains("Plane"))
@@ -807,9 +811,9 @@ public class CellMovement : MonoBehaviour
 
     }
 
+    /*
 
-
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)                                                                                                          //////////////////////////////////
     {
 
         if (other.transform.name.Contains("Player"))
@@ -841,7 +845,7 @@ public class CellMovement : MonoBehaviour
 
 
     }
-
+    */
     #endregion
 
 
