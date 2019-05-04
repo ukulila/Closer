@@ -47,22 +47,42 @@ public class PlayerBehaviour : MonoBehaviour
     public CellPlacement cP;
     public Vector3 offset;
     private bool onlyOne;
+    public Animator animator;
+    private float x;
+    private float y;
 
     void Start()
     {
         add = false;
         reset = true;
         onlyOne = true;
-
+        if (GetComponent<Animator>() != null)
+        {
+            animator = GetComponent<Animator>();
+        }
     }
 
     void Update()
     {
+        animator.SetFloat("ValueX", x);
+        animator.SetFloat("ValueY", y);
+
+
+
         if (lookCam)
         {
-            reset = true;
-            transform.LookAt(Camera.transform.position);
+           // reset = true;
+            //transform.LookAt(Camera.transform.position);
             onlyOne = false;
+            
+            if(x>0 && y>0)
+            {
+                y -= 0.05f;
+                x -= 0.05f;
+
+            }
+
+            //animator.SetBool("Walk", false);
         }
 
 
@@ -228,8 +248,16 @@ public class PlayerBehaviour : MonoBehaviour
         if (reset)
         {
             ResetWhenTooFar();
-            
-            
+
+            if (x < 1 && y < 1)
+            {
+                y += 0.05f;
+                x += 0.05f;
+
+            }
+            //animator.SetBool("Walk", true);
+
+
         }
 
 
@@ -238,12 +266,12 @@ public class PlayerBehaviour : MonoBehaviour
             RaycastHit hit;
             int layerMaskPlane = LayerMask.GetMask("Planes");
 
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 10, layerMaskPlane))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 5, layerMaskPlane))
             {
                 Debug.LogError("RaycastPerso");
-                Debug.DrawRay(transform.position, transform.forward, Color.green, 100);
+                Debug.DrawRay(transform.position, transform.forward, Color.green, 5);
                 hit.transform.parent.GetComponent<CellMovement>().isSpawn = true;
-                //reset = true;
+                onlyOne = false;
                 
             }
             
@@ -327,16 +355,26 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void ResetWhenTooFar()
     {
-        if (Vector3.Distance(transform.position, context.basePos.position) >= 0.01f && !movement)
+        if (Vector3.Distance(transform.position, context.basePos.position) >= 0.1f && !movement)
         {
             transform.position = Vector3.Lerp(transform.position, context.basePos.position, 0.05f);
-            transform.LookAt(context.basePos.position);
+            Vector3 targetPos = new Vector3(context.basePos.position.x, transform.position.y, context.basePos.position.z);
+            transform.LookAt(targetPos/*context.basePos.position*/);
 
         }
-        else
+        
+        if(Vector3.Distance(transform.position, context.basePos.position) <= 0.1f)
         {
             reset = false;
 
+            if (x > 0 && y > 0)
+            {
+                y -= 0.05f;
+                x -= 0.05f;
+
+            }
+           //animator.SetBool("Walk", false);
+            Debug.LogError("StopWalking");
             lookCam = true;
         }
     }
@@ -429,6 +467,16 @@ public class PlayerBehaviour : MonoBehaviour
 
             //Actual movement to selected waypoint
             transform.position = Vector3.Lerp(transform.position, listToMove[index].position, 0.05f);
+
+            if (x < 1 && y < 1)
+            {
+                y += 0.05f;
+                x += 0.05f;
+
+            }
+
+            animator.SetBool("Walk", true);
+
             transform.LookAt(listToMove[index].transform.position);
 
 
