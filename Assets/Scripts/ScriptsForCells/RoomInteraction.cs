@@ -28,7 +28,14 @@ public class RoomInteraction : MonoBehaviour
     public List<Animator> uiAnimators;
 
 
+    private void Awake()
+    {
+        if (objet != null)
+            isInteraction = true;
 
+        if (npc != null)
+            isDialogue = true;
+    }
 
     /// <summary>
     /// Lance l'apparition de l'UI selon les actions disponibles
@@ -78,11 +85,10 @@ public class RoomInteraction : MonoBehaviour
         uiAnimators[4].SetTrigger("Disabled");
     }
 
-
     /// <summary>
     /// Change le nom et la description de la pièce
     /// </summary>
-    private void UiTextUpdate()
+    public void UiTextUpdate()
     {
         if (roomName != null)
             nameText.text = roomName;
@@ -92,43 +98,47 @@ public class RoomInteraction : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //Set le NPC de la room
-        if (other.gameObject.tag == "NPC")
-        {
-            npc = other.gameObject.GetComponent<NPCInteractions>();
-            isDialogue = true;
-        }
+    #region Old Stuff
 
-        //Set le current NPC du manager à l'entrée du joueur
-        if (other.gameObject.name.Contains("Player"))
-        {
-            ROOM_Manager.Instance.currentRoom = this;
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //Set le NPC de la room
+    //    if (other.gameObject.tag == "NPC")
+    //    {
+    //        npc = other.gameObject.GetComponent<NPCInteractions>();
+    //        isDialogue = true;
+    //    }
 
-            if (npc != null)
-                NPC_Manager.Instance.currentNPC = npc;
+    //    //Set le current NPC du manager à l'entrée du joueur
+    //    if (other.gameObject.name.Contains("Player"))
+    //    {
+    //        ROOM_Manager.Instance.currentRoom = this;
 
-            if (objet != null)
-                ObjectManager.Instance.currentObjet = objet;
+    //        if (npc != null)
+    //            NPC_Manager.Instance.currentNPC = npc;
+
+    //        if (objet != null)
+    //            ObjectManager.Instance.currentObjet = objet;
 
             
-            UiTextUpdate();
-        }
+    //        UiTextUpdate();
+    //    }
 
-        if (other.gameObject.tag == "Objet")
-        {
-            objet = other.gameObject.GetComponent<Objet_Interaction>();
-            isInteraction = true;
-        }
-    }
+    //    if (other.gameObject.tag == "Objet")
+    //    {
+    //        objet = other.gameObject.GetComponent<Objet_Interaction>();
+    //        isInteraction = true;
+    //    }
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.name.Contains("Player"))
-        {
-            //ObjectManager.Instance.currentObjet = null;
-            //ROOM_Manager.Instance.currentRoom = null;
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.name.Contains("Player"))
+    //    {
+    //        //ObjectManager.Instance.currentObjet = null;
+    //        //ROOM_Manager.Instance.currentRoom = null;
+    //    }
+    //}
+
+#endregion
 }

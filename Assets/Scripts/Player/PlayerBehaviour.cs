@@ -74,11 +74,11 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (lookCam)
         {
-           // reset = true;
+            // reset = true;
             //transform.LookAt(Camera.transform.position);
             onlyOne = false;
-            
-            if(x>0 && y>0)
+
+            if (x > 0 && y > 0)
             {
                 y -= 0.05f;
                 x -= 0.05f;
@@ -269,20 +269,35 @@ public class PlayerBehaviour : MonoBehaviour
             RaycastHit hit;
             int layerMaskCell = LayerMask.GetMask("Cell");
 
-            if (Physics.Raycast(RoomChecker.position,  transform.position - RoomChecker.position, out hit, Mathf.Infinity, layerMaskCell))
+            if (Physics.Raycast(RoomChecker.position, transform.position - RoomChecker.position, out hit, Mathf.Infinity, layerMaskCell))
             {
                 Debug.LogError("RaycastPerso" + hit.transform.name);
                 Debug.DrawRay(RoomChecker.position, transform.position - RoomChecker.position, Color.green, 10);
                 hit.transform.GetComponent<CellMovement>().isSpawn = true;
+
+                ROOM_Manager.Instance.currentRoom = hit.transform.GetComponent<RoomInteraction>();
+
+                if (hit.transform.GetComponent<RoomInteraction>().isInteraction == true)
+                {
+                    ObjectManager.Instance.currentObjet = hit.transform.GetComponent<RoomInteraction>().objet;
+                }
+
+                if (hit.transform.GetComponent<RoomInteraction>().isDialogue == true)
+                {
+                    NPC_Manager.Instance.currentNPC = hit.transform.GetComponent<RoomInteraction>().npc;
+                }
+
+                hit.transform.GetComponent<RoomInteraction>().UiTextUpdate();
+
                 onlyOne = false;
-                
+
             }
             else
             {
                 Debug.DrawRay(RoomChecker.position, transform.position - RoomChecker.position, Color.red, 10);
             }
 
-           
+
 
 
 
@@ -294,10 +309,10 @@ public class PlayerBehaviour : MonoBehaviour
 
             int layerMaskCell = LayerMask.GetMask("Cell");
 
-            if (Physics.Raycast(transform.position, transform.forward, out hit,Mathf.Infinity, layerMaskCell))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, layerMaskCell))
             {
                 Debug.LogError("RaycastDisable" + hit.transform.name);
-                
+
                 hit.transform.GetComponent<CellMovement>().isSpawn = false;
                 onlyTwo += 1;
             }
@@ -431,8 +446,8 @@ public class PlayerBehaviour : MonoBehaviour
             transform.LookAt(targetPos/*context.basePos.position*/);
 
         }
-        
-        if(Vector3.Distance(transform.position, context.basePos.position) <= 0.1f)
+
+        if (Vector3.Distance(transform.position, context.basePos.position) <= 0.1f)
         {
             reset = false;
 
@@ -442,7 +457,7 @@ public class PlayerBehaviour : MonoBehaviour
                 x -= 0.05f;
 
             }
-           //animator.SetBool("Walk", false);
+            //animator.SetBool("Walk", false);
             Debug.LogError("StopWalking");
             lookCam = true;
         }

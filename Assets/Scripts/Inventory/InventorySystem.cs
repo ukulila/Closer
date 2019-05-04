@@ -31,8 +31,16 @@ public class InventorySystem : MonoBehaviour
     public float apparitionCurrentTime;
 
 
+    public static InventorySystem Instance;
+
+
+
+
+
     private void Awake()
     {
+        Instance = this;
+
         //Set up les parametres d'animation des icons d'inventaire
         positionDiff.Clear();
         positionDiff = new List<Vector2>();
@@ -56,7 +64,6 @@ public class InventorySystem : MonoBehaviour
         }
         else
         {
-            //inventoryButton.interactable = true;
             inventoryInputImage.sprite = fullInventorySprite;
             inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 1);
         }
@@ -74,12 +81,26 @@ public class InventorySystem : MonoBehaviour
             InventoryAppears();
         }
 
-        if (isThereAnyObjectInInventory && isAnimationOver)
+        if (isThereAnyObjectInInventory)
         {
             inventoryButton.interactable = true;
             inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 1);
-        }
 
+            if (isInventoryDisplayed)
+            {
+                inventoryInputImage.sprite = emptyInventorySprite;
+            }
+            else
+            {
+                inventoryInputImage.sprite = fullInventorySprite;
+            }
+        }
+        else
+        {
+            inventoryButton.interactable = false;
+            inventoryInputImage.sprite = emptyInventorySprite;
+            inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 0.25f);
+        }
 
     }
 
@@ -88,13 +109,38 @@ public class InventorySystem : MonoBehaviour
     /// </summary>
     public void InventoryAnimation()
     {
+        CheckIcons();
+
         if (isThereAnyObjectInInventory)
         {
             isInventoryDisplayed = !isInventoryDisplayed;
             isAnimationOver = false;
             apparitionCurrentTime = 0;
         }
+    }
 
+    private void CheckIcons()
+    {
+        if (isInventoryDisplayed)
+        {
+            for (int i = 0; i < slotsBehaviour.Count; i++)
+            {
+                if (slotsBehaviour[i].isIconImageAppeared == false)
+                {
+                    slotsBehaviour[i].ShowIcon();
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < slotsBehaviour.Count; i++)
+            {
+                if (slotsBehaviour[i].isIconImageAppeared)
+                {
+                    slotsBehaviour[i].HideIcon();
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -114,7 +160,7 @@ public class InventorySystem : MonoBehaviour
 
         apparitionPercent = inventoryApparitionCurve.Evaluate(apparitionCurrentTime / apparitionTimeMax);
 
-        inventoryInputImage.sprite = emptyInventorySprite;
+        //inventoryInputImage.sprite = emptyInventorySprite;
 
         slotsRectTransform[0].localPosition = new Vector2(startPos.localPosition.x - (positionDiff[0].x * apparitionPercent), startPos.localPosition.y - (positionDiff[0].y * apparitionPercent));
         slotsRectTransform[1].localPosition = new Vector2(startPos.localPosition.x - (positionDiff[1].x * apparitionPercent), startPos.localPosition.y - (positionDiff[1].y * apparitionPercent));

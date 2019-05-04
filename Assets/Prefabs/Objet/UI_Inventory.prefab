@@ -182,7 +182,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7301092359433428546}
+      - m_Target: {fileID: 7301092358934734207}
         m_MethodName: ShowIcon
         m_Mode: 1
         m_Arguments:
@@ -240,7 +240,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   iconImageApparitionPercent: 0
-  iconImageApparitionTimeMax: 0.5
+  iconImageApparitionTimeMax: 0.3
   iconImageApparitionCurrentTime: 0
   isIconImageAnimationOver: 1
   isIconImageAppeared: 0
@@ -269,7 +269,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   nameApparitionPercent: 0
-  nameApparitionTimeMax: 0.5
+  nameApparitionTimeMax: 0.3
   nameApparitionCurrentTime: 0
   isNameAnimationOver: 1
   isNameAppeared: 0
@@ -298,7 +298,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   descriptionApparitionPercent: 0
-  descriptionApparitionTimeMax: 1
+  descriptionApparitionTimeMax: 0.3
   descriptionApparitionCurrentTime: 0
   isDescriptionAnimationOver: 1
   isDescriptionAppeared: 0
@@ -348,7 +348,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &7301092357712650905
 CanvasRenderer:
@@ -429,17 +429,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7301092357696639735}
         m_MethodName: InverseDescription
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7301092358934734207}
-        m_MethodName: InverseIcon
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1231,15 +1220,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c3234ee89213b314ebd885a5291f8b2f, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: bb31767e96527434d83f1984b9c2cac7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1674,7 +1663,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   apparitionPercent: 1
-  apparitionTimeMax: 0.5
+  apparitionTimeMax: 0.4
   apparitionCurrentTime: 1
 --- !u!1 &7301092358934734206
 GameObject:
@@ -1858,6 +1847,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7301092357696639735}
+        m_MethodName: ShowIcon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &7301092358934734207
@@ -1905,7 +1905,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   iconImageApparitionPercent: 0
-  iconImageApparitionTimeMax: 0.5
+  iconImageApparitionTimeMax: 0.3
   iconImageApparitionCurrentTime: 0
   isIconImageAnimationOver: 1
   isIconImageAppeared: 0
@@ -1934,7 +1934,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   nameApparitionPercent: 0
-  nameApparitionTimeMax: 0.5
+  nameApparitionTimeMax: 0.3
   nameApparitionCurrentTime: 0
   isNameAnimationOver: 1
   isNameAppeared: 0
@@ -1963,7 +1963,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   descriptionApparitionPercent: 0
-  descriptionApparitionTimeMax: 1
+  descriptionApparitionTimeMax: 0.3
   descriptionApparitionCurrentTime: 0
   isDescriptionAnimationOver: 1
   isDescriptionAppeared: 0
@@ -2339,6 +2339,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7301092358934734207}
+        m_MethodName: InverseIcon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &3211036833808433960
@@ -2546,6 +2557,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7301092357696639735}
+        m_MethodName: ShowIcon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 7301092358934734207}
         m_MethodName: ShowIcon
         m_Mode: 1
@@ -2604,7 +2626,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   iconImageApparitionPercent: 0
-  iconImageApparitionTimeMax: 0.5
+  iconImageApparitionTimeMax: 0.3
   iconImageApparitionCurrentTime: 0
   isIconImageAnimationOver: 1
   isIconImageAppeared: 0
@@ -2633,7 +2655,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   nameApparitionPercent: 0
-  nameApparitionTimeMax: 0.5
+  nameApparitionTimeMax: 0.3
   nameApparitionCurrentTime: 0
   isNameAnimationOver: 1
   isNameAppeared: 0
@@ -2662,7 +2684,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   descriptionApparitionPercent: 0
-  descriptionApparitionTimeMax: 1
+  descriptionApparitionTimeMax: 0.3
   descriptionApparitionCurrentTime: 0
   isDescriptionAnimationOver: 1
   isDescriptionAppeared: 0

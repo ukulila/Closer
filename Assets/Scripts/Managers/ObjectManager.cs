@@ -7,7 +7,6 @@ public class ObjectManager : MonoBehaviour
 {
 
     public Objet_Interaction currentObjet;
-    public InventorySystem inventorySystem;
 
     public static ObjectManager Instance;
 
@@ -20,7 +19,7 @@ public class ObjectManager : MonoBehaviour
 
     public void CollectCurrentObject()
     {
-        inventorySystem.AssignToAvailableSlot(currentObjet);
+        InventorySystem.Instance.AssignToAvailableSlot(currentObjet);
         currentObjet.gameObject.GetComponent<Image>().enabled = false;
         currentObjet.gameObject.GetComponent<BoxCollider>().enabled = false;
 

@@ -124,6 +124,7 @@ public class Camera_UI : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
             {
+
                 RaycastHit selectedCube;
                 LayerMask cellMask = LayerMask.GetMask("Cell");
 
