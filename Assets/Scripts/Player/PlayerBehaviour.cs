@@ -52,6 +52,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float y;
 
     public Transform RoomChecker;
+    public int onlyTwo;
 
     void Start()
     {
@@ -280,8 +281,70 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Debug.DrawRay(RoomChecker.position, transform.position - RoomChecker.position, Color.red, 10);
             }
-            
+
+           
+
+
+
         }
+
+        if (onlyTwo <= 6)
+        {
+            RaycastHit hit;
+
+            int layerMaskCell = LayerMask.GetMask("Cell");
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit,Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+                
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+            if (Physics.Raycast(transform.position, -transform.forward, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+            if (Physics.Raycast(transform.position, transform.right, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+            if (Physics.Raycast(transform.position, -transform.right, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+            if (Physics.Raycast(transform.position, transform.up, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+            if (Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+        }
+
+
 
         for (int i = 0; i < ways.Count; i++)
         {
