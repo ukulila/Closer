@@ -6,7 +6,7 @@ public class FaceRename : MonoBehaviour
 {
 
 
-    
+    /*
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Face")
@@ -14,4 +14,12 @@ public class FaceRename : MonoBehaviour
             other.gameObject.name = gameObject.name;
         }
     }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Face")
+        {
+            other.gameObject.name = "BlankPlane";
+        }
+    }*/
 }
