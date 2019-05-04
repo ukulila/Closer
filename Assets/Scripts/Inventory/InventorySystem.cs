@@ -14,6 +14,9 @@ public class InventorySystem : MonoBehaviour
     public bool isAnimationOver = true;
     public bool isThereAnyObjectInInventory;
 
+    public Sprite emptyInventorySprite;
+    public Sprite fullInventorySprite;
+
     [Header("Slot")]
     public List<Slot_Behaviour> slotsBehaviour;
     public List<RectTransform> slotsRectTransform;
@@ -27,7 +30,7 @@ public class InventorySystem : MonoBehaviour
     public float apparitionTimeMax;
     public float apparitionCurrentTime;
 
-    
+
     private void Awake()
     {
         //Set up les parametres d'animation des icons d'inventaire
@@ -44,6 +47,19 @@ public class InventorySystem : MonoBehaviour
         {
             slotsRectTransform[i].localPosition = startPos.localPosition;
         }
+
+        if (!isThereAnyObjectInInventory)
+        {
+            inventoryInputImage.sprite = emptyInventorySprite;
+            inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 0.25f);
+            inventoryButton.interactable = false;
+        }
+        else
+        {
+            //inventoryButton.interactable = true;
+            inventoryInputImage.sprite = fullInventorySprite;
+            inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 1);
+        }
     }
 
     private void Update()
@@ -57,6 +73,14 @@ public class InventorySystem : MonoBehaviour
         {
             InventoryAppears();
         }
+
+        if (isThereAnyObjectInInventory && isAnimationOver)
+        {
+            inventoryButton.interactable = true;
+            inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 1);
+        }
+
+
     }
 
     /// <summary>
@@ -85,11 +109,12 @@ public class InventorySystem : MonoBehaviour
         }
         else
         {
-            inventoryButton.interactable = true;
             isAnimationOver = true;
         }
 
         apparitionPercent = inventoryApparitionCurve.Evaluate(apparitionCurrentTime / apparitionTimeMax);
+
+        inventoryInputImage.sprite = emptyInventorySprite;
 
         slotsRectTransform[0].localPosition = new Vector2(startPos.localPosition.x - (positionDiff[0].x * apparitionPercent), startPos.localPosition.y - (positionDiff[0].y * apparitionPercent));
         slotsRectTransform[1].localPosition = new Vector2(startPos.localPosition.x - (positionDiff[1].x * apparitionPercent), startPos.localPosition.y - (positionDiff[1].y * apparitionPercent));
@@ -108,9 +133,10 @@ public class InventorySystem : MonoBehaviour
         }
         else
         {
-            inventoryButton.interactable = true;
             isAnimationOver = true;
         }
+
+        
 
         apparitionPercent = inventoryApparitionCurve.Evaluate(apparitionCurrentTime / apparitionTimeMax);
 
@@ -125,17 +151,24 @@ public class InventorySystem : MonoBehaviour
     /// <param name="collectedObject"></param>
     public void AssignToAvailableSlot(Objet_Interaction collectedObject)
     {
+        bool hasBeenAssigned = false;
+
         for (int i = 0; i < slotsBehaviour.Count; i++)
         {
-            if (slotsBehaviour[i].isAssigned == false)
+            if (slotsBehaviour[i].isAssigned == false && hasBeenAssigned == false)
             {
                 slotsBehaviour[i].uiObjectImage.sprite = collectedObject.objectImage;
                 slotsBehaviour[i].uiObjectName.text = collectedObject.objectName;
                 slotsBehaviour[i].uiObjectDescritpion.text = collectedObject.objectDescription;
-                return;
+                slotsBehaviour[i].isAssigned = true;
+                hasBeenAssigned = true;
             }
 
             isThereAnyObjectInInventory = true;
+            inventoryInputImage.sprite = fullInventorySprite;
+            inventoryButton.interactable = true;
+
+            inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 0.25f);
         }
     }
 
@@ -154,9 +187,22 @@ public class InventorySystem : MonoBehaviour
             }
 
             if (atLeastOne)
+            {
                 isThereAnyObjectInInventory = true;
+                inventoryInputImage.sprite = fullInventorySprite;
+                inventoryButton.interactable = true;
+
+                inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 1f);
+            }
             else
+            {
                 isThereAnyObjectInInventory = false;
+                inventoryInputImage.sprite = emptyInventorySprite;
+                inventoryButton.interactable = false;
+
+                inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 0.25f);
+            }
+
         }
     }
 
@@ -169,7 +215,7 @@ public class InventorySystem : MonoBehaviour
         {
             if (slotsBehaviour[i].isAssigned == true)
             {
-                if(slotsBehaviour[i].uiObjectName.text == objectNameToDrop)
+                if (slotsBehaviour[i].uiObjectName.text == objectNameToDrop)
                 {
                     slotsBehaviour[i].isAssigned = false;
                     slotsBehaviour[i].uiObjectDescritpion = null;
@@ -177,8 +223,8 @@ public class InventorySystem : MonoBehaviour
                     slotsBehaviour[i].uiObjectName = null;
                 }
             }
-
-            isThereAnyObjectInInventory = true;
         }
+
+        CheckInventory();
     }
 }
