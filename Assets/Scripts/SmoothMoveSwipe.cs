@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SmoothMoveSwipe : MonoBehaviour {
 
@@ -10,6 +11,9 @@ public class SmoothMoveSwipe : MonoBehaviour {
     public float swipeDuration = 0.1f;
     public ElargSelectionLevelSystem largScript;
     public int levelMax = 4;
+	public int currentLevel;
+	public RectTransform line;
+
 
     public Animator[] BAnims;
 
@@ -30,11 +34,11 @@ public class SmoothMoveSwipe : MonoBehaviour {
                 StartCoroutine(Swipe("right"));
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             StartCoroutine(Swipe("left"));
         }
-        else if (Input.GetKeyDown(KeyCode.Y))
+        else if (Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(Swipe("right"));
         }
@@ -45,11 +49,11 @@ public class SmoothMoveSwipe : MonoBehaviour {
         switch (whereToGo)
         {
             case "left":
-                if (largScript.currentLevel > 0)
+                if (currentLevel > 0)
                 {
-                    BAnims[largScript.currentLevel].SetBool("Open", false);
+                    BAnims[currentLevel].SetBool("Open", false);
                     largScript.currentLevel--;
-                    BAnims[largScript.currentLevel].SetBool("Open", true);
+                    BAnims[currentLevel].SetBool("Open", true);
                 }
 
                 /*swipeTime = 0f;
@@ -67,11 +71,11 @@ public class SmoothMoveSwipe : MonoBehaviour {
                 break;
 
             case "right":
-                if (largScript.currentLevel < levelMax)
+                if (currentLevel < levelMax)
                 {
-                    BAnims[largScript.currentLevel].SetBool("Open", false);
+                    BAnims[currentLevel].SetBool("Open", false);
                     largScript.currentLevel++;
-                    BAnims[largScript.currentLevel].SetBool("Open", true);
+                    BAnims[currentLevel].SetBool("Open", true);
                 }
 
                 /*
@@ -90,7 +94,15 @@ public class SmoothMoveSwipe : MonoBehaviour {
                 break;
         }
 
-        // MOVE PARENT FROM ANIMATORS
+		float lerpValue = 0;
+		while(lerpValue < 1)
+		{
+			Debug.log("WHILE");
+			lerpValue += Time.deltaTime;
+			line.anchoredPosition = Vector3.Lerp(startSwipePosition, endSwipePosition, lerpValue);
+			yield return new WaitForEndOfFrame();
+		}
+        
 
         yield return null;
     }
