@@ -303,7 +303,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         }
 
-        if (onlyTwo <= 6)
+       /* if (onlyTwo <= 6)
         {
             RaycastHit hit;
 
@@ -357,7 +357,7 @@ public class PlayerBehaviour : MonoBehaviour
                 onlyTwo += 1;
             }
 
-        }
+        }*/
 
 
 
