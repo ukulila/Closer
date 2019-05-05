@@ -35,6 +35,10 @@ public class InventorySystem : MonoBehaviour
     public float apparitionTimeMax;
     public float apparitionCurrentTime;
 
+    [Header("Animation to Add an Object")]
+    public Animator addObject;
+
+
 
     public static InventorySystem Instance;
 
@@ -234,6 +238,10 @@ public class InventorySystem : MonoBehaviour
 
             inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 0.25f);
         }
+
+        addObject.gameObject.GetComponent<Image>().sprite = collectedObject.objectImage;
+
+        addObject.SetTrigger("Get");
     }
 
     /// <summary>
