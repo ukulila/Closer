@@ -11,6 +11,7 @@ public class RoomInteraction : MonoBehaviour
 
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descritpionText;
+    public TextMeshProUGUI nothingText;
 
     [Header("Opportunities")]
     public bool isDialogue;
@@ -63,6 +64,12 @@ public class RoomInteraction : MonoBehaviour
         {
             uiAnimators[2].SetTrigger("Enabled");
         }
+
+        if (!isSecondFloor && !isInteraction && !isDialogue)
+        {
+            uiAnimators[5].ResetTrigger("Disabled");
+            uiAnimators[5].SetTrigger("Enabled");
+        }
     }
 
     /// <summary>
@@ -83,6 +90,9 @@ public class RoomInteraction : MonoBehaviour
 
         uiAnimators[3].SetTrigger("Disabled");
         uiAnimators[4].SetTrigger("Disabled");
+
+        uiAnimators[5].SetTrigger("Disabled");
+        //uiAnimators[5].ResetTrigger("Disabled");
     }
 
     /// <summary>
@@ -120,7 +130,7 @@ public class RoomInteraction : MonoBehaviour
     //        if (objet != null)
     //            ObjectManager.Instance.currentObjet = objet;
 
-            
+
     //        UiTextUpdate();
     //    }
 
@@ -140,5 +150,5 @@ public class RoomInteraction : MonoBehaviour
     //    }
     //}
 
-#endregion
+    #endregion
 }

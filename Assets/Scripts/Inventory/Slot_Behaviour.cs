@@ -168,12 +168,16 @@ public class Slot_Behaviour : MonoBehaviour
 
     public void ShowIcon()
     {
-        if (!isIconImageAppeared)
+        if (InventorySystem.Instance.isInventoryDisplayed == true)
         {
-            isIconImageAnimationOver = false;
-            isIconImageAppeared = true;
-            iconImageApparitionCurrentTime = 0;
+            if (!isIconImageAppeared)
+            {
+                isIconImageAnimationOver = false;
+                isIconImageAppeared = true;
+                iconImageApparitionCurrentTime = 0;
+            }
         }
+
     }
 
     public void HideIcon()
@@ -191,7 +195,7 @@ public class Slot_Behaviour : MonoBehaviour
     /// <summary>
     /// Affiche l'icone
     /// </summary>
-    public void ShowIconAnimation()
+    private void ShowIconAnimation()
     {
         if (iconImageApparitionCurrentTime < iconImageApparitionTimeMax)
         {
@@ -217,7 +221,7 @@ public class Slot_Behaviour : MonoBehaviour
     /// <summary>
     /// Cache l'icone
     /// </summary>
-    public void HideIconAnimation()
+    private void HideIconAnimation()
     {
         if (iconImageApparitionCurrentTime < iconImageApparitionTimeMax)
         {
@@ -239,7 +243,7 @@ public class Slot_Behaviour : MonoBehaviour
     /// <summary>
     /// Affiche le nom de l'objet
     /// </summary>
-    public void ShowNameAnimation()
+    private void ShowNameAnimation()
     {
         if (nameApparitionCurrentTime < nameApparitionTimeMax)
         {
@@ -262,7 +266,7 @@ public class Slot_Behaviour : MonoBehaviour
     /// <summary>
     /// Cache le nom de l'objet
     /// </summary>
-    public void HideNameAnimation()
+    private void HideNameAnimation()
     {
         if (nameApparitionCurrentTime < nameApparitionTimeMax)
         {
@@ -286,7 +290,7 @@ public class Slot_Behaviour : MonoBehaviour
     /// <summary>
     /// Affiche la description de l'objet
     /// </summary>
-    public void ShowDescriptionAnimation()
+    private void ShowDescriptionAnimation()
     {
         if (descriptionApparitionCurrentTime < descriptionApparitionTimeMax)
         {
@@ -307,7 +311,7 @@ public class Slot_Behaviour : MonoBehaviour
     /// <summary>
     /// Cache la description de l'objet
     /// </summary>
-    public void HideDescriptionAnimation()
+    private void HideDescriptionAnimation()
     {
         if (descriptionApparitionCurrentTime < descriptionApparitionTimeMax)
         {
@@ -325,5 +329,4 @@ public class Slot_Behaviour : MonoBehaviour
         backgroundSize.sizeDelta = new Vector2(backgroundSize.sizeDelta.x, descriptionBackgroudSize.y - ((descriptionBackgroudSize.y - nameBackgroudSize.y) * descriptionApparitionPercent));
     }
     #endregion
-
 }
