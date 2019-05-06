@@ -14,13 +14,30 @@ public class SmoothMoveSwipe : MonoBehaviour {
 	public int currentLevel;
 	public RectTransform line;
 
+    public List<Vector2> levelCranRef;
+    public Vector2 cranRef;
+
+    [Header("Animation Curve TRY")]
+    public AnimationCurve cranAnimationCurve;
+    public float currentCranTime;
+    public float cranMaxTime;
+    public float cranPercent;
+
+    public Vector2 lastPos;
+    public Vector2 cranPos;
+    public Vector2 diffPos;
+
+    public bool isCranAnimationOver;
+
 
     public Animator[] BAnims;
 
-    // Update is called once per frame
+
+
+
     private void Update()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        /*if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             startTouchPosition = Input.GetTouch(0).position;
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
@@ -41,8 +58,25 @@ public class SmoothMoveSwipe : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(Swipe("right"));
-        }
+        }*/
+
+        if (isCranAnimationOver == false)
+            CrantAnimation();
+
     }
+
+    private void CrantAnimation()
+    {
+        if(currentCranTime < cranMaxTime)
+        {
+            currentCranTime += Time.deltaTime;
+        }
+
+        cranPercent = cranAnimationCurve.Evaluate(currentCranTime / cranMaxTime);
+
+        line.localPosition = new Vector2(lastPos.x - diffPos.x * cranPercent, lastPos.y - diffPos.y * cranPercent);
+    }
+
 
     private IEnumerator Swipe(string whereToGo)
     {
