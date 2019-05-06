@@ -679,7 +679,7 @@ public class CameraBehaviour : MonoBehaviour
 
     IEnumerator UIapparitionTime()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0);
 
         ROOM_Manager.Instance.LaunchUI();
     }

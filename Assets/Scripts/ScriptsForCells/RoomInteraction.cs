@@ -12,6 +12,7 @@ public class RoomInteraction : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descritpionText;
     public TextMeshProUGUI nothingText;
+    public SpriteRenderer backgroundSprite;
 
     [Header("Opportunities")]
     public bool isDialogue;
@@ -47,6 +48,7 @@ public class RoomInteraction : MonoBehaviour
         //Debug.Log("Enable UI");
         uiAnimators[3].SetTrigger("Enabled");
         uiAnimators[4].SetTrigger("Enabled");
+        uiAnimators[6].SetTrigger("Enabled");
 
         if (isDialogue)
         {
@@ -92,6 +94,8 @@ public class RoomInteraction : MonoBehaviour
         uiAnimators[4].SetTrigger("Disabled");
 
         uiAnimators[5].SetTrigger("Disabled");
+
+        uiAnimators[6].SetTrigger("Disabled");
         //uiAnimators[5].ResetTrigger("Disabled");
     }
 

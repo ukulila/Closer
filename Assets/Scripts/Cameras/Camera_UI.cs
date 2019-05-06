@@ -309,7 +309,7 @@ public class Camera_UI : MonoBehaviour
                     {
                         switchToUI = true;
                         cameraReposition = false;
-                        StartCoroutine(UIapparitionTime(animationCurveTimingMax));
+                        StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin)* switchDurationRatioModifier));
                     }
                 }
                 else
