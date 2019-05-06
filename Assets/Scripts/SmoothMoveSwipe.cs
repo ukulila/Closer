@@ -97,7 +97,7 @@ public class SmoothMoveSwipe : MonoBehaviour {
 		float lerpValue = 0;
 		while(lerpValue < 1)
 		{
-			Debug.log("WHILE");
+			print("WHILE");
 			lerpValue += Time.deltaTime;
 			line.anchoredPosition = Vector3.Lerp(startSwipePosition, endSwipePosition, lerpValue);
 			yield return new WaitForEndOfFrame();

@@ -902,6 +902,7 @@ public class DialogueSystem : MonoBehaviour
 
         Debug.Log("RESET now");
 
+        CleanDialogueSetUp();
         SetUp();
 
 
