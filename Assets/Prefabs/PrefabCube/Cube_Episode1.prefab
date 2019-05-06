@@ -61,7 +61,7 @@ MonoBehaviour:
   cP: {fileID: 8686217393494941507}
   offset: {x: 0, y: 0.75, z: 0}
   animator: {fileID: 0}
-  RoomChecker: {fileID: 0}
+  RoomChecker: {fileID: 5723839628308453580}
   onlyTwo: 0
 --- !u!54 &2139837028
 Rigidbody:
@@ -6145,25 +6145,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1717930490726987400, guid: b4ac537463303f6439fc87998167a98d,
-        type: 3}
-      propertyPath: cP
-      value: 
-      objectReference: {fileID: 8686217393494941507}
-    - target: {fileID: 1717930490726987400, guid: b4ac537463303f6439fc87998167a98d,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2048586838}
-    - target: {fileID: 1717930490726987400, guid: b4ac537463303f6439fc87998167a98d,
-        type: 3}
-      propertyPath: translateSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 2218840438043697046, guid: b4ac537463303f6439fc87998167a98d,
         type: 3}
       propertyPath: uiAnimators.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1717930490726987401, guid: b4ac537463303f6439fc87998167a98d,
         type: 3}
@@ -6205,6 +6190,21 @@ PrefabInstance:
       propertyPath: cP
       value: 
       objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 1717930490726987400, guid: b4ac537463303f6439fc87998167a98d,
+        type: 3}
+      propertyPath: cP
+      value: 
+      objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 1717930490726987400, guid: b4ac537463303f6439fc87998167a98d,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2048586838}
+    - target: {fileID: 1717930490726987400, guid: b4ac537463303f6439fc87998167a98d,
+        type: 3}
+      propertyPath: translateSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1717930490726987406, guid: b4ac537463303f6439fc87998167a98d,
         type: 3}
       propertyPath: paths.list.Array.size
@@ -6677,7 +6677,12 @@ PrefabInstance:
     - target: {fileID: 4479267212171486381, guid: 73607c71e7e6d7b41aff850a8814807a,
         type: 3}
       propertyPath: uiAnimators.Array.size
-      value: 5
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4479267212171486381, guid: 73607c71e7e6d7b41aff850a8814807a,
+        type: 3}
+      propertyPath: objet
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6152247425850539586, guid: 73607c71e7e6d7b41aff850a8814807a,
         type: 3}
@@ -6914,21 +6919,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1034982461261382515, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: cP
-      value: 
-      objectReference: {fileID: 8686217393494941507}
-    - target: {fileID: 1034982461261382515, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2048586838}
-    - target: {fileID: 1034982461261382515, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: translateSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 1034982461541565226, guid: 03a133289aa865447a9fa0482980d332,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -6982,62 +6972,7 @@ PrefabInstance:
     - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
         type: 3}
       propertyPath: uiAnimators.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: roomName
-      value: SM Donjon
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: nameText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: descritpionText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: talkTo
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: interactWith
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: changeFloor
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: uiAnimators.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: uiAnimators.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: uiAnimators.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: uiAnimators.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783552032673663628, guid: 03a133289aa865447a9fa0482980d332,
-        type: 3}
-      propertyPath: uiAnimators.Array.data[4]
-      value: 
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1034982461261382514, guid: 03a133289aa865447a9fa0482980d332,
         type: 3}
@@ -7089,6 +7024,21 @@ PrefabInstance:
       propertyPath: cP
       value: 
       objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 1034982461261382515, guid: 03a133289aa865447a9fa0482980d332,
+        type: 3}
+      propertyPath: cP
+      value: 
+      objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 1034982461261382515, guid: 03a133289aa865447a9fa0482980d332,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2048586838}
+    - target: {fileID: 1034982461261382515, guid: 03a133289aa865447a9fa0482980d332,
+        type: 3}
+      propertyPath: translateSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1034982461261382517, guid: 03a133289aa865447a9fa0482980d332,
         type: 3}
       propertyPath: paths.list.Array.size
@@ -7437,21 +7387,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
-    - target: {fileID: 1455093393137566564, guid: 094952af23c3f114aa87c6a8d36d6146,
-        type: 3}
-      propertyPath: cP
-      value: 
-      objectReference: {fileID: 8686217393494941507}
-    - target: {fileID: 1455093393137566564, guid: 094952af23c3f114aa87c6a8d36d6146,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2048586838}
-    - target: {fileID: 1455093393137566564, guid: 094952af23c3f114aa87c6a8d36d6146,
-        type: 3}
-      propertyPath: translateSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 1455093393392976701, guid: 094952af23c3f114aa87c6a8d36d6146,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -7526,6 +7461,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Face
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455093393137566564, guid: 094952af23c3f114aa87c6a8d36d6146,
+        type: 3}
+      propertyPath: cP
+      value: 
+      objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 1455093393137566564, guid: 094952af23c3f114aa87c6a8d36d6146,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2048586838}
+    - target: {fileID: 1455093393137566564, guid: 094952af23c3f114aa87c6a8d36d6146,
+        type: 3}
+      propertyPath: translateSpeed
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1455093393137566565, guid: 094952af23c3f114aa87c6a8d36d6146,
         type: 3}
@@ -7630,7 +7580,7 @@ PrefabInstance:
     - target: {fileID: 133721646957184399, guid: 094952af23c3f114aa87c6a8d36d6146,
         type: 3}
       propertyPath: uiAnimators.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1455093392565685681, guid: 094952af23c3f114aa87c6a8d36d6146,
         type: 3}
@@ -7855,21 +7805,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8591332402940828975, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
-        type: 3}
-      propertyPath: cP
-      value: 
-      objectReference: {fileID: 8686217393494941507}
-    - target: {fileID: 8591332402940828975, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2048586838}
-    - target: {fileID: 8591332402940828975, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
-        type: 3}
-      propertyPath: translateSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 8591332402668248438, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -7970,6 +7905,21 @@ PrefabInstance:
       propertyPath: cP
       value: 
       objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 8591332402940828975, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
+        type: 3}
+      propertyPath: cP
+      value: 
+      objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 8591332402940828975, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2048586838}
+    - target: {fileID: 8591332402940828975, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
+        type: 3}
+      propertyPath: translateSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8591332402940828969, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
         type: 3}
       propertyPath: paths.list.Array.size
@@ -8103,7 +8053,7 @@ PrefabInstance:
     - target: {fileID: 7469154788692779890, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
         type: 3}
       propertyPath: uiAnimators.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8591332402668248432, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
         type: 3}
@@ -8353,21 +8303,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
-    - target: {fileID: 1792368374132413419, guid: 99051df6611b2e84c84e36f991605ec4,
-        type: 3}
-      propertyPath: cP
-      value: 
-      objectReference: {fileID: 8686217393494941507}
-    - target: {fileID: 1792368374132413419, guid: 99051df6611b2e84c84e36f991605ec4,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2048586838}
-    - target: {fileID: 1792368374132413419, guid: 99051df6611b2e84c84e36f991605ec4,
-        type: 3}
-      propertyPath: translateSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 1792368373850559410, guid: 99051df6611b2e84c84e36f991605ec4,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -8396,7 +8331,7 @@ PrefabInstance:
     - target: {fileID: 7539770150026234092, guid: 99051df6611b2e84c84e36f991605ec4,
         type: 3}
       propertyPath: uiAnimators.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1792368374568738099, guid: 99051df6611b2e84c84e36f991605ec4,
         type: 3}
@@ -8498,6 +8433,21 @@ PrefabInstance:
       propertyPath: cP
       value: 
       objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 1792368374132413419, guid: 99051df6611b2e84c84e36f991605ec4,
+        type: 3}
+      propertyPath: cP
+      value: 
+      objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 1792368374132413419, guid: 99051df6611b2e84c84e36f991605ec4,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2048586838}
+    - target: {fileID: 1792368374132413419, guid: 99051df6611b2e84c84e36f991605ec4,
+        type: 3}
+      propertyPath: translateSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1792368374132413421, guid: 99051df6611b2e84c84e36f991605ec4,
         type: 3}
       propertyPath: paths.list.Array.size
@@ -8781,21 +8731,6 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3175635773606177946, guid: 249c0c121c4e8ef4ba7cf62dd1a93b3b,
-        type: 3}
-      propertyPath: cP
-      value: 
-      objectReference: {fileID: 8686217393494941507}
-    - target: {fileID: 3175635773606177946, guid: 249c0c121c4e8ef4ba7cf62dd1a93b3b,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2048586838}
-    - target: {fileID: 3175635773606177946, guid: 249c0c121c4e8ef4ba7cf62dd1a93b3b,
-        type: 3}
-      propertyPath: translateSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 3175635773862898883, guid: 249c0c121c4e8ef4ba7cf62dd1a93b3b,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -8839,7 +8774,7 @@ PrefabInstance:
     - target: {fileID: 7425795879134760458, guid: 249c0c121c4e8ef4ba7cf62dd1a93b3b,
         type: 3}
       propertyPath: uiAnimators.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3175635774982922722, guid: 249c0c121c4e8ef4ba7cf62dd1a93b3b,
         type: 3}
@@ -8911,6 +8846,21 @@ PrefabInstance:
       propertyPath: cP
       value: 
       objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 3175635773606177946, guid: 249c0c121c4e8ef4ba7cf62dd1a93b3b,
+        type: 3}
+      propertyPath: cP
+      value: 
+      objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 3175635773606177946, guid: 249c0c121c4e8ef4ba7cf62dd1a93b3b,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2048586838}
+    - target: {fileID: 3175635773606177946, guid: 249c0c121c4e8ef4ba7cf62dd1a93b3b,
+        type: 3}
+      propertyPath: translateSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3175635773606177948, guid: 249c0c121c4e8ef4ba7cf62dd1a93b3b,
         type: 3}
       propertyPath: paths.list.Array.size
@@ -9320,21 +9270,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
-    - target: {fileID: 5593862794754416108, guid: 9ee1eb3eba17ea74daf5fb6136407507,
-        type: 3}
-      propertyPath: cP
-      value: 
-      objectReference: {fileID: 8686217393494941507}
-    - target: {fileID: 5593862794754416108, guid: 9ee1eb3eba17ea74daf5fb6136407507,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2048586838}
-    - target: {fileID: 5593862794754416108, guid: 9ee1eb3eba17ea74daf5fb6136407507,
-        type: 3}
-      propertyPath: translateSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 5593862796396892980, guid: 9ee1eb3eba17ea74daf5fb6136407507,
         type: 3}
       propertyPath: m_Layer
@@ -9445,6 +9380,21 @@ PrefabInstance:
       propertyPath: cP
       value: 
       objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 5593862794754416108, guid: 9ee1eb3eba17ea74daf5fb6136407507,
+        type: 3}
+      propertyPath: cP
+      value: 
+      objectReference: {fileID: 8686217393494941507}
+    - target: {fileID: 5593862794754416108, guid: 9ee1eb3eba17ea74daf5fb6136407507,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2048586838}
+    - target: {fileID: 5593862794754416108, guid: 9ee1eb3eba17ea74daf5fb6136407507,
+        type: 3}
+      propertyPath: translateSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5593862794754416106, guid: 9ee1eb3eba17ea74daf5fb6136407507,
         type: 3}
       propertyPath: paths.list.Array.size
@@ -9483,7 +9433,7 @@ PrefabInstance:
     - target: {fileID: 145695564808203587, guid: 9ee1eb3eba17ea74daf5fb6136407507,
         type: 3}
       propertyPath: uiAnimators.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5593862796396892985, guid: 9ee1eb3eba17ea74daf5fb6136407507,
         type: 3}

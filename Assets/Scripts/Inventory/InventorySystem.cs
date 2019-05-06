@@ -7,13 +7,18 @@ using TMPro;
 
 public class InventorySystem : MonoBehaviour
 {
+    [Header("Inventory References")]
     public Image inventoryInputImage;
     public Button inventoryButton;
     public RectTransform startPos;
+
+    [Header("Inventory Conditions")]
     public bool isInventoryDisplayed = false;
     public bool isAnimationOver = true;
     public bool isThereAnyObjectInInventory;
+    public bool canBeDisplayed = true;
 
+    [Header("Inventory Sprites Icon")]
     public Sprite emptyInventorySprite;
     public Sprite fullInventorySprite;
 
@@ -29,6 +34,10 @@ public class InventorySystem : MonoBehaviour
     public float apparitionPercent;
     public float apparitionTimeMax;
     public float apparitionCurrentTime;
+
+    [Header("Animation to Add an Object")]
+    public Animator addObject;
+
 
 
     public static InventorySystem Instance;
@@ -78,7 +87,8 @@ public class InventorySystem : MonoBehaviour
 
         if (isInventoryDisplayed)
         {
-            InventoryAppears();
+            if (canBeDisplayed)
+                InventoryAppears();
         }
 
         if (isThereAnyObjectInInventory)
@@ -114,6 +124,18 @@ public class InventorySystem : MonoBehaviour
         if (isThereAnyObjectInInventory)
         {
             isInventoryDisplayed = !isInventoryDisplayed;
+            isAnimationOver = false;
+            apparitionCurrentTime = 0;
+        }
+    }
+
+    public void HideInventory()
+    {
+        CheckIcons();
+
+        if(isInventoryDisplayed)
+        {
+            isInventoryDisplayed = false;
             isAnimationOver = false;
             apparitionCurrentTime = 0;
         }
@@ -182,7 +204,7 @@ public class InventorySystem : MonoBehaviour
             isAnimationOver = true;
         }
 
-        
+
 
         apparitionPercent = inventoryApparitionCurve.Evaluate(apparitionCurrentTime / apparitionTimeMax);
 
@@ -216,6 +238,10 @@ public class InventorySystem : MonoBehaviour
 
             inventoryInputImage.color = new Color(inventoryInputImage.color.r, inventoryInputImage.color.g, inventoryInputImage.color.b, 0.25f);
         }
+
+        addObject.gameObject.GetComponent<Image>().sprite = collectedObject.objectImage;
+
+        addObject.SetTrigger("Get");
     }
 
     /// <summary>

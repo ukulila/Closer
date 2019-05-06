@@ -307,7 +307,7 @@ public class DialogueSystem : MonoBehaviour
 
     private void SetUpDefaultValues()
     {
-        dialogueBoxSpacing = 130f;
+        dialogueBoxSpacing = 120f;
         boxMaxWidth = 363f;
         boxMinWidth = 100f;
         boxMinHeight = 74.63f;

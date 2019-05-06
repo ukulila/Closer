@@ -20,6 +20,10 @@ public class Camera_UI : MonoBehaviour
     public CellMovement cellMove;
     public string currentSelectedCell;
 
+    public List<Image> RTargetImageContextuelle;
+    public List<TextMeshProUGUI> RTargetTextContextuelle;
+
+
     [Header("   Target Offset")]
     public List<Vector3> targetOffsets;
     public Vector3 currentTargetOffset;
@@ -29,9 +33,9 @@ public class Camera_UI : MonoBehaviour
     public List<float> uiPathPosition;
     private float currentPathPos;
     public float continuePosDifference;
-    private float reversePosDifference;
-    private float animationPosDifference;
-    private float positionMax;
+    public float reversePosDifference;
+    public float animationPosDifference;
+    public float positionMax;
 
     [Header("   FOV")]
     public float uiFOV;
@@ -82,6 +86,8 @@ public class Camera_UI : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        positionMax = dollyCart.m_Path.PathLength;
     }
 
 
@@ -89,12 +95,14 @@ public class Camera_UI : MonoBehaviour
     {
         if (switchToUI)
         {
+            ActivateUIRaycastTarget();
+
             if (cameraReposition)
             {
                 animationCurveTimingMax = 1.5f;
 
                 //Debug.Log("Room set");
-        
+
                 if (Input.GetMouseButtonDown(0) && GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode)
                 {
                     RaycastHit selectedCube;
@@ -110,6 +118,7 @@ public class Camera_UI : MonoBehaviour
                     {
                         if (selectedCube.collider)
                         {
+                            //Debug.Log("Deactivate UI nOW");
                             switchToUI = false;
                             ROOM_Manager.Instance.DeactivateUI();
                             cameraReposition = false;
@@ -121,6 +130,9 @@ public class Camera_UI : MonoBehaviour
         else
         {
             //Debug.Log("Room unset");
+
+            InventorySystem.Instance.canBeDisplayed = true;
+            DeactivateUIRaycastTarget();
 
             if (Input.GetMouseButtonDown(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
             {
@@ -297,7 +309,7 @@ public class Camera_UI : MonoBehaviour
                     {
                         switchToUI = true;
                         cameraReposition = false;
-                        StartCoroutine(UIapparitionTime());
+                        StartCoroutine(UIapparitionTime(animationCurveTimingMax));
                     }
                 }
                 else
@@ -342,7 +354,7 @@ public class Camera_UI : MonoBehaviour
     /// <summary>
     /// Passe la camera en mode Investigation (zoom sur la room du joueur)
     /// </summary>
-    void RepositionCamera()
+    public void RepositionCamera()
     {
         if (currentRepositionTime < animationCurveTimingMax)
         {
@@ -350,6 +362,19 @@ public class Camera_UI : MonoBehaviour
         }
         else
         {
+            if (switchToUI)
+            {
+                InventorySystem.Instance.canBeDisplayed = false;
+
+                if (InventorySystem.Instance.isInventoryDisplayed)
+                    InventorySystem.Instance.inventoryButton.onClick.Invoke();
+
+            }
+            else
+            {
+                InventorySystem.Instance.canBeDisplayed = true;
+            }
+
             cameraReposition = true;
         }
 
@@ -404,7 +429,7 @@ public class Camera_UI : MonoBehaviour
         {
             //Debug.Log("Continue est négatif");
 
-            reversePosDifference = positionMax - (continuePosDifference * -1);
+            reversePosDifference = positionMax + continuePosDifference;
 
             if ((continuePosDifference * -1) > reversePosDifference)
             {
@@ -425,7 +450,7 @@ public class Camera_UI : MonoBehaviour
 
             reversePosDifference = positionMax - continuePosDifference;
 
-            if (continuePosDifference * -1 > reversePosDifference)
+            if (continuePosDifference > reversePosDifference)
             {
                 //Debug.Log("Continue 3");
                 animationPosDifference = reversePosDifference;
@@ -456,19 +481,45 @@ public class Camera_UI : MonoBehaviour
 
             animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
         }
+
+
+    }
+
+    /// <summary>
+    /// Active les Raycast Target de l'UI Contextuelle
+    /// </summary>
+    public void ActivateUIRaycastTarget()
+    {
+        for (int i = 0; i < RTargetImageContextuelle.Count; i++)
+        {
+            RTargetImageContextuelle[i].raycastTarget = true;
+            RTargetTextContextuelle[i].raycastTarget = true;
+        }
+    }
+
+    /// <summary>
+    /// Désactive les Raycast Target de l'UI Contextuelle
+    /// </summary>
+    public void DeactivateUIRaycastTarget()
+    {
+        for (int i = 0; i < RTargetImageContextuelle.Count; i++)
+        {
+            RTargetImageContextuelle[i].raycastTarget = false;
+            RTargetTextContextuelle[i].raycastTarget = false;
+        }
     }
 
     /// <summary>
     /// Delay avant l'apparition de L'UI d'actions contextuelles
     /// </summary>
     /// <returns></returns>
-    IEnumerator UIapparitionTime()
+    IEnumerator UIapparitionTime(float time)
     {
-        Debug.Log("UI will appear");
+        //Debug.Log("UI will appear");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(time);
 
-        Debug.Log("BOOM");
+        //Debug.Log("BOOM");
 
         ROOM_Manager.Instance.LaunchUI();
     }

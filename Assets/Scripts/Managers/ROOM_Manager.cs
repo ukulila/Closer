@@ -22,7 +22,7 @@ public class ROOM_Manager : MonoBehaviour
     {
         if (currentRoom != null)
         {
-            Debug.Log("Do it !");
+            //Debug.Log("Appear !");
             currentRoom.InteractionAppears();
             GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
         }
@@ -35,6 +35,7 @@ public class ROOM_Manager : MonoBehaviour
     {
         if (currentRoom != null)
         {
+            //Debug.Log("BE GONE !");
             currentRoom.DisableUI();
             GameManager.Instance.currentGameMode = GameManager.GameMode.PuzzleMode;
         }

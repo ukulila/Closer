@@ -15,6 +15,7 @@ public class RoomInteractionSetUp : Editor
     public GameObject floor;
     public GameObject title;
     public GameObject description;
+    public GameObject nothing;
 
     [Header("Gameobject in Scene")]
     public GameObject currentUI;
@@ -103,6 +104,13 @@ public class RoomInteractionSetUp : Editor
                 //EditorUtility.SetDirty(this);
             }
 
+            if (roomInteraction.nothingText == null)
+            {
+                //Undo.RecordObject(this, "Bla bla");
+                roomInteraction.nothingText = GameObject.Find(nothing.name).GetComponent<TextMeshProUGUI>();
+                //EditorUtility.SetDirty(this);
+            }
+
             roomInteraction.uiAnimators.Clear();
 
             if (roomInteraction.talkTo != null)
@@ -150,6 +158,14 @@ public class RoomInteractionSetUp : Editor
             else
                 Debug.LogWarning("This Button is not assigned");
 
+            if (roomInteraction.nothingText != null)
+            {
+                //Undo.RecordObject(this, "Bla bla");
+                roomInteraction.uiAnimators.Add(roomInteraction.nothingText.gameObject.GetComponent<Animator>());
+                //EditorUtility.SetDirty(this);
+            }
+            else
+                Debug.LogWarning("This Button is not assigned");
         }
 
         base.OnInspectorGUI();
