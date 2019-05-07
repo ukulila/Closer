@@ -161,9 +161,12 @@ public class Slot_Behaviour : MonoBehaviour
 
     public void InverseIcon()
     {
-        isIconImageAnimationOver = false;
-        isIconImageAppeared = !isIconImageAppeared;
-        iconImageApparitionCurrentTime = 0;
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        {
+            isIconImageAnimationOver = false;
+            isIconImageAppeared = !isIconImageAppeared;
+            iconImageApparitionCurrentTime = 0;
+        }
     }
 
     public void ShowIcon()
@@ -177,7 +180,6 @@ public class Slot_Behaviour : MonoBehaviour
                 iconImageApparitionCurrentTime = 0;
             }
         }
-
     }
 
     public void HideIcon()

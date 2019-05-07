@@ -23,7 +23,6 @@ public class Camera_UI : MonoBehaviour
     public List<Image> RTargetImageContextuelle;
     public List<TextMeshProUGUI> RTargetTextContextuelle;
 
-
     [Header("   Target Offset")]
     public List<Vector3> targetOffsets;
     public Vector3 currentTargetOffset;
@@ -68,11 +67,10 @@ public class Camera_UI : MonoBehaviour
     [Range(0, 0.3f)]
     public float switchDurationRatioModifier;
 
-
-
-
+    [Space]
     public bool cameraReposition = true;
 
+    [Header("Debug Issues")]
     public List<TextMeshProUGUI> debugTexts;
     public List<Slider> sliders;
 
@@ -90,6 +88,19 @@ public class Camera_UI : MonoBehaviour
         positionMax = dollyCart.m_Path.PathLength;
     }
 
+    public void SwitchToNOui()
+    {
+        currentPathPos = dollyCart.m_Position;
+        currentDollyPosition = dollyTransform.localPosition;
+        currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
+        currentFOV = virtualCamera.m_Lens.OrthographicSize;
+        currentRepositionTime = 0;
+
+        //Debug.Log("Deactivate UI nOW");
+        switchToUI = false;
+        ROOM_Manager.Instance.DeactivateUI();
+        cameraReposition = false;
+    }
 
     void Update()
     {
@@ -103,6 +114,7 @@ public class Camera_UI : MonoBehaviour
 
                 //Debug.Log("Room set");
 
+                /*
                 if (Input.GetMouseButtonDown(0) && GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode)
                 {
                     RaycastHit selectedCube;
@@ -116,7 +128,7 @@ public class Camera_UI : MonoBehaviour
 
                     if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube) && cameraReposition)
                     {
-                        if (selectedCube.collider)
+                        if (selectedCube.collider.isTrigger)
                         {
                             //Debug.Log("Deactivate UI nOW");
                             switchToUI = false;
@@ -125,6 +137,7 @@ public class Camera_UI : MonoBehaviour
                         }
                     }
                 }
+                */
             }
         }
         else
@@ -281,7 +294,6 @@ public class Camera_UI : MonoBehaviour
 
         if (Input.GetMouseButton(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && !switchToUI && isPlayerHere && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
-
             RaycastHit selectedCube;
             LayerMask cellMask = LayerMask.GetMask("Cell");
 
@@ -309,7 +321,7 @@ public class Camera_UI : MonoBehaviour
                     {
                         switchToUI = true;
                         cameraReposition = false;
-                        StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin)* switchDurationRatioModifier));
+                        StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier));
                     }
                 }
                 else
