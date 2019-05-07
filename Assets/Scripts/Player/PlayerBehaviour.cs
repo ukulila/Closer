@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     public bool reset;
-    private bool lookCam;
+    public bool lookCam;
     public bool movement;
     public Vector3 origin;
     public bool once;
@@ -16,7 +16,7 @@ public class PlayerBehaviour : MonoBehaviour
     public ScrEnvironment nextContext;
     public float distance;
 
-    [Range(0.1f,2)]
+    [Range(0.1f, 2)]
     public float minDist = 0.1f;
     public Vector3 direction;
 
@@ -46,20 +46,46 @@ public class PlayerBehaviour : MonoBehaviour
     public bool castingRay;
     public CellPlacement cP;
     public Vector3 offset;
+    private bool onlyOne;
+    public Animator animator;
+    private float x;
+    private float y;
+
+    public Transform RoomChecker;
+    public int onlyTwo;
 
     void Start()
     {
         add = false;
         reset = true;
+        onlyOne = true;
+        if (GetComponent<Animator>() != null)
+        {
+            animator = GetComponent<Animator>();
+        }
     }
 
     void Update()
     {
+        animator.SetFloat("ValueX", x);
+        animator.SetFloat("ValueY", y);
+
+
 
         if (lookCam)
         {
-            reset = true;
-            transform.LookAt(Camera.transform.position);
+            // reset = true;
+            //transform.LookAt(Camera.transform.position);
+            onlyOne = false;
+
+            if (x > 0 && y > 0)
+            {
+                y -= 0.05f;
+                x -= 0.05f;
+
+            }
+
+            //animator.SetBool("Walk", false);
         }
 
 
@@ -76,11 +102,11 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, Color.green, 50);
                     cP.okToSetup = true;
-                    
+
 
                     Debug.Log(hit.transform.name);
 
-                    
+
                     if (hit.transform.parent.parent.GetComponent<CellMovement>())
                     {
                         Debug.Log("parentparentconatinsCellmovement");
@@ -92,7 +118,7 @@ public class PlayerBehaviour : MonoBehaviour
                             Debug.Log("here is a door i could take" + hit.transform.parent.parent.name);
                             cellMove.isOpen = true;
                         }
-                        else if(cellMove.isOpen == true)
+                        else if (cellMove.isOpen == true)
                         {
                             Debug.Log("close");
                             cellMove.isOpen = false;
@@ -112,7 +138,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.right, Color.green, 50);
                     cP.okToSetup = true;
-                    
+
 
                     Debug.Log(hit.transform.parent.parent.name);
 
@@ -159,7 +185,7 @@ public class PlayerBehaviour : MonoBehaviour
                 int layerMaskDoor = LayerMask.GetMask("Door");
 
 
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, out hit,10, layerMaskDoor))
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, out hit, 10, layerMaskDoor))
                 {
                     Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, Color.green, 050);
                     //cP.okToSetup = true;
@@ -220,12 +246,119 @@ public class PlayerBehaviour : MonoBehaviour
             ways.RemoveAt(ways.Count - 1);
         }
 
-        
+
 
         if (reset)
         {
             ResetWhenTooFar();
+
+            if (x < 1 && y < 1)
+            {
+                y += 0.05f;
+                x += 0.05f;
+
+            }
+            //animator.SetBool("Walk", true);
+
+
         }
+
+
+        if (onlyOne)
+        {
+            RaycastHit hit;
+            int layerMaskCell = LayerMask.GetMask("Cell");
+
+            if (Physics.Raycast(RoomChecker.position, transform.position - RoomChecker.position, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastPerso" + hit.transform.name);
+                Debug.DrawRay(RoomChecker.position, transform.position - RoomChecker.position, Color.green, 10);
+                hit.transform.GetComponent<CellMovement>().isSpawn = true;
+
+                ROOM_Manager.Instance.currentRoom = hit.transform.GetComponent<RoomInteraction>();
+
+                if (hit.transform.GetComponent<RoomInteraction>().isInteraction == true)
+                {
+                    ObjectManager.Instance.currentObjet = hit.transform.GetComponent<RoomInteraction>().objet;
+                }
+
+                if (hit.transform.GetComponent<RoomInteraction>().isDialogue == true)
+                {
+                    NPC_Manager.Instance.currentNPC = hit.transform.GetComponent<RoomInteraction>().npc;
+                }
+
+                hit.transform.GetComponent<RoomInteraction>().UiTextUpdate();
+
+                onlyOne = false;
+
+            }
+            else
+            {
+                Debug.DrawRay(RoomChecker.position, transform.position - RoomChecker.position, Color.red, 10);
+            }
+
+
+
+
+
+        }
+
+       /* if (onlyTwo <= 6)
+        {
+            RaycastHit hit;
+
+            int layerMaskCell = LayerMask.GetMask("Cell");
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+            if (Physics.Raycast(transform.position, -transform.forward, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+            if (Physics.Raycast(transform.position, transform.right, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+            if (Physics.Raycast(transform.position, -transform.right, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+            if (Physics.Raycast(transform.position, transform.up, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+            if (Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity, layerMaskCell))
+            {
+                Debug.LogError("RaycastDisable" + hit.transform.name);
+
+                hit.transform.GetComponent<CellMovement>().isSpawn = false;
+                onlyTwo += 1;
+            }
+
+        }*/
+
 
 
         for (int i = 0; i < ways.Count; i++)
@@ -306,16 +439,26 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void ResetWhenTooFar()
     {
-        if (Vector3.Distance(transform.position, context.basePos.position) >= 0.01f && !movement)
+        if (Vector3.Distance(transform.position, context.basePos.position) >= 0.1f && !movement)
         {
             transform.position = Vector3.Lerp(transform.position, context.basePos.position, 0.05f);
-            transform.LookAt(context.basePos.position);
+            Vector3 targetPos = new Vector3(context.basePos.position.x, transform.position.y, context.basePos.position.z);
+            transform.LookAt(targetPos/*context.basePos.position*/);
 
         }
-        else
+
+        if (Vector3.Distance(transform.position, context.basePos.position) <= 0.1f)
         {
             reset = false;
 
+            if (x > 0 && y > 0)
+            {
+                y -= 0.05f;
+                x -= 0.05f;
+
+            }
+            //animator.SetBool("Walk", false);
+            Debug.LogError("StopWalking");
             lookCam = true;
         }
     }
@@ -408,6 +551,16 @@ public class PlayerBehaviour : MonoBehaviour
 
             //Actual movement to selected waypoint
             transform.position = Vector3.Lerp(transform.position, listToMove[index].position, 0.05f);
+
+            if (x < 1 && y < 1)
+            {
+                y += 0.05f;
+                x += 0.05f;
+
+            }
+
+            animator.SetBool("Walk", true);
+
             transform.LookAt(listToMove[index].transform.position);
 
 
@@ -438,7 +591,8 @@ public class PlayerBehaviour : MonoBehaviour
 
                 isValid = true;
 
-                reset = true;
+                onlyOne = true;
+                reset = true;                                                                                                                                 //////////////////
                 add = false;
                 movement = false;
 

@@ -6,11 +6,13 @@ using TMPro;
 public class RoomInteraction : MonoBehaviour
 {
     [Header("Room Description")]
-    public string roomName;
-    public string roomDescription;
+    public string roomName = "Enter a room name please";
+    public string roomDescription = "Enter a description please";
 
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descritpionText;
+    public TextMeshProUGUI nothingText;
+    public SpriteRenderer backgroundSprite;
 
     [Header("Opportunities")]
     public bool isDialogue;
@@ -28,7 +30,14 @@ public class RoomInteraction : MonoBehaviour
     public List<Animator> uiAnimators;
 
 
+    private void Awake()
+    {
+        if (objet != null)
+            isInteraction = true;
 
+        if (npc != null)
+            isDialogue = true;
+    }
 
     /// <summary>
     /// Lance l'apparition de l'UI selon les actions disponibles
@@ -39,20 +48,29 @@ public class RoomInteraction : MonoBehaviour
         //Debug.Log("Enable UI");
         uiAnimators[3].SetTrigger("Enabled");
         uiAnimators[4].SetTrigger("Enabled");
+        uiAnimators[6].SetTrigger("Enabled");
 
         if (isDialogue)
         {
+            talkTo.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Talk to " + npc.gameObject.name;
             uiAnimators[0].SetTrigger("Enabled");
         }
 
         if (isInteraction)
         {
+            interactWith.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Interact with " + objet.objectName;
             uiAnimators[1].SetTrigger("Enabled");
         }
 
         if (isSecondFloor)
         {
             uiAnimators[2].SetTrigger("Enabled");
+        }
+
+        if (!isSecondFloor && !isInteraction && !isDialogue)
+        {
+            uiAnimators[5].ResetTrigger("Disabled");
+            uiAnimators[5].SetTrigger("Enabled");
         }
     }
 
@@ -74,87 +92,67 @@ public class RoomInteraction : MonoBehaviour
 
         uiAnimators[3].SetTrigger("Disabled");
         uiAnimators[4].SetTrigger("Disabled");
-    }
 
-    /// <summary>
-    /// Set les Animators
-    /// </summary>
-    public void SetAnimators()
-    {
-        uiAnimators.Clear();
+        uiAnimators[5].SetTrigger("Disabled");
 
-        if (talkTo != null)
-            uiAnimators.Add(talkTo.gameObject.GetComponent<Animator>());
-        else
-            Debug.LogWarning("This Button is not assigned");
-
-        if (interactWith != null)
-            uiAnimators.Add(interactWith.gameObject.GetComponent<Animator>());
-        else
-            Debug.LogWarning("This Button is not assigned");
-
-        if (changeFloor != null)
-            uiAnimators.Add(changeFloor.gameObject.GetComponent<Animator>());
-        else
-            Debug.LogWarning("This Button is not assigned");
-
-        if (nameText != null)
-            uiAnimators.Add(nameText.gameObject.GetComponent<Animator>());
-        else
-            Debug.LogWarning("This Button is not assigned");
-
-        if (descritpionText != null)
-            uiAnimators.Add(descritpionText.gameObject.GetComponent<Animator>());
-        else
-            Debug.LogWarning("This Button is not assigned");
+        uiAnimators[6].SetTrigger("Disabled");
+        //uiAnimators[5].ResetTrigger("Disabled");
     }
 
     /// <summary>
     /// Change le nom et la description de la pièce
     /// </summary>
-    private void UiTextUpdate()
+    public void UiTextUpdate()
     {
-        nameText.text = roomName;
-        descritpionText.text = roomDescription;
+        if (roomName != null)
+            nameText.text = roomName;
+
+        if (roomDescription != null)
+            descritpionText.text = roomDescription;
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //Set le NPC de la room
-        if (other.gameObject.tag == "NPC")
-        {
-            npc = other.gameObject.GetComponent<NPCInteractions>();
-            isDialogue = true;
-        }
+    #region Old Stuff
 
-        //Set le current NPC du manager à l'entrée du joueur
-        if (other.gameObject.name.Contains("Player"))
-        {
-            if (npc != null)
-                NPC_Manager.Instance.currentNPC = npc;
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //Set le NPC de la room
+    //    if (other.gameObject.tag == "NPC")
+    //    {
+    //        npc = other.gameObject.GetComponent<NPCInteractions>();
+    //        isDialogue = true;
+    //    }
 
-            if (objet != null)
-                ObjectManager.Instance.currentObjet = objet;
+    //    //Set le current NPC du manager à l'entrée du joueur
+    //    if (other.gameObject.name.Contains("Player"))
+    //    {
+    //        ROOM_Manager.Instance.currentRoom = this;
 
-            ROOM_Manager.Instance.currentRoom = this;
-            UiTextUpdate();
-        }
+    //        if (npc != null)
+    //            NPC_Manager.Instance.currentNPC = npc;
 
-        if (other.gameObject.tag == "Objet")
-        {
-            objet = other.gameObject.GetComponent<Objet_Interaction>();
-            isInteraction = true;
-        }
-    }
+    //        if (objet != null)
+    //            ObjectManager.Instance.currentObjet = objet;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.name.Contains("Player"))
-        {
-            NPC_Manager.Instance.currentNPC = null;
-            ObjectManager.Instance.currentObjet = null;
-            ROOM_Manager.Instance.currentRoom = null;
-        }
-    }
+
+    //        UiTextUpdate();
+    //    }
+
+    //    if (other.gameObject.tag == "Objet")
+    //    {
+    //        objet = other.gameObject.GetComponent<Objet_Interaction>();
+    //        isInteraction = true;
+    //    }
+    //}
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.name.Contains("Player"))
+    //    {
+    //        //ObjectManager.Instance.currentObjet = null;
+    //        //ROOM_Manager.Instance.currentRoom = null;
+    //    }
+    //}
+
+    #endregion
 }

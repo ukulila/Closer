@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
 
 public class DialogueSystem : MonoBehaviour
 {
@@ -307,7 +306,7 @@ public class DialogueSystem : MonoBehaviour
 
     private void SetUpDefaultValues()
     {
-        dialogueBoxSpacing = 130f;
+        dialogueBoxSpacing = 120f;
         boxMaxWidth = 363f;
         boxMinWidth = 100f;
         boxMinHeight = 74.63f;
@@ -890,7 +889,7 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(0, 0);
 
-        ROOM_Manager.Instance.LaunchUI();
+        //ROOM_Manager.Instance.LaunchUI();
         GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
 
         endOfTheLine = false;
@@ -902,6 +901,7 @@ public class DialogueSystem : MonoBehaviour
 
         Debug.Log("RESET now");
 
+        CleanDialogueSetUp();
         SetUp();
 
 

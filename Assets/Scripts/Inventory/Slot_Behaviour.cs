@@ -79,22 +79,22 @@ public class Slot_Behaviour : MonoBehaviour
         {
             currentBackgroudSize = backgroundSize.sizeDelta;
 
-            if (!isDescriptionAnimationOver && isDescriptionAppeared && isNameAnimationOver && isNameAppeared && isIconImageAnimationOver && isIconImageAppeared)
+            if (!isDescriptionAnimationOver && isDescriptionAppeared/* && isNameAnimationOver && isNameAppeared && isIconImageAnimationOver && isIconImageAppeared*/)
             {
                 ShowDescriptionAnimation();
             }
 
-            if (!isDescriptionAnimationOver && !isDescriptionAppeared && isNameAnimationOver && isNameAppeared && isIconImageAnimationOver && isIconImageAppeared)
+            if (!isDescriptionAnimationOver && !isDescriptionAppeared /*&& isNameAnimationOver && isNameAppeared && isIconImageAnimationOver && isIconImageAppeared*/)
             {
                 HideDescriptionAnimation();
             }
 
-            if (!isNameAnimationOver && isNameAppeared && isDescriptionAnimationOver && !isDescriptionAppeared && isIconImageAnimationOver && isIconImageAppeared)
+            if (!isNameAnimationOver && isNameAppeared/* && isDescriptionAnimationOver && !isDescriptionAppeared && isIconImageAnimationOver && isIconImageAppeared*/)
             {
                 ShowNameAnimation();
             }
 
-            if (!isNameAnimationOver && !isNameAppeared && isDescriptionAnimationOver && !isDescriptionAppeared && isIconImageAnimationOver && isIconImageAppeared)
+            if (!isNameAnimationOver && !isNameAppeared /*&& isDescriptionAnimationOver && !isDescriptionAppeared && isIconImageAnimationOver && isIconImageAppeared*/)
             {
                 HideNameAnimation();
             }
@@ -111,16 +111,23 @@ public class Slot_Behaviour : MonoBehaviour
 
     public void ShowName()
     {
-        isNameAnimationOver = false;
-        isNameAppeared = true;
-        nameApparitionCurrentTime = 0;
+        if (!isNameAppeared)
+        {
+            isNameAnimationOver = false;
+            isNameAppeared = true;
+            nameApparitionCurrentTime = 0;
+        }
+
     }
 
     public void HideName()
     {
-        isNameAnimationOver = false;
-        isNameAppeared = false;
-        nameApparitionCurrentTime = 0;
+        if (isNameAppeared)
+        {
+            isNameAnimationOver = false;
+            isNameAppeared = false;
+            nameApparitionCurrentTime = 0;
+        }
     }
 
 
@@ -133,38 +140,56 @@ public class Slot_Behaviour : MonoBehaviour
 
     public void ShowDescription()
     {
-        isDescriptionAnimationOver = false;
-        isDescriptionAppeared = true;
-        descriptionApparitionCurrentTime = 0;
+        if (!isDescriptionAppeared)
+        {
+            isDescriptionAnimationOver = false;
+            isDescriptionAppeared = true;
+            descriptionApparitionCurrentTime = 0;
+        }
     }
 
     public void HideDescription()
     {
-        isDescriptionAnimationOver = false;
-        isDescriptionAppeared = false;
-        descriptionApparitionCurrentTime = 0;
+        if (isDescriptionAppeared)
+        {
+            isDescriptionAnimationOver = false;
+            isDescriptionAppeared = false;
+            descriptionApparitionCurrentTime = 0;
+        }
     }
 
 
     public void InverseIcon()
     {
-        isIconImageAnimationOver = false;
-        isIconImageAppeared = !isIconImageAppeared;
-        iconImageApparitionCurrentTime = 0;
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        {
+            isIconImageAnimationOver = false;
+            isIconImageAppeared = !isIconImageAppeared;
+            iconImageApparitionCurrentTime = 0;
+        }
     }
 
     public void ShowIcon()
     {
-        isIconImageAnimationOver = false;
-        isIconImageAppeared = true;
-        iconImageApparitionCurrentTime = 0;
+        if (InventorySystem.Instance.isInventoryDisplayed == true)
+        {
+            if (!isIconImageAppeared)
+            {
+                isIconImageAnimationOver = false;
+                isIconImageAppeared = true;
+                iconImageApparitionCurrentTime = 0;
+            }
+        }
     }
 
     public void HideIcon()
     {
-        isIconImageAnimationOver = false;
-        isIconImageAppeared = false;
-        iconImageApparitionCurrentTime = 0;
+        if (isIconImageAppeared)
+        {
+            isIconImageAnimationOver = false;
+            isIconImageAppeared = false;
+            iconImageApparitionCurrentTime = 0;
+        }
     }
     #endregion
 
@@ -172,7 +197,7 @@ public class Slot_Behaviour : MonoBehaviour
     /// <summary>
     /// Affiche l'icone
     /// </summary>
-    public void ShowIconAnimation()
+    private void ShowIconAnimation()
     {
         if (iconImageApparitionCurrentTime < iconImageApparitionTimeMax)
         {
@@ -182,6 +207,9 @@ public class Slot_Behaviour : MonoBehaviour
         else
         {
             isIconImageAnimationOver = true;
+
+            if (isAssigned)
+                iconButton.interactable = true;
         }
 
         iconImageApparitionPercent = nameApparition.Evaluate(iconImageApparitionCurrentTime / iconImageApparitionTimeMax);
@@ -195,7 +223,7 @@ public class Slot_Behaviour : MonoBehaviour
     /// <summary>
     /// Cache l'icone
     /// </summary>
-    public void HideIconAnimation()
+    private void HideIconAnimation()
     {
         if (iconImageApparitionCurrentTime < iconImageApparitionTimeMax)
         {
@@ -217,7 +245,7 @@ public class Slot_Behaviour : MonoBehaviour
     /// <summary>
     /// Affiche le nom de l'objet
     /// </summary>
-    public void ShowNameAnimation()
+    private void ShowNameAnimation()
     {
         if (nameApparitionCurrentTime < nameApparitionTimeMax)
         {
@@ -227,37 +255,44 @@ public class Slot_Behaviour : MonoBehaviour
         else
         {
             isNameAnimationOver = true;
+            iconButton.interactable = true;
+            backgroundButton.interactable = true;
         }
 
         nameApparitionPercent = nameApparition.Evaluate(nameApparitionCurrentTime / nameApparitionTimeMax);
 
+        uiObjectName.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(0 + (180 * nameApparitionPercent), 55);
         backgroundSize.sizeDelta = new Vector2(defaultBackgroudSize.x + ((nameBackgroudSize.x - defaultBackgroudSize.x) * nameApparitionPercent), defaultBackgroudSize.y);
     }
 
     /// <summary>
     /// Cache le nom de l'objet
     /// </summary>
-    public void HideNameAnimation()
+    private void HideNameAnimation()
     {
         if (nameApparitionCurrentTime < nameApparitionTimeMax)
         {
             nameApparitionCurrentTime += Time.deltaTime;
             iconButton.interactable = false;
+            backgroundButton.interactable = false;
         }
         else
         {
             isNameAnimationOver = true;
+            iconButton.interactable = true;
+            backgroundButton.interactable = false;
         }
 
         nameApparitionPercent = nameApparition.Evaluate(nameApparitionCurrentTime / nameApparitionTimeMax);
 
-        backgroundSize.sizeDelta = new Vector2(defaultBackgroudSize.x - ((nameBackgroudSize.x - defaultBackgroudSize.x) * nameApparitionPercent), defaultBackgroudSize.y);
+        uiObjectName.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(180 - (180 * nameApparitionPercent), 55);
+        backgroundSize.sizeDelta = new Vector2(nameBackgroudSize.x - ((nameBackgroudSize.x - defaultBackgroudSize.x) * nameApparitionPercent), backgroundSize.sizeDelta.y);
     }
 
     /// <summary>
     /// Affiche la description de l'objet
     /// </summary>
-    public void ShowDescriptionAnimation()
+    private void ShowDescriptionAnimation()
     {
         if (descriptionApparitionCurrentTime < descriptionApparitionTimeMax)
         {
@@ -267,17 +302,18 @@ public class Slot_Behaviour : MonoBehaviour
         else
         {
             isDescriptionAnimationOver = true;
+            backgroundButton.interactable = true;
         }
 
         descriptionApparitionPercent = nameApparition.Evaluate(descriptionApparitionCurrentTime / descriptionApparitionTimeMax);
 
-        backgroundSize.sizeDelta = new Vector2(nameBackgroudSize.x, nameBackgroudSize.y + ((descriptionBackgroudSize.y - nameBackgroudSize.y) * descriptionApparitionPercent));
+        backgroundSize.sizeDelta = new Vector2(backgroundSize.sizeDelta.x, nameBackgroudSize.y + ((descriptionBackgroudSize.y - nameBackgroudSize.y) * descriptionApparitionPercent));
     }
 
     /// <summary>
     /// Cache la description de l'objet
     /// </summary>
-    public void HideDescriptionAnimation()
+    private void HideDescriptionAnimation()
     {
         if (descriptionApparitionCurrentTime < descriptionApparitionTimeMax)
         {
@@ -287,12 +323,12 @@ public class Slot_Behaviour : MonoBehaviour
         else
         {
             isDescriptionAnimationOver = true;
+            backgroundButton.interactable = true;
         }
 
         descriptionApparitionPercent = nameApparition.Evaluate(descriptionApparitionCurrentTime / descriptionApparitionTimeMax);
 
-        backgroundSize.sizeDelta = new Vector2(nameBackgroudSize.x, nameBackgroudSize.y - ((descriptionBackgroudSize.y - nameBackgroudSize.y) * descriptionApparitionPercent));
+        backgroundSize.sizeDelta = new Vector2(backgroundSize.sizeDelta.x, descriptionBackgroudSize.y - ((descriptionBackgroudSize.y - nameBackgroudSize.y) * descriptionApparitionPercent));
     }
     #endregion
-
 }

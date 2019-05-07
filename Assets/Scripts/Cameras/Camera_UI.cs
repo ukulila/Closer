@@ -20,6 +20,9 @@ public class Camera_UI : MonoBehaviour
     public CellMovement cellMove;
     public string currentSelectedCell;
 
+    public List<Image> RTargetImageContextuelle;
+    public List<TextMeshProUGUI> RTargetTextContextuelle;
+
     [Header("   Target Offset")]
     public List<Vector3> targetOffsets;
     public Vector3 currentTargetOffset;
@@ -29,9 +32,9 @@ public class Camera_UI : MonoBehaviour
     public List<float> uiPathPosition;
     private float currentPathPos;
     public float continuePosDifference;
-    private float reversePosDifference;
-    private float animationPosDifference;
-    private float positionMax;
+    public float reversePosDifference;
+    public float animationPosDifference;
+    public float positionMax;
 
     [Header("   FOV")]
     public float uiFOV;
@@ -64,11 +67,10 @@ public class Camera_UI : MonoBehaviour
     [Range(0, 0.3f)]
     public float switchDurationRatioModifier;
 
-
-
-
+    [Space]
     public bool cameraReposition = true;
 
+    [Header("Debug Issues")]
     public List<TextMeshProUGUI> debugTexts;
     public List<Slider> sliders;
 
@@ -82,19 +84,37 @@ public class Camera_UI : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        positionMax = dollyCart.m_Path.PathLength;
     }
 
+    public void SwitchToNOui()
+    {
+        currentPathPos = dollyCart.m_Position;
+        currentDollyPosition = dollyTransform.localPosition;
+        currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
+        currentFOV = virtualCamera.m_Lens.OrthographicSize;
+        currentRepositionTime = 0;
+
+        //Debug.Log("Deactivate UI nOW");
+        switchToUI = false;
+        ROOM_Manager.Instance.DeactivateUI();
+        cameraReposition = false;
+    }
 
     void Update()
     {
         if (switchToUI)
         {
+            ActivateUIRaycastTarget();
+
             if (cameraReposition)
             {
                 animationCurveTimingMax = 1.5f;
 
                 //Debug.Log("Room set");
-        
+
+                /*
                 if (Input.GetMouseButtonDown(0) && GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode)
                 {
                     RaycastHit selectedCube;
@@ -108,23 +128,30 @@ public class Camera_UI : MonoBehaviour
 
                     if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube) && cameraReposition)
                     {
-                        if (selectedCube.collider)
+                        if (selectedCube.collider.isTrigger)
                         {
+                            //Debug.Log("Deactivate UI nOW");
                             switchToUI = false;
                             ROOM_Manager.Instance.DeactivateUI();
                             cameraReposition = false;
                         }
                     }
                 }
+                */
             }
         }
         else
         {
             //Debug.Log("Room unset");
 
+            InventorySystem.Instance.canBeDisplayed = true;
+            DeactivateUIRaycastTarget();
+
             if (Input.GetMouseButtonDown(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
             {
+
                 RaycastHit selectedCube;
+                LayerMask cellMask = LayerMask.GetMask("Cell");
 
                 currentPathPos = dollyCart.m_Position;
                 currentDollyPosition = dollyTransform.localPosition;
@@ -132,7 +159,7 @@ public class Camera_UI : MonoBehaviour
                 currentFOV = virtualCamera.m_Lens.OrthographicSize;
                 currentRepositionTime = 0;
 
-                if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube) && cameraReposition)
+                if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, cellMask) && cameraReposition)
                 {
 
                     //Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 25, Color.red, 1);
@@ -267,10 +294,10 @@ public class Camera_UI : MonoBehaviour
 
         if (Input.GetMouseButton(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && !switchToUI && isPlayerHere && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
-
             RaycastHit selectedCube;
+            LayerMask cellMask = LayerMask.GetMask("Cell");
 
-            if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube))
+            if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, cellMask))
             {
                 //Debug.Log("Drawing Raycast");
 
@@ -280,7 +307,7 @@ public class Camera_UI : MonoBehaviour
                 currentSelectedCell = selectedCube.collider.gameObject.transform.parent.name;
                 cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
 
-                if (currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().once == false
+                if (cellMove != null && currentSelectedCell != null && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().once == false
                     && cameraReposition == true && isPlayerHere && cellMove != null)
                 {
                     //Debug.Log("COME ON !");
@@ -294,7 +321,7 @@ public class Camera_UI : MonoBehaviour
                     {
                         switchToUI = true;
                         cameraReposition = false;
-                        StartCoroutine(UIapparitionTime());
+                        StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier));
                     }
                 }
                 else
@@ -339,7 +366,7 @@ public class Camera_UI : MonoBehaviour
     /// <summary>
     /// Passe la camera en mode Investigation (zoom sur la room du joueur)
     /// </summary>
-    void RepositionCamera()
+    public void RepositionCamera()
     {
         if (currentRepositionTime < animationCurveTimingMax)
         {
@@ -347,6 +374,19 @@ public class Camera_UI : MonoBehaviour
         }
         else
         {
+            if (switchToUI)
+            {
+                InventorySystem.Instance.canBeDisplayed = false;
+
+                if (InventorySystem.Instance.isInventoryDisplayed)
+                    InventorySystem.Instance.inventoryButton.onClick.Invoke();
+
+            }
+            else
+            {
+                InventorySystem.Instance.canBeDisplayed = true;
+            }
+
             cameraReposition = true;
         }
 
@@ -401,7 +441,7 @@ public class Camera_UI : MonoBehaviour
         {
             //Debug.Log("Continue est négatif");
 
-            reversePosDifference = positionMax - (continuePosDifference * -1);
+            reversePosDifference = positionMax + continuePosDifference;
 
             if ((continuePosDifference * -1) > reversePosDifference)
             {
@@ -422,7 +462,7 @@ public class Camera_UI : MonoBehaviour
 
             reversePosDifference = positionMax - continuePosDifference;
 
-            if (continuePosDifference * -1 > reversePosDifference)
+            if (continuePosDifference > reversePosDifference)
             {
                 //Debug.Log("Continue 3");
                 animationPosDifference = reversePosDifference;
@@ -453,15 +493,45 @@ public class Camera_UI : MonoBehaviour
 
             animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
         }
+
+
+    }
+
+    /// <summary>
+    /// Active les Raycast Target de l'UI Contextuelle
+    /// </summary>
+    public void ActivateUIRaycastTarget()
+    {
+        for (int i = 0; i < RTargetImageContextuelle.Count; i++)
+        {
+            RTargetImageContextuelle[i].raycastTarget = true;
+            RTargetTextContextuelle[i].raycastTarget = true;
+        }
+    }
+
+    /// <summary>
+    /// Désactive les Raycast Target de l'UI Contextuelle
+    /// </summary>
+    public void DeactivateUIRaycastTarget()
+    {
+        for (int i = 0; i < RTargetImageContextuelle.Count; i++)
+        {
+            RTargetImageContextuelle[i].raycastTarget = false;
+            RTargetTextContextuelle[i].raycastTarget = false;
+        }
     }
 
     /// <summary>
     /// Delay avant l'apparition de L'UI d'actions contextuelles
     /// </summary>
     /// <returns></returns>
-    IEnumerator UIapparitionTime()
+    IEnumerator UIapparitionTime(float time)
     {
-        yield return new WaitForSeconds(0.5f);
+        //Debug.Log("UI will appear");
+
+        yield return new WaitForSeconds(time);
+
+        //Debug.Log("BOOM");
 
         ROOM_Manager.Instance.LaunchUI();
     }

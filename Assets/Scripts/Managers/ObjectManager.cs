@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectManager : MonoBehaviour
 {
 
     public Objet_Interaction currentObjet;
-    public InventorySystem inventorySystem;
 
     public static ObjectManager Instance;
 
@@ -19,8 +19,14 @@ public class ObjectManager : MonoBehaviour
 
     public void CollectCurrentObject()
     {
-        inventorySystem.AssignToAvailableSlot(currentObjet);
-        currentObjet.gameObject.SetActive(false);
+        InventorySystem.Instance.AssignToAvailableSlot(currentObjet);
+        //currentObjet.gameObject.GetComponent<Image>().enabled = false;
+        //currentObjet.gameObject.GetComponent<BoxCollider>().enabled = false;
+
+        ROOM_Manager.Instance.currentRoom.isInteraction = false;
+        ROOM_Manager.Instance.currentRoom.objet = null;
+
+
         currentObjet = null;
     }
 }

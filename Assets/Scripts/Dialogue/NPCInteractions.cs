@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NPCInteractions : MonoBehaviour
 {
 
     public List<DialogueSystem> communDialogueSystems;
     public List<DialogueSystem> questDialogueSystems;
+    public List<UnityEvent> questTriggers;
     public bool onQuest;
 
 
@@ -42,6 +44,7 @@ public class NPCInteractions : MonoBehaviour
         if (onQuest)
         {
             questDialogueSystems[dialogueIndex].StartDialogue();
+            questTriggers[dialogueIndex].Invoke();
         }
         else
         {
