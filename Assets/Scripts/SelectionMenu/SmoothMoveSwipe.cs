@@ -10,7 +10,7 @@ public class SmoothMoveSwipe : MonoBehaviour
     private Vector3 startSwipePosition, endSwipePosition;
     public float swipeTime;
     public float swipeDuration = 0.1f;
-    public ElargSelectionLevelSystem largScript;
+    //public ElargSelectionLevelSystem largScript;
     public int levelMax = 4;
     public int currentLevel;
     public RectTransform line;
@@ -140,7 +140,7 @@ public class SmoothMoveSwipe : MonoBehaviour
                 if (currentLevel > 0)
                 {
                     BAnims[currentLevel].SetBool("Open", false);
-                    largScript.currentLevel--;
+                    //largScript.currentLevel--;
                     BAnims[currentLevel].SetBool("Open", true);
                 }
 
@@ -162,7 +162,7 @@ public class SmoothMoveSwipe : MonoBehaviour
                 if (currentLevel < levelMax)
                 {
                     BAnims[currentLevel].SetBool("Open", false);
-                    largScript.currentLevel++;
+                    //largScript.currentLevel++;
                     BAnims[currentLevel].SetBool("Open", true);
                 }
 
