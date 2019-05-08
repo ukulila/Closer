@@ -192,7 +192,7 @@ public class CellMovement : MonoBehaviour
 
         #region ---- Selection ----
 
-        if (click)
+        if (click && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             selected = true;
         }
@@ -342,6 +342,7 @@ public class CellMovement : MonoBehaviour
                 {
                     brothers[o].GetComponent<CellMovement>().DebugPos();
                     brothers[o].GetComponent<CellMovement>().hasEnded = true;
+                    player.check = true;
                 }
 
                 toRotate[0].GetComponent<CellMovement>().freezePosValue = true;
@@ -399,7 +400,10 @@ public class CellMovement : MonoBehaviour
 
                 for (int o = 0; o < brothers.Count; o++)
                 {
+                    brothers[o].GetComponent<CellMovement>().DebugPos();
                     brothers[o].GetComponent<CellMovement>().hasEnded = true;
+                    player.check = true;
+
                 }
 
                 toRotate[0].GetComponent<CellMovement>().freezePosValue = true;
@@ -456,7 +460,10 @@ public class CellMovement : MonoBehaviour
 
                 for (int o = 0; o < brothers.Count; o++)
                 {
+                    brothers[o].GetComponent<CellMovement>().DebugPos();
                     brothers[o].GetComponent<CellMovement>().hasEnded = true;
+                    player.check = true;
+
                 }
 
 

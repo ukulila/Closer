@@ -39,6 +39,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool reverse;
     private Vector3 doorRot;
     public bool closeDoor;
+    private GameObject coneDoor;
     public bool add;
 
     public CinemachineBrain Camera;
@@ -53,6 +54,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Transform RoomChecker;
     public int onlyTwo;
+    public bool check;
+    private int checkInt;
 
     void Start()
     {
@@ -70,7 +73,7 @@ public class PlayerBehaviour : MonoBehaviour
         animator.SetFloat("ValueX", x);
         animator.SetFloat("ValueY", y);
 
-
+        CheckConeLight();
 
         if (lookCam)
         {
@@ -98,7 +101,7 @@ public class PlayerBehaviour : MonoBehaviour
                 int layerMaskDoor = LayerMask.GetMask("Door");
 
 
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.parent.gameObject != context.gameObject/* && hit.transform != context.doorWayPoints[u].GetChild(0)*/)
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                 {
                     Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
                     cP.okToSetup = true;
@@ -263,102 +266,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         }
 
-        /*
-        if (onlyOne)
-        {
-            RaycastHit hit;
-            int layerMaskCell = LayerMask.GetMask("Cell");
-
-            if (Physics.Raycast(RoomChecker.position, transform.position - RoomChecker.position, out hit, Mathf.Infinity, layerMaskCell))
-            {
-                Debug.LogError("RaycastPerso" + hit.transform.name);
-                Debug.DrawRay(RoomChecker.position, transform.position - RoomChecker.position, Color.green, 10);
-                hit.transform.GetComponent<CellMovement>().isSpawn = true;
-
-                ROOM_Manager.Instance.currentRoom = hit.transform.GetComponent<RoomInteraction>();
-
-                if (hit.transform.GetComponent<RoomInteraction>().isInteraction == true)
-                {
-                    ObjectManager.Instance.currentObjet = hit.transform.GetComponent<RoomInteraction>().objet;
-                }
-
-                if (hit.transform.GetComponent<RoomInteraction>().isDialogue == true)
-                {
-                    NPC_Manager.Instance.currentNPC = hit.transform.GetComponent<RoomInteraction>().npc;
-                }
-
-                hit.transform.GetComponent<RoomInteraction>().UiTextUpdate();
-
-                onlyOne = false;
-
-            }
-            else
-            {
-                Debug.DrawRay(RoomChecker.position, transform.position - RoomChecker.position, Color.red, 10);
-            }
-
-
-
-
-
-        }
-
-       /* if (onlyTwo <= 6)
-        {
-            RaycastHit hit;
-
-            int layerMaskCell = LayerMask.GetMask("Cell");
-
-            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, layerMaskCell))
-            {
-                Debug.LogError("RaycastDisable" + hit.transform.name);
-
-                hit.transform.GetComponent<CellMovement>().isSpawn = false;
-                onlyTwo += 1;
-            }
-
-            if (Physics.Raycast(transform.position, -transform.forward, out hit, Mathf.Infinity, layerMaskCell))
-            {
-                Debug.LogError("RaycastDisable" + hit.transform.name);
-
-                hit.transform.GetComponent<CellMovement>().isSpawn = false;
-                onlyTwo += 1;
-            }
-
-            if (Physics.Raycast(transform.position, transform.right, out hit, Mathf.Infinity, layerMaskCell))
-            {
-                Debug.LogError("RaycastDisable" + hit.transform.name);
-
-                hit.transform.GetComponent<CellMovement>().isSpawn = false;
-                onlyTwo += 1;
-            }
-
-            if (Physics.Raycast(transform.position, -transform.right, out hit, Mathf.Infinity, layerMaskCell))
-            {
-                Debug.LogError("RaycastDisable" + hit.transform.name);
-
-                hit.transform.GetComponent<CellMovement>().isSpawn = false;
-                onlyTwo += 1;
-            }
-
-            if (Physics.Raycast(transform.position, transform.up, out hit, Mathf.Infinity, layerMaskCell))
-            {
-                Debug.LogError("RaycastDisable" + hit.transform.name);
-
-                hit.transform.GetComponent<CellMovement>().isSpawn = false;
-                onlyTwo += 1;
-            }
-
-            if (Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity, layerMaskCell))
-            {
-                Debug.LogError("RaycastDisable" + hit.transform.name);
-
-                hit.transform.GetComponent<CellMovement>().isSpawn = false;
-                onlyTwo += 1;
-            }
-
-        }*/
-
 
 
         for (int i = 0; i < ways.Count; i++)
@@ -425,7 +332,69 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    public void CheckConeLight()
+    {
+        if (context.gameObject.GetComponent<CellMovement>().hasEnded == true && check)
+        {
+            Debug.Log("           I draw          ");
 
+            RaycastHit hit;
+            int layerMaskDoor = LayerMask.GetMask("Door");
+
+            for (int u = 0; u < context.doorWayPoints.Count; u++)
+            {
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
+                {
+                    Debug.Log("                     " + hit.transform.name);
+
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
+
+                    coneDoor = hit.transform.gameObject;
+
+                    hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                    hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
+
+                    transform.parent.GetComponent<CellScript>().ConeFunction(u);
+                    transform.parent.GetComponent<CellScript>().freeRoom = true;
+
+                    if (checkInt >= 3)
+                    {
+                        check = false;
+                        checkInt = 0;
+                    }
+                    else
+                    {
+                        checkInt++;
+                    }
+                }
+                else
+                {
+                    Debug.Log("            I touch Nothing         " );
+
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
+                    transform.parent.GetComponent<CellScript>().ConeFunction(u);
+                    transform.parent.GetComponent<CellScript>().freeRoom = false;
+
+                    if (coneDoor != null)
+                    {
+                        coneDoor.transform.parent.GetComponent<CellScript>().freeRoom = false;
+                        coneDoor.transform.parent.GetComponent<CellScript>().ConeFunction(u);
+                    }
+
+                    if (checkInt >= 3)
+                    {
+                        coneDoor = null;
+                        check = false;
+                        checkInt = 0;
+                    }
+                    else
+                    {
+                        checkInt++;
+                    }
+                }
+            }
+        }
+    }
 
     public void GetPath(int path)
     {
@@ -500,7 +469,7 @@ public class PlayerBehaviour : MonoBehaviour
                     for (int u = 0; u < nextContext.paths.list[h].listOfWaypoint.Count; u++)
                     {
                         inverseList.Add(nextContext.paths.list[h].listOfWaypoint[u]);
-                        Debug.Log(inverseList.Count + "          " + nextContext.paths.list[h].listOfWaypoint.Count);
+                       // Debug.Log(inverseList.Count + "          " + nextContext.paths.list[h].listOfWaypoint.Count);
                     }
                 }
 
@@ -569,7 +538,9 @@ public class PlayerBehaviour : MonoBehaviour
 
             animator.SetBool("Walk", true);
 
-            transform.LookAt(listToMove[index].transform.position);
+            Vector3 targetPos = new Vector3(listToMove[index].transform.position.x, transform.position.y, listToMove[index].transform.position.z);
+
+            transform.LookAt(targetPos/*listToMove[index].transform.position*/);
 
 
             //Select the next waypoint when last is reached
