@@ -22,6 +22,7 @@ public class DialogueSetUp : Editor
     {
         DialogueSystem dialogueSystem = (DialogueSystem)target;
 
+        
         if (GUILayout.Button("Reset Default Values"))
         {
             dialogueSystem.dialogueBoxPrefab = dialogueBoxPrefabReference;
@@ -41,7 +42,7 @@ public class DialogueSetUp : Editor
             dialogueSystem.CleanDialogueSetUp();
             dialogueSystem.SetUp();
         }
-
+        
         base.OnInspectorGUI();
     }
 }

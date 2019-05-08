@@ -10,8 +10,7 @@ public class DialogueSystem : MonoBehaviour
     public TextAsset asset;
     public int currentLine;
     public int maxLines;
-
-
+    [Space]
     private string textOfAsset;
     private char[] characters;
     private string currentWord;
@@ -62,21 +61,21 @@ public class DialogueSystem : MonoBehaviour
     public float dialogueBoxSpacing = 2000f;
     public float boxMaxWidth = 363f;
     public float boxMinWidth = 152f;
-
+    [Space]
     public float boxMinHeight = 80f;
     public float boxHeigthPerLine = 25f;
-
+    [Space]
     public float boxInitPos_X = -445f;
     public float boxInitPos_Y = -150f;
-
+    [Space]
     public float boxInitPos_X2 = -125f;
     public float boxInitPos_Y2 = -150f;
-
+    [Space]
     //Adapter les boxes à leur text
     public Vector2 textSize;
     public float rendWidth;
     public float rendHeight;
-
+    [Space]
     //Parametres TEXT des rectTransform
     public float textHeightPerLine = 35f;
     public float textMinHeight = 35f;
@@ -112,16 +111,26 @@ public class DialogueSystem : MonoBehaviour
     public float currentYPos;
     public float nextYPos;
 
+    [Header("   Start Dialogue Animation")]
+    public AnimationCurve startCurve;
+    public float currentStartTime;
+    public float maxStartTime;
+    public float currentStartPercent;
+
+    public Image nameBox;
+    public TextMeshProUGUI nameCharacter;
+
+    public bool isStarting = false;
+
     [Header("   Dialogue End Animation")]
     public AnimationCurve resetDialogueCurve;
     public float currentResetTime;
     public float maxResetTime;
-
+    [Space]
     public float lastY;
     public float percentY;
     public float Ydisplacment;
-
-
+    [Space]
     public List<float> dialogueBoxWidths;
     public List<float> dialogueBoxHeights;
     public bool dialogueBoxReady = true;
@@ -154,6 +163,8 @@ public class DialogueSystem : MonoBehaviour
     public Color32 nikkyColor;
     public Color32 irinaColor;
 
+    [Header("Actors name")]
+    public List<string> names;
 
 
 
@@ -182,6 +193,58 @@ public class DialogueSystem : MonoBehaviour
         StartCoroutine(StartDialogueIn(2));
     }
 
+    public void StartingDialogueCurve()
+    {
+        if (currentStartTime < maxStartTime)
+        {
+            currentStartTime += Time.deltaTime;
+        }
+        else
+        {
+            isStarting = false;
+        }
+
+        currentStartPercent = startCurve.Evaluate(currentStartTime / maxStartTime);
+
+        nameBox.color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+        nameCharacter.color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+
+        float numberOfActors = activeActorsIndex.Count;
+
+        if (numberOfActors == 1)
+        {
+            actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+        }
+
+        if (numberOfActors == 2)
+        {
+            actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+
+            actorsIcon[activeActorsIndex[1]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+        }
+
+        /*
+        if (numberOfActors == 3)
+        {
+            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(0 + 255 * currentStartPercent));
+
+            actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(0 + 255 * currentStartPercent));
+
+            actorsIcon[activeActorsIndex[2]].color = new Color32(255, 255, 255, (byte)(0 + 255 * currentStartPercent));
+        }
+
+        if (numberOfActors == 4)
+        {
+            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(0 + 255 * currentStartPercent));
+
+            actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(0 + 255 * currentStartPercent));
+
+            actorsIcon[activeActorsIndex[2]].color = new Color32(255, 255, 255, (byte)(0 + 255 * currentStartPercent));
+
+            actorsIcon[activeActorsIndex[3]].color = new Color32(255, 255, 255, (byte)(0 + 255 * currentStartPercent));
+        }
+        */
+    }
 
     /// <summary>
     /// Démarer le dialogue après un delai dès l'activation du GameObject
@@ -190,9 +253,18 @@ public class DialogueSystem : MonoBehaviour
     /// <returns></returns>
     IEnumerator StartDialogueIn(float time)
     {
-        yield return new WaitForSeconds(time);
-        isDialogueFinished = false;
+        yield return new WaitForSeconds(2);
+
         ActivateActorsIcons();
+        nameCharacter.text = names[activeActorsIndex[1]];
+        isStarting = true;
+
+        yield return new WaitForSeconds(time);
+
+        isDialogueFinished = false;
+
+        SetDialogueParameters();
+
         dialogueBoxReady = false;
         dialogueHasStarted = true;
 
@@ -213,12 +285,10 @@ public class DialogueSystem : MonoBehaviour
         if (endOfTheLine && !isDialogueFinished && currentCharacter > 0)
             currentCharacter = 0;
 
-
-        if (Input.GetMouseButtonDown(1))
+        if (!dialogueHasStarted && isStarting)
         {
-            StartDialogue();
+            StartingDialogueCurve();
         }
-
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -278,6 +348,7 @@ public class DialogueSystem : MonoBehaviour
         //CleanDialogueSetUp();
         SetUpDefaultValues();
         SetUpActorIcons();
+        SetUpCharactersName();
         SetUpDefaultActorsColor();
         SetUpTextFile();
         SetUpDialogueLines();
@@ -328,9 +399,12 @@ public class DialogueSystem : MonoBehaviour
         ratioValue = 10f;
         maxTime = 3f;
         lastCharacter = -1;
-        maxSlideTime = 0.9f;
+        maxSlideTime = 0.6f;
 
         AppearTimeRatio = 5;
+
+        currentStartTime = 0f;
+        maxStartTime = 1f;
 
         actors = new List<Actors>();
         lines = new List<string>();
@@ -339,6 +413,7 @@ public class DialogueSystem : MonoBehaviour
         lineTypingSpeed = new List<AnimationCurve>();
         boxAppearingCurve = new AnimationCurve();
         boxSlidingCurve = new AnimationCurve();
+        startCurve = new AnimationCurve();
         resetDialogueCurve = new AnimationCurve();
         translationCount = new List<float>();
         activeActorsIndex = new List<int>();
@@ -347,7 +422,7 @@ public class DialogueSystem : MonoBehaviour
         actorsColorReference = new List<Color>();
 
         blancheColor = new Color32(255, 255, 255, 255);
-        mireilleColor = new Color32(255, 255, 255, 255);
+        mireilleColor = new Color32(245, 255, 96, 255);
         louisColor = new Color32(220, 120, 140, 255); ;
         berleauColor = new Color32(255, 255, 255, 255);
         dottyColor = new Color32(155, 100, 135, 255);
@@ -360,6 +435,27 @@ public class DialogueSystem : MonoBehaviour
         barneyColor = new Color32(255, 255, 255, 255);
         nikkyColor = new Color32(95, 195, 140, 255);
         irinaColor = new Color32(255, 255, 255, 255);
+    }
+
+    private void SetUpCharactersName()
+    {
+        names = new List<string>();
+
+        names.Add("Blanche");
+        names.Add("Mireille");
+        names.Add("Louis");
+        names.Add("Madame BERLEAU");
+        names.Add("Dotty");
+        names.Add("Jolly");
+        names.Add("Dolores");
+        names.Add("Maggie");
+        names.Add("Esdie");
+        names.Add("Walter");
+        names.Add("Ray");
+        names.Add("Barney");
+        names.Add("Nikky");
+        names.Add("Irina");
+
     }
 
     public void AssignActorsIcon()
@@ -601,11 +697,12 @@ public class DialogueSystem : MonoBehaviour
         resetDialogueCurve = new AnimationCurve();
         //actorsColorReference = new List<Color>();
 
-
+        startCurve.AddKey(0, 0);
         boxAppearingCurve.AddKey(0, 0);
         boxSlidingCurve.AddKey(0, 0);
         resetDialogueCurve.AddKey(0, 0);
 
+        startCurve.AddKey(1, 1);
         boxAppearingCurve.AddKey(1, 1);
         boxSlidingCurve.AddKey(1, 1);
         resetDialogueCurve.AddKey(1, 1);
@@ -734,6 +831,7 @@ public class DialogueSystem : MonoBehaviour
         dialogueBoxHeights.Clear();
         dialogueBoxWidths.Clear();
         actorsColorReference.Clear();
+        names.Clear();
 
         //listOfCharacterArray.lines.Clear();
         currentWord = "";
@@ -837,7 +935,7 @@ public class DialogueSystem : MonoBehaviour
             actorsIcon[activeActorsIndex[i]].gameObject.SetActive(true);
         }
 
-        SetDialogueParameters();
+        //SetDialogueParameters();
     }
 
     private void SlideDialogueTo()
@@ -853,9 +951,9 @@ public class DialogueSystem : MonoBehaviour
             boxReady = true;
         }
 
-        currentSlidePercent = boxSlidingCurve.Evaluate(currentSlideTime);
+        currentSlidePercent = boxSlidingCurve.Evaluate(currentSlideTime / maxSlideTime);
 
-        dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, currentYPos + nextYPos * (currentSlidePercent / maxSlideTime));
+        dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, currentYPos + nextYPos * (currentSlidePercent));
     }
 
     private void DialogueBoxAppear()
@@ -886,7 +984,7 @@ public class DialogueSystem : MonoBehaviour
         currentAppearingTime = 0;
         typingTimeRatio = typingSpeedRatio;
 
-        dialogueGo.anchoredPosition = new Vector2(0, 0);
+        dialogueGo.anchoredPosition = new Vector2(335, 72);
 
         //ROOM_Manager.Instance.LaunchUI();
         GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
@@ -942,8 +1040,8 @@ public class DialogueSystem : MonoBehaviour
     /// </summary>
     private void SetSlideParameters()
     {
-        nextLinePosition = new Vector2(dialogueGo.anchoredPosition.x, dialogueGo.anchoredPosition.y - translationCount[currentLine - 1]);
         currentYPos = dialogueGo.anchoredPosition.y;
+        nextLinePosition = new Vector2(dialogueGo.anchoredPosition.x, currentYPos - translationCount[currentLine - 1]);
         nextYPos = nextLinePosition.y - currentYPos;
 
         currentSlideTime = 0;
@@ -1040,6 +1138,11 @@ public class DialogueSystem : MonoBehaviour
         percentY = resetDialogueCurve.Evaluate(currentResetTime);
 
         dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, lastY + Ydisplacment * percentY);
+
+
+        nameBox.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+        nameCharacter.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+
 
         float numberOfActors = activeActorsIndex.Count;
 
