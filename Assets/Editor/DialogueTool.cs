@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public enum DialogueType { ChéPo, Commun, Quest };
@@ -25,6 +26,9 @@ public class DialogueTool : EditorWindow
     public GameObject ROOM_ManagerReference;
     public bool isThereROOM_Manager;
 
+    public GameObject dialogueNameBox_Reference;
+    public GameObject currentDialogueNameBox;
+    public bool isThereDialogueNameBox;
 
     public DialogueType type;
 
@@ -33,7 +37,7 @@ public class DialogueTool : EditorWindow
     public GameObject dialogueBoxPrefab_Reference;
 
     public Color speakingColor_Reference = new Color32(255, 255, 255, 255);
-    public Color listeningColor_Reference = new Color32(140, 140, 140, 255);
+    public Color listeningColor_Reference = new Color32(120, 120, 120, 255);
 
 
 
@@ -89,6 +93,14 @@ public class DialogueTool : EditorWindow
             isThereActorIcons = false;
         }
 
+        if (GameObject.Find(dialogueNameBox_Reference.name + "(Clone)") || GameObject.Find(dialogueNameBox_Reference.name))
+        {
+            isThereDialogueNameBox = true;
+        }
+        else
+        {
+            isThereDialogueNameBox = false;
+        }
 
         if (GameObject.Find(NPC_ManagerReference.name + "(Clone)") || GameObject.Find(NPC_ManagerReference.name))
         {
@@ -139,6 +151,20 @@ public class DialogueTool : EditorWindow
                 currrentActorIconsInHierarchy = GameObject.Find(actorIcons_Reference.name);
             }
 
+            if (!isThereDialogueNameBox)
+            {
+                if (currentCanvas != null)
+                    Instantiate(dialogueNameBox_Reference, currentCanvas.transform);
+
+                currentDialogueNameBox = GameObject.Find(dialogueNameBox_Reference.name + "(Clone)");
+
+                isThereDialogueNameBox = true;
+            }
+            else
+            {
+                currentDialogueNameBox = GameObject.Find(dialogueNameBox_Reference.name);
+            }
+
             if (!isThereNPC_Manager)
             {
                 if (currentCanvas != null)
@@ -187,6 +213,19 @@ public class DialogueTool : EditorWindow
 
                 if (GameObject.Find(actorIcons_Reference.name + "(Clone)"))
                     newDialogue.GetComponent<DialogueSystem>().actorsIconHierarchyReference = GameObject.Find(actorIcons_Reference.name + "(Clone)");
+
+
+                if (GameObject.Find(dialogueNameBox_Reference.name))
+                {
+                    newDialogue.GetComponent<DialogueSystem>().nameBox = GameObject.Find(dialogueNameBox_Reference.name).GetComponent<Image>();
+                    newDialogue.GetComponent<DialogueSystem>().nameCharacter = GameObject.Find(dialogueNameBox_Reference.name).GetComponentInChildren<TextMeshProUGUI>();
+                }
+
+                if (GameObject.Find(dialogueNameBox_Reference.name + "(Clone)"))
+                {
+                    newDialogue.GetComponent<DialogueSystem>().nameBox = GameObject.Find(dialogueNameBox_Reference.name + "(Clone)").GetComponent<Image>();
+                    newDialogue.GetComponent<DialogueSystem>().nameCharacter = GameObject.Find(dialogueNameBox_Reference.name + "(Clone)").GetComponentInChildren<TextMeshProUGUI>();
+                }
 
                 newDialogue.GetComponent<DialogueSystem>().speakingColor = speakingColor_Reference;
                 newDialogue.GetComponent<DialogueSystem>().listeningColor = listeningColor_Reference;
