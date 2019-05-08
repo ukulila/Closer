@@ -30,6 +30,10 @@ public class DialogueTool : EditorWindow
     public GameObject currentDialogueNameBox;
     public bool isThereDialogueNameBox;
 
+    public GameObject UImask_Reference;
+    public GameObject currentUImask;
+    public bool isThereUImask;
+
     public DialogueType type;
 
     public NPCInteractions npcSelected;
@@ -102,6 +106,15 @@ public class DialogueTool : EditorWindow
             isThereDialogueNameBox = false;
         }
 
+        if (GameObject.Find(UImask_Reference.name + "(Clone)") || GameObject.Find(UImask_Reference.name))
+        {
+            isThereUImask = true;
+        }
+        else
+        {
+            isThereUImask = false;
+        }
+
         if (GameObject.Find(NPC_ManagerReference.name + "(Clone)") || GameObject.Find(NPC_ManagerReference.name))
         {
             isThereNPC_Manager = true;
@@ -165,6 +178,22 @@ public class DialogueTool : EditorWindow
                 currentDialogueNameBox = GameObject.Find(dialogueNameBox_Reference.name);
             }
 
+
+            if (!isThereUImask)
+            {
+                if (currentCanvas != null)
+                    Instantiate(UImask_Reference, currentCanvas.transform);
+
+                currentUImask = GameObject.Find(UImask_Reference.name + "(Clone)");
+
+                isThereUImask = true;
+            }
+            else
+            {
+                currentUImask = GameObject.Find(UImask_Reference.name);
+            }
+
+
             if (!isThereNPC_Manager)
             {
                 if (currentCanvas != null)
@@ -189,7 +218,18 @@ public class DialogueTool : EditorWindow
                 }
 
                 GameObject newDialogue = new GameObject(selectedNPC.name + "_" + type.ToString() + "_" + dialogueName, typeof(RectTransform));
-                newDialogue.transform.parent = currentCanvas.transform;
+                newDialogue.GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
+
+                if (currentUImask != null)
+                {
+                    newDialogue.transform.parent = currentUImask.transform;
+                }
+                else
+                {
+                    newDialogue.transform.parent = currentCanvas.transform;
+                }
+
+                newDialogue.GetComponent<RectTransform>().localPosition = new Vector2(335, 72);
                 newDialogue.AddComponent<DialogueSystem>();
                 newDialogue.GetComponent<DialogueSystem>().asset = (TextAsset)yourTextFile;
                 newDialogue.GetComponent<DialogueSystem>().dialogueBoxPrefab = dialogueBoxPrefab_Reference;
