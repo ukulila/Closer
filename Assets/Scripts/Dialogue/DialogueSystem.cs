@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
 
 public class DialogueSystem : MonoBehaviour
 {
@@ -135,7 +134,6 @@ public class DialogueSystem : MonoBehaviour
     public float AppearTimeRatio = 5;
 
     [Header("   Box Color during dialogue")]
-
     public Color speakingColor;
     public Color listeningColor;
     public List<Color> actorsColorReference;
@@ -248,7 +246,7 @@ public class DialogueSystem : MonoBehaviour
                 isFaster = false;
             }
 
-            if (!endOfTheLine && !isFaster && boxReady)
+            if (!endOfTheLine && !isFaster && boxReady && dialogueHasStarted)
             {
                 typingTimeRatio = typingFasterRatio;
                 //Debug.Log("FASTER !");

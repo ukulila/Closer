@@ -119,13 +119,16 @@ public class InventorySystem : MonoBehaviour
     /// </summary>
     public void InventoryAnimation()
     {
-        CheckIcons();
-
-        if (isThereAnyObjectInInventory)
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
-            isInventoryDisplayed = !isInventoryDisplayed;
-            isAnimationOver = false;
-            apparitionCurrentTime = 0;
+            CheckIcons();
+
+            if (isThereAnyObjectInInventory)
+            {
+                isInventoryDisplayed = !isInventoryDisplayed;
+                isAnimationOver = false;
+                apparitionCurrentTime = 0;
+            }
         }
     }
 
@@ -133,7 +136,7 @@ public class InventorySystem : MonoBehaviour
     {
         CheckIcons();
 
-        if(isInventoryDisplayed)
+        if (isInventoryDisplayed)
         {
             isInventoryDisplayed = false;
             isAnimationOver = false;
