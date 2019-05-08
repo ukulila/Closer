@@ -46,7 +46,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool castingRay;
     public CellPlacement cP;
     public Vector3 offset;
-    private bool onlyOne;
+    //private bool onlyOne;
     public Animator animator;
     private float x;
     private float y;
@@ -58,7 +58,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         add = false;
         reset = true;
-        onlyOne = true;
+   //     onlyOne = true;
         if (GetComponent<Animator>() != null)
         {
             animator = GetComponent<Animator>();
@@ -75,8 +75,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (lookCam)
         {
             // reset = true;
-            //transform.LookAt(Camera.transform.position);
-            onlyOne = false;
+            transform.LookAt(Camera.transform.position);
+    //        onlyOne = false;
 
             if (x > 0 && y > 0)
             {
@@ -98,24 +98,24 @@ public class PlayerBehaviour : MonoBehaviour
                 int layerMaskDoor = LayerMask.GetMask("Door");
 
 
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, out hit, 10, layerMaskDoor) && hit.transform.parent.parent.gameObject != context.gameObject/* && hit.transform != context.doorWayPoints[u].GetChild(0)*/)
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.parent.gameObject != context.gameObject/* && hit.transform != context.doorWayPoints[u].GetChild(0)*/)
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, Color.green, 50);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
                     cP.okToSetup = true;
 
 
                     Debug.Log(hit.transform.name);
 
 
-                    if (hit.transform.parent.parent.GetComponent<CellMovement>())
+                    if (hit.transform.parent.GetComponent<CellMovement>())
                     {
                         Debug.Log("parentparentconatinsCellmovement");
 
-                        CellMovement cellMove = hit.transform.parent.parent.GetComponent<CellMovement>();
+                        CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
 
                         if (cellMove.isOpen == false)
                         {
-                            Debug.Log("here is a door i could take" + hit.transform.parent.parent.name);
+                            Debug.Log("here is a door i could take" + hit.transform.parent.name);
                             cellMove.isOpen = true;
                         }
                         else if (cellMove.isOpen == true)
@@ -129,28 +129,28 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 else
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, Color.red, 50);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
                     castingRay = false;
 
                 }
 
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.right, out hit, 10, layerMaskDoor) && hit.transform.parent.parent.gameObject != context.gameObject)
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.right, Color.green, 50);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.green, 50);
                     cP.okToSetup = true;
 
 
-                    Debug.Log(hit.transform.parent.parent.name);
+                    Debug.Log(hit.transform.parent.name);
 
-                    if (hit.transform.parent.parent.GetComponent<CellMovement>())
+                    if (hit.transform.parent.GetComponent<CellMovement>())
                     {
                         Debug.Log("parentparentconatinsCellmovement");
 
-                        CellMovement cellMove = hit.transform.parent.parent.GetComponent<CellMovement>();
+                        CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
 
                         if (cellMove.isOpen == false)
                         {
-                            Debug.Log("here is a door i could take" + hit.transform.parent.parent.name);
+                            Debug.Log("here is a door i could take" + hit.transform.parent.name);
                             cellMove.isOpen = true;
                         }
                         else if (cellMove.isOpen == true)
@@ -164,7 +164,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 else
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.right, Color.red, 50);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
                     castingRay = false;
 
                 }
@@ -185,33 +185,33 @@ public class PlayerBehaviour : MonoBehaviour
                 int layerMaskDoor = LayerMask.GetMask("Door");
 
 
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, out hit, 10, layerMaskDoor))
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor))
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, Color.green, 050);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 050);
                     //cP.okToSetup = true;
 
                     myDoor = context.doorWayPoints[u];
-                    doorDirection = (hit.collider.transform.parent.transform);
+                    doorDirection = (hit.collider.transform);
                     castingRay = false;
                 }
                 else
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, Color.red, 50);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
                     castingRay = false;
 
                 }
 
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.right, out hit, 10, layerMaskDoor))
+                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor))
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.right, Color.green, 50);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
                     myDoor = context.doorWayPoints[u];
-                    doorDirection = (hit.collider.transform.parent.transform);
+                    doorDirection = (hit.collider.transform);
                     castingRay = false;
 
                 }
                 else
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.right, Color.red, 50);
+                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
                     castingRay = false;
 
                 }
@@ -263,7 +263,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         }
 
-
+        /*
         if (onlyOne)
         {
             RaycastHit hit;
@@ -495,21 +495,29 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (nextContext.paths.list[h].listOfWaypoint.Contains(doorDirection))
             {
-
-                for (int u = 0; u < nextContext.paths.list[h].listOfWaypoint.Count; u++)
+                if (inverseList.Count != nextContext.paths.list[h].listOfWaypoint.Count)
                 {
-                    inverseList.Add(nextContext.paths.list[h].listOfWaypoint[u]);
-                    inverseList.Reverse();
+                    for (int u = 0; u < nextContext.paths.list[h].listOfWaypoint.Count; u++)
+                    {
+                        inverseList.Add(nextContext.paths.list[h].listOfWaypoint[u]);
+                        Debug.Log(inverseList.Count + "          " + nextContext.paths.list[h].listOfWaypoint.Count);
+                    }
+                }
 
+                if (inverseList.Count == nextContext.paths.list[h].listOfWaypoint.Count)
+                {
+                    Debug.Log("inversing");
+                    inverseList.Reverse();
+                    
                 }
 
             }
         }
-
         for (int t = 0; t < inverseList.Count; t++)
         {
             ultimateList.Add(inverseList[t]);
         }
+
 
         waypoints.listOfWaypoint = ultimateList;
         movement = true;
@@ -591,7 +599,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 isValid = true;
 
-                onlyOne = true;
+                //onlyOne = true;
                 reset = true;                                                                                                                                 //////////////////
                 add = false;
                 movement = false;

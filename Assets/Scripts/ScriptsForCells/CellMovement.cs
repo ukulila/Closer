@@ -84,6 +84,45 @@ public class CellMovement : MonoBehaviour
 
     void Update()
     {
+        
+        if(player.context.gameObject == gameObject)
+        {
+            isSpawn = true;
+
+            ROOM_Manager.Instance.currentRoom = transform.GetComponent<RoomInteraction>();
+
+            if (transform.GetComponent<RoomInteraction>().isInteraction == true)
+            {
+                ObjectManager.Instance.currentObjet = transform.GetComponent<RoomInteraction>().objet;
+            }
+            else
+            {
+                ObjectManager.Instance.currentObjet = null;
+            }
+
+            if (transform.GetComponent<RoomInteraction>().isDialogue == true)
+            {
+                NPC_Manager.Instance.currentNPC = transform.GetComponent<RoomInteraction>().npc;
+            }
+            else
+            {
+                NPC_Manager.Instance.currentNPC = null;
+            }
+
+            transform.GetComponent<RoomInteraction>().UiTextUpdate();
+        }
+        else
+        {
+            if(isSpawn == true)
+            {
+                selected = false;
+                isSpawn = false;
+
+            }
+        }
+
+
+
         if (isSpawn)
         {
             player.transform.SetParent(transform);
@@ -235,7 +274,7 @@ public class CellMovement : MonoBehaviour
         }
 
         //Stores position of The Mouse after timer is 30
-        if (click && timer >= 8)
+        if (click && timer >= 15)
         {
             thenPos = Input.mousePosition;
             movement = true;
@@ -249,8 +288,6 @@ public class CellMovement : MonoBehaviour
 
             myPosFreeze = transform.position;
             freezePosValue = false;
-            //  }
-            //  }
 
         }
 
