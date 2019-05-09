@@ -35,8 +35,15 @@ public class CellScript : MonoBehaviour
     [Space(10)]
     [Tooltip("La Camera")]
     public CinemachineBrain myBrain;
+    [Space(10)]
+    [Tooltip("Le player")]
+    public PlayerBehaviour player;
 
-    
+
+    public List<GameObject> coneRed;
+    public List<GameObject> coneGreen;
+    public bool freeRoom;
+
 
 
     void Start()
@@ -44,6 +51,15 @@ public class CellScript : MonoBehaviour
 
         first = false;
 
+
+
+        for (int i = 0; i < coneRed.Count; i++)
+        {
+            coneRed[i].SetActive(true);
+            coneGreen[i].SetActive(false);
+        }
+
+        freeRoom = false;
     }
 
     void Update()
@@ -76,7 +92,7 @@ public class CellScript : MonoBehaviour
                 for (int r = 0; r < brothers.Count; r++)
                 {
                     brothers[r].hasEnded = true;
-
+                    player.check = true;
                 }
             }
         }
@@ -90,10 +106,10 @@ public class CellScript : MonoBehaviour
 
             if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, LayerMaskCells))
             {
-                if(hit.transform.gameObject == gameObject)
-                { 
-                first = true;
-                nbrTouch += 1;
+                if (hit.transform.gameObject == gameObject)
+                {
+                    first = true;
+                    nbrTouch += 1;
 
 
                     if (first && nbrTouch > 1)
@@ -119,5 +135,23 @@ public class CellScript : MonoBehaviour
         }
 
 
+    }
+
+    public void ConeFunction(int door)
+    {
+        if (freeRoom)
+        {
+            coneRed[door].SetActive(false);
+            coneGreen[door].SetActive(true);
+        }
+
+
+        if (!freeRoom)
+        {
+
+            coneRed[door].SetActive(true);
+            coneGreen[door].SetActive(false);
+
+        }
     }
 }
