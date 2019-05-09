@@ -37,10 +37,14 @@ public class LevelSumUp : MonoBehaviour
         LevelCloseUp.Instance.levelDescriptionCU.text = levelDescription;
     }
 
-    public void Unlocked()
+    public void Selected()
     {
         lvlsAnim.SetTrigger("Enabled");
         lvlsAnim.SetTrigger("Selected");
+    }
 
+    public void Disabled()
+    {
+        lvlsAnim.SetTrigger("Disabled");
     }
 }
