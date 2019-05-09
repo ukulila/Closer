@@ -16,6 +16,7 @@ public class LevelSumUp : MonoBehaviour
 
     public bool isLevelFinished = false;
 
+    public Animator[] lvlsAnim;
 
     public void AssignToCloseUp()
     {
@@ -34,5 +35,37 @@ public class LevelSumUp : MonoBehaviour
 
         LevelCloseUp.Instance.levelNameCU.text = levelName;
         LevelCloseUp.Instance.levelDescriptionCU.text = levelDescription;
+    }
+
+    public void ChosenLevel1()
+    {
+        lvlsAnim[0].SetBool("Open1", true);
+        lvlsAnim[1].SetBool("Closed2", true);
+        lvlsAnim[2].SetBool("Closed3", true);
+        lvlsAnim[3].SetBool("Closed4", true);
+    }
+
+    public void ChosenLevel2()
+    {
+        lvlsAnim[1].SetBool("Open2", true);
+        lvlsAnim[0].SetBool("Closed1", true);
+        lvlsAnim[2].SetBool("Closed3", true);
+        lvlsAnim[3].SetBool("Closed4", true);
+    }
+
+    public void ChosenLevel3()
+    {
+        lvlsAnim[2].SetBool("Open3", true);
+        lvlsAnim[1].SetBool("Closed2", false);
+        lvlsAnim[0].SetBool("Closed1", false);
+        lvlsAnim[3].SetBool("Closed4", false);
+    }
+
+    public void ChosenLevel4()
+    {
+        lvlsAnim[3].SetBool("Open4", true);
+        lvlsAnim[1].SetBool("Closed2", true);
+        lvlsAnim[2].SetBool("Closed3", true);
+        lvlsAnim[0].SetBool("Closed1", true);
     }
 }

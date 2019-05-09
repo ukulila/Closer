@@ -195,11 +195,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 77013785}
-  - component: {fileID: 77013790}
   - component: {fileID: 77013786}
   - component: {fileID: 77013789}
   - component: {fileID: 77013788}
   - component: {fileID: 77013787}
+  - component: {fileID: 77013790}
   m_Layer: 0
   m_Name: LVL 2
   m_TagString: Untagged
@@ -247,6 +247,11 @@ MonoBehaviour:
   clueName: 
   clueDescription: 
   isLevelFinished: 0
+  lvlsAnim:
+  - {fileID: 1577717590}
+  - {fileID: 77013790}
+  - {fileID: 82095096}
+  - {fileID: 1766982912}
 --- !u!114 &77013787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,7 +341,7 @@ Animator:
   m_GameObject: {fileID: 77013784}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 810a162ee78654f5eb0da551cdb50607, type: 2}
+  m_Controller: {fileID: 9100000, guid: 47a6a18413bdf2242958017ae7ec8561, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -354,11 +359,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 82095091}
-  - component: {fileID: 82095096}
   - component: {fileID: 82095092}
   - component: {fileID: 82095095}
   - component: {fileID: 82095094}
   - component: {fileID: 82095093}
+  - component: {fileID: 82095096}
   m_Layer: 0
   m_Name: LVL 3
   m_TagString: Untagged
@@ -406,6 +411,11 @@ MonoBehaviour:
   clueName: 
   clueDescription: 
   isLevelFinished: 0
+  lvlsAnim:
+  - {fileID: 1577717590}
+  - {fileID: 77013790}
+  - {fileID: 82095096}
+  - {fileID: 1766982912}
 --- !u!114 &82095093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,7 +505,7 @@ Animator:
   m_GameObject: {fileID: 82095090}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 810a162ee78654f5eb0da551cdb50607, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3a58877a34f272c42b06ae607959bf11, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1977,7 +1987,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swipeTime: 0
   swipeDuration: 0.1
-  largScript: {fileID: 0}
   levelMax: 4
   currentLevel: 0
   line: {fileID: 891323622}
@@ -2221,8 +2230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01477dcea3b1cbe4dbda86bac5662832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels: []
-  currentLevel: 0
 --- !u!1 &1101748863
 GameObject:
   m_ObjectHideFlags: 0
@@ -3183,11 +3190,20 @@ MonoBehaviour:
   smoothRef: {fileID: 0}
   spriteClue: {fileID: 0}
   spriteUnknown: {fileID: 0}
-  levelName: 
-  levelDescription: 
-  clueName: 
-  clueDescription: 
+  levelName: Bad Blood
+  levelDescription: " it\u2019s been three days since Irina should had come back from
+    a little trip with rich Walter. Blanche is starting to worry but Mireille is keeping
+    her busy. She has to learn some \u201Ctricks\u201D from Dolores in order to welcome
+    a group of mysterious clients. "
+  clueName: 'Monday - 7:13pm : Irina fought with Walter'
+  clueDescription: 'Dolores found out that Irina fought with Walter, ran into the
+    house, hid and never left. '
   isLevelFinished: 0
+  lvlsAnim:
+  - {fileID: 1577717590}
+  - {fileID: 77013790}
+  - {fileID: 82095096}
+  - {fileID: 1766982912}
 --- !u!114 &1577717592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3227,7 +3243,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1577717593}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1577717591}
+        m_MethodName: AssignToCloseUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1577717591}
+        m_MethodName: ChosenLevel1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1577717593
@@ -3613,10 +3651,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   polaroideImage: {fileID: 1129029044}
-  levelNameCU: {fileID: 0}
-  levelDescriptionCU: {fileID: 0}
-  clueNameCU: {fileID: 0}
-  clueDescriptionCU: {fileID: 0}
+  levelNameCU: {fileID: 430160665}
+  levelDescriptionCU: {fileID: 485988887}
+  clueNameCU: {fileID: 236127639}
+  clueDescriptionCU: {fileID: 1101748865}
 --- !u!1 &1702816429
 GameObject:
   m_ObjectHideFlags: 0
@@ -3835,6 +3873,11 @@ MonoBehaviour:
   clueName: 
   clueDescription: 
   isLevelFinished: 0
+  lvlsAnim:
+  - {fileID: 1577717590}
+  - {fileID: 77013790}
+  - {fileID: 82095096}
+  - {fileID: 1766982912}
 --- !u!114 &1766982909
 MonoBehaviour:
   m_ObjectHideFlags: 0
