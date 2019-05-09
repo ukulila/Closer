@@ -35,19 +35,26 @@ public class SmoothMoveSwipe : MonoBehaviour
 
     public bool isCranAnimationOver;
 
+    public bool isSwipping = true;
 
     public Animator[] BAnims;
+
+    public static SmoothMoveSwipe Instance;
 
 
 
     private void Awake()
     {
+        Instance = this;
+
         levelCranRef = new List<Vector2>();
 
         for (int i = 0; i < BAnims.Length - 1; i++)
         {
             levelCranRef.Add(new Vector2(cranRef - (280 * i), line.localPosition.y));
         }
+
+        isSwipping = true;
     }
 
     private void Update()
@@ -55,7 +62,7 @@ public class SmoothMoveSwipe : MonoBehaviour
         if (isCranAnimationOver == false)
             CrantAnimation();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isSwipping)
         {
             isCranAnimationOver = true;
             currentCranTime = 0;
@@ -65,19 +72,19 @@ public class SmoothMoveSwipe : MonoBehaviour
             moveValue = Input.mousePosition;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && isSwipping)
         {
-            line.localPosition = new Vector2(moveStart.x + (Input.mousePosition.x - moveValue.x) * moveRatio, line.localPosition.y);
+            line.localPosition = new Vector2(Mathf.Clamp(moveStart.x + (Input.mousePosition.x - moveValue.x) * moveRatio, (cranRef - (280 * (LevelManager.Instance.levels.Count - 1))), cranRef), line.localPosition.y);
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && isSwipping)
         {
             lastPos = line.localPosition;
 
             for (int i = 0; i < levelCranRef.Count; i++)
             {
-                Vector2 rightLimit = new Vector2();
-                Vector2 leftLimit = new Vector2();
+                Vector2 rightLimit = new Vector2(0,0);
+                Vector2 leftLimit = new Vector2(0,0);
 
 
                 if (lastPos.x < levelCranRef[levelCranRef.Count - 1 - i].x)
@@ -109,11 +116,8 @@ public class SmoothMoveSwipe : MonoBehaviour
                 }
             }
         }
-
-
-        
-
     }
+
 
     private void CrantAnimation()
     {
