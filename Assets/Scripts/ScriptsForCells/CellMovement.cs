@@ -68,10 +68,13 @@ public class CellMovement : MonoBehaviour
         over = true;
 
         // Fills List of other Cells
-        for (int x = 0; x < transform.parent.childCount; x++)
+        if (transform.parent.childCount != 0)
         {
-            brothers.Add(transform.parent.GetChild(x));
+            for (int x = 0; x < transform.parent.childCount; x++)
+            {
+                brothers.Add(transform.parent.GetChild(x));
 
+            }
         }
 
         ready = false;
@@ -82,7 +85,7 @@ public class CellMovement : MonoBehaviour
     #endregion
 
 
-    void Update()
+    public void Update()
     {
         
         if(player.context.gameObject == gameObject)

@@ -56,12 +56,14 @@ public class PlayerBehaviour : MonoBehaviour
     public int onlyTwo;
     public bool check;
     private int checkInt;
+    public AlwaysLookAtCam highlight;
+    private bool one;
 
     void Start()
     {
         add = false;
         reset = true;
-   //     onlyOne = true;
+        //     onlyOne = true;
         if (GetComponent<Animator>() != null)
         {
             animator = GetComponent<Animator>();
@@ -70,6 +72,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Update()
     {
+
         animator.SetFloat("ValueX", x);
         animator.SetFloat("ValueY", y);
 
@@ -79,7 +82,15 @@ public class PlayerBehaviour : MonoBehaviour
         {
             // reset = true;
             transform.LookAt(Camera.transform.position);
-    //        onlyOne = false;
+            //        onlyOne = false;
+
+            highlight.enabled = false;
+
+            if (one)
+            {
+                highlight.transform.localEulerAngles = new Vector3(-90, 90, highlight.transform.localEulerAngles.z + 45);
+                one = false;
+            }
 
             if (x > 0 && y > 0)
             {
@@ -89,6 +100,12 @@ public class PlayerBehaviour : MonoBehaviour
             }
 
             //animator.SetBool("Walk", false);
+        }
+        else if (!lookCam)
+        {
+
+            highlight.enabled = true;
+
         }
 
 
@@ -334,62 +351,65 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void CheckConeLight()
     {
-        if (context.gameObject.GetComponent<CellMovement>().hasEnded == true && check)
+        if (context.gameObject.GetComponent<CellMovement>() != null)
         {
-            Debug.Log("           I draw          ");
-
-            RaycastHit hit;
-            int layerMaskDoor = LayerMask.GetMask("Door");
-
-            for (int u = 0; u < context.doorWayPoints.Count; u++)
+            if (context.gameObject.GetComponent<CellMovement>().hasEnded == true && check)
             {
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
+                Debug.Log("           I draw          ");
+
+                RaycastHit hit;
+                int layerMaskDoor = LayerMask.GetMask("Door");
+
+                for (int u = 0; u < context.doorWayPoints.Count; u++)
                 {
-                    Debug.Log("                     " + hit.transform.name);
-
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
-
-                    coneDoor = hit.transform.gameObject;
-
-                    hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                    hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
-
-                    transform.parent.GetComponent<CellScript>().ConeFunction(u);
-                    transform.parent.GetComponent<CellScript>().freeRoom = true;
-
-                    if (checkInt >= 3)
+                    if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                     {
-                        check = false;
-                        checkInt = 0;
+                        Debug.Log("                     " + hit.transform.name);
+
+                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
+
+                        coneDoor = hit.transform.gameObject;
+
+                        hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                        hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
+
+                        transform.parent.GetComponent<CellScript>().ConeFunction(u);
+                        transform.parent.GetComponent<CellScript>().freeRoom = true;
+
+                        if (checkInt >= 3)
+                        {
+                            check = false;
+                            checkInt = 0;
+                        }
+                        else
+                        {
+                            checkInt++;
+                        }
                     }
                     else
                     {
-                        checkInt++;
-                    }
-                }
-                else
-                {
-                    Debug.Log("            I touch Nothing         " );
+                        Debug.Log("            I touch Nothing         ");
 
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
-                    transform.parent.GetComponent<CellScript>().ConeFunction(u);
-                    transform.parent.GetComponent<CellScript>().freeRoom = false;
+                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
+                        transform.parent.GetComponent<CellScript>().ConeFunction(u);
+                        transform.parent.GetComponent<CellScript>().freeRoom = false;
 
-                    if (coneDoor != null)
-                    {
-                        coneDoor.transform.parent.GetComponent<CellScript>().freeRoom = false;
-                        coneDoor.transform.parent.GetComponent<CellScript>().ConeFunction(u);
-                    }
+                        if (coneDoor != null)
+                        {
+                            coneDoor.transform.parent.GetComponent<CellScript>().freeRoom = false;
+                            coneDoor.transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                        }
 
-                    if (checkInt >= 3)
-                    {
-                        coneDoor = null;
-                        check = false;
-                        checkInt = 0;
-                    }
-                    else
-                    {
-                        checkInt++;
+                        if (checkInt >= 3)
+                        {
+                            coneDoor = null;
+                            check = false;
+                            checkInt = 0;
+                        }
+                        else
+                        {
+                            checkInt++;
+                        }
                     }
                 }
             }
@@ -429,6 +449,8 @@ public class PlayerBehaviour : MonoBehaviour
             //animator.SetBool("Walk", false);
             Debug.LogError("StopWalking");
             lookCam = true;
+            one = true;
+
         }
     }
 
@@ -469,7 +491,7 @@ public class PlayerBehaviour : MonoBehaviour
                     for (int u = 0; u < nextContext.paths.list[h].listOfWaypoint.Count; u++)
                     {
                         inverseList.Add(nextContext.paths.list[h].listOfWaypoint[u]);
-                       // Debug.Log(inverseList.Count + "          " + nextContext.paths.list[h].listOfWaypoint.Count);
+                        // Debug.Log(inverseList.Count + "          " + nextContext.paths.list[h].listOfWaypoint.Count);
                     }
                 }
 
@@ -477,7 +499,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     Debug.Log("inversing");
                     inverseList.Reverse();
-                    
+
                 }
 
             }
