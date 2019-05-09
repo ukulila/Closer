@@ -80,19 +80,28 @@ public class CellScript : MonoBehaviour
         if (isInRotation)
         {
             transform.Rotate(new Vector3(0, 1, 0), speed);
-            cP.isInRotation = true;
+            if (cP != null)
+            {
+                cP.isInRotation = true;
+            }
             timeRot++;
 
             if (timeRot > fin)
             {
                 timeRot = 0;
                 isInRotation = false;
-                cP.isInRotation = false;
-
-                for (int r = 0; r < brothers.Count; r++)
+                if (cP != null)
                 {
-                    brothers[r].hasEnded = true;
-                    player.check = true;
+                    cP.isInRotation = false;
+                }
+
+                if (brothers[0] != null)
+                {
+                    for (int r = 0; r < brothers.Count; r++)
+                    {
+                        brothers[r].hasEnded = true;
+                        player.check = true;
+                    }
                 }
             }
         }
@@ -114,10 +123,13 @@ public class CellScript : MonoBehaviour
 
                     if (first && nbrTouch > 1)
                     {
-                        for (int r = 0; r < brothers.Count; r++)
+                        if (brothers[0] != null)
                         {
-                            brothers[r].hasEnded = false;
+                            for (int r = 0; r < brothers.Count; r++)
+                            {
+                                brothers[r].hasEnded = false;
 
+                            }
                         }
 
                         set = true;

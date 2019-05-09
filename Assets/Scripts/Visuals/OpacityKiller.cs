@@ -18,6 +18,7 @@ public class OpacityKiller : MonoBehaviour
 
     [Range(0.001f, 1)]
     public float minFade;
+    public bool tuto;
 
     // Start is called before the first frame update
     void Start()
@@ -100,10 +101,12 @@ public class OpacityKiller : MonoBehaviour
 
     public void Outliner()
     {
-        if ( transform.parent.name.Contains("Exit") == false)
+        if (transform.parent.GetComponent<CellMovement>() != null)
         {
-           
-                if ((transform.parent.GetComponent<CellMovement>().selected  && myMaterial.GetInt("_isActive") != 1))
+            if (transform.parent.name.Contains("Exit") == false)
+            {
+
+                if ((transform.parent.GetComponent<CellMovement>().selected && myMaterial.GetInt("_isActive") != 1))
                 {
                     myMaterial.SetColor("_myColor", Color.green);
 
@@ -115,23 +118,31 @@ public class OpacityKiller : MonoBehaviour
                     myMaterial.SetInt("_isActive", 0);
                 }
 
+            }
+
+            if (transform.parent.name.Contains("Exit") && myMaterial.GetInt("_isActive") != 1)
+            {
+
+
+                myMaterial.SetInt("_isActive", 1);
+            }
+
+            if (transform.parent.GetComponent<CellMovement>().isOpen == true)
+            {
+
+
+                myMaterial.SetColor("_myColor", new Color32(140, 140, 140, 255));
+
+                myMaterial.SetInt("_isActive", 1);
+
+            }
         }
 
-        if (transform.parent.name.Contains("Exit") && myMaterial.GetInt("_isActive") != 1)
+        if (tuto)
         {
-
+            myMaterial.SetColor("_myColor", Color.green);
 
             myMaterial.SetInt("_isActive", 1);
-        }
-
-        if (transform.parent.GetComponent<CellMovement>().isOpen == true)
-        {
-
-
-            myMaterial.SetColor("_myColor", new Color32(140, 140, 140, 255));
-
-            myMaterial.SetInt("_isActive", 1);
-
         }
     }
 
