@@ -1,10 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SmoothMoveSwipe : MonoBehaviour
 {
+    [Header("Swipping parmaeters")]
+    public bool isSwipping = true;
+
+    [Space]
 
     private Vector2 startTouchPosition, endTouchPosition;
     private Vector3 startSwipePosition, endSwipePosition;
@@ -15,29 +17,37 @@ public class SmoothMoveSwipe : MonoBehaviour
     public int currentLevel;
     public RectTransform line;
 
+    [Space]
+
     public List<Vector2> levelCranRef;
     public float cranRef;
+
+    [Space]
 
     [Range(0.1f, 1)]
     public float moveRatio;
     public Vector2 moveStart;
     public Vector2 moveValue;
 
-    [Header("Animation Curve TRY")]
+    [Header("Animation Curve")]
     public AnimationCurve cranAnimationCurve;
     public float currentCranTime;
     public float cranMaxTime;
     public float cranPercent;
 
+    [Space]
+
     public Vector2 lastPos;
     public Vector2 cranPos;
     public Vector2 diffPos;
 
+    [Space]
+
     public bool isCranAnimationOver;
 
-    public bool isSwipping = true;
 
-    public Animator[] BAnims;
+
+    //public Animator[] BAnims;
 
     public static SmoothMoveSwipe Instance;
 
@@ -49,12 +59,20 @@ public class SmoothMoveSwipe : MonoBehaviour
 
         levelCranRef = new List<Vector2>();
 
-        for (int i = 0; i < BAnims.Length - 1; i++)
+        //for (int i = 0; i < LevelManager.Instance.levels.Count; i++)
+        //{
+        //    levelCranRef.Add(new Vector2(cranRef - (280 * i), line.localPosition.y));
+        //}
+
+        isSwipping = true;
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < LevelManager.Instance.levels.Count; i++)
         {
             levelCranRef.Add(new Vector2(cranRef - (280 * i), line.localPosition.y));
         }
-
-        isSwipping = true;
     }
 
     private void Update()
@@ -83,8 +101,8 @@ public class SmoothMoveSwipe : MonoBehaviour
 
             for (int i = 0; i < levelCranRef.Count; i++)
             {
-                Vector2 rightLimit = new Vector2(0,0);
-                Vector2 leftLimit = new Vector2(0,0);
+                Vector2 rightLimit = new Vector2(0, 0);
+                Vector2 leftLimit = new Vector2(0, 0);
 
 
                 if (lastPos.x < levelCranRef[levelCranRef.Count - 1 - i].x)
@@ -92,24 +110,24 @@ public class SmoothMoveSwipe : MonoBehaviour
                     rightLimit = levelCranRef[levelCranRef.Count - 1 - i + 1];
                     leftLimit = levelCranRef[levelCranRef.Count - 1 - i];
 
-                    Debug.Log("Right " + rightLimit);
-                    Debug.Log("Left " + leftLimit);
+                    //Debug.Log("Right " + rightLimit);
+                    //Debug.Log("Left " + leftLimit);
 
-                    Debug.Log("Right comparaison " + (rightLimit.x - lastPos.x));
-                    Debug.Log("Left comparaison " + ((leftLimit.x - lastPos.x) * -1));
+                    //Debug.Log("Right comparaison " + (rightLimit.x - lastPos.x));
+                    //Debug.Log("Left comparaison " + ((leftLimit.x - lastPos.x) * -1));
 
-                    if ((rightLimit.x - lastPos.x) > ((leftLimit.x - lastPos.x)*-1))
+                    if ((rightLimit.x - lastPos.x) > ((leftLimit.x - lastPos.x) * -1))
                     {
-                        Debug.Log("GO RIGHT");
+                        //Debug.Log("GO RIGHT");
                         diffPos = rightLimit - lastPos;
                     }
                     else
                     {
-                        Debug.Log("GO LEFT");
+                        //Debug.Log("GO LEFT");
                         diffPos = leftLimit - lastPos;
                     }
 
-                    Debug.Log(diffPos);
+                    //Debug.Log(diffPos);
 
                     isCranAnimationOver = false;
                     return;
@@ -135,7 +153,7 @@ public class SmoothMoveSwipe : MonoBehaviour
         line.localPosition = new Vector2(lastPos.x + diffPos.x * cranPercent, lastPos.y);
     }
 
-
+    /*
     private IEnumerator Swipe(string whereToGo)
     {
         switch (whereToGo)
@@ -159,7 +177,7 @@ public class SmoothMoveSwipe : MonoBehaviour
                     transform.position = Vector2.Lerp
                         (startSwipePosition, endSwipePosition, swipeTime / swipeDuration);
                     yield return null;
-                }*/
+                }
                 break;
 
             case "right":
@@ -182,7 +200,7 @@ public class SmoothMoveSwipe : MonoBehaviour
                     transform.position = Vector2.Lerp
                         (startSwipePosition, endSwipePosition, swipeTime / swipeDuration);
                     yield return null;
-                }*/
+                }
                 break;
         }
 
@@ -198,4 +216,5 @@ public class SmoothMoveSwipe : MonoBehaviour
 
         yield return null;
     }
+    */
 }

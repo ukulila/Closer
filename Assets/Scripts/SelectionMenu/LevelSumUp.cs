@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelSumUp : MonoBehaviour
@@ -8,7 +6,7 @@ public class LevelSumUp : MonoBehaviour
     public Sprite spriteClue;
     public Sprite spriteUnknown;
     public Image lockedImage;
-
+    public RectTransform pin;
 
     public string levelName;
     public string levelDescription;
@@ -26,7 +24,9 @@ public class LevelSumUp : MonoBehaviour
         //lockedImage = GameObject.Find("LockedImage").GetComponent<Image>();
     }
 
-
+    /// <summary>
+    /// Assigne les informations du niveau au CloseUp à suivre
+    /// </summary>
     public void AssignToCloseUp()
     {
         if (isLevelFinished)
@@ -41,34 +41,10 @@ public class LevelSumUp : MonoBehaviour
             LevelCloseUp.Instance.clueNameCU.text = "";
             LevelCloseUp.Instance.clueDescriptionCU.text = "";
         }
-
+        
         LevelCloseUp.Instance.levelNameCU.text = levelName;
         LevelCloseUp.Instance.levelDescriptionCU.text = levelDescription;
+
+        LevelManager.Instance.levelOnCloseUp = this;
     }
-
-    public void CrantageToSelectedLevel()
-    {
-        SmoothMoveSwipe.Instance.isSwipping = false;
-
-        SmoothMoveSwipe.Instance.lastPos = SmoothMoveSwipe.Instance.line.localPosition;
-
-        for (int i = 0; i < SmoothMoveSwipe.Instance.levelCranRef.Count - 1; i++)
-        {
-            Vector2 rightLimit = new Vector2(0, 0);
-            Vector2 leftLimit = new Vector2(0, 0);
-
-
-            if (this.gameObject.name == LevelManager.Instance.levels[i].gameObject.name)
-            {
-
-                SmoothMoveSwipe.Instance.diffPos = SmoothMoveSwipe.Instance.levelCranRef[i] - SmoothMoveSwipe.Instance.lastPos;
-
-                Debug.Log(SmoothMoveSwipe.Instance.diffPos);
-
-                SmoothMoveSwipe.Instance.isCranAnimationOver = false;
-                return;
-            }
-        }
-    }
-
 }
