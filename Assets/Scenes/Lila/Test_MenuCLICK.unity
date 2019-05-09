@@ -230,7 +230,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66466680}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 0
+  m_padding: 0.5
   m_canvasRenderer: {fileID: 66466683}
   m_TextComponent: {fileID: 236127639}
   m_materialReferenceIndex: 1
@@ -324,6 +324,7 @@ MonoBehaviour:
   clueName: 
   clueDescription: 
   isLevelFinished: 0
+  lvlsAnim: {fileID: 0}
 --- !u!114 &77013787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +561,7 @@ MonoBehaviour:
   clueName: 
   clueDescription: 
   isLevelFinished: 0
+  lvlsAnim: {fileID: 0}
 --- !u!114 &82095093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,11 +945,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 2
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -1876,11 +1878,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2039,11 +2041,11 @@ MonoBehaviour:
     lineCount: 2
     pageCount: 1
     materialCount: 2
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -3807,11 +3809,11 @@ MonoBehaviour:
     lineCount: 4
     pageCount: 1
     materialCount: 2
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4502,7 +4504,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1365824052}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
@@ -4520,7 +4522,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 0
+  m_padding: 0.5
   m_canvasRenderer: {fileID: 1365824055}
   m_TextComponent: {fileID: 1101748865}
   m_materialReferenceIndex: 1
@@ -5490,8 +5492,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28182566bf58efc40a1c411f5cb7349b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothRef: {fileID: 0}
-  spriteClue: {fileID: 0}
+  smoothRef: {fileID: 891323625}
+  spriteClue: {fileID: 21300000, guid: 45159a320de8b9847a658ca4bea83f28, type: 3}
   spriteUnknown: {fileID: 0}
   levelName: Bad Blood
   levelDescription: " it\u2019s been three days since Irina should had come back from
@@ -5501,7 +5503,8 @@ MonoBehaviour:
   clueName: 'Monday - 7:13pm : Irina fought with Walter'
   clueDescription: 'Dolores found out that Irina fought with Walter, ran into the
     house, hid and never left. '
-  isLevelFinished: 0
+  isLevelFinished: 1
+  lvlsAnim: {fileID: 1577717590}
 --- !u!114 &1577717592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5520,7 +5523,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -5554,7 +5557,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1577717591}
-        m_MethodName: ChosenLevel1
+        m_MethodName: Unlocked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5910,7 +5913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1669268024
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6249,6 +6252,7 @@ MonoBehaviour:
   clueName: 
   clueDescription: 
   isLevelFinished: 0
+  lvlsAnim: {fileID: 0}
 --- !u!114 &1766982909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6564,6 +6568,7 @@ MonoBehaviour:
   clueName: 
   clueDescription: 
   isLevelFinished: 0
+  lvlsAnim: {fileID: 0}
 --- !u!95 &1825474062
 Animator:
   serializedVersion: 3
@@ -7363,7 +7368,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134468864}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
@@ -7381,7 +7386,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 0
+  m_padding: 0.5
   m_canvasRenderer: {fileID: 2134468867}
   m_TextComponent: {fileID: 485988887}
   m_materialReferenceIndex: 1

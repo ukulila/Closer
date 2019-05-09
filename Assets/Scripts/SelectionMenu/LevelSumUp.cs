@@ -16,7 +16,7 @@ public class LevelSumUp : MonoBehaviour
 
     public bool isLevelFinished = false;
 
-    //public Animator[] lvlsAnim;
+    public Animator lvlsAnim;
 
     public void AssignToCloseUp()
     {
@@ -35,5 +35,12 @@ public class LevelSumUp : MonoBehaviour
 
         LevelCloseUp.Instance.levelNameCU.text = levelName;
         LevelCloseUp.Instance.levelDescriptionCU.text = levelDescription;
+    }
+
+    public void Unlocked()
+    {
+        lvlsAnim.SetTrigger("Enabled");
+        lvlsAnim.SetTrigger("Selected");
+
     }
 }
