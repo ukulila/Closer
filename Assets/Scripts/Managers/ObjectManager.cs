@@ -22,7 +22,7 @@ public class ObjectManager : MonoBehaviour
         InventorySystem.Instance.AssignToAvailableSlot(currentObjet);
         //currentObjet.gameObject.GetComponent<Image>().enabled = false;
         //currentObjet.gameObject.GetComponent<BoxCollider>().enabled = false;
-
+        currentObjet.objectEvent.Invoke();
         ROOM_Manager.Instance.currentRoom.isInteraction = false;
         ROOM_Manager.Instance.currentRoom.objet = null;
 
