@@ -12,7 +12,10 @@ public class SmoothMoveSwipe : MonoBehaviour
     private Vector3 startSwipePosition, endSwipePosition;
     public float swipeTime;
     public float swipeDuration = 0.1f;
+<<<<<<< Updated upstream
     //public ElargSelectionLevelSystem largScript;
+=======
+>>>>>>> Stashed changes
     public int levelMax = 4;
     public int currentLevel;
     public RectTransform line;
@@ -166,6 +169,7 @@ public class SmoothMoveSwipe : MonoBehaviour
                     BAnims[currentLevel].SetBool("Open", true);
                 }
 
+<<<<<<< Updated upstream
                 /*swipeTime = 0f;
                 startSwipePosition = transform.position;
                 endSwipePosition = new Vector3
