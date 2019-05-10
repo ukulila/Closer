@@ -376,11 +376,11 @@ public class DialogueSystem : MonoBehaviour
 
     private void SetUpDefaultValues()
     {
-        dialogueBoxSpacing = 120f;
+        dialogueBoxSpacing = 30f;
         boxMaxWidth = 363f;
         boxMinWidth = 100f;
-        boxMinHeight = 74.63f;
-        boxHeigthPerLine = 26.59f;
+        boxMinHeight = 80f; //74.63f
+        boxHeigthPerLine = 30f; //26.59f
 
         boxInitPos_X = -477f;
         boxInitPos_Y = -150f;
@@ -389,9 +389,9 @@ public class DialogueSystem : MonoBehaviour
         boxInitPos_Y2 = -150f;
 
         //Parametres TEXT des rectTransform
-        textHeightPerLine = 26.59f;
-        textMinHeight = 34.63f;
-        textWidth = 320;
+        textHeightPerLine = 30f; //26.59f
+        textMinHeight = 34.63f; //34.63f
+        textWidth = 315f;
 
         Ydisplacment = 1900f;
         maxResetTime = 1;
