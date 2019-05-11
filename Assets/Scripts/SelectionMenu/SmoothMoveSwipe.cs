@@ -12,10 +12,7 @@ public class SmoothMoveSwipe : MonoBehaviour
     private Vector3 startSwipePosition, endSwipePosition;
     public float swipeTime;
     public float swipeDuration = 0.1f;
-<<<<<<< Updated upstream
-    //public ElargSelectionLevelSystem largScript;
-=======
->>>>>>> Stashed changes
+
     public int levelMax = 4;
     public int currentLevel;
     public RectTransform line;
@@ -49,9 +46,6 @@ public class SmoothMoveSwipe : MonoBehaviour
     public bool isCranAnimationOver;
 
 
-
-    //public Animator[] BAnims;
-
     public static SmoothMoveSwipe Instance;
 
 
@@ -61,11 +55,6 @@ public class SmoothMoveSwipe : MonoBehaviour
         Instance = this;
 
         levelCranRef = new List<Vector2>();
-
-        //for (int i = 0; i < LevelManager.Instance.levels.Count; i++)
-        //{
-        //    levelCranRef.Add(new Vector2(cranRef - (280 * i), line.localPosition.y));
-        //}
 
         isSwipping = true;
     }
@@ -155,70 +144,4 @@ public class SmoothMoveSwipe : MonoBehaviour
 
         line.localPosition = new Vector2(lastPos.x + diffPos.x * cranPercent, lastPos.y);
     }
-
-    /*
-    private IEnumerator Swipe(string whereToGo)
-    {
-        switch (whereToGo)
-        {
-            case "left":
-                if (currentLevel > 0)
-                {
-                    BAnims[currentLevel].SetBool("Open", false);
-                    //largScript.currentLevel--;
-                    BAnims[currentLevel].SetBool("Open", true);
-                }
-
-<<<<<<< Updated upstream
-                /*swipeTime = 0f;
-                startSwipePosition = transform.position;
-                endSwipePosition = new Vector3
-                    (startSwipePosition.x - 1.75f, transform.position.y, transform.position.z);
-
-                while (swipeTime < swipeDuration)
-                {
-                    swipeTime += Time.deltaTime;
-                    transform.position = Vector2.Lerp
-                        (startSwipePosition, endSwipePosition, swipeTime / swipeDuration);
-                    yield return null;
-                }
-                break;
-
-            case "right":
-                if (currentLevel < levelMax)
-                {
-                    BAnims[currentLevel].SetBool("Open", false);
-                    //largScript.currentLevel++;
-                    BAnims[currentLevel].SetBool("Open", true);
-                }
-
-                /*
-                swipeTime = 0f;
-                startSwipePosition = transform.position;
-                endSwipePosition = new Vector3
-                    (startSwipePosition.x + 1.75f, transform.position.y, transform.position.z);
-
-                while (swipeTime < swipeDuration)
-                {
-                    swipeTime += Time.deltaTime;
-                    transform.position = Vector2.Lerp
-                        (startSwipePosition, endSwipePosition, swipeTime / swipeDuration);
-                    yield return null;
-                }
-                break;
-        }
-
-        float lerpValue = 0;
-        while (lerpValue < 1)
-        {
-            print("WHILE");
-            lerpValue += Time.deltaTime;
-            line.anchoredPosition = Vector3.Lerp(startSwipePosition, endSwipePosition, lerpValue);
-            yield return new WaitForEndOfFrame();
-        }
-
-
-        yield return null;
-    }
-    */
 }
