@@ -22,4 +22,17 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
+
+    /// <summary>
+    /// Set values
+    /// </summary>
+    private void Start()
+    {
+        DataManager.Instance.Load();
+    }
+
+    public void SaveProgression()
+    {
+        DataManager.Instance.Save();
+    }
 }
