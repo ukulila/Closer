@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     [Header("Mode de jeu")]
     public GameMode currentGameMode;
 
+    [Header("Niveau")]
+    public int currentLevel;
+    public int progressionLevel;
+
 
     public static GameManager Instance;
 
