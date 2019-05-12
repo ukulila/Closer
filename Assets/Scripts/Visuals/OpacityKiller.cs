@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class OpacityKiller : MonoBehaviour
 {
-    public Material myMaterial;
+    public List<Material> myMaterial;
     public GameObject cam;
     public float distance;
     private float opaciteVar;
@@ -13,64 +13,69 @@ public class OpacityKiller : MonoBehaviour
 
     public bool oui;
 
-    [Range(0.001f, 50)]
+    [Range(0.001f, 500)]
     public float distanceToFade;
 
     [Range(0.001f, 1)]
     public float minFade;
     public bool tuto;
+    [Range(0.001f, 1)]
+    public float maxFade;
 
     // Start is called before the first frame update
     void Start()
     {
-        myMaterial = GetComponent<Renderer>().material;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).name.Contains("Plane"))
+            {
+                myMaterial.Add(transform.GetChild(i).GetComponent<Renderer>().material);
+            }
+        }
+        StartCoroutine("CalculateDistance");
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         Outliner();
 
-        if (Input.GetKeyDown(KeyCode.Space) && oui)
-        {
-            Debug.Log(transform.position);
-        }
-
         //Renamer();
-
         if (gameObject.name.Contains("Up") == false && gameObject.name.Contains("Down") == false && isActive)
         {
             opaciteVar = 1;
         }
 
+        for (int i = 0; i < myMaterial.Count; i++)
+        {
+            myMaterial[i].SetFloat("_Opacity", opaciteVar);
 
-        distance = Vector3.Distance(transform.position, cam.transform.position);
-
-        myMaterial.SetFloat("_Opacity", opaciteVar);
+        }
 
         if (!isActive)
         {
             if (distance < distanceToFade)
             {
-                if (opaciteVar > minFade)
+                if (opaciteVar > 0)
                 {
                     opaciteVar -= 0.01f;
                 }
                 else
                 {
-                    opaciteVar = minFade;
+                    opaciteVar = 0;
                 }
             }
             else
             {
-                if (opaciteVar < 1)
+                if (opaciteVar < maxFade)
                 {
                     opaciteVar += 0.01f;
                 }
                 else
                 {
-                    opaciteVar = 1;
+                    opaciteVar = maxFade;
                 }
 
             }
@@ -78,9 +83,7 @@ public class OpacityKiller : MonoBehaviour
 
         //Debug.Log(distance);
     }
-
-
-
+    /*
     public void OnTriggerStay(Collider other)
     {
 
@@ -97,7 +100,7 @@ public class OpacityKiller : MonoBehaviour
         {
             isActive = false;
         }
-    }
+    }*/
 
     public void Outliner()
     {
@@ -105,48 +108,69 @@ public class OpacityKiller : MonoBehaviour
         {
             if (transform.parent.name.Contains("Exit") == false)
             {
-
-                if ((transform.parent.GetComponent<CellMovement>().selected && myMaterial.GetInt("_isActive") != 1))
+                for (int i = 0; i < myMaterial.Count; i++)
                 {
-                    myMaterial.SetColor("_myColor", Color.green);
+                    if ((transform.parent.GetComponent<CellMovement>().selected && myMaterial[i].GetInt("_isActive") != 1))
+                    {
 
-                    myMaterial.SetInt("_isActive", 1);
+                        myMaterial[i].SetColor("_myColor", Color.green);
+
+                        myMaterial[i].SetInt("_isActive", 1);
+                    }
+                    else if (transform.parent.GetComponent<CellMovement>().selected == false && myMaterial[i].GetInt("_isActive") != 0)
+                    {
+
+                        myMaterial[i].SetInt("_isActive", 0);
+                    }
+
                 }
-                else if (transform.parent.GetComponent<CellMovement>().selected == false && myMaterial.GetInt("_isActive") != 0)
+            }
+
+            for (int i = 0; i < myMaterial.Count; i++)
+            {
+                if (transform.parent.name.Contains("Exit") && myMaterial[i].GetInt("_isActive") != 1)
                 {
 
-                    myMaterial.SetInt("_isActive", 0);
+
+                    myMaterial[i].SetInt("_isActive", 1);
                 }
-
             }
 
-            if (transform.parent.name.Contains("Exit") && myMaterial.GetInt("_isActive") != 1)
+            for (int i = 0; i < myMaterial.Count; i++)
             {
+                if (transform.parent.GetComponent<CellMovement>().isOpen == true)
+                {
 
 
-                myMaterial.SetInt("_isActive", 1);
+                    myMaterial[i].SetColor("_myColor", new Color32(140, 140, 140, 255));
+
+                    myMaterial[i].SetInt("_isActive", 1);
+
+                }
             }
 
-            if (transform.parent.GetComponent<CellMovement>().isOpen == true)
-            {
-
-
-                myMaterial.SetColor("_myColor", new Color32(140, 140, 140, 255));
-
-                myMaterial.SetInt("_isActive", 1);
-
-            }
         }
 
         if (tuto)
         {
-            myMaterial.SetColor("_myColor", Color.green);
+            for (int i = 0; i < myMaterial.Count; i++)
+            {
+                myMaterial[i].SetColor("_myColor", Color.green);
 
-            myMaterial.SetInt("_isActive", 1);
+                myMaterial[i].SetInt("_isActive", 1);
+            }
         }
     }
 
+    public IEnumerator CalculateDistance()
+    {
+        while (true)
+        {
+            distance = Vector3.Distance(transform.position, cam.transform.position);
+            yield return new WaitForSeconds(1.5f);
+        }
 
+    }
 
 
 
