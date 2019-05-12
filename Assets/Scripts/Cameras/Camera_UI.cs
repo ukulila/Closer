@@ -23,6 +23,8 @@ public class Camera_UI : MonoBehaviour
     public List<Image> RTargetImageContextuelle;
     public List<TextMeshProUGUI> RTargetTextContextuelle;
 
+    public Animator ui_BackgroundAnimator;
+
     [Header("   Target Offset")]
     public List<Vector3> targetOffsets;
     public Vector3 currentTargetOffset;
@@ -90,16 +92,22 @@ public class Camera_UI : MonoBehaviour
 
     public void SwitchToNOui()
     {
-        currentPathPos = dollyCart.m_Position;
-        currentDollyPosition = dollyTransform.localPosition;
-        currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
-        currentFOV = virtualCamera.m_Lens.OrthographicSize;
-        currentRepositionTime = 0;
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode)
+        {
+            currentPathPos = dollyCart.m_Position;
+            currentDollyPosition = dollyTransform.localPosition;
+            currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
+            currentFOV = virtualCamera.m_Lens.OrthographicSize;
+            currentRepositionTime = 0;
 
-        //Debug.Log("Deactivate UI nOW");
-        switchToUI = false;
-        ROOM_Manager.Instance.DeactivateUI();
-        cameraReposition = false;
+            //ui_BackgroundAnimator.ResetTrigger("Enabled");
+            //ui_BackgroundAnimator.SetTrigger("Enabled");
+
+            //Debug.Log("Deactivate UI nOW");
+            switchToUI = false;
+            ROOM_Manager.Instance.DeactivateUI();
+            cameraReposition = false;
+        }
     }
 
     void Update()
