@@ -91,7 +91,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (one)
             {
-                highlight.transform.localEulerAngles = new Vector3(90, 0, 0);
+                highlight.transform.localEulerAngles = new Vector3(-90, 90, 56);
                 one = false;
             }
 

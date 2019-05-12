@@ -28,11 +28,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        DataManager.Instance.Load();
+        //DataManager.Instance.Load();
     }
 
     public void SaveProgression()
     {
-        DataManager.Instance.Save();
+        //DataManager.Instance.Save();
     }
 }

@@ -2445,11 +2445,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3831085684732333508}
     m_Modifications:
-    - target: {fileID: 144423872668838874, guid: b76fc380a689b464fa09ce03bb47cf4b,
-        type: 3}
-      propertyPath: m_Name
-      value: Buanderie (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 144423872668940282, guid: b76fc380a689b464fa09ce03bb47cf4b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2504,6 +2499,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 144423872668838874, guid: b76fc380a689b464fa09ce03bb47cf4b,
+        type: 3}
+      propertyPath: m_Name
+      value: Buanderie (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7111400290099881503, guid: b76fc380a689b464fa09ce03bb47cf4b,
         type: 3}
@@ -18520,6 +18520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mR: {fileID: 0}
+  invisibleOnSpawn: 0
 --- !u!65 &661657540
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29485,6 +29486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mR: {fileID: 0}
+  invisibleOnSpawn: 0
 --- !u!1 &898458368
 GameObject:
   m_ObjectHideFlags: 0
@@ -29559,100 +29561,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898458368}
   m_CullTransparentMesh: 0
---- !u!1 &904508510
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 904508511}
-  - component: {fileID: 904508514}
-  - component: {fileID: 904508513}
-  - component: {fileID: 904508512}
-  m_Layer: 0
-  m_Name: PlaneSelectionPerso
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &904508511
+--- !u!4 &904508511 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+    type: 3}
+  m_PrefabInstance: {fileID: 3695412561155067656}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 904508510}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.0016000032, y: 2.181, z: -0.302}
-  m_LocalScale: {x: 0.08294321, y: 0.4000002, z: 0.41423026}
-  m_Children: []
-  m_Father: {fileID: 1816475617}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &904508512
+--- !u!114 &904508512 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3695412560846371688, guid: acb4051a12f04794f8e5cc4f13b36d32,
+    type: 3}
+  m_PrefabInstance: {fileID: 3695412561155067656}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 904508510}
+  m_GameObject: {fileID: 0}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b9648e51bd1e3545a4206a8c8feedb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 831209577}
-  x: -12
-  z: -12
-  y: 20000
---- !u!23 &904508513
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 904508510}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: b463e4cefe0fc3845bb4e3372bdad586, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &904508514
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 904508510}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &920792758
 GameObject:
   m_ObjectHideFlags: 0
@@ -29969,6 +29895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mR: {fileID: 0}
+  invisibleOnSpawn: 0
 --- !u!54 &954240149
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30024,6 +29951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mR: {fileID: 5087398828824094929}
+  invisibleOnSpawn: 0
 --- !u!54 &959640154
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30386,6 +30314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mR: {fileID: 0}
+  invisibleOnSpawn: 0
 --- !u!114 &1028700850 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9027651029130471243, guid: ab59abfc75d36f2469d65ce8638a967b,
@@ -43731,6 +43660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mR: {fileID: 0}
+  invisibleOnSpawn: 0
 --- !u!54 &1475522278
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -43960,6 +43890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mR: {fileID: 0}
+  invisibleOnSpawn: 0
 --- !u!114 &1487650144 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1408908304212671750, guid: d9fb543e625b91b4db93feafa70306a6,
@@ -44755,6 +44686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mR: {fileID: 0}
+  invisibleOnSpawn: 0
 --- !u!65 &1600140681
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -44797,6 +44729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mR: {fileID: 0}
+  invisibleOnSpawn: 0
 --- !u!1001 &1625128433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63985,7 +63918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -63993,6 +63927,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &1130737755971891163
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -64039,7 +63974,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -64047,6 +63983,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &1130737756037743884
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -64225,7 +64162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -64233,6 +64171,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!114 &1130737756437191256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64423,7 +64362,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -64431,6 +64371,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &1130737756700465669
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -64542,7 +64483,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -64550,6 +64492,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &1130737757007729795
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -64655,7 +64598,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -64663,6 +64607,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &1130737757748926243
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -74639,7 +74584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -74647,6 +74593,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &3308607245463396687
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -74752,7 +74699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -74760,6 +74708,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &3308607246200431343
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -74806,7 +74755,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -74814,6 +74764,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &3308607246516022377
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -75078,7 +75029,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -75086,6 +75038,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &3308607247062834644
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -75264,7 +75217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -75272,6 +75226,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!1 &3308607247244695989
 GameObject:
   m_ObjectHideFlags: 0
@@ -75304,7 +75259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -75312,6 +75268,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &3308607247244695991
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -75402,6 +75359,80 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1001 &3695412561155067656
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1816475617}
+    m_Modifications:
+    - target: {fileID: 3695412560846371670, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_Name
+      value: PlaneSelectionPerso
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0016000032
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.181
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.302
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371671, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695412560846371688, guid: acb4051a12f04794f8e5cc4f13b36d32,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 831209577}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: acb4051a12f04794f8e5cc4f13b36d32, type: 3}
 --- !u!23 &3793301485992477331
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -76083,7 +76114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 1
@@ -76091,6 +76123,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 1
+  maxFade: 0
 --- !u!64 &3831085683359776953
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -76196,7 +76229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 1
@@ -76204,6 +76238,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 1
+  maxFade: 0
 --- !u!64 &3831085684094976793
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -76309,7 +76344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 1
@@ -76317,6 +76353,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 1
+  maxFade: 0
 --- !u!64 &3831085684458868127
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -76588,7 +76625,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 1
@@ -76596,6 +76634,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 1
+  maxFade: 0
 --- !u!33 &3831085685138330260
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -76701,7 +76740,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 1
@@ -76709,6 +76749,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 1
+  maxFade: 0
 --- !u!4 &3831085685206562876
 Transform:
   m_ObjectHideFlags: 0
@@ -76780,7 +76821,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 1
@@ -76788,6 +76830,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 1
+  maxFade: 0
 --- !u!64 &3831085685206562881
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -83114,7 +83157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -83122,6 +83166,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &6096109572464213611
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -83227,7 +83272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -83235,6 +83281,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &6096109573338840523
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -83354,7 +83401,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -83362,6 +83410,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!1 &6096109573508465969
 GameObject:
   m_ObjectHideFlags: 0
@@ -83394,7 +83443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -83402,6 +83452,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &6096109573508465971
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -83580,7 +83631,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -83588,6 +83640,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!114 &6096109574107476144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83810,7 +83863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -83818,6 +83872,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &6096109574371668205
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -87276,7 +87331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -87284,6 +87340,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &6941279821314641459
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -87389,7 +87446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -87397,6 +87455,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &6941279821517655443
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -87648,7 +87707,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -87656,6 +87716,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &6941279822437155605
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -87826,7 +87887,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -87834,6 +87896,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &6941279822629271243
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -87880,7 +87943,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -87888,6 +87952,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &6941279822831442972
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -88066,7 +88131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -88074,6 +88140,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!4 &7175210170599709853
 Transform:
   m_ObjectHideFlags: 0
@@ -90712,7 +90779,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -90720,6 +90788,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!33 &7834613026230450148
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -90825,7 +90894,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -90833,6 +90903,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!114 &7834613026732112176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91045,7 +91116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -91053,6 +91125,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!33 &7834613027013704046
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -91183,7 +91256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -91191,6 +91265,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!1 &7834613027139544683
 GameObject:
   m_ObjectHideFlags: 0
@@ -91257,7 +91332,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -91265,6 +91341,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!33 &7834613027342109900
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -91409,7 +91486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -91417,6 +91495,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!1 &7834613027493431511
 GameObject:
   m_ObjectHideFlags: 0
@@ -93206,7 +93285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -93214,6 +93294,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &8563413967924467745
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -93412,7 +93493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -93420,6 +93502,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!33 &8563413968112753728
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -93525,7 +93608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -93533,6 +93617,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!65 &8563413968391876000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -93776,7 +93861,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -93784,6 +93870,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &8563413968655412735
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -93869,7 +93956,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -93877,6 +93965,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &8563413968960578425
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -93982,7 +94071,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -93990,6 +94080,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &8563413969701511385
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -94225,7 +94316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -94233,6 +94325,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &8686217393094737905
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -94406,7 +94499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -94414,6 +94508,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &8686217393830460497
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -94578,7 +94673,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -94586,6 +94682,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &8686217394211058391
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -94889,7 +94986,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -94897,6 +94995,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!1 &8686217394873740752
 GameObject:
   m_ObjectHideFlags: 0
@@ -94929,7 +95028,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -94937,6 +95037,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!33 &8686217394873740764
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -95022,7 +95123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850a763a7bd51814894bc91945df6fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 0}
+  myMaterial:
+  - {fileID: 0}
   cam: {fileID: 831209573}
   distance: 0
   isActive: 0
@@ -95030,6 +95132,7 @@ MonoBehaviour:
   distanceToFade: 28
   minFade: 0.1
   tuto: 0
+  maxFade: 0
 --- !u!64 &8686217394942084873
 MeshCollider:
   m_ObjectHideFlags: 0
