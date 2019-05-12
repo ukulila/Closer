@@ -43,7 +43,7 @@ public class CellScript : MonoBehaviour
     public List<GameObject> coneRed;
     public List<GameObject> coneGreen;
     public bool freeRoom;
-
+    public List<Material> material;
 
 
     void Start()
@@ -55,8 +55,10 @@ public class CellScript : MonoBehaviour
 
         for (int i = 0; i < coneRed.Count; i++)
         {
-            coneRed[i].SetActive(true);
-            coneGreen[i].SetActive(false);
+            material.Add(coneRed[i].GetComponent<Renderer>().material);
+
+
+            material[i].SetColor("_EmissionColor", Color.red);
         }
 
         freeRoom = false;
@@ -153,16 +155,17 @@ public class CellScript : MonoBehaviour
     {
         if (freeRoom)
         {
-            coneRed[door].SetActive(false);
-            coneGreen[door].SetActive(true);
+            material[door].SetColor("_EmissionColor", Color.green);
+            /* coneRed[door].SetActive(false);
+             coneGreen[door].SetActive(true);*/
         }
 
 
         if (!freeRoom)
         {
-
-            coneRed[door].SetActive(true);
-            coneGreen[door].SetActive(false);
+            material[door].SetColor("_EmissionColor", Color.red);
+           /* coneRed[door].SetActive(true);
+            coneGreen[door].SetActive(false);*/
 
         }
     }

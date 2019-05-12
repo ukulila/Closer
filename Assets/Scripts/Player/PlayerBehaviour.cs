@@ -58,6 +58,8 @@ public class PlayerBehaviour : MonoBehaviour
     private int checkInt;
     public AlwaysLookAtCam highlight;
     private bool one;
+    public AnimationCurve animCurve;
+    public float speedModifier;
 
     void Start()
     {
@@ -81,14 +83,15 @@ public class PlayerBehaviour : MonoBehaviour
         if (lookCam)
         {
             // reset = true;
-            transform.LookAt(Camera.transform.position);
+            Vector3 camX = new Vector3(Camera.transform.position.x, transform.position.y, Camera.transform.position.z);
+            transform.LookAt(camX/*Camera.transform.position*/);
             //        onlyOne = false;
 
             highlight.enabled = false;
 
             if (one)
             {
-                highlight.transform.localEulerAngles = new Vector3(-90, 90, highlight.transform.localEulerAngles.z + 45);
+                highlight.transform.localEulerAngles = new Vector3(90, 0, 0);
                 one = false;
             }
 
@@ -430,7 +433,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, context.basePos.position) >= 0.1f && !movement)
         {
-            transform.position = Vector3.Lerp(transform.position, context.basePos.position, 0.05f);
+            float curvePercent = animCurve.Evaluate(Time.deltaTime * speedModifier);
+            transform.position = Vector3.Lerp(transform.position, context.basePos.position, curvePercent); /// 0.05f
             Vector3 targetPos = new Vector3(context.basePos.position.x, transform.position.y, context.basePos.position.z);
             transform.LookAt(targetPos/*context.basePos.position*/);
 
@@ -549,7 +553,8 @@ public class PlayerBehaviour : MonoBehaviour
             }
 
             //Actual movement to selected waypoint
-            transform.position = Vector3.Lerp(transform.position, listToMove[index].position, 0.05f);
+            float curvePercent = animCurve.Evaluate(Time.deltaTime * speedModifier);
+            transform.position = Vector3.Lerp(transform.position, listToMove[index].position, curvePercent); ///0.05f
 
             if (x < 1 && y < 1)
             {
