@@ -11,7 +11,7 @@ public class AlwaysLookAtCam : MonoBehaviour
 
     public void Update()
     {
-        Vector3 lookTo = new Vector3(-cam.transform.position.x + x,90 + y, -cam.transform.position.z+z);
+        Vector3 lookTo = new Vector3(-cam.transform.position.x + x ,90 + y, -cam.transform.position.z);
         transform.LookAt(lookTo);
 
         //transform.localPosition.x

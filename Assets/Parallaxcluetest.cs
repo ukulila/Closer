@@ -33,7 +33,7 @@ public class Parallaxcluetest : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
 
-            transform.GetChild(i).position =  new Vector3 ( mousePos.x* (i-1)*3, mousePos.y * (i-1)*3, 0) /250;
+            transform.GetChild(i).position =  new Vector3 ( mousePos.x* (i-1)*5, mousePos.y * (i-1)*5, 0) /250;
 
         } 
             
