@@ -2,36 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FPSDisplay : MonoBehaviour {
-
-    float deltaTime = 0.0f;
-    [SerializeField] Color textColor = Color.white;
-
-
-
+public class FPSDisplay : MonoBehaviour
+{
     private void Awake()
     {
-        Application.targetFrameRate = 300;
-    }
-
-    void Update()
-    {
-        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        Application.targetFrameRate = 120;
     }
 
     void OnGUI()
     {
-        int w = Screen.width, h = Screen.height;
+        float fps = 1.0f / Time.smoothDeltaTime;
 
-        GUIStyle style = new GUIStyle();
-
-        Rect rect = new Rect(0, 0, w, h * 2 / 100);
-        style.alignment = TextAnchor.UpperRight;
-        style.fontSize = h * 4 / 100;
-        style.normal.textColor = textColor;
-        float msec = deltaTime * 1000.0f;
-        float fps = 1.0f / deltaTime;
-        string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
-        GUI.Label(rect, text, style);
+        if (fps < 30) GUI.contentColor = Color.yellow;
+        else if (fps < 10) GUI.contentColor = Color.red;
+        else GUI.contentColor = Color.green;
+        GUI.Label(new Rect(50, 50, 1000, 500), "FPS: " + (int)fps);
     }
 }
