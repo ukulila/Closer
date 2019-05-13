@@ -173,11 +173,12 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueHasStarted = false;
 
+        if (currentLine == maxLines)
+            ending = true;
 
         if (currentLine == maxLines - 1)
         {
             isThereAnotherLine = false;
-            ending = true;
         }
         else
         {
@@ -268,10 +269,13 @@ public class DialogueSystem : MonoBehaviour
         dialogueBoxReady = false;
         dialogueHasStarted = true;
 
+        if (currentLine == maxLines)
+            ending = true;
+
         if (currentLine == maxLines - 1)
         {
             isThereAnotherLine = false;
-            ending = true;
+            //ending = true;
         }
         else
         {

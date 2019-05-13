@@ -17,13 +17,15 @@ public class Camera_UI : MonoBehaviour
     [Header("Switching Interface Parameters")]
     public bool switchToUI;
     public bool isPlayerHere;
+    public bool isLookingForPathCells;
     public CellMovement cellMove;
+    public PatchCells cellPatch;
     public string currentSelectedCell;
 
     public List<Image> RTargetImageContextuelle;
     public List<TextMeshProUGUI> RTargetTextContextuelle;
 
-    public Animator ui_BackgroundAnimator;
+    //public Animator ui_BackgroundAnimator;
 
     [Header("   Target Offset")]
     public List<Vector3> targetOffsets;
@@ -119,39 +121,10 @@ public class Camera_UI : MonoBehaviour
             if (cameraReposition)
             {
                 animationCurveTimingMax = 1.5f;
-
-                //Debug.Log("Room set");
-
-                /*
-                if (Input.GetMouseButtonDown(0) && GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode)
-                {
-                    RaycastHit selectedCube;
-
-                    currentPathPos = dollyCart.m_Position;
-                    currentDollyPosition = dollyTransform.localPosition;
-                    currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
-                    currentFOV = virtualCamera.m_Lens.OrthographicSize;
-                    currentRepositionTime = 0;
-
-
-                    if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube) && cameraReposition)
-                    {
-                        if (selectedCube.collider.isTrigger)
-                        {
-                            //Debug.Log("Deactivate UI nOW");
-                            switchToUI = false;
-                            ROOM_Manager.Instance.DeactivateUI();
-                            cameraReposition = false;
-                        }
-                    }
-                }
-                */
             }
         }
         else
         {
-            //Debug.Log("Room unset");
-
             InventorySystem.Instance.canBeDisplayed = true;
             DeactivateUIRaycastTarget();
 
@@ -169,26 +142,41 @@ public class Camera_UI : MonoBehaviour
 
                 if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, cellMask) && cameraReposition)
                 {
-
-                    //Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 25, Color.red, 1);
-
-                    //Debug.Log("Target cell");
-
                     currentSelectedCell = selectedCube.collider.gameObject.transform.parent.name;
-                    cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
 
+                    if (isLookingForPathCells)
+                    {
+                        cellPatch = selectedCube.collider.gameObject.transform.parent.GetComponent<PatchCells>();
 
-                    if (cellMove != null)
-                        isPlayerHere = cellMove.isSpawn;
+                        if (cellPatch != null)
+                            isPlayerHere = cellPatch.isSpawn;
+                    }
+                    else
+                    {
+                        cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
+
+                        if (cellMove != null)
+                            isPlayerHere = cellMove.isSpawn;
+                    }
+
+                    /*
+                    if (isLookingForPathCells)
+                    {
+                        if (cellPatch != null)
+                            isPlayerHere = cellPatch.isSpawn;
+                    }
+                    else
+                    {
+                        if (cellMove != null)
+                            isPlayerHere = cellMove.isSpawn;
+                    }
+                    */
 
                     fovDiff = uiFOV - currentFOV;
 
 
-                    //Debug.Log("We are touching something ... and it's cubic");
-
                     if (currentSelectedCell == "B_d2_Cell_Down_FrontRight")
                     {
-                        //Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[1] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
@@ -202,8 +190,6 @@ public class Camera_UI : MonoBehaviour
 
                     if (currentSelectedCell == "G_u3_Cell_Up_FrontRight")
                     {
-                        //Debug.Log("continuePosDifference" + continuePosDifference);
-
                         continuePosDifference = (uiPathPosition[0] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
 
@@ -217,8 +203,6 @@ public class Camera_UI : MonoBehaviour
 
                     if (currentSelectedCell == "A_d1_Cell_Down_FrontLeft")
                     {
-                        //Debug.Log("continuePosDifference" + continuePosDifference);
-
                         continuePosDifference = (uiPathPosition[3] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
 
@@ -230,8 +214,6 @@ public class Camera_UI : MonoBehaviour
 
                     if (currentSelectedCell == "H_u4_Cell _Up_FrontLeft")
                     {
-                        //Debug.Log("continuePosDifference" + continuePosDifference);
-
                         continuePosDifference = (uiPathPosition[2] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
 
@@ -245,8 +227,6 @@ public class Camera_UI : MonoBehaviour
 
                     if (currentSelectedCell == "E_u1_Cell_Up_BackLeft")
                     {
-                        //Debug.Log("continuePosDifference" + continuePosDifference);
-
                         continuePosDifference = (uiPathPosition[4] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
 
@@ -259,8 +239,6 @@ public class Camera_UI : MonoBehaviour
 
                     if (currentSelectedCell == "D_d4_Cell_Down_BackLeft")
                     {
-                        //Debug.Log("continuePosDifference" + continuePosDifference);
-
                         continuePosDifference = (uiPathPosition[5] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
 
@@ -273,8 +251,6 @@ public class Camera_UI : MonoBehaviour
 
                     if (currentSelectedCell == "C_d3_Cell_Down_BackRight")
                     {
-                        //Debug.Log("continuePosDifference" + continuePosDifference);
-
                         continuePosDifference = (uiPathPosition[7] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
 
@@ -286,7 +262,6 @@ public class Camera_UI : MonoBehaviour
 
                     if (currentSelectedCell == "F_u2_Cell_Up_BackRight")
                     {
-                        //Debug.Log("continuePosDifference" + continuePosDifference);
                         continuePosDifference = (uiPathPosition[6] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
 
@@ -307,29 +282,57 @@ public class Camera_UI : MonoBehaviour
 
             if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, cellMask))
             {
-                //Debug.Log("Drawing Raycast");
-
-                //Debug raycast d'ouverture UI (actions contextuelles)
-                //Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
-
                 currentSelectedCell = selectedCube.collider.gameObject.transform.parent.name;
-                cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
 
-                if (cellMove != null && currentSelectedCell != null && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().once == false
-                    && cameraReposition == true && isPlayerHere && cellMove != null)
+                if (isLookingForPathCells)
                 {
-                    //Debug.Log("COME ON !");
+                    cellPatch = selectedCube.collider.gameObject.transform.parent.GetComponent<PatchCells>();
 
-                    if (timeBeforeSearch < maxTimeBeforeSearch)
-                        timeBeforeSearch += Time.deltaTime;
-                    else
-                        selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
+                    if (cellPatch != null)
+                        isPlayerHere = cellPatch.isSpawn;
+                }
+                else
+                {
+                    cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
 
-                    if (selectionTimingImage.fillAmount == 1 && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && isPlayerHere)
+                    if (cellMove != null)
+                        isPlayerHere = cellMove.isSpawn;
+                }
+
+                if (currentSelectedCell != null && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && cameraReposition == true && isPlayerHere)
+                {
+                    if (!isLookingForPathCells)
                     {
-                        switchToUI = true;
-                        cameraReposition = false;
-                        StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier));
+                        if (selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().movement == false)
+                        {
+                            if (timeBeforeSearch < maxTimeBeforeSearch)
+                                timeBeforeSearch += Time.deltaTime;
+                            else
+                                selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
+
+                            if (selectionTimingImage.fillAmount == 1 && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && isPlayerHere)
+                            {
+                                switchToUI = true;
+                                cameraReposition = false;
+                                StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier));
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                        if (timeBeforeSearch < maxTimeBeforeSearch)
+                            timeBeforeSearch += Time.deltaTime;
+                        else
+                            selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
+
+                        if (selectionTimingImage.fillAmount == 1 && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && isPlayerHere)
+                        {
+                            switchToUI = true;
+                            cameraReposition = false;
+                            StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier));
+                        }
+
                     }
                 }
                 else
