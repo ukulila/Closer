@@ -7,22 +7,22 @@ using UnityEngine;
 public class MainMenuCamControl : MonoBehaviour
 {
     public CinemachineVirtualCamera MainMenu;
-    public CinemachineVirtualCamera Options;
+   // public CinemachineVirtualCamera Options;
     public CinemachineVirtualCamera SelectionNiveaux;
-    public CinemachineVirtualCamera Timeline;
+    //public CinemachineVirtualCamera Timeline;
 
     public List<CinemachineVirtualCamera> cameras;
     public CinemachineVirtualCamera CamToDeactivate;
 
     private bool mainMenu;
-    private bool options;
+   // private bool options;
     private bool Selection;
-    private bool timeLine;
+    //private bool timeLine;
 
 
     private void Awake()
     {
-        cameras = new List<CinemachineVirtualCamera>() { MainMenu, Options, SelectionNiveaux, Timeline };
+        cameras = new List<CinemachineVirtualCamera>() { MainMenu, SelectionNiveaux };
     }
 
     // Start is called before the first frame update
