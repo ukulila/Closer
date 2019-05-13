@@ -61,6 +61,9 @@ public class CellMovement : MonoBehaviour
     [Range(0.01f, 1)]
     public float translateSpeed;
 
+    public AnimationCurve LerpSpeed;
+    public float speedModifier;
+
     #region Init
 
     public void Start()
@@ -309,6 +312,7 @@ public class CellMovement : MonoBehaviour
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..
         if (moveHorizontal)
         {
+            float curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
             for (int r = 0; r < brothers.Count; r++)
             {
@@ -320,12 +324,12 @@ public class CellMovement : MonoBehaviour
             {
                 if (v != toRotate.Count - 1)
                 {
-                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[v + 1].myPosFreeze.x, translateSpeed)), toRotate[v].transform.position.y, (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[v + 1].myPosFreeze.z, translateSpeed)));
+                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[v + 1].myPosFreeze.x, curvePercent)), toRotate[v].transform.position.y, (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[v + 1].myPosFreeze.z, curvePercent)));
 
                 }
                 else
                 {
-                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[0].myPosFreeze.x, translateSpeed)), toRotate[v].transform.position.y, (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[0].myPosFreeze.z, translateSpeed)));
+                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[0].myPosFreeze.x, curvePercent)), toRotate[v].transform.position.y, (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[0].myPosFreeze.z, curvePercent)));
 
                 }
 
@@ -367,7 +371,8 @@ public class CellMovement : MonoBehaviour
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..  BUT INVERSE
         if (moveVerticalZ)
         {
-            Debug.LogWarning("YOU DEMANDED THE INVERSE");
+
+            float curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
             for (int r = 0; r < brothers.Count; r++)
             {
@@ -380,12 +385,12 @@ public class CellMovement : MonoBehaviour
 
                 if (v != toRotate.Count - 1)
                 {
-                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[v + 1].myPosFreeze.x, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[v + 1].myPosFreeze.y, translateSpeed)), toRotate[v].transform.position.z);
+                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[v + 1].myPosFreeze.x, curvePercent)), (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[v + 1].myPosFreeze.y, curvePercent)), toRotate[v].transform.position.z);
 
                 }
                 else
                 {
-                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[0].myPosFreeze.x, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[0].myPosFreeze.y, translateSpeed)), toRotate[v].transform.position.z);
+                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[0].myPosFreeze.x, curvePercent)), (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[0].myPosFreeze.y, curvePercent)), toRotate[v].transform.position.z);
 
                 }
             }
@@ -421,7 +426,9 @@ public class CellMovement : MonoBehaviour
 
         if (moveVerticalX)
         {
-            Debug.LogWarning("YOU DEMANDED THE INVERSE BUT IN X");
+
+            float curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
+
 
             for (int r = 0; r < brothers.Count; r++)
             {
@@ -436,12 +443,12 @@ public class CellMovement : MonoBehaviour
 
                 if (v != toRotate.Count - 1)
                 {
-                    toRotate[v].transform.position = new Vector3(toRotate[v].transform.position.x, (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[v + 1].myPosFreeze.y, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[v + 1].myPosFreeze.z, translateSpeed)));
+                    toRotate[v].transform.position = new Vector3(toRotate[v].transform.position.x, (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[v + 1].myPosFreeze.y, curvePercent)), (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[v + 1].myPosFreeze.z, curvePercent)));
 
                 }
                 else
                 {
-                    toRotate[v].transform.position = new Vector3(toRotate[v].transform.position.x, (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[0].myPosFreeze.y, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[0].myPosFreeze.z, translateSpeed)));
+                    toRotate[v].transform.position = new Vector3(toRotate[v].transform.position.x, (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[0].myPosFreeze.y, curvePercent)), (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[0].myPosFreeze.z, curvePercent)));
 
                 }
             }
