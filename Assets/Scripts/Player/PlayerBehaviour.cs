@@ -376,7 +376,7 @@ public class PlayerBehaviour : MonoBehaviour
                         hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
                         hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
 
-                        transform.parent.GetComponent<CellScript>().ConeFunction(u);
+                        transform.parent.GetComponent<CellScript>().ConeFunction(0);
                         transform.parent.GetComponent<CellScript>().freeRoom = true;
 
                         if (checkInt >= 3)
@@ -394,7 +394,7 @@ public class PlayerBehaviour : MonoBehaviour
                         Debug.Log("            I touch Nothing         ");
 
                         Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
-                        transform.parent.GetComponent<CellScript>().ConeFunction(u);
+                        transform.parent.GetComponent<CellScript>().ConeFunction(0);
                         transform.parent.GetComponent<CellScript>().freeRoom = false;
 
                         if (coneDoor != null)
@@ -626,29 +626,8 @@ public class PlayerBehaviour : MonoBehaviour
 
                 }
             }
-            /*if (listToMove[listToMove.Count - 1].name.Contains("Door") && isValid)
-            {
 
-                openDoor = true;
-            }
-            else
-            {
-                listToMove.Reverse();
-                reverse = true;
-                baseMovement = true;
-            }*/
         }
-
-
-        /*
-        public void OnTriggerStay(Collider other)
-        {
-            if (other.GetComponent<ScrEnvironment>() != null)
-            {
-
-                context = other.GetComponent<ScrEnvironment>();
-
-            }
-        }*/
     }
 }
+
