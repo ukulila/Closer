@@ -94,7 +94,7 @@ public class Camera_Rotation : MonoBehaviour
     void Update()
     {
         //Si le joueur n'a pas sélectionné le CUBE
-        if (aboutCamera)
+        if (aboutCamera && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             //Si un doigt est sur l'écran
             if (Input.touchCount == 1)

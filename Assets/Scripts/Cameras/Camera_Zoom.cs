@@ -68,7 +68,7 @@ public class Camera_Zoom : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount == 2)
+        if (Input.touchCount == 2 && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             touchOne = Input.GetTouch(0);
             touchTwo = Input.GetTouch(1);

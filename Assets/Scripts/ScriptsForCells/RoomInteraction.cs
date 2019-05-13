@@ -46,6 +46,12 @@ public class RoomInteraction : MonoBehaviour
     {
 
         //Debug.Log("Enable UI");
+        uiAnimators[3].ResetTrigger("Enabled");
+        uiAnimators[4].ResetTrigger("Enabled");
+        uiAnimators[6].ResetTrigger("Enabled");
+        uiAnimators[3].ResetTrigger("Disabled");
+        uiAnimators[4].ResetTrigger("Disabled");
+        uiAnimators[6].ResetTrigger("Disabled");
         uiAnimators[3].SetTrigger("Enabled");
         uiAnimators[4].SetTrigger("Enabled");
         uiAnimators[6].SetTrigger("Enabled");
@@ -53,23 +59,30 @@ public class RoomInteraction : MonoBehaviour
         if (isDialogue)
         {
             talkTo.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Talk to " + npc.gameObject.name;
+            uiAnimators[0].ResetTrigger("Enabled");
+            uiAnimators[0].ResetTrigger("Disabled");
             uiAnimators[0].SetTrigger("Enabled");
         }
 
         if (isInteraction)
         {
             interactWith.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Interact with " + objet.objectName;
+            uiAnimators[1].ResetTrigger("Enabled");
+            uiAnimators[1].ResetTrigger("Disabled");
             uiAnimators[1].SetTrigger("Enabled");
         }
 
         if (isSecondFloor)
         {
+            uiAnimators[2].ResetTrigger("Enabled");
+            uiAnimators[2].ResetTrigger("Disabled");
             uiAnimators[2].SetTrigger("Enabled");
         }
 
         if (!isSecondFloor && !isInteraction && !isDialogue)
         {
             uiAnimators[5].ResetTrigger("Disabled");
+            uiAnimators[5].ResetTrigger("Enabled");
             uiAnimators[5].SetTrigger("Enabled");
         }
     }
@@ -91,6 +104,7 @@ public class RoomInteraction : MonoBehaviour
         uiAnimators[2].SetTrigger("Disabled");
 
         uiAnimators[3].SetTrigger("Disabled");
+
         uiAnimators[4].SetTrigger("Disabled");
 
         uiAnimators[5].SetTrigger("Disabled");
