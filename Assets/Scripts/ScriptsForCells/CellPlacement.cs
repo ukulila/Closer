@@ -42,8 +42,8 @@ public class CellPlacement : MonoBehaviour
 
                     CellMovement cellmove = hit.collider.gameObject.GetComponent<CellMovement>();
 
-                    hit.collider.gameObject.GetComponent<CellMovement>().click = true;
-                    hit.collider.gameObject.GetComponent<CellMovement>().over = true;
+                    cellmove.click = true;
+                    cellmove.over = true;
 
 
                     if (Cui.switchToUI == true)
@@ -63,14 +63,14 @@ public class CellPlacement : MonoBehaviour
 
 
 
-                    if (hit.collider.gameObject.GetComponent<CellMovement>().isOpen)
+                    if (cellmove.isOpen)
                     {
                         Debug.Log("RaycastHittin");
-                        hit.collider.gameObject.GetComponent<CellMovement>().clickDirection = true;
+                        cellmove.clickDirection = true;
 
                     }
 
-                    hit.collider.gameObject.GetComponent<CellMovement>().originPos = Input.mousePosition;
+                    cellmove.originPos = Input.mousePosition;
 
                     if (cB != null)
                         cB.aboutCamera = false;

@@ -39,7 +39,7 @@ public class CellMovement : MonoBehaviour
     [Header("   InGame Values")]
 
     [Tooltip("Don't touch me")]
-    public List<Transform> toRotate;
+    public List<CellMovement> toRotate;
     public Vector3 myPosFreeze;
     private int timer;
 
@@ -53,7 +53,7 @@ public class CellMovement : MonoBehaviour
 
     [Header("   ***** Values : Don't Need Assignment *****")]
     [Tooltip("Toutes les autres Cells (A_..., B_...)")]
-    public List<Transform> brothers;
+    public List<CellMovement> brothers;
     [Tooltip("Sujet à changement UNIQUEMENT selon la taille du cube")]
     [Range(0.0001f, 5)]
     public float resetPosValue = 3.05f;
@@ -72,7 +72,7 @@ public class CellMovement : MonoBehaviour
         {
             for (int x = 0; x < transform.parent.childCount; x++)
             {
-                brothers.Add(transform.parent.GetChild(x));
+                brothers.Add(transform.parent.GetChild(x).GetComponent<CellMovement>());
 
             }
         }
@@ -312,9 +312,7 @@ public class CellMovement : MonoBehaviour
 
             for (int r = 0; r < brothers.Count; r++)
             {
-                brothers[r].GetComponent<CellMovement>().hasEnded = false;
-
-
+                brothers[r].hasEnded = false;
             }
 
 
@@ -322,12 +320,12 @@ public class CellMovement : MonoBehaviour
             {
                 if (v != toRotate.Count - 1)
                 {
-                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[v + 1].GetComponent<CellMovement>().myPosFreeze.x, translateSpeed)), toRotate[v].transform.position.y, (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[v + 1].GetComponent<CellMovement>().myPosFreeze.z, translateSpeed)));
+                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[v + 1].myPosFreeze.x, translateSpeed)), toRotate[v].transform.position.y, (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[v + 1].myPosFreeze.z, translateSpeed)));
 
                 }
                 else
                 {
-                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[0].GetComponent<CellMovement>().myPosFreeze.x, translateSpeed)), toRotate[v].transform.position.y, (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[0].GetComponent<CellMovement>().myPosFreeze.z, translateSpeed)));
+                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[0].myPosFreeze.x, translateSpeed)), toRotate[v].transform.position.y, (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[0].myPosFreeze.z, translateSpeed)));
 
                 }
 
@@ -335,7 +333,7 @@ public class CellMovement : MonoBehaviour
 
             ///There May Be A Delay Between Two Movement with this way to check
             ///
-            if (toRotate[0].position == toRotate[1].GetComponent<CellMovement>().myPosFreeze)
+            if (toRotate[0].transform.position == toRotate[1].myPosFreeze)
             {
                 Debug.LogWarning("__HAS__ENDED__");
 
@@ -343,17 +341,15 @@ public class CellMovement : MonoBehaviour
 
                 for (int o = 0; o < brothers.Count; o++)
                 {
-                    brothers[o].GetComponent<CellMovement>().DebugPos();
-                    brothers[o].GetComponent<CellMovement>().hasEnded = true;
+                    brothers[o].DebugPos();
+                    brothers[o].hasEnded = true;
                     player.check = true;
                 }
 
-                toRotate[0].GetComponent<CellMovement>().freezePosValue = true;
-                toRotate[1].GetComponent<CellMovement>().freezePosValue = true;
-                toRotate[2].GetComponent<CellMovement>().freezePosValue = true;
-                toRotate[3].GetComponent<CellMovement>().freezePosValue = true;
-
-
+                toRotate[0].freezePosValue = true;
+                toRotate[1].freezePosValue = true;
+                toRotate[2].freezePosValue = true;
+                toRotate[3].freezePosValue = true;
 
                 once = false;
                 selected = false;
@@ -375,7 +371,7 @@ public class CellMovement : MonoBehaviour
 
             for (int r = 0; r < brothers.Count; r++)
             {
-                brothers[r].GetComponent<CellMovement>().hasEnded = false;
+                brothers[r].hasEnded = false;
             }
 
             for (int v = 0; v < toRotate.Count; v++)
@@ -384,39 +380,35 @@ public class CellMovement : MonoBehaviour
 
                 if (v != toRotate.Count - 1)
                 {
-                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[v + 1].GetComponent<CellMovement>().myPosFreeze.x, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[v + 1].GetComponent<CellMovement>().myPosFreeze.y, translateSpeed)), toRotate[v].transform.position.z);
+                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[v + 1].myPosFreeze.x, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[v + 1].myPosFreeze.y, translateSpeed)), toRotate[v].transform.position.z);
 
                 }
                 else
                 {
-                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[0].GetComponent<CellMovement>().myPosFreeze.x, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[0].GetComponent<CellMovement>().myPosFreeze.y, translateSpeed)), toRotate[v].transform.position.z);
+                    toRotate[v].transform.position = new Vector3((Mathf.Lerp(toRotate[v].transform.position.x, toRotate[0].myPosFreeze.x, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[0].myPosFreeze.y, translateSpeed)), toRotate[v].transform.position.z);
 
                 }
             }
 
             ///There May Be A Delay Between Two Movement with this way to check
             ///
-            if (toRotate[0].position == toRotate[1].GetComponent<CellMovement>().myPosFreeze)
+            if (toRotate[0].transform.position == toRotate[1].myPosFreeze)
             {
                 Debug.LogWarning("__HAS__ENDED__");
                 movement = false;
 
                 for (int o = 0; o < brothers.Count; o++)
                 {
-                    brothers[o].GetComponent<CellMovement>().DebugPos();
-                    brothers[o].GetComponent<CellMovement>().hasEnded = true;
+                    brothers[o].DebugPos();
+                    brothers[o].hasEnded = true;
                     player.check = true;
 
                 }
 
-                toRotate[0].GetComponent<CellMovement>().freezePosValue = true;
-                toRotate[1].GetComponent<CellMovement>().freezePosValue = true;
-                toRotate[2].GetComponent<CellMovement>().freezePosValue = true;
-                toRotate[3].GetComponent<CellMovement>().freezePosValue = true;
-
-
-
-
+                toRotate[0].freezePosValue = true;
+                toRotate[1].freezePosValue = true;
+                toRotate[2].freezePosValue = true;
+                toRotate[3].freezePosValue = true;
 
                 once = false;
                 selected = false;
@@ -433,7 +425,7 @@ public class CellMovement : MonoBehaviour
 
             for (int r = 0; r < brothers.Count; r++)
             {
-                brothers[r].GetComponent<CellMovement>().hasEnded = false;
+                brothers[r].hasEnded = false;
 
             }
 
@@ -444,36 +436,36 @@ public class CellMovement : MonoBehaviour
 
                 if (v != toRotate.Count - 1)
                 {
-                    toRotate[v].transform.position = new Vector3(toRotate[v].transform.position.x, (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[v + 1].GetComponent<CellMovement>().myPosFreeze.y, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[v + 1].GetComponent<CellMovement>().myPosFreeze.z, translateSpeed)));
+                    toRotate[v].transform.position = new Vector3(toRotate[v].transform.position.x, (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[v + 1].myPosFreeze.y, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[v + 1].myPosFreeze.z, translateSpeed)));
 
                 }
                 else
                 {
-                    toRotate[v].transform.position = new Vector3(toRotate[v].transform.position.x, (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[0].GetComponent<CellMovement>().myPosFreeze.y, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[0].GetComponent<CellMovement>().myPosFreeze.z, translateSpeed)));
+                    toRotate[v].transform.position = new Vector3(toRotate[v].transform.position.x, (Mathf.Lerp(toRotate[v].transform.position.y, toRotate[0].myPosFreeze.y, translateSpeed)), (Mathf.Lerp(toRotate[v].transform.position.z, toRotate[0].myPosFreeze.z, translateSpeed)));
 
                 }
             }
 
             ///There May Be A Delay Between Two Movement with this way to check
             ///
-            if (toRotate[0].position == toRotate[1].GetComponent<CellMovement>().myPosFreeze)
+            if (toRotate[0].transform.position == toRotate[1].myPosFreeze)
             {
                 Debug.LogWarning("__HAS__ENDED__");
                 movement = false;
 
                 for (int o = 0; o < brothers.Count; o++)
                 {
-                    brothers[o].GetComponent<CellMovement>().DebugPos();
-                    brothers[o].GetComponent<CellMovement>().hasEnded = true;
+                    brothers[o].DebugPos();
+                    brothers[o].hasEnded = true;
                     player.check = true;
 
                 }
 
 
-                toRotate[0].GetComponent<CellMovement>().freezePosValue = true;
-                toRotate[1].GetComponent<CellMovement>().freezePosValue = true;
-                toRotate[2].GetComponent<CellMovement>().freezePosValue = true;
-                toRotate[3].GetComponent<CellMovement>().freezePosValue = true;
+                toRotate[0].freezePosValue = true;
+                toRotate[1].freezePosValue = true;
+                toRotate[2].freezePosValue = true;
+                toRotate[3].freezePosValue = true;
 
 
 
@@ -857,42 +849,6 @@ public class CellMovement : MonoBehaviour
         }
 
     }
-
-    /*
-
-    public void OnTriggerEnter(Collider other)                                                                                                          //////////////////////////////////
-    {
-
-        if (other.transform.name.Contains("Player"))
-        {
-            isOpen = false;
-            selected = true;
-            isSpawn = true;
-            other.transform.SetParent(transform);
-        }
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.transform.name.Contains("Player"))
-        {
-            isSpawn = false;
-            selected = false;
-
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                if (transform.GetChild(i).name.Contains("Plane"))
-                {
-                    transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 0);
-
-                }
-
-            }
-        }
-
-
-    }
-    */
     #endregion
 
 

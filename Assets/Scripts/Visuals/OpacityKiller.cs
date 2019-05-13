@@ -22,6 +22,8 @@ public class OpacityKiller : MonoBehaviour
     [Range(0.001f, 1)]
     public float maxFade;
 
+    public CellMovement myCellMovement;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,11 @@ public class OpacityKiller : MonoBehaviour
             }
         }
         StartCoroutine("CalculateDistance");
+
+        if(myCellMovement == null)
+        {
+            GetComponent<CellMovement>();
+        }
 
     }
 
@@ -81,43 +88,25 @@ public class OpacityKiller : MonoBehaviour
             }
         }
 
-        //Debug.Log(distance);
     }
-    /*
-    public void OnTriggerStay(Collider other)
-    {
-
-        if (other.name == "OpacityToZero")
-        {
-            isActive = true;
-        }
-
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.name == "OpacityToZero")
-        {
-            isActive = false;
-        }
-    }*/
+    
 
     public void Outliner()
     {
-        if (GetComponent<CellMovement>() != null)
+        if (myCellMovement != null)
         {
             if (transform.name.Contains("Exit") == false)
             {
                 for (int i = 0; i < myMaterial.Count; i++)
                 {
-                    if ((GetComponent<CellMovement>().selected && myMaterial[i].GetInt("_isActive") != 1))
+                    if ((myCellMovement.selected && myMaterial[i].GetInt("_isActive") != 1))
                     {
 
                         myMaterial[i].SetColor("_myColor", Color.green);
 
                         myMaterial[i].SetInt("_isActive", 1);
                     }
-                    else if (GetComponent<CellMovement>().selected == false && myMaterial[i].GetInt("_isActive") != 0)
+                    else if (myCellMovement.selected == false && myMaterial[i].GetInt("_isActive") != 0)
                     {
 
                         myMaterial[i].SetInt("_isActive", 0);
@@ -138,7 +127,7 @@ public class OpacityKiller : MonoBehaviour
 
             for (int i = 0; i < myMaterial.Count; i++)
             {
-                if (transform.GetComponent<CellMovement>().isOpen == true)
+                if (myCellMovement.isOpen == true)
                 {
 
 

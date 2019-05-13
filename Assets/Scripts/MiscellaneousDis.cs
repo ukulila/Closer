@@ -18,12 +18,6 @@ public class MiscellaneousDis : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        /* if (other.gameObject.name == "PlaneLeft" || other.gameObject.name == "PlaneRight" || other.gameObject.name == "PlaneAway" || other.gameObject.name == "PlaneForward")
-         {
-             mR = GetComponent<MeshRenderer>();
-             mR.enabled = false;
-         }*/
-
 
         if (other.name == "OpacityToZero")
         {
@@ -39,32 +33,6 @@ public class MiscellaneousDis : MonoBehaviour
         }
 
 
-
-        /*
-if (other.gameObject.GetComponent<OpacityKiller>() != null)
-{
-    if (other.gameObject.GetComponent<OpacityKiller>().isActive == false)
-    {
-
-        mR.enabled = false;
-
-        if (transform.childCount != 0)
-        {
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                transform.GetChild(i).gameObject.SetActive(false);
-            }
-        }
-    }
-}
-
-if (other.gameObject.GetComponent<OpacityKiller>() != null)
-{
-    if (other.gameObject.GetComponent<OpacityKiller>().isActive == true)
-    {
-
-    }
-}*/
     }
 
     public void OnTriggerExit(Collider other)
