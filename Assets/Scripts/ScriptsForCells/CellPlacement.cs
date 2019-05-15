@@ -38,7 +38,7 @@ public class CellPlacement : MonoBehaviour
 
                 if (hit.collider.gameObject.GetComponent<CellMovement>() != null)
                 {
-                   // Debug.Log("touched" + hit.transform.name);
+                    Debug.Log("         1       ");
 
                     CellMovement cellmove = hit.collider.gameObject.GetComponent<CellMovement>();
 
@@ -65,7 +65,7 @@ public class CellPlacement : MonoBehaviour
 
                     if (cellmove.isOpen)
                     {
-                        Debug.Log("RaycastHittin");
+                       Debug.Log("RaycastHittin");
                         cellmove.clickDirection = true;
 
                     }
@@ -119,7 +119,6 @@ public class CellPlacement : MonoBehaviour
 
             if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, layerMaskPlanes))
             {
-                Debug.LogWarning(hit.transform.name);
                 facingPlane = hit.transform.gameObject;
                 once = false;
             }
