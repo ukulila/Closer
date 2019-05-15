@@ -44,24 +44,19 @@ public class CellScript : MonoBehaviour
     public List<GameObject> coneGreen;
     public bool freeRoom;
     public List<Material> material;
-
+    private Vector3 rotationVector = new Vector3(0, 90, 0);
 
     void Start()
     {
-
         first = false;
-
-
+        freeRoom = false;
 
         for (int i = 0; i < coneRed.Count; i++)
         {
             material.Add(coneRed[i].GetComponent<Renderer>().material);
-
-
             material[i].SetColor("_EmissionColor", Color.red);
         }
 
-        freeRoom = false;
     }
 
     void Update()
@@ -82,16 +77,19 @@ public class CellScript : MonoBehaviour
         if (isInRotation)
         {
             transform.Rotate(new Vector3(0, 1, 0), speed);
+
             if (cP != null)
             {
                 cP.isInRotation = true;
             }
+
             timeRot++;
 
             if (timeRot > fin)
             {
                 timeRot = 0;
                 isInRotation = false;
+
                 if (cP != null)
                 {
                     cP.isInRotation = false;
@@ -130,7 +128,6 @@ public class CellScript : MonoBehaviour
                             for (int r = 0; r < brothers.Count; r++)
                             {
                                 brothers[r].hasEnded = false;
-
                             }
                         }
 
@@ -143,11 +140,12 @@ public class CellScript : MonoBehaviour
                         isInRotation = true;
                         nbrTouch = 0;
                     }
+
                 }
 
             }
-        }
 
+        }
 
     }
 
@@ -156,17 +154,12 @@ public class CellScript : MonoBehaviour
         if (freeRoom)
         {
             material[door].SetColor("_EmissionColor", Color.green);
-            /* coneRed[door].SetActive(false);
-             coneGreen[door].SetActive(true);*/
         }
 
 
         if (!freeRoom)
         {
             material[door].SetColor("_EmissionColor", Color.red);
-           /* coneRed[door].SetActive(true);
-            coneGreen[door].SetActive(false);*/
-
         }
     }
 }

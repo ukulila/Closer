@@ -17,147 +17,18 @@ public class CheckCells : MonoBehaviour
     void Update()
     {
 
-        //RaycastHit hit;
-
         if (desactivate)
         {
             for (int i = 0; i < cells.Count; i++)
             {
-                for (int x = 0; x < cells[i].transform.childCount; x++)
+                for (int x = 0; x < 7; x++)
                 {
-                    if (transform.GetChild(x).name.Contains("Plane"))
-                    {
-                        cells[i].transform.GetChild(x).GetComponent<Renderer>().material.SetInt("_isActive", 0);
-                    }
+                    cells[i].transform.GetChild(x).GetComponent<Renderer>().material.SetInt("_isActive", 0);
                 }
             }
 
             isWaiting = false;
             desactivate = false;
-        }
-
-
-
-        if (isSpawn && selected )
-        {
-
-
-            #region OldWay
-            /*
-            if (Physics.Raycast(transform.position, new Vector3(0, 0, -1), out hit))
-            {
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    if (transform.GetChild(i).name.Contains("Plane"))
-                    {
-
-
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_isActive", Color.white);
-                    }
-                }
-
-                /*myMaterial = hit.transform.GetComponent<Renderer>().material;
-                myMaterial.SetInt("_isActive", 1);
-                //      hit.transform.GetComponent<CellMovement>().isOpen = true;
-                Debug.DrawRay(transform.position, new Vector3(0, 0, -1), Color.red, 100);
-                selected = false;
-                isWaiting = true;
-            }
-
-            if (Physics.Raycast(transform.position, new Vector3(0, 0, 1), out hit))
-            {
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    if (transform.GetChild(i).name.Contains("Plane"))
-                    {
-
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_isActive", Color.white);
-                    }
-                }
-                //     hit.transform.GetComponent<CellMovement>().isOpen = true;
-                Debug.DrawRay(transform.position, new Vector3(0, 0, 1), Color.red, 100);
-
-                selected = false;
-                isWaiting = true;
-
-            }
-
-            if (Physics.Raycast(transform.position, new Vector3(1, 0, 0), out hit))
-            {
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    if (transform.GetChild(i).name.Contains("Plane"))
-                    {
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_isActive", Color.white);
-                    }
-
-                }
-                //        hit.transform.GetComponent<CellMovement>().isOpen = true;
-                Debug.DrawRay(transform.position, new Vector3(1, 0, 0), Color.red, 100);
-                selected = false;
-                isWaiting = true;
-            }
-
-            if (Physics.Raycast(transform.position, new Vector3(-1, 0, 0), out hit))
-            {
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    if (transform.GetChild(i).name.Contains("Plane"))
-                    {
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_isActive", Color.white);
-                    }
-
-                }
-                //         hit.transform.GetComponent<CellMovement>().isOpen = true;
-                Debug.DrawRay(transform.position, new Vector3(-1, 0, 0), Color.red, 100);
-                selected = false;
-                isWaiting = true;
-            }
-
-            if (Physics.Raycast(transform.position, new Vector3(0, 1, 0), out hit))
-            {
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    if (transform.GetChild(i).name.Contains("Plane"))
-                    {
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_isActive", Color.white);
-                    }
-
-                }
-                //          hit.transform.GetComponent<CellMovement>().isOpen = true;
-                Debug.DrawRay(transform.position, new Vector3(0, 1, 0), Color.red, 100);
-                selected = false;
-                isWaiting = true;
-            }
-
-            if (Physics.Raycast(transform.position, new Vector3(0, -1, 0), out hit))
-            {
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    if (transform.GetChild(i).name.Contains("Plane"))
-                    {
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
-                        transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_isActive", Color.white);
-                    }
-
-                }
-                //            hit.transform.GetComponent<CellMovement>().isOpen = true;
-                Debug.DrawRay(transform.position, new Vector3(0, -1, 0), Color.red, 100);
-                selected = false;
-                isWaiting = true;
-            }*/
-            #endregion
-
-            //pM.castingRay = true;
-
-
-
-
         }
 
     }

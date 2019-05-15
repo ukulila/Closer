@@ -75,17 +75,16 @@ public class PlayerBehaviour : MonoBehaviour
     void Update()
     {
 
-        animator.SetFloat("ValueX", x);
-        animator.SetFloat("ValueY", y);
+     /*   animator.SetFloat("ValueX", x);
+        animator.SetFloat("ValueY", y);*/
 
         CheckConeLight();
 
         if (lookCam)
         {
-            // reset = true;
             Vector3 camX = new Vector3(Camera.transform.position.x, transform.position.y, Camera.transform.position.z);
-            transform.LookAt(camX/*Camera.transform.position*/);
-            //        onlyOne = false;
+            transform.LookAt(camX);
+
 
             highlight.enabled = false;
 
@@ -138,7 +137,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                         if (cellMove.isOpen == false)
                         {
-                            Debug.Log("here is a door i could take" + hit.transform.parent.name);
+                             Debug.Log("here is a door i could take" + hit.transform.parent.name);
                             cellMove.isOpen = true;
                         }
                         else if (cellMove.isOpen == true)
@@ -199,7 +198,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (add)
         {
             //myDoorList = context.doorWayPoints;
-            Debug.Log("Je me tire Second ray");
+            //Debug.Log("Je me tire Second ray");
 
             for (int u = 0; u < context.doorWayPoints.Count; u++)
             {
@@ -210,7 +209,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor))
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 050);
+                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 050);
                     //cP.okToSetup = true;
 
                     myDoor = context.doorWayPoints[u];
@@ -219,14 +218,14 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 else
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
+                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
                     castingRay = false;
 
                 }
 
                 if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor))
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
+                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
                     myDoor = context.doorWayPoints[u];
                     doorDirection = (hit.collider.transform);
                     castingRay = false;
@@ -234,7 +233,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 else
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
+                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
                     castingRay = false;
 
                 }
@@ -358,7 +357,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (context.gameObject.GetComponent<CellMovement>().hasEnded == true && check)
             {
-                Debug.Log("           I draw          ");
+                //Debug.Log("           I draw          ");
 
                 RaycastHit hit;
                 int layerMaskDoor = LayerMask.GetMask("Door");
@@ -367,9 +366,9 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                     {
-                        Debug.Log("                     " + hit.transform.name);
+                        //Debug.Log("                     " + hit.transform.name);
 
-                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
 
                         coneDoor = hit.transform.gameObject;
 
@@ -391,9 +390,9 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("            I touch Nothing         ");
+                        //Debug.Log("            I touch Nothing         ");
 
-                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
                         transform.parent.GetComponent<CellScript>().ConeFunction(0);
                         transform.parent.GetComponent<CellScript>().freeRoom = false;
 
@@ -433,11 +432,13 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, context.basePos.position) >= 0.1f && !movement)
         {
+            animator.SetFloat("ValueX", x);
+            animator.SetFloat("ValueY", y);
             float curvePercent = animCurve.Evaluate(Time.deltaTime * speedModifier);
             transform.position = Vector3.Lerp(transform.position, context.basePos.position, curvePercent); /// 0.05f
             Vector3 targetPos = new Vector3(context.basePos.position.x, transform.position.y, context.basePos.position.z);
-            transform.LookAt(targetPos/*context.basePos.position*/);
-
+            transform.LookAt(targetPos);
+            
         }
 
         if (Vector3.Distance(transform.position, context.basePos.position) <= 0.1f)
@@ -451,9 +452,10 @@ public class PlayerBehaviour : MonoBehaviour
 
             }
             //animator.SetBool("Walk", false);
-            Debug.LogError("StopWalking");
             lookCam = true;
             one = true;
+            animator.SetFloat("ValueX", x);
+            animator.SetFloat("ValueY", y);
 
         }
     }
@@ -464,7 +466,7 @@ public class PlayerBehaviour : MonoBehaviour
         distance = Vector3.Distance(transform.position, objectif);
         if (distance > minDist)
         {
-            Debug.Log("Distanceok");
+            // Debug.Log("Distanceok");
             next = true;
         }
 
@@ -501,7 +503,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (inverseList.Count == nextContext.paths.list[h].listOfWaypoint.Count)
                 {
-                    Debug.Log("inversing");
+                    //Debug.Log("inversing");
                     inverseList.Reverse();
 
                 }
@@ -528,7 +530,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 
 
-
+    float curvePercent;
 
 
 
@@ -552,8 +554,10 @@ public class PlayerBehaviour : MonoBehaviour
                 once = true;
             }
 
+            animator.SetFloat("ValueX", x);
+            animator.SetFloat("ValueY", y);
             //Actual movement to selected waypoint
-            float curvePercent = animCurve.Evaluate(Time.deltaTime * speedModifier);
+            curvePercent = animCurve.Evaluate(Time.deltaTime * speedModifier);
             transform.position = Vector3.Lerp(transform.position, listToMove[index].position, curvePercent); ///0.05f
 
             if (x < 1 && y < 1)
@@ -630,4 +634,3 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 }
-

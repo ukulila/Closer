@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.UI;
 
 public class CellMovement : MonoBehaviour
 {
@@ -63,7 +60,9 @@ public class CellMovement : MonoBehaviour
 
     public AnimationCurve LerpSpeed;
     public float speedModifier;
-
+    float curvePercent;
+    bool onlyone;
+    int timerFrame01;
     #region Init
 
     public void Start()
@@ -88,34 +87,39 @@ public class CellMovement : MonoBehaviour
     #endregion
 
 
+
     public void Update()
     {
         
         if(player.context.gameObject == gameObject)
         {
-            isSpawn = true;
-
-            ROOM_Manager.Instance.currentRoom = transform.GetComponent<RoomInteraction>();
-
-            if (transform.GetComponent<RoomInteraction>().isInteraction == true)
+            if (!isSpawn)
             {
-                ObjectManager.Instance.currentObjet = transform.GetComponent<RoomInteraction>().objet;
-            }
-            else
-            {
-                ObjectManager.Instance.currentObjet = null;
+                ROOM_Manager.Instance.currentRoom = transform.GetComponent<RoomInteraction>();
+
+                if (transform.GetComponent<RoomInteraction>().isInteraction == true)
+                {
+                    ObjectManager.Instance.currentObjet = transform.GetComponent<RoomInteraction>().objet;
+                }
+                else
+                {
+                    ObjectManager.Instance.currentObjet = null;
+                }
+
+                if (transform.GetComponent<RoomInteraction>().isDialogue == true)
+                {
+                    NPC_Manager.Instance.currentNPC = transform.GetComponent<RoomInteraction>().npc;
+                }
+                else
+                {
+                    NPC_Manager.Instance.currentNPC = null;
+                }
+
+                transform.GetComponent<RoomInteraction>().UiTextUpdate();
+                onlyone = true;
+                isSpawn = true;
             }
 
-            if (transform.GetComponent<RoomInteraction>().isDialogue == true)
-            {
-                NPC_Manager.Instance.currentNPC = transform.GetComponent<RoomInteraction>().npc;
-            }
-            else
-            {
-                NPC_Manager.Instance.currentNPC = null;
-            }
-
-            transform.GetComponent<RoomInteraction>().UiTextUpdate();
         }
         else
         {
@@ -127,7 +131,7 @@ public class CellMovement : MonoBehaviour
             }
         }
 
-
+        
 
         if (isSpawn)
         {
@@ -135,14 +139,14 @@ public class CellMovement : MonoBehaviour
             isOpen = false;
             selected = true;
 
-            for (int i = 0; i < transform.childCount; i++)
+            for (int i = 0; i < 7; i++)
             {
-                if (transform.GetChild(i).name.Contains("Plane"))
-                {
+               /* if (transform.GetChild(i).name.Contains("Plane"))
+                {*/
                     transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_myColor", Color.green);
 
                     transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
-                }
+                //}
 
             }
 
@@ -152,6 +156,7 @@ public class CellMovement : MonoBehaviour
                 raycastAutor = false;
 
             }
+
         }
 
 
@@ -180,7 +185,6 @@ public class CellMovement : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             once = false;
-
             click = false;
             timer = 0;
 
@@ -206,18 +210,9 @@ public class CellMovement : MonoBehaviour
 
 
         //Takes off the Outline when click elsewhere
-        if (Input.GetMouseButtonDown(0) && !isSpawn && gameObject.name.Contains("Exit") == false)
+        if (Input.GetMouseButtonDown(0) && !isSpawn)
         {
             selected = false;
-
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                if (transform.GetChild(i).name.Contains("Plane"))
-                {
-                    transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_myColor", Color.green);
-                }
-
-            }
         }
 
 
@@ -228,7 +223,7 @@ public class CellMovement : MonoBehaviour
 
         #region ---- Temporary DEBUG position ----
         //DebugWeirdPosition
-        if (hasEnded)
+        if (hasEnded && timerFrame01 < 60)
         {
             if (transform.position.x < 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
             {
@@ -261,6 +256,7 @@ public class CellMovement : MonoBehaviour
                 transform.position = new Vector3(transform.position.x, transform.position.y, resetPosValue);
             }
 
+            timerFrame01++;
         }
 
         #endregion
@@ -298,12 +294,10 @@ public class CellMovement : MonoBehaviour
         }
 
         //Starts to check for an other Drag/Swipe only if the previous one has ended
-        if (movement && hasEnded /*&& ready*/)
+        if (movement && hasEnded)
         {
             ready = false;
             CheckMove();
-
-
         }
 
 
@@ -312,7 +306,7 @@ public class CellMovement : MonoBehaviour
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..
         if (moveHorizontal)
         {
-            float curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
+            curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
             for (int r = 0; r < brothers.Count; r++)
             {
@@ -339,13 +333,14 @@ public class CellMovement : MonoBehaviour
             ///
             if (toRotate[0].transform.position == toRotate[1].myPosFreeze)
             {
-                Debug.LogWarning("__HAS__ENDED__");
+//                Debug.LogWarning("__HAS__ENDED__");
 
                 movement = false;
 
                 for (int o = 0; o < brothers.Count; o++)
                 {
                     brothers[o].DebugPos();
+                    brothers[o].timerFrame01 = 0;
                     brothers[o].hasEnded = true;
                     player.check = true;
                 }
@@ -372,7 +367,7 @@ public class CellMovement : MonoBehaviour
         if (moveVerticalZ)
         {
 
-            float curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
+            curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
             for (int r = 0; r < brothers.Count; r++)
             {
@@ -381,7 +376,7 @@ public class CellMovement : MonoBehaviour
 
             for (int v = 0; v < toRotate.Count; v++)
             {
-                Debug.LogWarning("Playing");
+        //        Debug.LogWarning("Playing");
 
                 if (v != toRotate.Count - 1)
                 {
@@ -399,12 +394,13 @@ public class CellMovement : MonoBehaviour
             ///
             if (toRotate[0].transform.position == toRotate[1].myPosFreeze)
             {
-                Debug.LogWarning("__HAS__ENDED__");
+     //           Debug.LogWarning("__HAS__ENDED__");
                 movement = false;
 
                 for (int o = 0; o < brothers.Count; o++)
                 {
                     brothers[o].DebugPos();
+                    brothers[o].timerFrame01 = 0;
                     brothers[o].hasEnded = true;
                     player.check = true;
 
@@ -427,7 +423,7 @@ public class CellMovement : MonoBehaviour
         if (moveVerticalX)
         {
 
-            float curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
+             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
 
             for (int r = 0; r < brothers.Count; r++)
@@ -439,7 +435,7 @@ public class CellMovement : MonoBehaviour
 
             for (int v = 0; v < toRotate.Count; v++)
             {
-                Debug.LogWarning("PlayingX");
+ //               Debug.LogWarning("PlayingX");
 
                 if (v != toRotate.Count - 1)
                 {
@@ -457,12 +453,13 @@ public class CellMovement : MonoBehaviour
             ///
             if (toRotate[0].transform.position == toRotate[1].myPosFreeze)
             {
-                Debug.LogWarning("__HAS__ENDED__");
+   //             Debug.LogWarning("__HAS__ENDED__");
                 movement = false;
 
                 for (int o = 0; o < brothers.Count; o++)
                 {
                     brothers[o].DebugPos();
+                    brothers[o].timerFrame01 = 0;
                     brothers[o].hasEnded = true;
                     player.check = true;
 
@@ -538,7 +535,9 @@ public class CellMovement : MonoBehaviour
         }
         else
         {
+            movement = false;
             return;
+            
         }
 
 
@@ -553,8 +552,6 @@ public class CellMovement : MonoBehaviour
     ///ADD STUFF IF UP OR DOWN && MAYBE IF RIGHT AND LEFT
     public void HorizontalRotateSide(int dir)
     {
-
-
         //Debug.Log("I play myself normaly");
 
         for (int u = 0; u < brothers.Count; u++)
