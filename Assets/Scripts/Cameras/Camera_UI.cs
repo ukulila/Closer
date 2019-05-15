@@ -159,19 +159,6 @@ public class Camera_UI : MonoBehaviour
                             isPlayerHere = cellMove.isSpawn;
                     }
 
-                    /*
-                    if (isLookingForPathCells)
-                    {
-                        if (cellPatch != null)
-                            isPlayerHere = cellPatch.isSpawn;
-                    }
-                    else
-                    {
-                        if (cellMove != null)
-                            isPlayerHere = cellMove.isSpawn;
-                    }
-                    */
-
                     fovDiff = uiFOV - currentFOV;
 
 
@@ -303,7 +290,7 @@ public class Camera_UI : MonoBehaviour
                 {
                     if (!isLookingForPathCells)
                     {
-                        if (selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().movement == false)
+                        if (selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().once == false)
                         {
                             if (timeBeforeSearch < maxTimeBeforeSearch)
                                 timeBeforeSearch += Time.deltaTime;

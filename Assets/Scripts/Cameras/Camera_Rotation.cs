@@ -67,15 +67,15 @@ public class Camera_Rotation : MonoBehaviour
     public float verticalSmoothTime = 1f;
 
 
-    public Slider debugSlider;
-    public Slider debugSlider00;
-    public Slider debugSlider01;
+    //public Slider debugSlider;
+    //public Slider debugSlider00;
+    //public Slider debugSlider01;
 
 
 
 
-    [Header("Debug texts")]
-    public List<TextMeshProUGUI> debugTexts;
+    //[Header("Debug texts")]
+    //public List<TextMeshProUGUI> debugTexts;
 
 
 
