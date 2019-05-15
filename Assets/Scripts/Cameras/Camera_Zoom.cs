@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
@@ -47,11 +46,6 @@ public class Camera_Zoom : MonoBehaviour
     public float zoomSlowTimeRatio = 0.012f;
     public float zoomSlowValueRatio = 0.025f;
     private float zoomSlowValue;
-
-
-    [Header("Debug Zoom")]
-    public List<TextMeshProUGUI> debugTextes;
-    public List<Slider> debugSliders;
 
 
     public static Camera_Zoom Instance;
@@ -136,27 +130,6 @@ public class Camera_Zoom : MonoBehaviour
         {
             Zoom();
         }
-
-        #region DEBUG TEXT
-/*
-        debugTextes[2].text = ("zoomRatio : " + zoomRatio);
-        debugTextes[3].text = ("touchesDistanceTest : " + touchesDistanceTest);
-        debugTextes[4].text = ("areFingersMoving : " + areFingersMoving);
-        debugTextes[5].text = ("currentZoomPos : " + currentZoomPos);
-        debugTextes[6].text = ("nextZoomPos : " + nextZoomPos);
-        debugTextes[10].text = ("touchesDistance : " + touchesDistance);
-        debugTextes[11].text = ("smoothTime : " + smoothTime);
-        debugTextes[7].text = ("zoomSlowValueRatio : " + zoomSlowValueRatio);
-        debugTextes[8].text = ("zoomSlowTimeRatio : " + zoomSlowTimeRatio);
-
-        
-        zoomSlowTimeRatio = debugSliders[0].value;
-        zoomSlowValueRatio = debugSliders[1].value;
-        smoothTime = debugSliders[2].value;
-        */
-
-        #endregion
-
     }
 
     /// <summary>

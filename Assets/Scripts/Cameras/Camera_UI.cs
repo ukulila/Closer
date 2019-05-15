@@ -102,10 +102,6 @@ public class Camera_UI : MonoBehaviour
             currentFOV = virtualCamera.m_Lens.OrthographicSize;
             currentRepositionTime = 0;
 
-            //ui_BackgroundAnimator.ResetTrigger("Enabled");
-            //ui_BackgroundAnimator.SetTrigger("Enabled");
-
-            //Debug.Log("Deactivate UI nOW");
             switchToUI = false;
             ROOM_Manager.Instance.DeactivateUI();
             cameraReposition = false;
@@ -290,7 +286,7 @@ public class Camera_UI : MonoBehaviour
                 {
                     if (!isLookingForPathCells)
                     {
-                        if (selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>().once == false)
+                        if (Camera_Rotation.Instance.isFingerMoving == false)
                         {
                             if (timeBeforeSearch < maxTimeBeforeSearch)
                                 timeBeforeSearch += Time.deltaTime;
@@ -321,10 +317,6 @@ public class Camera_UI : MonoBehaviour
                         }
 
                     }
-                }
-                else
-                {
-                    Debug.LogError("No selection valid");
                 }
             }
         }
@@ -437,38 +429,27 @@ public class Camera_UI : MonoBehaviour
     {
         if (continuePosDifference < 0)
         {
-            //Debug.Log("Continue est négatif");
-
             reversePosDifference = positionMax + continuePosDifference;
 
             if ((continuePosDifference * -1) > reversePosDifference)
             {
-                //Debug.Log("Continue 1");
-
                 animationPosDifference = reversePosDifference;
             }
             else
             {
-                //Debug.Log("Continue 2");
-
                 animationPosDifference = continuePosDifference;
             }
         }
         else
         {
-            //Debug.Log("Continue est positif");
-
             reversePosDifference = positionMax - continuePosDifference;
 
             if (continuePosDifference > reversePosDifference)
             {
-                //Debug.Log("Continue 3");
                 animationPosDifference = reversePosDifference;
             }
             else
             {
-                //Debug.Log("Continue 4");
-
                 animationPosDifference = continuePosDifference;
             }
         }
@@ -481,14 +462,10 @@ public class Camera_UI : MonoBehaviour
 
         if (animationPosDifference < 0)
         {
-            //Debug.Log("Result 1");
-
             animationCurveTimingMax = animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
         }
         else
         {
-            //Debug.Log("Result 2");
-
             animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
         }
 
@@ -525,11 +502,7 @@ public class Camera_UI : MonoBehaviour
     /// <returns></returns>
     IEnumerator UIapparitionTime(float time)
     {
-        //Debug.Log("UI will appear");
-
         yield return new WaitForSeconds(time);
-
-        //Debug.Log("BOOM");
 
         ROOM_Manager.Instance.LaunchUI();
     }

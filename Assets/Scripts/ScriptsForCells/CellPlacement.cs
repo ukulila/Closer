@@ -38,8 +38,6 @@ public class CellPlacement : MonoBehaviour
 
                 if (hit.collider.gameObject.GetComponent<CellMovement>() != null)
                 {
-                    Debug.Log("         1       ");
-
                     CellMovement cellmove = hit.collider.gameObject.GetComponent<CellMovement>();
 
                     cellmove.click = true;
@@ -65,9 +63,7 @@ public class CellPlacement : MonoBehaviour
 
                     if (cellmove.isOpen)
                     {
-                       Debug.Log("RaycastHittin");
                         cellmove.clickDirection = true;
-
                     }
 
                     cellmove.originPos = Input.mousePosition;

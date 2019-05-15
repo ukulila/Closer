@@ -25,7 +25,6 @@ public class ROOM_Manager : MonoBehaviour
     {
         if (currentRoom != null)
         {
-            //Debug.Log("Appear !");
             currentRoom.InteractionAppears();
             GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
             StartCoroutine(DelayBeforePossibleLeaving());
@@ -39,7 +38,6 @@ public class ROOM_Manager : MonoBehaviour
     {
         if (currentRoom != null)
         {
-            //Debug.Log("BE GONE !");
             currentRoom.DisableUI();
             GameManager.Instance.currentGameMode = GameManager.GameMode.PuzzleMode;
             outOfContext.interactable = false;

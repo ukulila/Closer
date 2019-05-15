@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 
 public class InventorySystem : MonoBehaviour
@@ -185,8 +183,6 @@ public class InventorySystem : MonoBehaviour
 
         apparitionPercent = inventoryApparitionCurve.Evaluate(apparitionCurrentTime / apparitionTimeMax);
 
-        //inventoryInputImage.sprite = emptyInventorySprite;
-
         slotsRectTransform[0].localPosition = new Vector2(startPos.localPosition.x - (positionDiff[0].x * apparitionPercent), startPos.localPosition.y - (positionDiff[0].y * apparitionPercent));
         slotsRectTransform[1].localPosition = new Vector2(startPos.localPosition.x - (positionDiff[1].x * apparitionPercent), startPos.localPosition.y - (positionDiff[1].y * apparitionPercent));
         slotsRectTransform[2].localPosition = new Vector2(startPos.localPosition.x - (positionDiff[2].x * apparitionPercent), startPos.localPosition.y - (positionDiff[2].y * apparitionPercent));
@@ -206,7 +202,6 @@ public class InventorySystem : MonoBehaviour
         {
             isAnimationOver = true;
         }
-
 
 
         apparitionPercent = inventoryApparitionCurve.Evaluate(apparitionCurrentTime / apparitionTimeMax);

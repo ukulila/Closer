@@ -44,8 +44,6 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void InteractionAppears()
     {
-
-        //Debug.Log("Enable UI");
         uiAnimators[3].ResetTrigger("Enabled");
         uiAnimators[4].ResetTrigger("Enabled");
         uiAnimators[6].ResetTrigger("Enabled");
@@ -92,8 +90,6 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void DisableUI()
     {
-        //Debug.Log("Disable UI");
-
         talkTo.interactable = false;
         uiAnimators[0].ResetTrigger("Enabled");
         uiAnimators[0].SetTrigger("Disabled");
@@ -117,7 +113,6 @@ public class RoomInteraction : MonoBehaviour
 
         uiAnimators[6].ResetTrigger("Enabled");
         uiAnimators[6].SetTrigger("Disabled");
-        //uiAnimators[5].ResetTrigger("Disabled");
     }
 
     /// <summary>
@@ -131,49 +126,4 @@ public class RoomInteraction : MonoBehaviour
         if (roomDescription != null)
             descritpionText.text = roomDescription;
     }
-
-
-    #region Old Stuff
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    //Set le NPC de la room
-    //    if (other.gameObject.tag == "NPC")
-    //    {
-    //        npc = other.gameObject.GetComponent<NPCInteractions>();
-    //        isDialogue = true;
-    //    }
-
-    //    //Set le current NPC du manager à l'entrée du joueur
-    //    if (other.gameObject.name.Contains("Player"))
-    //    {
-    //        ROOM_Manager.Instance.currentRoom = this;
-
-    //        if (npc != null)
-    //            NPC_Manager.Instance.currentNPC = npc;
-
-    //        if (objet != null)
-    //            ObjectManager.Instance.currentObjet = objet;
-
-
-    //        UiTextUpdate();
-    //    }
-
-    //    if (other.gameObject.tag == "Objet")
-    //    {
-    //        objet = other.gameObject.GetComponent<Objet_Interaction>();
-    //        isInteraction = true;
-    //    }
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.name.Contains("Player"))
-    //    {
-    //        //ObjectManager.Instance.currentObjet = null;
-    //        //ROOM_Manager.Instance.currentRoom = null;
-    //    }
-    //}
-
-    #endregion
 }

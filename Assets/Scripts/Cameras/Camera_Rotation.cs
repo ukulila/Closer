@@ -17,7 +17,7 @@ public class Camera_Rotation : MonoBehaviour
     [Header("Camera Rotation Parameters")]
     public bool aboutCamera;
     private bool isRotating;
-    private bool isFingerMoving;
+    public bool isFingerMoving;
     private bool isOrientationSet;
 
     private Touch touchZero;
@@ -65,18 +65,6 @@ public class Camera_Rotation : MonoBehaviour
     private float verticalSlowValue;
     public float verticalSlowValueRatio = 0.012f;
     public float verticalSmoothTime = 1f;
-
-
-    //public Slider debugSlider;
-    //public Slider debugSlider00;
-    //public Slider debugSlider01;
-
-
-
-
-    //[Header("Debug texts")]
-    //public List<TextMeshProUGUI> debugTexts;
-
 
 
     public static Camera_Rotation Instance;
@@ -305,24 +293,6 @@ public class Camera_Rotation : MonoBehaviour
 
             AdjustHeight();
         }
-
-        #region DEBUG TEXT
-        /*
-        debugTexts[2].text = ("dollyTransform.position.y : " + dollyTransform.position.y);
-        debugTexts[4].text = ("isFingerMoving : " + isFingerMoving);
-        debugTexts[5].text = ("verticalSlowValueRatio : " + verticalSlowValueRatio);
-        debugTexts[6].text = ("currentVerticalPos : " + currentVerticalPos);
-        debugTexts[10].text = ("verticalRotationRatio : " + verticalRotationRatio);
-        debugTexts[11].text = ("verticalSlowTimeRatio : " + verticalSlowTimeRatio);
-        debugTexts[7].text = ("maxHeight : " + maxHeight);
-        debugTexts[8].text = ("verticalSlowValue : " + verticalSlowValue);
-
-        //verticalRotationRatio = debugSlider.value;
-        //verticalSlowTimeRatio = debugSlider00.value;
-        //verticalSlowValueRatio = debugSlider01.value;
-
-        */
-        #endregion
     }
 
 
@@ -331,8 +301,6 @@ public class Camera_Rotation : MonoBehaviour
     /// </summary>
     void CameraTracking()
     {
-        Debug.Log("Tracking");
-
         if (isFingerMoving)
         {
             dollyCart.m_Position = Mathf.Lerp(currentHorizontalPos, nextHorizontalPos, horizontalSmoothTime);
@@ -351,8 +319,6 @@ public class Camera_Rotation : MonoBehaviour
     /// </summary>
     void AdjustHeight()
     {
-        Debug.Log("Adjusting");
-
         if (isFingerMoving)
         {
             verticalSlowValue = currentVerticalPos = nextVerticalPos;

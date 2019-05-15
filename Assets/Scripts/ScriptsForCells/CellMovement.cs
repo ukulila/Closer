@@ -90,8 +90,8 @@ public class CellMovement : MonoBehaviour
 
     public void Update()
     {
-        
-        if(player.context.gameObject == gameObject)
+
+        if (player.context.gameObject == gameObject)
         {
             if (!isSpawn)
             {
@@ -123,7 +123,7 @@ public class CellMovement : MonoBehaviour
         }
         else
         {
-            if(isSpawn == true)
+            if (isSpawn == true)
             {
                 selected = false;
                 isSpawn = false;
@@ -131,7 +131,7 @@ public class CellMovement : MonoBehaviour
             }
         }
 
-        
+
 
         if (isSpawn)
         {
@@ -141,11 +141,11 @@ public class CellMovement : MonoBehaviour
 
             for (int i = 0; i < 6; i++)
             {
-               /* if (transform.GetChild(i).name.Contains("Plane"))
-                {*/
-                    transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_myColor", Color.green);
+                /* if (transform.GetChild(i).name.Contains("Plane"))
+                 {*/
+                transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_myColor", Color.green);
 
-                    transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
+                transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
                 //}
 
             }
@@ -170,8 +170,7 @@ public class CellMovement : MonoBehaviour
 
         #region ---- RenameByPLace ----
 
-
-        brothers = brothers.OrderBy(go => go.name).ToList();
+        
 
 
 
@@ -333,8 +332,6 @@ public class CellMovement : MonoBehaviour
             ///
             if (toRotate[0].transform.position == toRotate[1].myPosFreeze)
             {
-//                Debug.LogWarning("__HAS__ENDED__");
-
                 movement = false;
 
                 for (int o = 0; o < brothers.Count; o++)
@@ -342,6 +339,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].DebugPos();
                     brothers[o].timerFrame01 = 0;
                     brothers[o].hasEnded = true;
+                    OrderCells();
                     player.check = true;
                 }
 
@@ -376,7 +374,6 @@ public class CellMovement : MonoBehaviour
 
             for (int v = 0; v < toRotate.Count; v++)
             {
-        //        Debug.LogWarning("Playing");
 
                 if (v != toRotate.Count - 1)
                 {
@@ -394,7 +391,6 @@ public class CellMovement : MonoBehaviour
             ///
             if (toRotate[0].transform.position == toRotate[1].myPosFreeze)
             {
-     //           Debug.LogWarning("__HAS__ENDED__");
                 movement = false;
 
                 for (int o = 0; o < brothers.Count; o++)
@@ -402,8 +398,8 @@ public class CellMovement : MonoBehaviour
                     brothers[o].DebugPos();
                     brothers[o].timerFrame01 = 0;
                     brothers[o].hasEnded = true;
+                    OrderCells();
                     player.check = true;
-
                 }
 
                 toRotate[0].freezePosValue = true;
@@ -423,7 +419,7 @@ public class CellMovement : MonoBehaviour
         if (moveVerticalX)
         {
 
-             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
+            curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
 
             for (int r = 0; r < brothers.Count; r++)
@@ -435,7 +431,6 @@ public class CellMovement : MonoBehaviour
 
             for (int v = 0; v < toRotate.Count; v++)
             {
- //               Debug.LogWarning("PlayingX");
 
                 if (v != toRotate.Count - 1)
                 {
@@ -453,7 +448,6 @@ public class CellMovement : MonoBehaviour
             ///
             if (toRotate[0].transform.position == toRotate[1].myPosFreeze)
             {
-   //             Debug.LogWarning("__HAS__ENDED__");
                 movement = false;
 
                 for (int o = 0; o < brothers.Count; o++)
@@ -461,8 +455,8 @@ public class CellMovement : MonoBehaviour
                     brothers[o].DebugPos();
                     brothers[o].timerFrame01 = 0;
                     brothers[o].hasEnded = true;
+                    OrderCells();
                     player.check = true;
-
                 }
 
 
@@ -482,6 +476,12 @@ public class CellMovement : MonoBehaviour
             }
         }
     }
+
+    private void OrderCells()
+    {
+        brothers = brothers.OrderBy(go => go.name).ToList();
+        return;
+    }
     #endregion
     #endregion
 
@@ -494,7 +494,6 @@ public class CellMovement : MonoBehaviour
         ///These return a swipe direction and starts the Moving Functions accordingly.
         if (distanceMove.x >= 100)
         {
-            //Debug.Log("Right");
             movement = false;
 
             if (!once)
@@ -505,8 +504,8 @@ public class CellMovement : MonoBehaviour
         }
         else if (distanceMove.x <= -100)
         {
-           // Debug.Log("Left");
             movement = false;
+
             if (!once)
             {
                 toRotate.Clear();
@@ -515,8 +514,8 @@ public class CellMovement : MonoBehaviour
         }
         else if (distanceMove.y <= -100)
         {
-         //   Debug.Log("Down");
             movement = false;
+
             if (!once)
             {
                 toRotate.Clear();
@@ -525,8 +524,8 @@ public class CellMovement : MonoBehaviour
         }
         else if (distanceMove.y >= 100)
         {
-          //  Debug.Log("Up");
             movement = false;
+
             if (!once)
             {
                 toRotate.Clear();
@@ -552,8 +551,6 @@ public class CellMovement : MonoBehaviour
     ///ADD STUFF IF UP OR DOWN && MAYBE IF RIGHT AND LEFT
     public void HorizontalRotateSide(int dir)
     {
-        //Debug.Log("I play myself normaly");
-
         for (int u = 0; u < brothers.Count; u++)
         {
 
