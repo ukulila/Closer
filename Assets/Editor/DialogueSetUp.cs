@@ -21,7 +21,6 @@ public class DialogueSetUp : Editor
     public override void OnInspectorGUI()
     {
         DialogueSystem dialogueSystem = (DialogueSystem)target;
-
         
         if (GUILayout.Button("Reset Default Values"))
         {

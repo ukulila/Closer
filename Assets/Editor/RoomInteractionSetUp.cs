@@ -27,33 +27,28 @@ public class RoomInteractionSetUp : Editor
         RoomInteraction roomInteraction = (RoomInteraction)target;
 
 
-        if (FindObjectOfType<Canvas>() != null)
-        {
-            currentCanvas = FindObjectOfType<Canvas>().gameObject;
-        }
-        else
-        {
-            GameObject go = new GameObject("Canvas", typeof(Canvas));
-            go.AddComponent<GraphicRaycaster>();
-            currentCanvas = go;
-        }
-
-        if ((GameObject.Find(UI.name + "(Clone)") || GameObject.Find(UI.name)))
-        {
-            currentUI = FindObjectOfType<Canvas>().gameObject;
-        }
-        else
-        {
-            Instantiate(UI, currentCanvas.transform);
-        }
-
-
-
-
-
-
         if (GUILayout.Button("Get References"))
         {
+            if (FindObjectOfType<Canvas>() != null)
+            {
+                currentCanvas = FindObjectOfType<Canvas>().gameObject;
+            }
+            else
+            {
+                GameObject go = new GameObject("Canvas", typeof(Canvas));
+                go.AddComponent<GraphicRaycaster>();
+                currentCanvas = go;
+            }
+
+            if ((GameObject.Find(UI.name + "(Clone)") || GameObject.Find(UI.name)))
+            {
+                currentUI = FindObjectOfType<Canvas>().gameObject;
+            }
+            else
+            {
+                Instantiate(UI, currentCanvas.transform);
+            }
+
             if (roomInteraction.roomName == "")
             {
                 //Undo.RecordObject(this, "Bla bla");

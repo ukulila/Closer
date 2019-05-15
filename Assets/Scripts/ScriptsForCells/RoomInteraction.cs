@@ -95,20 +95,27 @@ public class RoomInteraction : MonoBehaviour
         //Debug.Log("Disable UI");
 
         talkTo.interactable = false;
+        uiAnimators[0].ResetTrigger("Enabled");
         uiAnimators[0].SetTrigger("Disabled");
 
         interactWith.interactable = false;
+        uiAnimators[1].ResetTrigger("Enabled");
         uiAnimators[1].SetTrigger("Disabled");
 
         changeFloor.interactable = false;
+        uiAnimators[2].ResetTrigger("Enabled");
         uiAnimators[2].SetTrigger("Disabled");
 
+        uiAnimators[3].ResetTrigger("Enabled");
         uiAnimators[3].SetTrigger("Disabled");
 
+        uiAnimators[4].ResetTrigger("Enabled");
         uiAnimators[4].SetTrigger("Disabled");
 
+        uiAnimators[5].ResetTrigger("Enabled");
         uiAnimators[5].SetTrigger("Disabled");
 
+        uiAnimators[6].ResetTrigger("Enabled");
         uiAnimators[6].SetTrigger("Disabled");
         //uiAnimators[5].ResetTrigger("Disabled");
     }

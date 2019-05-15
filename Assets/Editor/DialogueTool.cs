@@ -67,82 +67,84 @@ public class DialogueTool : EditorWindow
         type = (DialogueType)EditorGUILayout.EnumPopup(type);
 
 
-        if (Selection.activeGameObject != null)
-        {
-            GameObject selectGO = Selection.activeGameObject;
-
-            if (selectGO.GetComponent<NPCInteractions>() != null)
-            {
-                npcSelected = selectGO.GetComponent<NPCInteractions>();
-            }
-        }
-
-        if (FindObjectOfType<Canvas>() != null)
-        {
-            currentCanvas = FindObjectOfType<Canvas>().gameObject;
-            isThereCanvas = true;
-        }
-        else
-        {
-            isThereCanvas = false;
-        }
-
-
-        if (GameObject.Find(actorIcons_Reference.name + "(Clone)") || GameObject.Find(actorIcons_Reference.name))
-        {
-            isThereActorIcons = true;
-        }
-        else
-        {
-            isThereActorIcons = false;
-        }
-
-        if (GameObject.Find(dialogueNameBox_Reference.name + "(Clone)") || GameObject.Find(dialogueNameBox_Reference.name))
-        {
-            isThereDialogueNameBox = true;
-        }
-        else
-        {
-            isThereDialogueNameBox = false;
-        }
-
-        if (GameObject.Find(UImask_Reference.name + "(Clone)") || GameObject.Find(UImask_Reference.name))
-        {
-            isThereUImask = true;
-        }
-        else
-        {
-            isThereUImask = false;
-        }
-
-        if (GameObject.Find(NPC_ManagerReference.name + "(Clone)") || GameObject.Find(NPC_ManagerReference.name))
-        {
-            isThereNPC_Manager = true;
-        }
-        else
-        {
-            isThereNPC_Manager = false;
-        }
-
-
-        if (GameObject.Find(ROOM_ManagerReference.name + "(Clone)") || GameObject.Find(ROOM_ManagerReference.name))
-        {
-            isThereROOM_Manager = true;
-        }
-        else
-        {
-            isThereROOM_Manager = false;
-        }
-
-        if (selectedNPC != null)
-        {
-            npcSelected = (NPCInteractions)selectedNPC;
-        }
-
 
 
         if (GUILayout.Button("Generate"))
         {
+
+            if (Selection.activeGameObject != null)
+            {
+                GameObject selectGO = Selection.activeGameObject;
+
+                if (selectGO.GetComponent<NPCInteractions>() != null)
+                {
+                    npcSelected = selectGO.GetComponent<NPCInteractions>();
+                }
+            }
+
+            if (FindObjectOfType<Canvas>() != null)
+            {
+                currentCanvas = FindObjectOfType<Canvas>().gameObject;
+                isThereCanvas = true;
+            }
+            else
+            {
+                isThereCanvas = false;
+            }
+
+
+            if (GameObject.Find(actorIcons_Reference.name + "(Clone)") || GameObject.Find(actorIcons_Reference.name))
+            {
+                isThereActorIcons = true;
+            }
+            else
+            {
+                isThereActorIcons = false;
+            }
+
+            if (GameObject.Find(dialogueNameBox_Reference.name + "(Clone)") || GameObject.Find(dialogueNameBox_Reference.name))
+            {
+                isThereDialogueNameBox = true;
+            }
+            else
+            {
+                isThereDialogueNameBox = false;
+            }
+
+            if (GameObject.Find(UImask_Reference.name + "(Clone)") || GameObject.Find(UImask_Reference.name))
+            {
+                isThereUImask = true;
+            }
+            else
+            {
+                isThereUImask = false;
+            }
+
+            if (GameObject.Find(NPC_ManagerReference.name + "(Clone)") || GameObject.Find(NPC_ManagerReference.name))
+            {
+                isThereNPC_Manager = true;
+            }
+            else
+            {
+                isThereNPC_Manager = false;
+            }
+
+
+            if (GameObject.Find(ROOM_ManagerReference.name + "(Clone)") || GameObject.Find(ROOM_ManagerReference.name))
+            {
+                isThereROOM_Manager = true;
+            }
+            else
+            {
+                isThereROOM_Manager = false;
+            }
+
+            if (selectedNPC != null)
+            {
+                npcSelected = (NPCInteractions)selectedNPC;
+            }
+
+
             if (!isThereCanvas)
             {
                 GameObject go = new GameObject("Canvas", typeof(Canvas));
