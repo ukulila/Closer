@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OpacityKiller : MonoBehaviour
 {
+
     public List<Material> myMaterial;
     public GameObject cam;
     public float distance;
@@ -23,47 +23,65 @@ public class OpacityKiller : MonoBehaviour
     public float maxFade;
 
     public CellMovement myCellMovement;
+    public List<GameObject> KillChilds;
 
-    // Start is called before the first frame update
-    void Start()
+
+
+    public void OpacitySetup()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).name.Contains("Plane") && transform.GetChild(i).name.Contains("Porte") == false)
+            if (transform.GetChild(i).name.Contains("Plane") && transform.GetChild(i).name.Contains("Porte") == false)                          ///////////
             {
-                myMaterial.Add(transform.GetChild(i).GetComponent<Renderer>().material);
+                myMaterial.Add(transform.GetChild(i).GetComponent<Renderer>().sharedMaterial);
             }
         }
-        StartCoroutine(CalculateDistance());
 
-        if (myCellMovement == null)
+        if (myCellMovement == null)                                                                                                              ///////////
         {
             myCellMovement = GetComponent<CellMovement>();
         }
 
+        for (int i = 0; i < transform.childCount; i++)                                                                                           ///////////                                                                                            
+        {
+
+            if (transform.GetChild(i).name.Contains("Plane") == false)
+            {
+                KillChilds.Add(transform.GetChild(i).gameObject);
+            }
+
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        float delay = 1f;
+
+        if (Time.time % delay < Time.deltaTime)
+        {
+            distance = Vector3.Distance(transform.position, cam.transform.position);
+
+            for (int i = 0; i < myMaterial.Count; i++)
+            {
+
+                myMaterial[i].SetFloat("_Opacity", opaciteVar);
+
+            }
+        }
+
 
         Outliner();
         Disapearance();
 
-        //Renamer();
-       /* if (gameObject.name.Contains("Up") == false && gameObject.name.Contains("Down") == false && isActive)
-        {
-            opaciteVar = 1;
-        }
-        */
-        for (int i = 0; i < myMaterial.Count; i++)
-        {
-            myMaterial[i].SetFloat("_Opacity", opaciteVar);
 
-        }
+        
 
+        /// Is FPS ok, but opacity
+        /// 
         if (!isActive)
         {
+
             if (distance < distanceToFade)
             {
                 if (opaciteVar > 0)
@@ -91,30 +109,35 @@ public class OpacityKiller : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    ///  FPS Ok
+    /// </summary>ye
     public void Disapearance()
     {
         if (opaciteVar == maxFade)
         {
-            for (int i = 0; i < transform.childCount; i++)
+            for (int i = 0; i < KillChilds.Count; i++)
             {
-                if (transform.GetChild(i).name.Contains("Plane") == false)
-                {
-                    transform.GetChild(i).gameObject.SetActive(false);
-                }
+                
+                KillChilds[i].SetActive(false);
+
             }
         }
         else
         {
-            for (int i = 0; i < transform.childCount; i++)
+            for (int i = 0; i < KillChilds.Count; i++)
             {
-                if (transform.GetChild(i).name.Contains("Plane") == false)
-                {
-                    transform.GetChild(i).gameObject.SetActive(true);
-                }
+
+                KillChilds[i].SetActive(true);
+
             }
         }
     }
 
+    /// <summary>
+    /// This is FPS ok
+    /// </summary>
     public void Outliner()
     {
         if (myCellMovement != null)
@@ -160,21 +183,6 @@ public class OpacityKiller : MonoBehaviour
             }
         }
     }
-
-
-    WaitForSeconds wait = new WaitForSeconds(1f);
-
-
-    public IEnumerator CalculateDistance()
-    {
-        while (true)
-        {
-            distance = Vector3.Distance(transform.position, cam.transform.position);
-            yield return wait;
-        }
-
-    }
-
 
 
 }

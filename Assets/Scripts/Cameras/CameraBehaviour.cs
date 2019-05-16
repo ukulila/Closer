@@ -209,7 +209,10 @@ public class CameraBehaviour : MonoBehaviour
                         if (selectedCube.collider)
                         {
                             switchToUI = false;
+
+                            //ROOM_Manager.Instance.Desactive();
                             ROOM_Manager.Instance.DeactivateUI();
+
                             cameraReposition = false;
                         }
                     }
@@ -248,7 +251,7 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "B_d2_Cell_Down_FrontRight")
                     {
-                        Debug.Log("continuePosDifference" + continuePosDifference);
+                        //Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[1] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - gameDollyPos;
@@ -262,7 +265,7 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "G_u3_Cell_Up_FrontRight")
                     {
-                        Debug.Log("continuePosDifference" + continuePosDifference);
+                        //Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[0] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - gameDollyPos;
@@ -277,7 +280,7 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "A_d1_Cell_Down_FrontLeft")
                     {
-                        Debug.Log("continuePosDifference" + continuePosDifference);
+                        //Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[3] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - gameDollyPos;
@@ -290,7 +293,7 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "H_u4_Cell _Up_FrontLeft")
                     {
-                        Debug.Log("continuePosDifference" + continuePosDifference);
+                        //Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[2] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - gameDollyPos;
@@ -305,7 +308,7 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "E_u1_Cell_Up_BackLeft")
                     {
-                        Debug.Log("continuePosDifference" + continuePosDifference);
+                        //Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[4] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - gameDollyPos;
@@ -319,7 +322,7 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "D_d4_Cell_Down_BackLeft")
                     {
-                        Debug.Log("continuePosDifference" + continuePosDifference);
+                        //Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[5] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - gameDollyPos;
@@ -333,7 +336,7 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "C_d3_Cell_Down_BackRight")
                     {
-                        Debug.Log("continuePosDifference" + continuePosDifference);
+                        //Debug.Log("continuePosDifference" + continuePosDifference);
 
                         continuePosDifference = (uiPathPosition[7] - currentPathPos);
                         dollyPositionDiff = uiDownDollyPos - gameDollyPos;
@@ -346,7 +349,7 @@ public class CameraBehaviour : MonoBehaviour
 
                     if (currentSelectedCell == "F_u2_Cell_Up_BackRight")
                     {
-                        Debug.Log("continuePosDifference" + continuePosDifference);
+                        //Debug.Log("continuePosDifference" + continuePosDifference);
                         continuePosDifference = (uiPathPosition[6] - currentPathPos);
                         dollyPositionDiff = uiUpDollyPos - gameDollyPos;
 
@@ -368,7 +371,7 @@ public class CameraBehaviour : MonoBehaviour
             if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube))
             {
                 //Debug raycast d'ouverture UI (actions contextuelles)
-                Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
+                //Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
 
                 if (currentSelectedCell == selectedCube.collider.gameObject.name && selectedCube.collider.gameObject.GetComponent<CellMovement>().once == false && cameraReposition == true && !isFingerMoving && isPlayerHere && cellMove != null)
                 {

@@ -62,13 +62,25 @@ public class CellMovement : MonoBehaviour
     public float speedModifier;
     float curvePercent;
     bool onlyone;
-    int timerFrame01;
+    int debugBool;
+    public List<Vector3> PositionsDebug;
+    public List<Material> PlaneMtlIsSpawn;
+    private bool isEntering;
+    private bool activatePosPreview;
     #region Init
 
-    public void Start()
+    public void Awake()
     {
         over = true;
 
+        ready = false;
+        hasEnded = true;
+        freezePosValue = true;
+
+    }
+
+    public void InitSetup()
+    {
         // Fills List of other Cells
         if (transform.parent.childCount != 0)
         {
@@ -79,10 +91,16 @@ public class CellMovement : MonoBehaviour
             }
         }
 
-        ready = false;
-        hasEnded = true;
-        freezePosValue = true;
-
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).name.Contains("Plane"))
+            {
+                if (transform.GetChild(i).name.Contains("Door") == false)
+                {
+                    PlaneMtlIsSpawn.Add(transform.GetChild(i).GetComponent<Renderer>().sharedMaterial);
+                }
+            }
+        }
     }
     #endregion
 
@@ -117,6 +135,7 @@ public class CellMovement : MonoBehaviour
 
                 transform.GetComponent<RoomInteraction>().UiTextUpdate();
                 onlyone = true;
+                isEntering = true;
                 isSpawn = true;
             }
 
@@ -135,21 +154,21 @@ public class CellMovement : MonoBehaviour
 
         if (isSpawn)
         {
-            player.transform.SetParent(transform);
-            isOpen = false;
-            selected = true;
-
-            for (int i = 0; i < 6; i++)
+            if (isEntering)
             {
-                /* if (transform.GetChild(i).name.Contains("Plane"))
-                 {*/
-                transform.GetChild(i).GetComponent<Renderer>().material.SetColor("_myColor", Color.green);
+                player.transform.SetParent(transform);
+                isOpen = false;
+                selected = true;
 
-                transform.GetChild(i).GetComponent<Renderer>().material.SetInt("_isActive", 1);
-                //}
+                for (int i = 0; i < PlaneMtlIsSpawn.Count; i++)
+                {
+                    PlaneMtlIsSpawn[i].SetColor("_myColor", Color.green);
 
+                    PlaneMtlIsSpawn[i].SetInt("_isActive", 1);
+                }
+
+                isEntering = false;
             }
-
             if (selected && raycastAutor)
             {
                 player.castingRay = true;
@@ -169,8 +188,6 @@ public class CellMovement : MonoBehaviour
 
 
         #region ---- RenameByPLace ----
-
-        
 
 
 
@@ -222,8 +239,10 @@ public class CellMovement : MonoBehaviour
 
         #region ---- Temporary DEBUG position ----
         //DebugWeirdPosition
-        if (hasEnded && timerFrame01 < 60)
+        if (hasEnded && debugBool < 10)
         {
+            #region OldWay
+            /*
             if (transform.position.x < 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
             {
                 transform.position = new Vector3(-resetPosValue, transform.position.y, transform.position.z);
@@ -253,9 +272,22 @@ public class CellMovement : MonoBehaviour
             else if (transform.position.z > 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y, resetPosValue);
-            }
+            }*/
+            #endregion
+            brothers = brothers.OrderBy(go => go.name).ToList();
 
-            timerFrame01++;
+            brothers[0].transform.position = PositionsDebug[0];
+            brothers[1].transform.position = PositionsDebug[1];
+            brothers[2].transform.position = PositionsDebug[2];
+            brothers[3].transform.position = PositionsDebug[3];
+            brothers[4].transform.position = PositionsDebug[4];
+            brothers[5].transform.position = PositionsDebug[5];
+            brothers[6].transform.position = PositionsDebug[6];
+            brothers[7].transform.position = PositionsDebug[7];
+
+            
+
+            debugBool++;
         }
 
         #endregion
@@ -274,8 +306,9 @@ public class CellMovement : MonoBehaviour
 
         }
 
+
         //Stores position of The Mouse after timer is 30
-        if (click && timer >= 15)
+        if (click && timer >= 15 && hasEnded)
         {
             thenPos = Input.mousePosition;
             movement = true;
@@ -286,9 +319,14 @@ public class CellMovement : MonoBehaviour
 
         if (freezePosValue)
         {
-
-            myPosFreeze = transform.position;
-            freezePosValue = false;
+            for (int i = 0; i < PositionsDebug.Count; i++)
+            {
+                if (transform.position == PositionsDebug[i])
+                {
+                    myPosFreeze = transform.position;
+                    freezePosValue = false;
+                }
+            }
 
         }
 
@@ -337,8 +375,9 @@ public class CellMovement : MonoBehaviour
                 for (int o = 0; o < brothers.Count; o++)
                 {
                     brothers[o].DebugPos();
-                    brothers[o].timerFrame01 = 0;
+                    brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
+                    brothers[o].activatePosPreview = true;
                     OrderCells();
                     player.check = true;
                 }
@@ -396,8 +435,9 @@ public class CellMovement : MonoBehaviour
                 for (int o = 0; o < brothers.Count; o++)
                 {
                     brothers[o].DebugPos();
-                    brothers[o].timerFrame01 = 0;
+                    brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
+                    brothers[o].activatePosPreview = true;
                     OrderCells();
                     player.check = true;
                 }
@@ -453,8 +493,9 @@ public class CellMovement : MonoBehaviour
                 for (int o = 0; o < brothers.Count; o++)
                 {
                     brothers[o].DebugPos();
-                    brothers[o].timerFrame01 = 0;
+                    brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
+                    brothers[o].activatePosPreview = true;
                     OrderCells();
                     player.check = true;
                 }
@@ -477,8 +518,13 @@ public class CellMovement : MonoBehaviour
         }
     }
 
-    private void OrderCells()
+    public void OrderCells()
     {
+        if(!hasEnded)
+        {
+            hasEnded = true;
+        }
+
         brothers = brothers.OrderBy(go => go.name).ToList();
         return;
     }
@@ -536,7 +582,7 @@ public class CellMovement : MonoBehaviour
         {
             movement = false;
             return;
-            
+
         }
 
 
@@ -889,4 +935,3 @@ public class CellMovement : MonoBehaviour
         }
     }
 }
-

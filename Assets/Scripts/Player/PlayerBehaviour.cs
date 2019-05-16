@@ -78,7 +78,7 @@ public class PlayerBehaviour : MonoBehaviour
      /*   animator.SetFloat("ValueX", x);
         animator.SetFloat("ValueY", y);*/
 
-        CheckConeLight();
+        //CheckConeLight();
 
         if (lookCam)
         {

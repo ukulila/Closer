@@ -315,7 +315,6 @@ public class DialogueSystem : MonoBehaviour
             if (!endOfTheLine && isFaster && boxReady)
             {
                 dialogueTexts[currentLine].color = new Color32(82, 29, 80, 255);
-                //Debug.Log("End now line " + currentLine);
                 endOfTheLine = true;
                 isFaster = false;
             }
@@ -323,7 +322,6 @@ public class DialogueSystem : MonoBehaviour
             if (!endOfTheLine && !isFaster && boxReady && dialogueHasStarted)
             {
                 typingTimeRatio = typingFasterRatio;
-                //Debug.Log("FASTER !");
                 isFaster = true;
             }
         }
@@ -466,8 +464,6 @@ public class DialogueSystem : MonoBehaviour
     {
         if (actorsIconHierarchyReference == null)
         {
-            //Debug.Log(actorsIconHierarchyReference.GetComponentsInChildren<Image>().Length);
-
             for (int i = 0; i < actorsIconHierarchyReference.GetComponentsInChildren<Image>().Length - 1; i++)
             {
                 actorsIcon.Add(actorsIconHierarchyReference.GetComponentsInChildren<Image>()[i]);
@@ -990,7 +986,7 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(335, 72);
 
-        //ROOM_Manager.Instance.LaunchUI();
+        ROOM_Manager.Instance.LaunchUI();
         GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
 
         endOfTheLine = false;
@@ -1000,12 +996,8 @@ public class DialogueSystem : MonoBehaviour
         dialogueBoxReady = false;
         dialogueHasStarted = false;
 
-        Debug.Log("RESET now");
-
         CleanDialogueSetUp();
         SetUp();
-
-
     }
 
     private void SetDialogueParameters()
@@ -1025,13 +1017,11 @@ public class DialogueSystem : MonoBehaviour
 
         if ((int)currentActor == activeActorsIndex[0])
         {
-            //Debug.Log("SPEAK");
             actorsIcon[activeActorsIndex[0]].color = speakingColor;
             actorsIcon[activeActorsIndex[1]].color = listeningColor;
         }
         else
         {
-            //Debug.Log("LISTEN");
             actorsIcon[activeActorsIndex[1]].color = speakingColor;
             actorsIcon[activeActorsIndex[0]].color = listeningColor;
         }
@@ -1071,20 +1061,12 @@ public class DialogueSystem : MonoBehaviour
 
         if (currentCharacter != lastCharacter)
         {
-            //Debug.Log("Last character begin = " + lastCharacter);
-
-            //Debug.LogWarning("current character = " + currentCharacter);
-            // Get the index of the material used by the current character.
             int materialIndex = textInfo.characterInfo[currentCharacter].materialReferenceIndex;
-            //Debug.Log("material Index = " + materialIndex);
 
-            // Get the vertex colors of the mesh used by this text element (character or sprite).
             vertexNewColor = textInfo.meshInfo[materialIndex].colors32;
-            // Get the index of the first vertex used by this text element.
-            int vertexIndex = textInfo.characterInfo[currentCharacter].vertexIndex;
-            //Debug.Log("vertex Index = " + vertexIndex);
 
-            // Set all to full alpha
+            int vertexIndex = textInfo.characterInfo[currentCharacter].vertexIndex;
+
             vertexNewColor[vertexIndex + 0].a = 255;
             vertexNewColor[vertexIndex + 1].a = 255;
             vertexNewColor[vertexIndex + 2].a = 255;
@@ -1092,7 +1074,6 @@ public class DialogueSystem : MonoBehaviour
 
             lastCharacter = currentCharacter;
 
-            //Debug.Log("Last character end = " + lastCharacter);
 
             dialogueTexts[currentLine].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
 
@@ -1135,9 +1116,6 @@ public class DialogueSystem : MonoBehaviour
             ROOM_Manager.Instance.LaunchUI();
             ending = false;
         }
-
-        //Debug.Log("lastY = " + lastY);
-        //Debug.Log("Ydisplacment = " + Ydisplacment);
 
         percentY = resetDialogueCurve.Evaluate(currentResetTime);
 

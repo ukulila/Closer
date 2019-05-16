@@ -19,6 +19,8 @@ public class NPC_Manager : MonoBehaviour
     /// </summary>
     public void TalkToCurrentNPC()
     {
+        //UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
+
         currentNPC.StartDialogueAbout();
         GameManager.Instance.currentGameMode = GameManager.GameMode.InteractingMode;
     }

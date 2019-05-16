@@ -40,8 +40,8 @@ public class CellScript : MonoBehaviour
     public PlayerBehaviour player;
 
 
-    public List<GameObject> coneRed;
-    public List<GameObject> coneGreen;
+    //public List<GameObject> coneRed;
+    //public List<GameObject> coneGreen;
     public bool freeRoom;
     public List<Material> material;
     private Vector3 rotationVector = new Vector3(0, 90, 0);
@@ -51,12 +51,13 @@ public class CellScript : MonoBehaviour
         first = false;
         freeRoom = false;
 
+        /*
         for (int i = 0; i < coneRed.Count; i++)
         {
             material.Add(coneRed[i].GetComponent<Renderer>().material);
             material[i].SetColor("_EmissionColor", Color.red);
         }
-
+        */
     }
 
     void Update()

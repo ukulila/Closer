@@ -103,6 +103,8 @@ public class Camera_UI : MonoBehaviour
             currentRepositionTime = 0;
 
             switchToUI = false;
+
+            //ROOM_Manager.Instance.Desactive();
             ROOM_Manager.Instance.DeactivateUI();
             cameraReposition = false;
         }
@@ -297,6 +299,9 @@ public class Camera_UI : MonoBehaviour
                             {
                                 switchToUI = true;
                                 cameraReposition = false;
+
+                                //ROOM_Manager.Instance.Active();
+
                                 StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier));
                             }
                         }
@@ -313,6 +318,9 @@ public class Camera_UI : MonoBehaviour
                         {
                             switchToUI = true;
                             cameraReposition = false;
+
+                            //ROOM_Manager.Instance.Active();
+
                             StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier));
                         }
 
