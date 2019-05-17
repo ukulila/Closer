@@ -986,8 +986,9 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(335, 72);
 
-        ROOM_Manager.Instance.LaunchUI();
-        GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
+        //ROOM_Manager.Instance.LaunchUI();
+        GameManager.Instance.SwitchModeTo(GameManager.GameMode.InvestigationMode);
+        //GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
 
         endOfTheLine = false;
         writting = false;
@@ -1113,7 +1114,7 @@ public class DialogueSystem : MonoBehaviour
         else
         {
             DesactivateIcons();
-            ROOM_Manager.Instance.LaunchUI();
+            //ROOM_Manager.Instance.LaunchUI();
             ending = false;
         }
 

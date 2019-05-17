@@ -211,7 +211,7 @@ public class CameraBehaviour : MonoBehaviour
                             switchToUI = false;
 
                             //ROOM_Manager.Instance.Desactive();
-                            ROOM_Manager.Instance.DeactivateUI();
+                            //ROOM_Manager.Instance.DeactivateUI();
 
                             cameraReposition = false;
                         }
@@ -684,7 +684,7 @@ public class CameraBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(0);
 
-        ROOM_Manager.Instance.LaunchUI();
+        //ROOM_Manager.Instance.LaunchUI();
     }
 
     /// <summary>

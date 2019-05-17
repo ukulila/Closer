@@ -105,7 +105,7 @@ public class Camera_UI : MonoBehaviour
             switchToUI = false;
 
             //ROOM_Manager.Instance.Desactive();
-            ROOM_Manager.Instance.DeactivateUI();
+            //ROOM_Manager.Instance.DeactivateUI();
             cameraReposition = false;
         }
     }
@@ -300,9 +300,7 @@ public class Camera_UI : MonoBehaviour
                                 switchToUI = true;
                                 cameraReposition = false;
 
-                                //ROOM_Manager.Instance.Active();
-
-                                StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier));
+                                ROOM_Manager.Instance.LaunchUI((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier);
                             }
                         }
                     }
@@ -319,9 +317,7 @@ public class Camera_UI : MonoBehaviour
                             switchToUI = true;
                             cameraReposition = false;
 
-                            //ROOM_Manager.Instance.Active();
-
-                            StartCoroutine(UIapparitionTime((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier));
+                            ROOM_Manager.Instance.LaunchUI((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier);
                         }
 
                     }
@@ -502,16 +498,5 @@ public class Camera_UI : MonoBehaviour
             RTargetImageContextuelle[i].raycastTarget = false;
             RTargetTextContextuelle[i].raycastTarget = false;
         }
-    }
-
-    /// <summary>
-    /// Delay avant l'apparition de L'UI d'actions contextuelles
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator UIapparitionTime(float time)
-    {
-        yield return new WaitForSeconds(time);
-
-        ROOM_Manager.Instance.LaunchUI();
     }
 }

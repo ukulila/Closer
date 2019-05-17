@@ -51,6 +51,7 @@ public class UI_Manager_SetUp : Editor
         {
             ui_Manager.dialogueGO.Clear();
             ui_Manager.contextuelleGO.Clear();
+            ui_Manager.outOfContextGO.Clear();
             ui_Manager.inventoryGO.Clear();
             ui_Manager.inventoryButtonsGO.Clear();
             ui_Manager.backgroundGO.Clear();
@@ -153,7 +154,7 @@ public class UI_Manager_SetUp : Editor
 
             if (current_outOfContext != null)
             {
-                ui_Manager.contextuelleGO.Add(current_outOfContext);
+                ui_Manager.outOfContextGO.Add(current_outOfContext);
             }
 
 
