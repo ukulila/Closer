@@ -17,15 +17,14 @@ public class Camera_UI : MonoBehaviour
     [Header("Switching Interface Parameters")]
     public bool switchToUI;
     public bool isPlayerHere;
-    public bool isLookingForPathCells;
+    
     public CellMovement cellMove;
     public PatchCells cellPatch;
     public string currentSelectedCell;
+    public LayerMask cellMask;
 
-    public List<Image> RTargetImageContextuelle;
-    public List<TextMeshProUGUI> RTargetTextContextuelle;
-
-    //public Animator ui_BackgroundAnimator;
+    [Header("******* TUTO specific")]
+    public bool isLookingForPathCells;
 
     [Header("   Target Offset")]
     public List<Vector3> targetOffsets;
@@ -74,9 +73,6 @@ public class Camera_UI : MonoBehaviour
     [Space]
     public bool cameraReposition = true;
 
-    [Header("Debug Issues")]
-    public List<TextMeshProUGUI> debugTexts;
-    public List<Slider> sliders;
 
 
 
@@ -90,6 +86,7 @@ public class Camera_UI : MonoBehaviour
         Instance = this;
 
         positionMax = dollyCart.m_Path.PathLength;
+
     }
 
     public void SwitchToNOui()
@@ -104,8 +101,7 @@ public class Camera_UI : MonoBehaviour
 
             switchToUI = false;
 
-            //ROOM_Manager.Instance.Desactive();
-            //ROOM_Manager.Instance.DeactivateUI();
+            ROOM_Manager.Instance.DeactivateUI();
             cameraReposition = false;
         }
     }
@@ -114,23 +110,19 @@ public class Camera_UI : MonoBehaviour
     {
         if (switchToUI)
         {
-            ActivateUIRaycastTarget();
-
             if (cameraReposition)
             {
-                animationCurveTimingMax = 1.5f;
+                animationCurveTimingMax = animationTimingMin;
             }
         }
         else
         {
             InventorySystem.Instance.canBeDisplayed = true;
-            DeactivateUIRaycastTarget();
 
             if (Input.GetMouseButtonDown(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
             {
 
                 RaycastHit selectedCube;
-                LayerMask cellMask = LayerMask.GetMask("Cell");
 
                 currentPathPos = dollyCart.m_Position;
                 currentDollyPosition = dollyTransform.localPosition;
@@ -138,20 +130,20 @@ public class Camera_UI : MonoBehaviour
                 currentFOV = virtualCamera.m_Lens.OrthographicSize;
                 currentRepositionTime = 0;
 
-                if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, cellMask) && cameraReposition)
+                if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, Mathf.Infinity, cellMask) && cameraReposition)
                 {
-                    currentSelectedCell = selectedCube.collider.gameObject.transform.parent.name;
+                    currentSelectedCell = selectedCube.collider.gameObject.name;
 
                     if (isLookingForPathCells)
                     {
-                        cellPatch = selectedCube.collider.gameObject.transform.parent.GetComponent<PatchCells>();
+                        cellPatch = selectedCube.collider.gameObject.GetComponent<PatchCells>();
 
                         if (cellPatch != null)
                             isPlayerHere = cellPatch.isSpawn;
                     }
                     else
                     {
-                        cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
+                        cellMove = selectedCube.collider.gameObject.GetComponent<CellMovement>();
 
                         if (cellMove != null)
                             isPlayerHere = cellMove.isSpawn;
@@ -159,102 +151,103 @@ public class Camera_UI : MonoBehaviour
 
                     fovDiff = uiFOV - currentFOV;
 
-
-                    if (currentSelectedCell == "B_d2_Cell_Down_FrontRight")
+                    if (isPlayerHere)
                     {
+                        if (currentSelectedCell == "B_d2_Cell_Down_FrontRight")
+                        {
 
-                        continuePosDifference = (uiPathPosition[1] - currentPathPos);
-                        dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+                            continuePosDifference = (uiPathPosition[1] - currentPathPos);
+                            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
 
 
-                        CheckRepositionWay();
+                            CheckRepositionWay();
 
 
-                        targetOffsetDiff = targetOffsets[1] - currentTargetOffset;
+                            targetOffsetDiff = targetOffsets[1] - currentTargetOffset;
+                        }
+
+                        if (currentSelectedCell == "G_u3_Cell_Up_FrontRight")
+                        {
+                            continuePosDifference = (uiPathPosition[0] - currentPathPos);
+                            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+
+
+                            CheckRepositionWay();
+
+
+                            targetOffsetDiff = targetOffsets[0] - currentTargetOffset;
+                        }
+
+
+                        if (currentSelectedCell == "A_d1_Cell_Down_FrontLeft")
+                        {
+                            continuePosDifference = (uiPathPosition[3] - currentPathPos);
+                            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+
+                            CheckRepositionWay();
+
+
+                            targetOffsetDiff = targetOffsets[3] - currentTargetOffset;
+                        }
+
+                        if (currentSelectedCell == "H_u4_Cell _Up_FrontLeft")
+                        {
+                            continuePosDifference = (uiPathPosition[2] - currentPathPos);
+                            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+
+
+                            CheckRepositionWay();
+
+
+                            targetOffsetDiff = targetOffsets[2] - currentTargetOffset;
+                        }
+
+
+                        if (currentSelectedCell == "E_u1_Cell_Up_BackLeft")
+                        {
+                            continuePosDifference = (uiPathPosition[4] - currentPathPos);
+                            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+
+
+                            CheckRepositionWay();
+
+
+                            targetOffsetDiff = targetOffsets[4] - currentTargetOffset;
+                        }
+
+                        if (currentSelectedCell == "D_d4_Cell_Down_BackLeft")
+                        {
+                            continuePosDifference = (uiPathPosition[5] - currentPathPos);
+                            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+
+                            CheckRepositionWay();
+
+
+                            targetOffsetDiff = targetOffsets[5] - currentTargetOffset;
+                        }
+
+
+                        if (currentSelectedCell == "C_d3_Cell_Down_BackRight")
+                        {
+                            continuePosDifference = (uiPathPosition[7] - currentPathPos);
+                            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+
+                            CheckRepositionWay();
+
+
+                            targetOffsetDiff = targetOffsets[7] - currentTargetOffset;
+                        }
+
+                        if (currentSelectedCell == "F_u2_Cell_Up_BackRight")
+                        {
+                            continuePosDifference = (uiPathPosition[6] - currentPathPos);
+                            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+
+                            CheckRepositionWay();
+
+                            targetOffsetDiff = targetOffsets[6] - currentTargetOffset;
+                        }
                     }
-
-                    if (currentSelectedCell == "G_u3_Cell_Up_FrontRight")
-                    {
-                        continuePosDifference = (uiPathPosition[0] - currentPathPos);
-                        dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
-
-
-                        CheckRepositionWay();
-
-
-                        targetOffsetDiff = targetOffsets[0] - currentTargetOffset;
-                    }
-
-
-                    if (currentSelectedCell == "A_d1_Cell_Down_FrontLeft")
-                    {
-                        continuePosDifference = (uiPathPosition[3] - currentPathPos);
-                        dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
-
-                        CheckRepositionWay();
-
-
-                        targetOffsetDiff = targetOffsets[3] - currentTargetOffset;
-                    }
-
-                    if (currentSelectedCell == "H_u4_Cell _Up_FrontLeft")
-                    {
-                        continuePosDifference = (uiPathPosition[2] - currentPathPos);
-                        dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
-
-
-                        CheckRepositionWay();
-
-
-                        targetOffsetDiff = targetOffsets[2] - currentTargetOffset;
-                    }
-
-
-                    if (currentSelectedCell == "E_u1_Cell_Up_BackLeft")
-                    {
-                        continuePosDifference = (uiPathPosition[4] - currentPathPos);
-                        dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
-
-
-                        CheckRepositionWay();
-
-
-                        targetOffsetDiff = targetOffsets[4] - currentTargetOffset;
-                    }
-
-                    if (currentSelectedCell == "D_d4_Cell_Down_BackLeft")
-                    {
-                        continuePosDifference = (uiPathPosition[5] - currentPathPos);
-                        dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
-
-                        CheckRepositionWay();
-
-
-                        targetOffsetDiff = targetOffsets[5] - currentTargetOffset;
-                    }
-
-
-                    if (currentSelectedCell == "C_d3_Cell_Down_BackRight")
-                    {
-                        continuePosDifference = (uiPathPosition[7] - currentPathPos);
-                        dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
-
-                        CheckRepositionWay();
-
-
-                        targetOffsetDiff = targetOffsets[7] - currentTargetOffset;
-                    }
-
-                    if (currentSelectedCell == "F_u2_Cell_Up_BackRight")
-                    {
-                        continuePosDifference = (uiPathPosition[6] - currentPathPos);
-                        dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
-
-                        CheckRepositionWay();
-
-                        targetOffsetDiff = targetOffsets[6] - currentTargetOffset;
-                    }
-
                 }
             }
         }
@@ -263,28 +256,27 @@ public class Camera_UI : MonoBehaviour
         if (Input.GetMouseButton(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && !switchToUI && isPlayerHere && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             RaycastHit selectedCube;
-            LayerMask cellMask = LayerMask.GetMask("Cell");
 
-            if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, cellMask))
+            if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, Mathf.Infinity, cellMask))
             {
-                currentSelectedCell = selectedCube.collider.gameObject.transform.parent.name;
+                currentSelectedCell = selectedCube.collider.gameObject.name;
 
                 if (isLookingForPathCells)
                 {
-                    cellPatch = selectedCube.collider.gameObject.transform.parent.GetComponent<PatchCells>();
+                    cellPatch = selectedCube.collider.gameObject.GetComponent<PatchCells>();
 
                     if (cellPatch != null)
                         isPlayerHere = cellPatch.isSpawn;
                 }
                 else
                 {
-                    cellMove = selectedCube.collider.gameObject.transform.parent.GetComponent<CellMovement>();
+                    cellMove = selectedCube.collider.gameObject.GetComponent<CellMovement>();
 
                     if (cellMove != null)
                         isPlayerHere = cellMove.isSpawn;
                 }
 
-                if (currentSelectedCell != null && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && cameraReposition == true && isPlayerHere)
+                if (currentSelectedCell != null && currentSelectedCell == selectedCube.collider.gameObject.name && cameraReposition == true && isPlayerHere)
                 {
                     if (!isLookingForPathCells)
                     {
@@ -295,7 +287,7 @@ public class Camera_UI : MonoBehaviour
                             else
                                 selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
 
-                            if (selectionTimingImage.fillAmount == 1 && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && isPlayerHere)
+                            if (selectionTimingImage.fillAmount == 1 && currentSelectedCell == selectedCube.collider.gameObject.name && isPlayerHere)
                             {
                                 switchToUI = true;
                                 cameraReposition = false;
@@ -330,27 +322,8 @@ public class Camera_UI : MonoBehaviour
         {
             selectionTimingImage.fillAmount = 0;
             timeBeforeSearch = 0;
+            isPlayerHere = false;
         }
-
-
-        #region DEBUG TEXT
-
-        //debugTexts[0].text = ("cameraReposition : " + cameraReposition);
-        //debugTexts[1].text = ("selectionTimingImage.fillAmount : " + selectionTimingImage.fillAmount);
-        //debugTexts[2].text = ("switchToUI : " + switchToUI);
-        //debugTexts[3].text = ("isZooming : " + timeBeforeSearch);
-        //debugTexts[4].text = ("isPlayerHere : " + isPlayerHere);
-        //debugTexts[5].text = ("animationCurveTimingMax : " + animationCurveTimingMax);
-        //debugTexts[6].text = ("currentRepositionTime : " + currentRepositionTime);
-        //debugTexts[7].text = ("speed : " + curr);
-        //debugTexts[8].text = ("fieldOfView : " + fieldOfView);
-        //debugTexts[9].text = ("currentSlowTime : " + currentSlowTime);
-        //debugTexts[10].text = ("currentX : " + currentX);
-        //debugTexts[11].text = ("currentY : " + currentY);
-        //debugTexts[12].text = ("pathOffset : " + pathOffset);
-        //debugTexts[13].text = ("pathSpeed : " + pathSpeed);
-
-        #endregion
 
 
         if (!cameraReposition)
@@ -372,9 +345,10 @@ public class Camera_UI : MonoBehaviour
             {
                 InventorySystem.Instance.canBeDisplayed = false;
 
+                /*
                 if (InventorySystem.Instance.isInventoryDisplayed)
                     InventorySystem.Instance.inventoryButton.onClick.Invoke();
-
+                    */
             }
             else
             {
@@ -471,32 +445,6 @@ public class Camera_UI : MonoBehaviour
         else
         {
             animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
-        }
-
-
-    }
-
-    /// <summary>
-    /// Active les Raycast Target de l'UI Contextuelle
-    /// </summary>
-    public void ActivateUIRaycastTarget()
-    {
-        for (int i = 0; i < RTargetImageContextuelle.Count; i++)
-        {
-            RTargetImageContextuelle[i].raycastTarget = true;
-            RTargetTextContextuelle[i].raycastTarget = true;
-        }
-    }
-
-    /// <summary>
-    /// Désactive les Raycast Target de l'UI Contextuelle
-    /// </summary>
-    public void DeactivateUIRaycastTarget()
-    {
-        for (int i = 0; i < RTargetImageContextuelle.Count; i++)
-        {
-            RTargetImageContextuelle[i].raycastTarget = false;
-            RTargetTextContextuelle[i].raycastTarget = false;
         }
     }
 }

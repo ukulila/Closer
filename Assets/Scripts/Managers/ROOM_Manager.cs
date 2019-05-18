@@ -25,6 +25,8 @@ public class ROOM_Manager : MonoBehaviour
     {
         if (currentRoom != null)
         {
+            UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.outOfContextGO);
+
             StartCoroutine(ActiveOutContext());
             StartCoroutine(ActiveAnimationIn(animDelay));
 
@@ -42,15 +44,10 @@ public class ROOM_Manager : MonoBehaviour
             UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = false;
             UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.outOfContextGO);
 
+            currentRoom.DisableUI();
+
             GameManager.Instance.SwitchModeTo(GameManager.GameMode.PuzzleMode);
         }
-
-    }
-
-    IEnumerator DesactiveIn()
-    {
-        yield return new WaitForSeconds(2);
-
 
     }
 

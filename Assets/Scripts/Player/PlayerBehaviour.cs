@@ -115,34 +115,33 @@ public class PlayerBehaviour : MonoBehaviour
         {
             for (int u = 0; u < context.doorWayPoints.Count; u++)
             {
-                Debug.Log("Je me tire premier ray");
                 RaycastHit hit;
                 int layerMaskDoor = LayerMask.GetMask("Door");
 
 
                 if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
+                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
                     cP.okToSetup = true;
 
 
-                    Debug.Log(hit.transform.name);
+                    //Debug.Log(hit.transform.name);
 
 
                     if (hit.transform.parent.GetComponent<CellMovement>())
                     {
-                        Debug.Log("parentparentconatinsCellmovement");
+                        //Debug.Log("parentparentconatinsCellmovement");
 
                         CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
 
                         if (cellMove.isOpen == false)
                         {
-                             Debug.Log("here is a door i could take" + hit.transform.parent.name);
+                             //Debug.Log("here is a door i could take" + hit.transform.parent.name);
                             cellMove.isOpen = true;
                         }
                         else if (cellMove.isOpen == true)
                         {
-                            Debug.Log("close");
+                            //Debug.Log("close");
                             cellMove.isOpen = false;
                         }
                     }
@@ -151,33 +150,33 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 else
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
+                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
                     castingRay = false;
 
                 }
 
                 if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.green, 50);
+                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.green, 50);
                     cP.okToSetup = true;
 
 
-                    Debug.Log(hit.transform.parent.name);
+                    //Debug.Log(hit.transform.parent.name);
 
                     if (hit.transform.parent.GetComponent<CellMovement>())
                     {
-                        Debug.Log("parentparentconatinsCellmovement");
+                        //Debug.Log("parentparentconatinsCellmovement");
 
                         CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
 
                         if (cellMove.isOpen == false)
                         {
-                            Debug.Log("here is a door i could take" + hit.transform.parent.name);
+                            //Debug.Log("here is a door i could take" + hit.transform.parent.name);
                             cellMove.isOpen = true;
                         }
                         else if (cellMove.isOpen == true)
                         {
-                            Debug.Log("close");
+                            //Debug.Log("close");
                             cellMove.isOpen = false;
                         }
                     }
@@ -186,7 +185,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 else
                 {
-                    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
+                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
                     castingRay = false;
 
                 }

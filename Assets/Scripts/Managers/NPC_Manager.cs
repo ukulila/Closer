@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class NPC_Manager : MonoBehaviour
 {
@@ -19,8 +20,14 @@ public class NPC_Manager : MonoBehaviour
     /// </summary>
     public void TalkToCurrentNPC()
     {
-        currentNPC.StartDialogueAbout();
+        StartCoroutine(StartDialogueAnimIn(1.5f));
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.InteractingMode);
-        //GameManager.Instance.currentGameMode = GameManager.GameMode.InteractingMode;
+    }
+
+    IEnumerator StartDialogueAnimIn(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        currentNPC.StartDialogueAbout();
     }
 }
