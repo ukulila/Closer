@@ -25,10 +25,10 @@ public class OpacityKiller : MonoBehaviour
     public int maxFade;
 
     public CellMovement myCellMovement;
-    private List<GameObject> KillChilds;
     */
 
     public CinemachineDollyCart DollyCart;
+    public List<GameObject> KillChilds;
 
     private float Opacity01 = 250;
     /*
@@ -59,44 +59,44 @@ public class OpacityKiller : MonoBehaviour
 
 
     }
-    
-   /* private void OpacitySetup()
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).name.Contains("Plane") && transform.GetChild(i).name.Contains("Porte") == false)                          ///////////
-            {
-                myMaterial.Add(transform.GetChild(i).GetComponent<Renderer>().material);
-            }
-        }
 
-        if (myCellMovement == null)                                                                                                              ///////////
-        {
-            myCellMovement = GetComponent<CellMovement>();
-        }
+    /* private void OpacitySetup()
+     {
+         for (int i = 0; i < transform.childCount; i++)
+         {
+             if (transform.GetChild(i).name.Contains("Plane") && transform.GetChild(i).name.Contains("Porte") == false)                          ///////////
+             {
+                 myMaterial.Add(transform.GetChild(i).GetComponent<Renderer>().material);
+             }
+         }
 
-        for (int i = 0; i < transform.childCount; i++)                                                                                           ///////////                                                                                            
-        {
+         if (myCellMovement == null)                                                                                                              ///////////
+         {
+             myCellMovement = GetComponent<CellMovement>();
+         }
 
-            if (transform.GetChild(i).name.Contains("Plane") == false)
-            {
-                KillChilds.Add(transform.GetChild(i).gameObject);
-            }
+         for (int i = 0; i < transform.childCount; i++)                                                                                           ///////////                                                                                            
+         {
 
-        }
+             if (transform.GetChild(i).name.Contains("Plane") == false)
+             {
+                 KillChilds.Add(transform.GetChild(i).gameObject);
+             }
 
-        if(cam == null)
-        {
-            cam = GameObject.Find("Main Camera");
-        }
-    }*/
+         }
+
+         if(cam == null)
+         {
+             cam = GameObject.Find("Main Camera");
+         }
+     }*/
 
     // Update is called once per frame
     void Update()
     {
-        
-          if(upAndRunning == true)
-          {
+
+        if (upAndRunning == true)
+        {
 
 
             if (localAlpha == 0)
@@ -122,6 +122,32 @@ public class OpacityKiller : MonoBehaviour
 
             }
 
+        }
+
+
+
+
+        if (Planes[0].color.a == 1)
+        {
+            if (KillChilds[KillChilds.Count - 1].activeInHierarchy == true)
+            {
+                for (int i = 0; i < KillChilds.Count; i++)
+                {
+                    KillChilds[i].SetActive(false);
+
+                }
+            }
+        }
+        else
+        {
+            if (KillChilds[KillChilds.Count-1].activeInHierarchy == false)
+            {
+                for (int i = 0; i < KillChilds.Count; i++)
+                {
+                    KillChilds[i].SetActive(true);
+
+                }
+            }
         }
           /*
                 float delay = 1f;
