@@ -71,4 +71,20 @@ public class UI_Manager : MonoBehaviour
             goToDeactivate[i].SetActive(false);
         }
     }
+
+    /// <summary>
+    /// Active les GO après un delay
+    /// </summary>
+    /// <param name="delay">Delay avant désactivation</param>
+    /// <param name="goToDeactivate">List de GameObject à activer</param>
+    /// <returns></returns>
+    public IEnumerator DelayBeforeActivation(float delay, List<GameObject> goToActivate)
+    {
+        yield return new WaitForSeconds(delay);
+
+        for (int i = 0; i < goToActivate.Count; i++)
+        {
+            goToActivate[i].SetActive(false);
+        }
+    }
 }

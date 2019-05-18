@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -40,7 +39,6 @@ public class NPCInteractions : MonoBehaviour
     /// </summary>
     public void StartDialogueAbout()
     {
-        //Debug.Log("Dial$$$");
         if (onQuest)
         {
             questDialogueSystems[dialogueIndex].StartDialogue();

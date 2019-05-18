@@ -254,8 +254,6 @@ public class DialogueSystem : MonoBehaviour
     /// <returns></returns>
     IEnumerator StartDialogueIn(float time)
     {
-        yield return new WaitForSeconds(2);
-
         ActivateActorsIcons();
         nameCharacter.text = names[activeActorsIndex[1]];
         isStarting = true;
@@ -833,7 +831,6 @@ public class DialogueSystem : MonoBehaviour
         actorsColorReference.Clear();
         names.Clear();
 
-        //listOfCharacterArray.lines.Clear();
         currentWord = "";
     }
 
@@ -927,7 +924,6 @@ public class DialogueSystem : MonoBehaviour
     }
     #endregion
 
-
     private void ActivateActorsIcons()
     {
         for (int i = 0; i < activeActorsIndex.Count; i++)
@@ -986,8 +982,9 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(335, 72);
 
-        //ROOM_Manager.Instance.LaunchUI();
-        GameManager.Instance.SwitchModeTo(GameManager.GameMode.InvestigationMode);
+        
+        //GameManager.Instance.SwitchModeTo(GameManager.GameMode.InvestigationMode);
+        ROOM_Manager.Instance.LaunchUI(0.1f);
         //GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
 
         endOfTheLine = false;
