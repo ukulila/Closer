@@ -16,6 +16,6 @@ public class FPSDisplay : MonoBehaviour
         if (fps < 30) GUI.contentColor = Color.yellow;
         else if (fps < 10) GUI.contentColor = Color.red;
         else GUI.contentColor = Color.green;
-        GUI.Label(new Rect(50, 50, 1000, 500), "FPS: " + (int)fps);
+        GUI.Label(new Rect(50, 50, 10000, 5000), "FPS: " + (int)fps);
     }
 }
