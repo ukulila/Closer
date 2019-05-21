@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public enum GameMode { PuzzleMode, InvestigationMode, InteractingMode, CinematicMode, MenuMode }
+    public enum GameMode { PuzzleMode, InvestigationMode, Dialogue, CinematicMode, MenuMode }
 
     [Header("Mode de jeu")]
     public GameMode currentGameMode;
@@ -28,16 +28,22 @@ public class GameManager : MonoBehaviour
     {
         currentGameMode = nextMode;
 
-        switch(currentGameMode)
+        switch (currentGameMode)
         {
             case GameMode.PuzzleMode:
-                UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.inventoryGO);
+                if (previousGameMode == GameMode.Dialogue)
+                {
 
-                UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = false;
+                }
+                else
+                {
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.inventoryGO);
 
-                UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.contextuelleGO));
-                UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.backgroundGO));
+                    UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = false;
 
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.contextuelleGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.backgroundGO));
+                }
                 previousGameMode = GameMode.PuzzleMode;
                 break;
 
@@ -52,8 +58,6 @@ public class GameManager : MonoBehaviour
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.contextuelleGO);
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2f, UI_Manager.Instance.inventoryGO));
-
-                    previousGameMode = GameMode.InvestigationMode;
                 }
                 else
                 {
@@ -61,22 +65,30 @@ public class GameManager : MonoBehaviour
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.contextuelleGO);
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.dialogueGO));
-
-                    previousGameMode = GameMode.InvestigationMode;
                 }
+
+                previousGameMode = GameMode.InvestigationMode;
                 break;
 
-            case GameMode.InteractingMode:
+            case GameMode.Dialogue:
                 //Debug.Log("From Investigation to Interacting");
-                UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
+                if (previousGameMode == GameMode.PuzzleMode)
+                {
 
-                UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = false;
-                UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.outOfContextGO);
+                }
+                else
+                {
 
-                UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.contextuelleGO));
 
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
 
-                previousGameMode = GameMode.InteractingMode;
+                    UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = false;
+                    UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.outOfContextGO);
+
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.contextuelleGO));
+                }
+
+                previousGameMode = GameMode.Dialogue;
                 break;
         }
     }

@@ -6,6 +6,8 @@ using TMPro;
 
 public class DialogueSystem : MonoBehaviour
 {
+    public bool startOnAwake;
+
     [Header("Contenu en lignes du Dialogue")]
     public TextAsset asset;
     public int currentLine;
@@ -185,13 +187,14 @@ public class DialogueSystem : MonoBehaviour
             isThereAnotherLine = true;
         }
 
-        //StartDialogue();
+        if (startOnAwake)
+            StartDialogue();
     }
 
 
     public void StartDialogue()
     {
-        StartCoroutine(StartDialogueIn(2));
+        StartCoroutine(StartDialogueIn(1.5f));
     }
 
     public void StartingDialogueCurve()
@@ -982,7 +985,7 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(335, 72);
 
-        
+
         //GameManager.Instance.SwitchModeTo(GameManager.GameMode.InvestigationMode);
         ROOM_Manager.Instance.LaunchUI(0.1f);
         //GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
