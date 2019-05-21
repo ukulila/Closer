@@ -61,12 +61,12 @@ public class CellMovement : MonoBehaviour
     public AnimationCurve LerpSpeed;
     public float speedModifier;
     float curvePercent;
-    bool onlyone;
+    //bool onlyone;
     int debugBool;
     public List<Vector3> PositionsDebug;
     public List<Material> PlaneMtlIsSpawn;
-    private bool isEntering;
-    private bool activatePosPreview;
+    public bool isEntering;
+    //private bool activatePosPreview;
     #region Init
 
     public void Awake()
@@ -134,7 +134,7 @@ public class CellMovement : MonoBehaviour
                 }
 
                 transform.GetComponent<RoomInteraction>().UiTextUpdate();
-                onlyone = true;
+                //onlyone = true;
                 isEntering = true;
                 isSpawn = true;
             }
@@ -159,14 +159,14 @@ public class CellMovement : MonoBehaviour
                 player.transform.SetParent(transform);
                 isOpen = false;
                 selected = true;
-
+                /*
                 for (int i = 0; i < PlaneMtlIsSpawn.Count; i++)
                 {
                     PlaneMtlIsSpawn[i].SetColor("_myColor", Color.green);
 
                     PlaneMtlIsSpawn[i].SetInt("_isActive", 1);
                 }
-
+                */
                 isEntering = false;
             }
             if (selected && raycastAutor)
@@ -377,7 +377,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].DebugPos();
                     brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
-                    brothers[o].activatePosPreview = true;
+                 //   brothers[o].activatePosPreview = true;
                     OrderCells();
                     player.check = true;
                 }
@@ -437,7 +437,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].DebugPos();
                     brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
-                    brothers[o].activatePosPreview = true;
+                //    brothers[o].activatePosPreview = true;
                     OrderCells();
                     player.check = true;
                 }
@@ -495,7 +495,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].DebugPos();
                     brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
-                    brothers[o].activatePosPreview = true;
+             //       brothers[o].activatePosPreview = true;
                     OrderCells();
                     player.check = true;
                 }
