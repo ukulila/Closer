@@ -33,7 +33,12 @@ public class GameManager : MonoBehaviour
             case GameMode.PuzzleMode:
                 if (previousGameMode == GameMode.Dialogue)
                 {
+                    Debug.Log("From Dialogue to Puzzle");
 
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.inventoryGO);
+
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.dialogueGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.backgroundGO));
                 }
                 else
                 {
@@ -61,7 +66,6 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    //Debug.Log("From Interacting to Investigation");
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.contextuelleGO);
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.dialogueGO));
@@ -71,15 +75,21 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameMode.Dialogue:
-                //Debug.Log("From Investigation to Interacting");
                 if (previousGameMode == GameMode.PuzzleMode)
                 {
+                    Debug.Log("From Puzzle to Dialogue");
 
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.backgroundGO);
+
+                    UI_Manager.Instance.inventoryGO[2].GetComponent<Button>().onClick.Invoke();
+                    UI_Manager.Instance.inventoryButtonsGO[0].GetComponentInChildren<Button>().onClick.Invoke();
+                    InventorySystem.Instance.HideInventory();
+
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.inventoryGO));
                 }
                 else
                 {
-
-
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
 
                     UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = false;

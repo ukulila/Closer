@@ -51,7 +51,7 @@ public class ROOM_Manager : MonoBehaviour
 
     }
 
-    IEnumerator ActiveAnimationIn(float time)
+    public IEnumerator ActiveAnimationIn(float time)
     {
         yield return new WaitForSeconds(time);
 

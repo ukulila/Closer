@@ -6,6 +6,7 @@ using TMPro;
 
 public class DialogueSystem : MonoBehaviour
 {
+    [Header("DEBUG bool")]
     public bool startOnAwake;
 
     [Header("Contenu en lignes du Dialogue")]
@@ -167,6 +168,9 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("Actors name")]
     public List<string> names;
+
+    [Header("***** Cinematic Option")]
+    public bool isForCinematic;
 
 
 
@@ -985,9 +989,18 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(335, 72);
 
-
         //GameManager.Instance.SwitchModeTo(GameManager.GameMode.InvestigationMode);
-        ROOM_Manager.Instance.LaunchUI(0.1f);
+        if (!isForCinematic)
+        {
+            ROOM_Manager.Instance.LaunchUI(0.1f);
+        }
+        else
+        {
+            Debug.Log("EndCinematic");
+            
+            CinematicTrigger.Instance.EndCinematic();
+        }
+
         //GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
 
         endOfTheLine = false;

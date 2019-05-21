@@ -89,9 +89,9 @@ public class Camera_UI : MonoBehaviour
 
     }
 
-    public void SwitchToNOui()
+    public void SwitchToNoUi()
     {
-        if (GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode)
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode || GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue)
         {
             currentPathPos = dollyCart.m_Position;
             currentDollyPosition = dollyTransform.localPosition;
@@ -121,14 +121,11 @@ public class Camera_UI : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
             {
-
                 RaycastHit selectedCube;
 
-                currentPathPos = dollyCart.m_Position;
-                currentDollyPosition = dollyTransform.localPosition;
-                currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
-                currentFOV = virtualCamera.m_Lens.OrthographicSize;
-                currentRepositionTime = 0;
+
+                SetInitialCameraValues();
+
 
                 if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, Mathf.Infinity, cellMask) && cameraReposition)
                 {
@@ -149,7 +146,7 @@ public class Camera_UI : MonoBehaviour
                             isPlayerHere = cellMove.isSpawn;
                     }
 
-                    fovDiff = uiFOV - currentFOV;
+                    //fovDiff = uiFOV - currentFOV;
 
 
                     if (isPlayerHere)
@@ -164,6 +161,7 @@ public class Camera_UI : MonoBehaviour
         if (Input.GetMouseButton(0) && Camera_Rotation.Instance.aboutCamera == false && cameraReposition && !switchToUI && isPlayerHere && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             RaycastHit selectedCube;
+
 
             if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, Mathf.Infinity, cellMask))
             {
@@ -183,6 +181,7 @@ public class Camera_UI : MonoBehaviour
                     if (cellMove != null)
                         isPlayerHere = cellMove.isSpawn;
                 }
+
 
                 if (currentSelectedCell != null && currentSelectedCell == selectedCube.collider.gameObject.name && cameraReposition == true && isPlayerHere)
                 {
@@ -212,6 +211,7 @@ public class Camera_UI : MonoBehaviour
                         else
                             selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
 
+
                         if (selectionTimingImage.fillAmount == 1 && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && isPlayerHere)
                         {
                             switchToUI = true;
@@ -219,7 +219,6 @@ public class Camera_UI : MonoBehaviour
 
                             ROOM_Manager.Instance.LaunchUI((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier);
                         }
-
                     }
                 }
             }
@@ -238,6 +237,15 @@ public class Camera_UI : MonoBehaviour
             RepositionCamera();
     }
 
+    public void SetInitialCameraValues()
+    {
+        currentPathPos = dollyCart.m_Position;
+        currentDollyPosition = dollyTransform.localPosition;
+        currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
+        currentFOV = virtualCamera.m_Lens.OrthographicSize;
+        currentRepositionTime = 0;
+    }
+
     public void SetCameraNextLocation(string nextLocationName)
     {
         if (nextLocationName == "B_d2_Cell_Down_FrontRight")
@@ -245,6 +253,7 @@ public class Camera_UI : MonoBehaviour
 
             continuePosDifference = (uiPathPosition[1] - currentPathPos);
             dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+            fovDiff = uiFOV - currentFOV;
 
 
             CheckRepositionWay();
@@ -257,6 +266,7 @@ public class Camera_UI : MonoBehaviour
         {
             continuePosDifference = (uiPathPosition[0] - currentPathPos);
             dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+            fovDiff = uiFOV - currentFOV;
 
 
             CheckRepositionWay();
@@ -270,6 +280,7 @@ public class Camera_UI : MonoBehaviour
         {
             continuePosDifference = (uiPathPosition[3] - currentPathPos);
             dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+            fovDiff = uiFOV - currentFOV;
 
             CheckRepositionWay();
 
@@ -281,6 +292,7 @@ public class Camera_UI : MonoBehaviour
         {
             continuePosDifference = (uiPathPosition[2] - currentPathPos);
             dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+            fovDiff = uiFOV - currentFOV;
 
 
             CheckRepositionWay();
@@ -294,6 +306,7 @@ public class Camera_UI : MonoBehaviour
         {
             continuePosDifference = (uiPathPosition[4] - currentPathPos);
             dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+            fovDiff = uiFOV - currentFOV;
 
 
             CheckRepositionWay();
@@ -306,6 +319,7 @@ public class Camera_UI : MonoBehaviour
         {
             continuePosDifference = (uiPathPosition[5] - currentPathPos);
             dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+            fovDiff = uiFOV - currentFOV;
 
             CheckRepositionWay();
 
@@ -318,6 +332,7 @@ public class Camera_UI : MonoBehaviour
         {
             continuePosDifference = (uiPathPosition[7] - currentPathPos);
             dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+            fovDiff = uiFOV - currentFOV;
 
             CheckRepositionWay();
 
@@ -329,6 +344,7 @@ public class Camera_UI : MonoBehaviour
         {
             continuePosDifference = (uiPathPosition[6] - currentPathPos);
             dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+            fovDiff = uiFOV - currentFOV;
 
             CheckRepositionWay();
 

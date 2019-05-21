@@ -42,7 +42,9 @@ public class NPCInteractions : MonoBehaviour
         if (onQuest)
         {
             questDialogueSystems[dialogueIndex].StartDialogue();
-            questTriggers[dialogueIndex].Invoke();
+
+            if (questDialogueSystems[dialogueIndex].isDialogueFinished && !questDialogueSystems[dialogueIndex].ending && questDialogueSystems[dialogueIndex].dialogueBoxReady && questDialogueSystems[dialogueIndex].dialogueHasStarted)
+                questTriggers[dialogueIndex].Invoke();
         }
         else
         {
@@ -56,5 +58,4 @@ public class NPCInteractions : MonoBehaviour
             }
         }
     }
-
 }
