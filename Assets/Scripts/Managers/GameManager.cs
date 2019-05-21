@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour
             case GameMode.PuzzleMode:
                 if (previousGameMode == GameMode.Dialogue)
                 {
-                    Debug.Log("From Dialogue to Puzzle");
-
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.inventoryGO);
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.dialogueGO));
@@ -77,8 +75,6 @@ public class GameManager : MonoBehaviour
             case GameMode.Dialogue:
                 if (previousGameMode == GameMode.PuzzleMode)
                 {
-                    Debug.Log("From Puzzle to Dialogue");
-
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.backgroundGO);
 

@@ -86,7 +86,7 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("Writting Parameters")]
     //Différents etats du Dialogue
-    public bool isDialogueFinished = true;
+    public bool isDialogueFinished = false;
     public bool endOfTheLine;
     public bool writting;
     public bool isThereAnotherLine;
@@ -171,6 +171,7 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("***** Cinematic Option")]
     public bool isForCinematic;
+    public bool isGameObjectDeactivateAfter;
 
 
 
@@ -996,9 +997,10 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
-            Debug.Log("EndCinematic");
-            
-            CinematicTrigger.Instance.EndCinematic();
+            if (isGameObjectDeactivateAfter)
+                StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2.9f));
+            else
+                CinematicTrigger.Instance.EndCinematicNOW();
         }
 
         //GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
