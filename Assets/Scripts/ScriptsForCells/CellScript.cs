@@ -45,6 +45,7 @@ public class CellScript : MonoBehaviour
     public bool freeRoom;
     public List<Material> material;
     private Vector3 rotationVector = new Vector3(0, 90, 0);
+    public bool playerMoving;
 
     void Start()
     {
@@ -109,7 +110,7 @@ public class CellScript : MonoBehaviour
 
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !playerMoving)
         {
             RaycastHit hit;
             int LayerMaskCells = LayerMask.GetMask("Cell");
