@@ -29,13 +29,19 @@ public class CinematicTrigger : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Lance la coroutine qui lance le dialogue
+    /// </summary>
     public void LaunchCinematic()
     {
         StartCoroutine(DelayBeforeCinematic(1.5f));
     }
 
-
+    /// <summary>
+    /// Enclenche le mode dialogue
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
     IEnumerator DelayBeforeCinematic(float time)
     {
         yield return new WaitForSeconds(0.3f);
@@ -61,8 +67,22 @@ public class CinematicTrigger : MonoBehaviour
         dialogueNpcToActivate.StartDialogueAbout();
     }
 
+    /// <summary>
+    /// Passe en mode Puzzle après un délai
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public IEnumerator DelayBoforeEndingCinematic(float time)
+    {
+        yield return new WaitForSeconds(time);
 
-    public void EndCinematic()
+        EndCinematicNOW();
+    }
+
+    /// <summary>
+    /// Passe en mode Puzzle
+    /// </summary>
+    public void EndCinematicNOW()
     {
         ROOM_Manager.Instance.currentRoom.DisableUI();
 

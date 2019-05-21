@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -50,8 +51,7 @@ public class RoomInteraction : MonoBehaviour
         uiAnimators[3].ResetTrigger("Disabled");
         uiAnimators[4].ResetTrigger("Disabled");
         uiAnimators[6].ResetTrigger("Disabled");
-        //uiAnimators[3].SetTrigger("Enabled");
-        //uiAnimators[4].SetTrigger("Enabled");
+
         uiAnimators[6].SetTrigger("Enabled");
 
         if (UI_Manager.Instance.contextuelleGO[0].activeInHierarchy)
@@ -135,5 +135,45 @@ public class RoomInteraction : MonoBehaviour
 
         if (roomDescription != null)
             descritpionText.text = roomDescription;
+    }
+
+
+    /// <summary>
+    /// Coroutine to add an NPC
+    /// </summary>
+    /// <param name="npcToAdd"></param>
+    /// <returns></returns>
+    IEnumerator AddingNpc(NPCInteractions npcToAdd)
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        npcToAdd.gameObject.SetActive(true);
+        isDialogue = true;
+        npc = npcToAdd;
+    }
+
+    /// <summary>
+    /// Coroutine to remove an NPC
+    /// </summary>
+    /// <param name="npcToRemove"></param>
+    /// <returns></returns>
+    IEnumerator RemovingNpc(NPCInteractions npcToRemove)
+    {
+        npc = null;
+        isDialogue = false;
+
+        yield return new WaitForSeconds(1.5f);
+
+        npcToRemove.gameObject.SetActive(false);
+    }
+
+    public void AddNpc(NPCInteractions npcToAdd)
+    {
+        StartCoroutine(AddingNpc(npcToAdd));
+    }
+
+    public void RemoveNpc(NPCInteractions npcToRemove)
+    {
+        StartCoroutine(RemovingNpc(npcToRemove));
     }
 }

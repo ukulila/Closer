@@ -15,6 +15,24 @@ public class NPC_Manager : MonoBehaviour
         Instance = this;
     }
 
+
+    private void Update()
+    {
+        if (currentNPC != null)
+        {
+            if (currentNPC.questDialogueSystems[currentNPC.dialogueIndex].isDialogueFinished == true && currentNPC.questDialogueSystems[currentNPC.dialogueIndex].ending == true
+                && currentNPC.questDialogueSystems[currentNPC.dialogueIndex].dialogueBoxReady == true && currentNPC.questDialogueSystems[currentNPC.dialogueIndex].dialogueHasStarted == true)
+            {
+                if (currentNPC.hasEventBeenInvoked == false)
+                {
+                    currentNPC.questTriggers[currentNPC.dialogueIndex].Invoke();
+                    currentNPC.hasEventBeenInvoked = true;
+                }
+
+            }
+        }
+    }
+
     /// <summary>
     /// Lance la fonction Dialogue du current NPC
     /// </summary>

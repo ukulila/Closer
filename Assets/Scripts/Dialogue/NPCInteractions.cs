@@ -9,11 +9,13 @@ public class NPCInteractions : MonoBehaviour
     public List<DialogueSystem> questDialogueSystems;
     public List<UnityEvent> questTriggers;
     public bool onQuest;
+    public bool hasEventBeenInvoked;
 
 
     public int dialogueIndex;
 
-    
+
+
 
     /// <summary>
     /// Set le prochain dialogue spécifique
@@ -42,9 +44,7 @@ public class NPCInteractions : MonoBehaviour
         if (onQuest)
         {
             questDialogueSystems[dialogueIndex].StartDialogue();
-
-            if (questDialogueSystems[dialogueIndex].isDialogueFinished && !questDialogueSystems[dialogueIndex].ending && questDialogueSystems[dialogueIndex].dialogueBoxReady && questDialogueSystems[dialogueIndex].dialogueHasStarted)
-                questTriggers[dialogueIndex].Invoke();
+            hasEventBeenInvoked = false;
         }
         else
         {
