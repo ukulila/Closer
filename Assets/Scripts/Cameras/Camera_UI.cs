@@ -151,102 +151,10 @@ public class Camera_UI : MonoBehaviour
 
                     fovDiff = uiFOV - currentFOV;
 
+
                     if (isPlayerHere)
                     {
-                        if (currentSelectedCell == "B_d2_Cell_Down_FrontRight")
-                        {
-
-                            continuePosDifference = (uiPathPosition[1] - currentPathPos);
-                            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
-
-
-                            CheckRepositionWay();
-
-
-                            targetOffsetDiff = targetOffsets[1] - currentTargetOffset;
-                        }
-
-                        if (currentSelectedCell == "G_u3_Cell_Up_FrontRight")
-                        {
-                            continuePosDifference = (uiPathPosition[0] - currentPathPos);
-                            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
-
-
-                            CheckRepositionWay();
-
-
-                            targetOffsetDiff = targetOffsets[0] - currentTargetOffset;
-                        }
-
-
-                        if (currentSelectedCell == "A_d1_Cell_Down_FrontLeft")
-                        {
-                            continuePosDifference = (uiPathPosition[3] - currentPathPos);
-                            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
-
-                            CheckRepositionWay();
-
-
-                            targetOffsetDiff = targetOffsets[3] - currentTargetOffset;
-                        }
-
-                        if (currentSelectedCell == "H_u4_Cell _Up_FrontLeft")
-                        {
-                            continuePosDifference = (uiPathPosition[2] - currentPathPos);
-                            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
-
-
-                            CheckRepositionWay();
-
-
-                            targetOffsetDiff = targetOffsets[2] - currentTargetOffset;
-                        }
-
-
-                        if (currentSelectedCell == "E_u1_Cell_Up_BackLeft")
-                        {
-                            continuePosDifference = (uiPathPosition[4] - currentPathPos);
-                            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
-
-
-                            CheckRepositionWay();
-
-
-                            targetOffsetDiff = targetOffsets[4] - currentTargetOffset;
-                        }
-
-                        if (currentSelectedCell == "D_d4_Cell_Down_BackLeft")
-                        {
-                            continuePosDifference = (uiPathPosition[5] - currentPathPos);
-                            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
-
-                            CheckRepositionWay();
-
-
-                            targetOffsetDiff = targetOffsets[5] - currentTargetOffset;
-                        }
-
-
-                        if (currentSelectedCell == "C_d3_Cell_Down_BackRight")
-                        {
-                            continuePosDifference = (uiPathPosition[7] - currentPathPos);
-                            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
-
-                            CheckRepositionWay();
-
-
-                            targetOffsetDiff = targetOffsets[7] - currentTargetOffset;
-                        }
-
-                        if (currentSelectedCell == "F_u2_Cell_Up_BackRight")
-                        {
-                            continuePosDifference = (uiPathPosition[6] - currentPathPos);
-                            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
-
-                            CheckRepositionWay();
-
-                            targetOffsetDiff = targetOffsets[6] - currentTargetOffset;
-                        }
+                        SetCameraNextLocation(currentSelectedCell);
                     }
                 }
             }
@@ -328,6 +236,104 @@ public class Camera_UI : MonoBehaviour
 
         if (!cameraReposition)
             RepositionCamera();
+    }
+
+    public void SetCameraNextLocation(string nextLocationName)
+    {
+        if (nextLocationName == "B_d2_Cell_Down_FrontRight")
+        {
+
+            continuePosDifference = (uiPathPosition[1] - currentPathPos);
+            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+
+
+            CheckRepositionWay();
+
+
+            targetOffsetDiff = targetOffsets[1] - currentTargetOffset;
+        }
+
+        if (nextLocationName == "G_u3_Cell_Up_FrontRight")
+        {
+            continuePosDifference = (uiPathPosition[0] - currentPathPos);
+            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+
+
+            CheckRepositionWay();
+
+
+            targetOffsetDiff = targetOffsets[0] - currentTargetOffset;
+        }
+
+
+        if (nextLocationName == "A_d1_Cell_Down_FrontLeft")
+        {
+            continuePosDifference = (uiPathPosition[3] - currentPathPos);
+            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+
+            CheckRepositionWay();
+
+
+            targetOffsetDiff = targetOffsets[3] - currentTargetOffset;
+        }
+
+        if (nextLocationName == "H_u4_Cell _Up_FrontLeft")
+        {
+            continuePosDifference = (uiPathPosition[2] - currentPathPos);
+            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+
+
+            CheckRepositionWay();
+
+
+            targetOffsetDiff = targetOffsets[2] - currentTargetOffset;
+        }
+
+
+        if (nextLocationName == "E_u1_Cell_Up_BackLeft")
+        {
+            continuePosDifference = (uiPathPosition[4] - currentPathPos);
+            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+
+
+            CheckRepositionWay();
+
+
+            targetOffsetDiff = targetOffsets[4] - currentTargetOffset;
+        }
+
+        if (nextLocationName == "D_d4_Cell_Down_BackLeft")
+        {
+            continuePosDifference = (uiPathPosition[5] - currentPathPos);
+            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+
+            CheckRepositionWay();
+
+
+            targetOffsetDiff = targetOffsets[5] - currentTargetOffset;
+        }
+
+
+        if (nextLocationName == "C_d3_Cell_Down_BackRight")
+        {
+            continuePosDifference = (uiPathPosition[7] - currentPathPos);
+            dollyPositionDiff = uiDownDollyPos - currentDollyPosition;
+
+            CheckRepositionWay();
+
+
+            targetOffsetDiff = targetOffsets[7] - currentTargetOffset;
+        }
+
+        if (nextLocationName == "F_u2_Cell_Up_BackRight")
+        {
+            continuePosDifference = (uiPathPosition[6] - currentPathPos);
+            dollyPositionDiff = uiUpDollyPos - currentDollyPosition;
+
+            CheckRepositionWay();
+
+            targetOffsetDiff = targetOffsets[6] - currentTargetOffset;
+        }
     }
 
     /// <summary>

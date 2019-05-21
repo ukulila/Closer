@@ -21,7 +21,7 @@ public class NPC_Manager : MonoBehaviour
     public void TalkToCurrentNPC()
     {
         StartCoroutine(StartDialogueAnimIn(1.5f));
-        GameManager.Instance.SwitchModeTo(GameManager.GameMode.InteractingMode);
+        GameManager.Instance.SwitchModeTo(GameManager.GameMode.Dialogue);
     }
 
     IEnumerator StartDialogueAnimIn(float time)
