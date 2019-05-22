@@ -46,7 +46,7 @@ public class UI_Manager_SetUp : Editor
         UI_Manager ui_Manager = (UI_Manager)target;
 
 
-
+        
         if (GUILayout.Button("Set References"))
         {
             ui_Manager.dialogueGO.Clear();

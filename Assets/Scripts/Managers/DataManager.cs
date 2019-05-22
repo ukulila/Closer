@@ -21,6 +21,14 @@ public class DataManager : MonoBehaviour
         SetPath();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Save();
+        }
+    }
+
     void SetPath()
     {
         path = Path.Combine(Application.persistentDataPath, "data.json");
@@ -55,6 +63,8 @@ public class DataManager : MonoBehaviour
         if (data.progressionIndex == data.lastLevel)
         {
             data.progressionIndex = data.lastLevel + 1;
+
+            Debug.Log("data updated");
         }
     }
 
