@@ -61,6 +61,14 @@ public class PlayerBehaviour : MonoBehaviour
     public AnimationCurve animCurve;
     public float speedModifier;
 
+    public List<CellMovement> Rooms;
+    public List<CellScript> CellScr;
+
+    private bool oneRef;
+    private bool oneRef01;
+    private bool oneRef02;
+
+
     void Start()
     {
         add = false;
@@ -75,8 +83,8 @@ public class PlayerBehaviour : MonoBehaviour
     void Update()
     {
 
-     /*   animator.SetFloat("ValueX", x);
-        animator.SetFloat("ValueY", y);*/
+        animator.SetFloat("ValueX", x);
+        animator.SetFloat("ValueY", y);
 
         //CheckConeLight();
 
@@ -296,15 +304,18 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if (movement)
+        if (movement && !context.gameObject.GetComponent<CellMovement>().once)
         {
+
             Movement(waypoints.listOfWaypoint);
 
-
-
         }
-
-
+        /*
+        if(!context.gameObject.GetComponent<CellMovement>().once)
+        {
+            waypoints.listOfWaypoint.Clear();
+        }*/
+        
         if (openDoor)
         {
 
@@ -429,10 +440,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void ResetWhenTooFar()
     {
+        
+
         if (Vector3.Distance(transform.position, context.basePos.position) >= 0.1f && !movement)
         {
-            animator.SetFloat("ValueX", x);
-            animator.SetFloat("ValueY", y);
             float curvePercent = animCurve.Evaluate(Time.deltaTime * speedModifier);
             transform.position = Vector3.Lerp(transform.position, context.basePos.position, curvePercent); /// 0.05f
             Vector3 targetPos = new Vector3(context.basePos.position.x, transform.position.y, context.basePos.position.z);
@@ -453,10 +464,20 @@ public class PlayerBehaviour : MonoBehaviour
             //animator.SetBool("Walk", false);
             lookCam = true;
             one = true;
-            animator.SetFloat("ValueX", x);
-            animator.SetFloat("ValueY", y);
-
         }
+
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            CellScr[i].playerMoving = false;
+            Rooms[i].hasEnded = true;
+            Rooms[i].once = true;
+        }
+        Debug.Log("ResetWhenTooFar");
+        oneRef = true;
+        oneRef01 = true;
+        oneRef02 = true;
+
+
     }
 
     public void CalculateDistance(Vector3 objectif)
@@ -478,12 +499,15 @@ public class PlayerBehaviour : MonoBehaviour
 
         for (int i = 0; i < context.paths.list.Count; i++)
         {
-            if (context.paths.list[i].listOfWaypoint.Contains(myDoor))
+            if (context.paths.list[i].listOfWaypoint.Contains(myDoor) && oneRef)
             {
                 for (int u = 0; u < context.paths.list[i].listOfWaypoint.Count; u++)
                 {
+                    Debug.Log("FirstToPatch");
                     ultimateList.Add(context.paths.list[i].listOfWaypoint[u]);
                 }
+
+                oneRef = false;
             }
         }
 
@@ -496,26 +520,32 @@ public class PlayerBehaviour : MonoBehaviour
                     for (int u = 0; u < nextContext.paths.list[h].listOfWaypoint.Count; u++)
                     {
                         inverseList.Add(nextContext.paths.list[h].listOfWaypoint[u]);
-                        // Debug.Log(inverseList.Count + "          " + nextContext.paths.list[h].listOfWaypoint.Count);
                     }
                 }
 
                 if (inverseList.Count == nextContext.paths.list[h].listOfWaypoint.Count)
                 {
-                    //Debug.Log("inversing");
                     inverseList.Reverse();
-
                 }
 
             }
         }
-        for (int t = 0; t < inverseList.Count; t++)
+
+        if (oneRef01)
         {
-            ultimateList.Add(inverseList[t]);
+            for (int t = 0; t < inverseList.Count; t++)
+            {
+                ultimateList.Add(inverseList[t]);
+            }
+            oneRef01 = false;
         }
 
+        Debug.Log("LastToPatch");
 
-        waypoints.listOfWaypoint = ultimateList;
+        if(oneRef02)
+        {
+            waypoints.listOfWaypoint = ultimateList;
+        }
         movement = true;
         //Movement(waypoints.listOfWaypoint);
 
@@ -535,6 +565,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Movement(List<Transform> listToMove)
     {
+        for (int i = 0; i < Rooms.Count; i++)
+        {
+            Rooms[i].hasEnded = false;
+            Rooms[i].once = false;
+            CellScr[i].playerMoving = true;
+        }
+
+
         lookCam = false;
         //print(listToMove[0]);
 
@@ -553,8 +591,6 @@ public class PlayerBehaviour : MonoBehaviour
                 once = true;
             }
 
-            animator.SetFloat("ValueX", x);
-            animator.SetFloat("ValueY", y);
             //Actual movement to selected waypoint
             curvePercent = animCurve.Evaluate(Time.deltaTime * speedModifier);
             transform.position = Vector3.Lerp(transform.position, listToMove[index].position, curvePercent); ///0.05f
