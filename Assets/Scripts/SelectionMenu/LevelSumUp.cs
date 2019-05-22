@@ -18,7 +18,6 @@ public class LevelSumUp : MonoBehaviour
     public Animator lvlAnim;
 
 
-
     private void Awake()
     {
         //lockedImage = GameObject.Find("LockedImage").GetComponent<Image>();
@@ -46,5 +45,7 @@ public class LevelSumUp : MonoBehaviour
         LevelCloseUp.Instance.levelDescriptionCU.text = levelDescription;
 
         LevelManager.Instance.levelOnCloseUp = this;
+
+        
     }
 }

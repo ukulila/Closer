@@ -472,7 +472,7 @@ public class PlayerBehaviour : MonoBehaviour
             Rooms[i].hasEnded = true;
             Rooms[i].once = true;
         }
-        Debug.Log("ResetWhenTooFar");
+       // Debug.Log("ResetWhenTooFar");
         oneRef = true;
         oneRef01 = true;
         oneRef02 = true;
@@ -503,7 +503,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 for (int u = 0; u < context.paths.list[i].listOfWaypoint.Count; u++)
                 {
-                    Debug.Log("FirstToPatch");
+                    //Debug.Log("FirstToPatch");
                     ultimateList.Add(context.paths.list[i].listOfWaypoint[u]);
                 }
 
@@ -540,7 +540,7 @@ public class PlayerBehaviour : MonoBehaviour
             oneRef01 = false;
         }
 
-        Debug.Log("LastToPatch");
+        //Debug.Log("LastToPatch");
 
         if(oneRef02)
         {
