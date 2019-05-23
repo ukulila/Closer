@@ -138,7 +138,7 @@ public class PlayerBehaviour : MonoBehaviour
                         //Debug.Log(hit.transform.name);
 
 
-                        if (hit.transform.parent.GetComponent<CellMovement>())
+                        if (hit.transform.parent.GetComponent<CellMovement>() && !hit.transform.parent.GetComponent<OpacityKiller>().BlackRoom)
                         {
                             //Debug.Log("parentparentconatinsCellmovement");
 
@@ -173,7 +173,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                         //Debug.Log(hit.transform.parent.name);
 
-                        if (hit.transform.parent.GetComponent<CellMovement>())
+                        if (hit.transform.parent.GetComponent<CellMovement>() && !hit.transform.parent.GetComponent<OpacityKiller>().BlackRoom)
                         {
                             //Debug.Log("parentparentconatinsCellmovement");
 
