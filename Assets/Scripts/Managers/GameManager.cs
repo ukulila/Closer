@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     public int currentLevel;
     public int progressionLevel;
 
+    [Header("PlayerBehaviour")]
+    public PlayerBehaviour playerBehav;
+
+
 
     public static GameManager Instance;
 
@@ -37,8 +41,11 @@ public class GameManager : MonoBehaviour
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.dialogueGO));
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.backgroundGO));
+
+                    playerBehav.enabled = true;
                 }
-                else
+
+                if (previousGameMode == GameMode.InvestigationMode)
                 {
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.inventoryGO);
 
@@ -46,7 +53,10 @@ public class GameManager : MonoBehaviour
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.contextuelleGO));
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.backgroundGO));
+
+                    playerBehav.enabled = true;
                 }
+
                 previousGameMode = GameMode.PuzzleMode;
                 break;
 
@@ -62,12 +72,15 @@ public class GameManager : MonoBehaviour
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2f, UI_Manager.Instance.inventoryGO));
                 }
-                else
+
+                if (previousGameMode == GameMode.Dialogue)
                 {
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.contextuelleGO);
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.dialogueGO));
                 }
+
+                playerBehav.enabled = false;
 
                 previousGameMode = GameMode.InvestigationMode;
                 break;
@@ -77,6 +90,8 @@ public class GameManager : MonoBehaviour
                 {
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.backgroundGO);
+                    UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.contextuelleGO);
+                    UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.outOfContextGO);
 
                     UI_Manager.Instance.inventoryGO[2].GetComponent<Button>().onClick.Invoke();
                     UI_Manager.Instance.inventoryButtonsGO[0].GetComponentInChildren<Button>().onClick.Invoke();
@@ -84,7 +99,8 @@ public class GameManager : MonoBehaviour
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.inventoryGO));
                 }
-                else
+
+                if (previousGameMode == GameMode.InvestigationMode)
                 {
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
 
@@ -94,7 +110,14 @@ public class GameManager : MonoBehaviour
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.contextuelleGO));
                 }
 
+                playerBehav.enabled = false;
+
                 previousGameMode = GameMode.Dialogue;
+                break;
+
+            case GameMode.CinematicMode:
+
+                previousGameMode = GameMode.CinematicMode;
                 break;
         }
     }

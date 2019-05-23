@@ -171,7 +171,7 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("***** Cinematic Option")]
     public bool isForCinematic;
-    public bool isGameObjectDeactivateAfter;
+    public bool doYouHaveFade;
 
 
 
@@ -806,7 +806,9 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-    //Nettoyage de toutes les valeurs selon le text assigné
+    /// <summary>
+    /// Nettoyage de toutes les valeurs selon le text assigné
+    /// </summary>
     public void CleanDialogueSetUp()
     {
         textOfAsset = "";
@@ -990,20 +992,25 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(335, 72);
 
-        //GameManager.Instance.SwitchModeTo(GameManager.GameMode.InvestigationMode);
         if (!isForCinematic)
         {
-            ROOM_Manager.Instance.LaunchUI(0.1f);
+            if (doYouHaveFade)
+            {
+                ROOM_Manager.Instance.LaunchUI(2.5f);
+            }
+            else
+            {
+                ROOM_Manager.Instance.LaunchUI(0.1f);
+            }
         }
         else
         {
-            if (isGameObjectDeactivateAfter)
-                StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2.9f));
+            if (doYouHaveFade)
+                StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2f));
             else
                 CinematicTrigger.Instance.EndCinematicNOW();
         }
 
-        //GameManager.Instance.currentGameMode = GameManager.GameMode.InvestigationMode;
 
         endOfTheLine = false;
         writting = false;
@@ -1177,5 +1184,4 @@ public class DialogueSystem : MonoBehaviour
         }
 
     }
-
 }

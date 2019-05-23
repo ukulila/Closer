@@ -17,6 +17,8 @@ public class UI_Manager_SetUp : Editor
     public GameObject slots_Ref;
     public GameObject outOfUI_Ref;
     public GameObject selectedImage_Ref;
+    public GameObject objectif_Ref;
+    public GameObject progression_Ref;
     public GameObject inventoryButtons_Ref;
     [Space]
     public GameObject uI_Background_Ref;
@@ -33,6 +35,8 @@ public class UI_Manager_SetUp : Editor
     public GameObject current_slots;
     public GameObject current_outOfUI;
     public GameObject current_selectedImage;
+    public GameObject current_objectif;
+    public GameObject current_progression;
     public GameObject current_inventoryButtons;
     [Space]
     public GameObject current_UI_Background;
@@ -112,6 +116,16 @@ public class UI_Manager_SetUp : Editor
                 current_outOfUI = GameObject.Find(outOfUI_Ref.name);
             }
 
+            //if (GameObject.Find(objectif_Ref.name))
+            //{
+            //    current_objectif = GameObject.Find(objectif_Ref.name);
+            //}
+
+            //if (GameObject.Find(progression_Ref.name))
+            //{
+            //    current_progression = GameObject.Find(progression_Ref.name);
+            //}
+
             if (GameObject.Find(inventoryButtons_Ref.name))
             {
                 current_inventoryButtons = GameObject.Find(inventoryButtons_Ref.name);
@@ -173,6 +187,16 @@ public class UI_Manager_SetUp : Editor
             {
                 ui_Manager.inventoryGO.Add(current_outOfUI);
             }
+
+            //if (current_objectif != null)
+            //{
+            //    ui_Manager.inventoryGO.Add(current_objectif);
+            //}
+
+            //if (current_progression != null)
+            //{
+            //    ui_Manager.inventoryGO.Add(current_progression);
+            //}
 
             if (current_inventoryButtons != null)
             {

@@ -64,7 +64,10 @@ public class CinematicTrigger : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        dialogueNpcToActivate.StartDialogueAbout();
+        if (dialogueNpcToActivate != null)
+            dialogueNpcToActivate.StartDialogueAbout();
+        else
+            StartCoroutine(DelayBoforeEndingCinematic(2f));
     }
 
     /// <summary>
@@ -84,10 +87,10 @@ public class CinematicTrigger : MonoBehaviour
     /// </summary>
     public void EndCinematicNOW()
     {
-        ROOM_Manager.Instance.currentRoom.DisableUI();
-
         Camera_UI.Instance.SwitchToNoUi();
 
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.PuzzleMode);
+
+        ROOM_Manager.Instance.currentRoom.DisableUI();
     }
 }

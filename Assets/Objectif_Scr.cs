@@ -13,67 +13,69 @@ public class Objectif_Scr : MonoBehaviour
     public bool test2;
     public bool test3;
 
-    public void RenameObjectif()
+
+    public static Objectif_Scr Instance;
+
+
+
+    private void Awake()
     {
-        // = ObjectifText;
+        Instance = this;
         myTextVar.text = ObjectifText;
     }
 
-    public void RePlayAnim()
-    {
 
-        myAnimator.SetBool("RePlay", true);
+    public void RenameObjectif(string newObjectif)
+    {
+        myTextVar.text = newObjectif;
+    }
+
+
+    public void ReplayAnim()
+    {
+        myAnimator.ResetTrigger("FadeOut");
+        myAnimator.ResetTrigger("FadeIn");
+
+        myAnimator.SetTrigger("FadeOut");
         return;
-
     }
 
-    public void Update()
-    {
-
-        if (test)
-        {
-            RenameObjectif();
-            RePlayAnim();
-
-        }
-        if(test0)
-        {
-            ResetAnimPosition();
-        }
-
-
-        if(test2)
-        {
-
-            Disappearance();
-        }
-        if(test3)
-        {
-            Appearance();
-        }
-
-    }
 
     public void Disappearance()
     {
-        myAnimator.SetBool("RePlay", false);
-        myAnimator.SetBool("FadeOut", true);
-        return;
+        myAnimator.ResetTrigger("FadeOut");
+        myAnimator.ResetTrigger("FadeIn");
 
+
+        myAnimator.SetTrigger("FadeOut");
+        return;
     }
+
+
     public void Appearance()
     {
+        myAnimator.ResetTrigger("FadeOut");
+        myAnimator.ResetTrigger("FadeIn");
 
-        myAnimator.SetBool("FadeOut", false);
+        myAnimator.SetTrigger("FadeIn");
         return;
-
     }
 
-    public void ResetAnimPosition()
+
+    public void RenameWhileVisible(string newObjectif)
     {
-        myAnimator.SetBool("RePlay", false);
-        return;
-
+        StartCoroutine(RenameAfterFading(newObjectif));
     }
 
+
+    IEnumerator RenameAfterFading(string newObjectif)
+    {
+        myAnimator.SetTrigger("FadeOut");
+
+        yield return new WaitForSeconds(1.5f);
+
+        myTextVar.text = newObjectif;
+
+        myAnimator.SetTrigger("FadeIn");
+    }
 }
