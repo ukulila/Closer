@@ -54,6 +54,9 @@ public class RoomInteraction : MonoBehaviour
 
         uiAnimators[6].SetTrigger("Enabled");
 
+        Objectif_Scr.Instance.Disappearance();
+        ProgressionBar.Instance.Disparition();
+
         if (UI_Manager.Instance.contextuelleGO[0].activeInHierarchy)
         {
             uiAnimators[3].SetTrigger("Enabled");
@@ -96,6 +99,9 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void DisableUI()
     {
+        Objectif_Scr.Instance.Appearance();
+        ProgressionBar.Instance.Apparition();
+
         if (UI_Manager.Instance.contextuelleGO[0].activeInHierarchy)
         {
             talkTo.interactable = false;
@@ -125,6 +131,7 @@ public class RoomInteraction : MonoBehaviour
         uiAnimators[6].SetTrigger("Disabled");
     }
 
+
     /// <summary>
     /// Change le nom et la description de la pièce
     /// </summary>
@@ -136,6 +143,9 @@ public class RoomInteraction : MonoBehaviour
         if (roomDescription != null)
             descritpionText.text = roomDescription;
     }
+
+
+
 
 
     /// <summary>
@@ -167,13 +177,49 @@ public class RoomInteraction : MonoBehaviour
         npcToRemove.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Coroutine to add an OBJECT
+    /// </summary>
+    /// <param name="objectToAdd"></param>
+    /// <returns></returns>
+    IEnumerator AddingAnObject(Objet_Interaction objectToAdd)
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        objectToAdd.gameObject.SetActive(true);
+        isInteraction = true;
+        objet = objectToAdd;
+    }
+
+
+
+
+
+
+    /// <summary>
+    /// Ajouter un NPC
+    /// </summary>
+    /// <param name="npcToAdd"></param>
     public void AddNpc(NPCInteractions npcToAdd)
     {
         StartCoroutine(AddingNpc(npcToAdd));
     }
 
+    /// <summary>
+    /// Enlever un NPC
+    /// </summary>
+    /// <param name="npcToRemove"></param>
     public void RemoveNpc(NPCInteractions npcToRemove)
     {
         StartCoroutine(RemovingNpc(npcToRemove));
+    }
+
+    /// <summary>
+    /// Ajouter un objet
+    /// </summary>
+    /// <param name="objectToAdd"></param>
+    public void AddAnObject(Objet_Interaction objectToAdd)
+    {
+        StartCoroutine(AddingAnObject(objectToAdd));
     }
 }
