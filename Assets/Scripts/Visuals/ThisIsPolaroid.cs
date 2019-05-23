@@ -5,13 +5,22 @@ using UnityEngine.UI;
 
 
 public class ThisIsPolaroid : MonoBehaviour
-{/*
-    public Camera cam;
+{
+    public Image image;
+    public Sprite ClueUnlocked;
+    public Sprite ClueLocked;
 
-    public void OnMouseDown()
+    public bool isUnlocked;
+
+    public void Update()
     {
-
-        Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        
-    }*/
+        if(isUnlocked)
+        {
+            image.sprite = ClueUnlocked;
+        }
+        else
+        {
+            image.sprite = ClueLocked;
+        }
+    }
 }
