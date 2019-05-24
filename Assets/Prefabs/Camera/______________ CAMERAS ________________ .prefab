@@ -108,6 +108,7 @@ MonoBehaviour:
   dollyTransform: {fileID: 1241135057083059885}
   brain: {fileID: 1241135057184425488}
   aboutCamera: 0
+  isFingerMoving: 0
   minimumMoveNecessary: 8
   yDirection: 2
   xDirection: 2
@@ -118,7 +119,7 @@ MonoBehaviour:
   horizontalRotationRatio: 0.075
   verticalRotationRatio: 0.02
   maxHeight: 15
-  minHeight: 0
+  minHeight: 1
   slowTimeCurve:
     serializedVersion: 2
     m_Curve:
@@ -152,26 +153,6 @@ MonoBehaviour:
   verticalSlowTimeRatio: 0.17
   verticalSlowValueRatio: 0.012
   verticalSmoothTime: 2
-  debugSlider: {fileID: 0}
-  debugSlider00: {fileID: 0}
-  debugSlider01: {fileID: 0}
-  debugTexts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &1241135056598317764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,27 +200,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   zoomSlowTimeRatio: 0.012
   zoomSlowValueRatio: 0.025
-  debugTextes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  debugSliders:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &1241135056598317767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,15 +219,12 @@ MonoBehaviour:
   switchToUI: 0
   isPlayerHere: 0
   cellMove: {fileID: 0}
+  cellPatch: {fileID: 0}
   currentSelectedCell: 
-  RTargetImageContextuelle:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  RTargetTextContextuelle:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  cellMask:
+    serializedVersion: 2
+    m_Bits: 0
+  isLookingForPathCells: 0
   targetOffsets:
   - {x: 0, y: 3.05, z: -6.45}
   - {x: 0, y: -3.05, z: -6.45}
@@ -358,8 +315,6 @@ MonoBehaviour:
   currentRepositionTime: 0
   switchDurationRatioModifier: 0.01
   cameraReposition: 1
-  debugTexts: []
-  sliders: []
 --- !u!1 &1241135057083059884
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df87549f8b1094b4db2ae138e74160ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textColor: {r: 1, g: 1, b: 1, a: 1}
+  text: {fileID: 0}
 --- !u!1 &1241135057599476108
 GameObject:
   m_ObjectHideFlags: 0
