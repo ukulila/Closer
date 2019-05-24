@@ -88,6 +88,7 @@ public class Camera_Rotation : MonoBehaviour
             if (Input.touchCount == 1)
             {
                 //Get finger's positions related to the screen, and update related values from it
+
                 touchZero = Input.GetTouch(0);
                 currentZeroPos = touchZero.position;
 
@@ -346,7 +347,7 @@ public class Camera_Rotation : MonoBehaviour
         {
             currentSlowTime += Time.deltaTime * horizontalSlowTimeRatio;
         }
-
+        
         slowPercent = slowTimeCurve.Evaluate(currentSlowTime);
 
 

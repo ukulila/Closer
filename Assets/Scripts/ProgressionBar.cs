@@ -42,8 +42,8 @@ public class ProgressionBar : MonoBehaviour
         {
             for (int i = 0; i < linesFull.Count; i++)
             {
-                linesFull[i].SetPosition(0, linesFull[i].GetPosition(1));
-                linesFull[i].enabled = false;
+                //linesFull[i].SetPosition(0, linesFull[i].GetPosition(1));
+               // linesFull[i].enabled = false;
 
                 image[0].color = Color.green;
 
@@ -76,16 +76,16 @@ public class ProgressionBar : MonoBehaviour
         {
             if (trigger[0])
             {
-                if (linesFull[0].GetPosition(0).x < PosXToReach[0])
+               /* if (linesFull[0].GetPosition(0).x < PosXToReach[0])
                 {
-                    linesFull[0].enabled = true;
-                    linesFull[0].SetPosition(0, new Vector3(linesFull[0].GetPosition(0).x + 0.08f, linesFull[0].GetPosition(0).y, linesFull[0].GetPosition(0).z));
+                  //  linesFull[0].enabled = true;
+                  //  linesFull[0].SetPosition(0, new Vector3(linesFull[0].GetPosition(0).x + 0.08f, linesFull[0].GetPosition(0).y, linesFull[0].GetPosition(0).z));
                 }
                 else
-                {
+                {*/
                     PartSys[0].Play();
                     image[1].color = Color.green;
-                    linesEmpty[0].enabled = false;
+                   // linesEmpty[0].enabled = false;
 
 
                     if (timer < timeToStop)
@@ -100,21 +100,21 @@ public class ProgressionBar : MonoBehaviour
                         PartSys[0].Stop();
                         trigger[0] = false;
                     }
-                }
+              //  }
             }
 
             if (trigger[1])
             {
-                if (linesFull[1].GetPosition(0).x < PosXToReach[1])
+                /*if (linesFull[1].GetPosition(0).x < PosXToReach[1])
                 {
                     linesFull[1].enabled = true;
                     linesFull[1].SetPosition(0, new Vector3(linesFull[1].GetPosition(0).x + 0.08f, linesFull[1].GetPosition(0).y, linesFull[1].GetPosition(0).z));
                 }
                 else
-                {
+                {*/
                     PartSys[1].Play();
                     image[2].color = Color.green;
-                    linesEmpty[1].enabled = false;
+                    //linesEmpty[1].enabled = false;
 
 
                     if (timer < timeToStop)
@@ -129,21 +129,21 @@ public class ProgressionBar : MonoBehaviour
                         PartSys[1].Stop();
                         trigger[1] = false;
                     }
-                }
+               // }
             }
 
             if (trigger[2])
             {
-                if (linesFull[2].GetPosition(0).x < PosXToReach[2])
+                /*if (linesFull[2].GetPosition(0).x < PosXToReach[2])
                 {
                     linesFull[2].enabled = true;
                     linesFull[2].SetPosition(0, new Vector3(linesFull[2].GetPosition(0).x + 0.08f, linesFull[2].GetPosition(0).y, linesFull[2].GetPosition(0).z));
                 }
                 else
-                {
+                {*/
                     PartSys[2].Play();
                     image[3].color = Color.green;
-                    linesEmpty[2].enabled = false;
+                   // linesEmpty[2].enabled = false;
 
 
                     if (timer < timeToStop)
@@ -159,7 +159,7 @@ public class ProgressionBar : MonoBehaviour
                         trigger[2] = false;
 
                     }
-                }
+             // }
             }
 
             if (timing)

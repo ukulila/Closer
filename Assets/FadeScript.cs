@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FadeScript : MonoBehaviour
@@ -15,15 +14,19 @@ public class FadeScript : MonoBehaviour
 
     public void FadeINandOUT()
     {
-        StartCoroutine(DeactivateGameObject());
-    }
+        //StartCoroutine(DeactivateGameObject());
 
-    IEnumerator DeactivateGameObject()
-    {
         fadeAnim.SetTrigger("FadeIn");
-
-        yield return new WaitForSeconds(1.5f);
 
         fadeAnim.SetTrigger("FadeOut");
     }
+
+    //IEnumerator DeactivateGameObject()
+    //{
+    //    fadeAnim.SetTrigger("FadeIn");
+
+    //    yield return new WaitForSeconds(1.5f);
+
+    //    fadeAnim.SetTrigger("FadeOut");
+    //}
 }

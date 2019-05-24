@@ -31,14 +31,14 @@ public class Objectif_Scr : MonoBehaviour
     }
 
 
-    public void ReplayAnim()
+  /*  public void ReplayAnim()
     {
         myAnimator.ResetTrigger("FadeOut");
         myAnimator.ResetTrigger("FadeIn");
 
         myAnimator.SetTrigger("FadeOut");
         return;
-    }
+    }*/
 
 
     public void Disappearance()

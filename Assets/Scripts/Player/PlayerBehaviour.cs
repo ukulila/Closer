@@ -54,7 +54,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Transform RoomChecker;
     public int onlyTwo;
-    public bool check;
+    public bool checkOpenDoor;
     private int checkInt;
     public AlwaysLookAtCam highlight;
     private bool one;
@@ -69,6 +69,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool oneRef02;
 
     public Vector3 offsetTrap;
+    public int timerOpenDoor;
 
     void Start()
     {
@@ -87,7 +88,7 @@ public class PlayerBehaviour : MonoBehaviour
         animator.SetFloat("ValueX", x);
         animator.SetFloat("ValueY", y);
 
-        //CheckConeLight();
+        CheckConeLight();
 
         if (lookCam)
         {
@@ -118,6 +119,8 @@ public class PlayerBehaviour : MonoBehaviour
             highlight.enabled = true;
 
         }
+
+        #region isDoorIn
 
         if (!context.ContainsTrap)
         {
@@ -262,6 +265,9 @@ public class PlayerBehaviour : MonoBehaviour
 
 
         }
+        #endregion
+
+        #region isTrapIn
 
         if (context.ContainsTrap)
         {
@@ -408,6 +414,8 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
 
+        #endregion
+
 
 
         boolIndex = Mathf.Clamp(boolIndex, 0, ways.Count);
@@ -509,69 +517,87 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void CheckConeLight()
     {
-        if (context.gameObject.GetComponent<CellMovement>() != null)
+
+        if (checkOpenDoor)
         {
-            if (context.gameObject.GetComponent<CellMovement>().hasEnded == true && check)
+
+            if (context.gameObject.GetComponent<CellMovement>() != null)
             {
-                //Debug.Log("           I draw          ");
-
-                RaycastHit hit;
-                int layerMaskDoor = LayerMask.GetMask("Door");
-
-                for (int u = 0; u < context.doorWayPoints.Count; u++)
+                if (context.gameObject.GetComponent<CellMovement>().hasEnded == true)
                 {
-                    if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
+                   // Debug.Log("           I draw          ");
+
+                    RaycastHit hit;
+                    int layerMaskDoor = LayerMask.GetMask("Door");
+
+                    for (int u = 0; u < context.doorWayPoints.Count; u++)
                     {
-                        //Debug.Log("                     " + hit.transform.name);
-
-                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
-
-                        coneDoor = hit.transform.gameObject;
-
-                        hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                        hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
-
-                        transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                        transform.parent.GetComponent<CellScript>().freeRoom = true;
-
-                        if (checkInt >= 3)
+                        if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                         {
-                            check = false;
-                            checkInt = 0;
+                        //    Debug.Log("                     " + hit.transform.name);
+
+                            //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
+
+                            coneDoor = hit.transform.gameObject;
+
+                            hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                            hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
+
+                            transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                            transform.parent.GetComponent<CellScript>().freeRoom = true;
+
+                            if (checkInt >= 3)
+                            {
+                                checkOpenDoor = false;
+                                checkInt = 0;
+                            }
+                            else
+                            {
+                                checkInt++;
+                            }
                         }
                         else
                         {
-                            checkInt++;
-                        }
-                    }
-                    else
-                    {
-                        //Debug.Log("            I touch Nothing         ");
+                         //   Debug.Log("            I touch Nothing         ");
 
-                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
-                        transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                        transform.parent.GetComponent<CellScript>().freeRoom = false;
+                            //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
+                            transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                            transform.parent.GetComponent<CellScript>().freeRoom = false;
 
-                        if (coneDoor != null)
-                        {
-                            coneDoor.transform.parent.GetComponent<CellScript>().freeRoom = false;
-                            coneDoor.transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                        }
+                            if (coneDoor != null)
+                            {
+                                coneDoor.transform.parent.GetComponent<CellScript>().freeRoom = false;
+                                coneDoor.transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                            }
 
-                        if (checkInt >= 3)
-                        {
-                            coneDoor = null;
-                            check = false;
-                            checkInt = 0;
-                        }
-                        else
-                        {
-                            checkInt++;
+                            if (checkInt >= 3)
+                            {
+                                coneDoor = null;
+                                checkOpenDoor = false;
+                                checkInt = 0;
+                            }
+                            else
+                            {
+                                checkInt++;
+                            }
                         }
                     }
                 }
             }
         }
+
+        if(!checkOpenDoor)
+        {
+
+            timerOpenDoor++;
+
+            if(timerOpenDoor > 120)
+            {
+                checkOpenDoor = true;
+            }
+
+        }
+
     }
 
     public void GetPath(int path)
@@ -706,8 +732,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 
     float curvePercent;
-
-
+    private int timer;
 
     public void Movement(List<Transform> listToMove)
     {
