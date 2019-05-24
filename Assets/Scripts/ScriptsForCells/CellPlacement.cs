@@ -19,15 +19,30 @@ public class CellPlacement : MonoBehaviour
     public bool isInRotation;
 
     public GameObject facingPlane;
+    public bool FingerOnScreen;
 
-
+    public int timerObjectif;
+    public Objectif_Scr objectif;
 
     void Update()
     {
-
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        {
+            TimerObjectif();
+        }
+        else
+        {
+            timerObjectif = 0;
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
+
+            if(GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+            {
+                FingerOnScreen = true;
+            }
+
             once = true;
 
             RaycastHit hit;
@@ -107,6 +122,16 @@ public class CellPlacement : MonoBehaviour
             }
         }
 
+
+        if(Input.GetMouseButtonUp(0) && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        {
+
+            FingerOnScreen = false;
+
+        }
+
+
+
         if (Input.GetMouseButton(0) && once)
         {
             RaycastHit hit;
@@ -122,5 +147,31 @@ public class CellPlacement : MonoBehaviour
         }
 
     }
+
+
+
+    public void TimerObjectif()
+    {
+
+        if(!FingerOnScreen)
+        {
+            timerObjectif++;
+        }
+        else
+        {
+            objectif.Disappearance();
+            timerObjectif = 0;
+        }
+
+
+        if(timerObjectif > 200)
+        {
+            objectif.Appearance();
+        }
+
+    }
+
+
+
 
 }

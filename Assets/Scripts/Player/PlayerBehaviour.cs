@@ -525,7 +525,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (context.gameObject.GetComponent<CellMovement>().hasEnded == true)
                 {
-                    Debug.Log("           I draw          ");
+                   // Debug.Log("           I draw          ");
 
                     RaycastHit hit;
                     int layerMaskDoor = LayerMask.GetMask("Door");
@@ -534,7 +534,7 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                         {
-                            Debug.Log("                     " + hit.transform.name);
+                        //    Debug.Log("                     " + hit.transform.name);
 
                             //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
 
@@ -558,7 +558,7 @@ public class PlayerBehaviour : MonoBehaviour
                         }
                         else
                         {
-                            Debug.Log("            I touch Nothing         ");
+                         //   Debug.Log("            I touch Nothing         ");
 
                             //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
                             transform.parent.GetComponent<CellScript>().ConeFunction(0);
