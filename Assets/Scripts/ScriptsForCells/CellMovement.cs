@@ -66,12 +66,21 @@ public class CellMovement : MonoBehaviour
     public List<Vector3> PositionsDebug;
     public List<Material> PlaneMtlIsSpawn;
     public bool isEntering;
+    public GameObject trail;
+    public Vector3 mousePos;
+    public Camera cam;
+    private Vector3 offset = new Vector3(-20, 5.5f, 16);
+    private Vector3 offsetHorizontal;
+    private int trailTime;
+
     //private bool activatePosPreview;
     #region Init
 
     public void Awake()
     {
         over = true;
+     //   offset = new Vector3(-200, 100, 18);
+      //  offsetHorizontal = new Vector3(-200, 100, 18);
 
         ready = false;
         hasEnded = true;
@@ -285,7 +294,7 @@ public class CellMovement : MonoBehaviour
             brothers[6].transform.position = PositionsDebug[6];
             brothers[7].transform.position = PositionsDebug[7];
 
-            
+
 
             debugBool++;
         }
@@ -348,6 +357,8 @@ public class CellMovement : MonoBehaviour
             for (int r = 0; r < brothers.Count; r++)
             {
                 brothers[r].hasEnded = false;
+               // TrailManager(offsetHorizontal);
+
             }
 
 
@@ -377,7 +388,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].DebugPos();
                     brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
-                 //   brothers[o].activatePosPreview = true;
+                    //   brothers[o].activatePosPreview = true;
                     OrderCells();
                     player.checkOpenDoor = true;
                 }
@@ -409,6 +420,8 @@ public class CellMovement : MonoBehaviour
             for (int r = 0; r < brothers.Count; r++)
             {
                 brothers[r].hasEnded = false;
+               // TrailManager(offset);
+
             }
 
             for (int v = 0; v < toRotate.Count; v++)
@@ -437,7 +450,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].DebugPos();
                     brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
-                //    brothers[o].activatePosPreview = true;
+                    //    brothers[o].activatePosPreview = true;
                     OrderCells();
                     player.checkOpenDoor = true;
                 }
@@ -465,6 +478,8 @@ public class CellMovement : MonoBehaviour
             for (int r = 0; r < brothers.Count; r++)
             {
                 brothers[r].hasEnded = false;
+               // TrailManager(offset);
+
 
             }
 
@@ -495,7 +510,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].DebugPos();
                     brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
-             //       brothers[o].activatePosPreview = true;
+                    //       brothers[o].activatePosPreview = true;
                     OrderCells();
                     player.checkOpenDoor = true;
                 }
@@ -520,7 +535,7 @@ public class CellMovement : MonoBehaviour
 
     public void OrderCells()
     {
-        if(!hasEnded)
+        if (!hasEnded)
         {
             hasEnded = true;
         }
@@ -933,5 +948,33 @@ public class CellMovement : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, resetPosValue);
             return;
         }
+
     }
+    /*
+
+    public void TrailManager(Vector3 offsetTrail)
+    {
+        Debug.Log(offsetTrail);
+        trailTime++;
+
+       
+
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition + offsetTrail);
+        trail.transform.position = mousePos;
+
+        if (trail.activeInHierarchy == false)
+        {
+            trail.SetActive(true);
+        }
+
+        if (trailTime >= 60)
+        {
+            trail.SetActive(false);
+            trailTime = 0;
+            return;
+        }
+    }*/
+
+
+
 }
