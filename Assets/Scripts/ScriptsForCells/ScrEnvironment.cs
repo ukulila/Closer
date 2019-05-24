@@ -20,4 +20,8 @@ public class ScrEnvironment : MonoBehaviour
     [Tooltip("Copy-Paste me")]
     public string DriveLinkToDocumentation = "https://docs.google.com/document/d/1xnNaKkt93k7VyAbdshTUKTLybfpX1DaPGwhrvcgqN54/edit";
 
+    [Space(10)]
+
+    public bool ContainsTrap;
+
 }

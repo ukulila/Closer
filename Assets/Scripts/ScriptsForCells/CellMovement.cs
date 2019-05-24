@@ -379,7 +379,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].hasEnded = true;
                  //   brothers[o].activatePosPreview = true;
                     OrderCells();
-                    player.check = true;
+                    player.checkOpenDoor = true;
                 }
 
                 toRotate[0].freezePosValue = true;
@@ -439,7 +439,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].hasEnded = true;
                 //    brothers[o].activatePosPreview = true;
                     OrderCells();
-                    player.check = true;
+                    player.checkOpenDoor = true;
                 }
 
                 toRotate[0].freezePosValue = true;
@@ -497,7 +497,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].hasEnded = true;
              //       brothers[o].activatePosPreview = true;
                     OrderCells();
-                    player.check = true;
+                    player.checkOpenDoor = true;
                 }
 
 

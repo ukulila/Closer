@@ -40,7 +40,7 @@ public class CellScript : MonoBehaviour
     public PlayerBehaviour player;
 
 
-    //public List<GameObject> coneRed;
+    public List<GameObject> coneRed;
     //public List<GameObject> coneGreen;
     public bool freeRoom;
     public List<Material> material;
@@ -52,13 +52,13 @@ public class CellScript : MonoBehaviour
         first = false;
         freeRoom = false;
 
-        /*
+        
         for (int i = 0; i < coneRed.Count; i++)
         {
             material.Add(coneRed[i].GetComponent<Renderer>().material);
             material[i].SetColor("_EmissionColor", Color.red);
         }
-        */
+        
     }
 
     void Update()
@@ -74,6 +74,7 @@ public class CellScript : MonoBehaviour
                 timer = 0;
                 first = false;
             }
+
         }
 
         if (isInRotation)
@@ -102,7 +103,7 @@ public class CellScript : MonoBehaviour
                     for (int r = 0; r < brothers.Count; r++)
                     {
                         brothers[r].hasEnded = true;
-                        player.check = true;
+                        player.checkOpenDoor = true;
                     }
                 }
             }
@@ -127,10 +128,10 @@ public class CellScript : MonoBehaviour
                     {
                         if (brothers[0] != null)
                         {
-                            for (int r = 0; r < brothers.Count; r++)
+                           /* for (int r = 0; r < brothers.Count; r++)
                             {
                                 brothers[r].hasEnded = false;
-                            }
+                            }*/
                         }
 
                         set = true;

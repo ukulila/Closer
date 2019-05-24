@@ -54,7 +54,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Transform RoomChecker;
     public int onlyTwo;
-    public bool check;
+    public bool checkOpenDoor;
     private int checkInt;
     public AlwaysLookAtCam highlight;
     private bool one;
@@ -68,6 +68,8 @@ public class PlayerBehaviour : MonoBehaviour
     private bool oneRef01;
     private bool oneRef02;
 
+    public Vector3 offsetTrap;
+    public int timerOpenDoor;
 
     void Start()
     {
@@ -86,7 +88,7 @@ public class PlayerBehaviour : MonoBehaviour
         animator.SetFloat("ValueX", x);
         animator.SetFloat("ValueY", y);
 
-        //CheckConeLight();
+        CheckConeLight();
 
         if (lookCam)
         {
@@ -118,149 +120,301 @@ public class PlayerBehaviour : MonoBehaviour
 
         }
 
+        #region isDoorIn
 
-        if (castingRay)
+        if (!context.ContainsTrap)
         {
-            for (int u = 0; u < context.doorWayPoints.Count; u++)
+            if (castingRay)
             {
-                RaycastHit hit;
-                int layerMaskDoor = LayerMask.GetMask("Door");
-
-
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
+                for (int u = 0; u < context.doorWayPoints.Count; u++)
                 {
-                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
-                    cP.okToSetup = true;
+                    RaycastHit hit;
+                    int layerMaskDoor = LayerMask.GetMask("Door");
 
 
-                    //Debug.Log(hit.transform.name);
-
-
-                    if (hit.transform.parent.GetComponent<CellMovement>())
+                    if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                     {
-                        //Debug.Log("parentparentconatinsCellmovement");
+                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
+                        cP.okToSetup = true;
 
-                        CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
 
-                        if (cellMove.isOpen == false)
+                        //Debug.Log(hit.transform.name);
+
+
+                        if (hit.transform.parent.GetComponent<CellMovement>() && !hit.transform.parent.GetComponent<OpacityKiller>().BlackRoom)
                         {
-                             //Debug.Log("here is a door i could take" + hit.transform.parent.name);
-                            cellMove.isOpen = true;
+                            //Debug.Log("parentparentconatinsCellmovement");
+
+                            CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
+
+                            if (cellMove.isOpen == false)
+                            {
+                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
+                                cellMove.isOpen = true;
+                            }
+                            else if (cellMove.isOpen == true)
+                            {
+                                //Debug.Log("close");
+                                cellMove.isOpen = false;
+                            }
                         }
-                        else if (cellMove.isOpen == true)
-                        {
-                            //Debug.Log("close");
-                            cellMove.isOpen = false;
-                        }
+
+                        castingRay = false;
+                    }
+                    else
+                    {
+                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
+                        castingRay = false;
+
                     }
 
-                    castingRay = false;
-                }
-                else
-                {
-                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
-                    castingRay = false;
-
-                }
-
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
-                {
-                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.green, 50);
-                    cP.okToSetup = true;
-
-
-                    //Debug.Log(hit.transform.parent.name);
-
-                    if (hit.transform.parent.GetComponent<CellMovement>())
+                    if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                     {
-                        //Debug.Log("parentparentconatinsCellmovement");
+                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.green, 50);
+                        cP.okToSetup = true;
 
-                        CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
 
-                        if (cellMove.isOpen == false)
+                        //Debug.Log(hit.transform.parent.name);
+
+                        if (hit.transform.parent.GetComponent<CellMovement>() && !hit.transform.parent.GetComponent<OpacityKiller>().BlackRoom)
                         {
-                            //Debug.Log("here is a door i could take" + hit.transform.parent.name);
-                            cellMove.isOpen = true;
+                            //Debug.Log("parentparentconatinsCellmovement");
+
+                            CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
+
+                            if (cellMove.isOpen == false)
+                            {
+                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
+                                cellMove.isOpen = true;
+                            }
+                            else if (cellMove.isOpen == true)
+                            {
+                                //Debug.Log("close");
+                                cellMove.isOpen = false;
+                            }
                         }
-                        else if (cellMove.isOpen == true)
-                        {
-                            //Debug.Log("close");
-                            cellMove.isOpen = false;
-                        }
+                        castingRay = false;
+
                     }
-                    castingRay = false;
+                    else
+                    {
+                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
+                        castingRay = false;
+
+                    }
+
 
                 }
-                else
+            }
+
+            if (add)
+            {
+                //myDoorList = context.doorWayPoints;
+                //Debug.Log("Je me tire Second ray");
+
+                for (int u = 0; u < context.doorWayPoints.Count; u++)
                 {
-                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
-                    castingRay = false;
+
+                    RaycastHit hit;
+                    int layerMaskDoor = LayerMask.GetMask("Door");
+
+
+                    if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor))
+                    {
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 050);
+                        //cP.okToSetup = true;
+
+                        myDoor = context.doorWayPoints[u];
+                        doorDirection = (hit.collider.transform);
+                        castingRay = false;
+                    }
+                    else
+                    {
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
+                        castingRay = false;
+
+                    }
+
+                    if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor))
+                    {
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
+                        myDoor = context.doorWayPoints[u];
+                        doorDirection = (hit.collider.transform);
+                        castingRay = false;
+
+                    }
+                    else
+                    {
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
+                        castingRay = false;
+
+                    }
+
 
                 }
+
+                if (doorDirection != null && myDoor != null && nextContext != null)
+                {
+                    CheckList();
+                }
+
+                add = false;
 
 
             }
-        }
 
-        if (add)
+
+        }
+        #endregion
+
+        #region isTrapIn
+
+        if (context.ContainsTrap)
         {
-            //myDoorList = context.doorWayPoints;
-            //Debug.Log("Je me tire Second ray");
-
-            for (int u = 0; u < context.doorWayPoints.Count; u++)
+            if (castingRay)
             {
-
-                RaycastHit hit;
-                int layerMaskDoor = LayerMask.GetMask("Door");
-
-
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor))
+                for (int u = 0; u < context.doorWayPoints.Count; u++)
                 {
-                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 050);
-                    //cP.okToSetup = true;
+                    RaycastHit hit;
+                    int layerMaskDoor = LayerMask.GetMask("Door");
 
-                    myDoor = context.doorWayPoints[u];
-                    doorDirection = (hit.collider.transform);
-                    castingRay = false;
+
+                    if (Physics.Raycast(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
+                    {
+                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, Color.green, 50);
+                        cP.okToSetup = true;
+
+
+                        //Debug.Log(hit.transform.name);
+
+
+                        if (hit.transform.parent.GetComponent<CellMovement>())
+                        {
+                            //Debug.Log("parentparentconatinsCellmovement");
+
+                            CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
+
+                            if (cellMove.isOpen == false)
+                            {
+                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
+                                cellMove.isOpen = true;
+                            }
+                            else if (cellMove.isOpen == true)
+                            {
+                                //Debug.Log("close");
+                                cellMove.isOpen = false;
+                            }
+                        }
+
+                        castingRay = false;
+                    }
+                    else
+                    {
+                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, Color.red, 50);
+                        castingRay = false;
+
+                    }
+
+                    if (Physics.Raycast(context.doorWayPoints[u].transform.position + offsetTrap, context.doorWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
+                    {
+                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, context.doorWayPoints[u].transform.forward, Color.green, 50);
+                        cP.okToSetup = true;
+
+
+                        //Debug.Log(hit.transform.parent.name);
+
+                        if (hit.transform.parent.GetComponent<CellMovement>())
+                        {
+                            //Debug.Log("parentparentconatinsCellmovement");
+
+                            CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
+
+                            if (cellMove.isOpen == false)
+                            {
+                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
+                                cellMove.isOpen = true;
+                            }
+                            else if (cellMove.isOpen == true)
+                            {
+                                //Debug.Log("close");
+                                cellMove.isOpen = false;
+                            }
+                        }
+                        castingRay = false;
+
+                    }
+                    else
+                    {
+                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, context.doorWayPoints[u].transform.forward, Color.red, 50);
+                        castingRay = false;
+
+                    }
+
+
                 }
-                else
+            }
+
+            if (add)
+            {
+                //myDoorList = context.doorWayPoints;
+                //Debug.Log("Je me tire Second ray");
+
+                for (int u = 0; u < context.doorWayPoints.Count; u++)
                 {
-                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
-                    castingRay = false;
+
+                    RaycastHit hit;
+                    int layerMaskDoor = LayerMask.GetMask("Door");
+
+
+                    if (Physics.Raycast(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, out hit, 5, layerMaskDoor))
+                    {
+                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, Color.green, 050);
+                        //cP.okToSetup = true;
+
+                        myDoor = context.doorWayPoints[u];
+                        doorDirection = (hit.collider.transform);
+                        castingRay = false;
+                    }
+                    else
+                    {
+                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, Color.red, 50);
+                        castingRay = false;
+
+                    }
+
+                    if (Physics.Raycast(context.doorWayPoints[u].transform.position + offsetTrap, context.doorWayPoints[u].transform.forward, out hit, 5, layerMaskDoor))
+                    {
+                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, Color.green, 50);
+                        myDoor = context.doorWayPoints[u];
+                        doorDirection = (hit.collider.transform);
+                        castingRay = false;
+
+                    }
+                    else
+                    {
+                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, context.doorWayPoints[u].transform.forward, Color.red, 50);
+                        castingRay = false;
+
+                    }
+
 
                 }
 
-                if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor))
+                if (doorDirection != null && myDoor != null && nextContext != null)
                 {
-                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
-                    myDoor = context.doorWayPoints[u];
-                    doorDirection = (hit.collider.transform);
-                    castingRay = false;
-
+                    CheckList();
                 }
-                else
-                {
-                    //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
-                    castingRay = false;
 
-                }
+                add = false;
 
 
             }
-
-            if (doorDirection != null && myDoor != null && nextContext != null)
-            {
-                CheckList();
-            }
-
-            add = false;
 
 
         }
 
 
-
-
+        #endregion
 
 
 
@@ -315,7 +469,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             waypoints.listOfWaypoint.Clear();
         }*/
-        
+
         if (openDoor)
         {
 
@@ -363,69 +517,87 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void CheckConeLight()
     {
-        if (context.gameObject.GetComponent<CellMovement>() != null)
+
+        if (checkOpenDoor)
         {
-            if (context.gameObject.GetComponent<CellMovement>().hasEnded == true && check)
+
+            if (context.gameObject.GetComponent<CellMovement>() != null)
             {
-                //Debug.Log("           I draw          ");
-
-                RaycastHit hit;
-                int layerMaskDoor = LayerMask.GetMask("Door");
-
-                for (int u = 0; u < context.doorWayPoints.Count; u++)
+                if (context.gameObject.GetComponent<CellMovement>().hasEnded == true)
                 {
-                    if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
+                    Debug.Log("           I draw          ");
+
+                    RaycastHit hit;
+                    int layerMaskDoor = LayerMask.GetMask("Door");
+
+                    for (int u = 0; u < context.doorWayPoints.Count; u++)
                     {
-                        //Debug.Log("                     " + hit.transform.name);
-
-                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
-
-                        coneDoor = hit.transform.gameObject;
-
-                        hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                        hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
-
-                        transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                        transform.parent.GetComponent<CellScript>().freeRoom = true;
-
-                        if (checkInt >= 3)
+                        if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                         {
-                            check = false;
-                            checkInt = 0;
+                            Debug.Log("                     " + hit.transform.name);
+
+                            //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
+
+                            coneDoor = hit.transform.gameObject;
+
+                            hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                            hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
+
+                            transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                            transform.parent.GetComponent<CellScript>().freeRoom = true;
+
+                            if (checkInt >= 3)
+                            {
+                                checkOpenDoor = false;
+                                checkInt = 0;
+                            }
+                            else
+                            {
+                                checkInt++;
+                            }
                         }
                         else
                         {
-                            checkInt++;
-                        }
-                    }
-                    else
-                    {
-                        //Debug.Log("            I touch Nothing         ");
+                            Debug.Log("            I touch Nothing         ");
 
-                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
-                        transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                        transform.parent.GetComponent<CellScript>().freeRoom = false;
+                            //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
+                            transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                            transform.parent.GetComponent<CellScript>().freeRoom = false;
 
-                        if (coneDoor != null)
-                        {
-                            coneDoor.transform.parent.GetComponent<CellScript>().freeRoom = false;
-                            coneDoor.transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                        }
+                            if (coneDoor != null)
+                            {
+                                coneDoor.transform.parent.GetComponent<CellScript>().freeRoom = false;
+                                coneDoor.transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                            }
 
-                        if (checkInt >= 3)
-                        {
-                            coneDoor = null;
-                            check = false;
-                            checkInt = 0;
-                        }
-                        else
-                        {
-                            checkInt++;
+                            if (checkInt >= 3)
+                            {
+                                coneDoor = null;
+                                checkOpenDoor = false;
+                                checkInt = 0;
+                            }
+                            else
+                            {
+                                checkInt++;
+                            }
                         }
                     }
                 }
             }
         }
+
+        if(!checkOpenDoor)
+        {
+
+            timerOpenDoor++;
+
+            if(timerOpenDoor > 120)
+            {
+                checkOpenDoor = true;
+            }
+
+        }
+
     }
 
     public void GetPath(int path)
@@ -440,7 +612,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void ResetWhenTooFar()
     {
-        
+
 
         if (Vector3.Distance(transform.position, context.basePos.position) >= 0.1f && !movement)
         {
@@ -448,7 +620,7 @@ public class PlayerBehaviour : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, context.basePos.position, curvePercent); /// 0.05f
             Vector3 targetPos = new Vector3(context.basePos.position.x, transform.position.y, context.basePos.position.z);
             transform.LookAt(targetPos);
-            
+
         }
 
         if (Vector3.Distance(transform.position, context.basePos.position) <= 0.1f)
@@ -472,7 +644,7 @@ public class PlayerBehaviour : MonoBehaviour
             Rooms[i].hasEnded = true;
             Rooms[i].once = true;
         }
-       // Debug.Log("ResetWhenTooFar");
+        // Debug.Log("ResetWhenTooFar");
         oneRef = true;
         oneRef01 = true;
         oneRef02 = true;
@@ -542,7 +714,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         //Debug.Log("LastToPatch");
 
-        if(oneRef02)
+        if (oneRef02)
         {
             waypoints.listOfWaypoint = ultimateList;
         }
@@ -560,8 +732,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 
     float curvePercent;
-
-
+    private int timer;
 
     public void Movement(List<Transform> listToMove)
     {

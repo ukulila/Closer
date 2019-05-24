@@ -102,6 +102,16 @@ public class OpacityKiller : MonoBehaviour
 
 
 
+    public void SetBlackRoomTrue()
+    {
+        BlackRoom = true;
+    }
+
+    public void SetBlackRoomFalse()
+    {
+        BlackRoom = false;
+    }
+
 
     public void OpacityCheck(/*int planeIndex,*/ int alpha)
     {

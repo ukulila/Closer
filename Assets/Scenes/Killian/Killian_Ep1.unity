@@ -90,7 +90,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 112000000, guid: 68854576761febd4c92812ba0968f1b8,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2716,6 +2716,8 @@ MonoBehaviour:
   - Barney
   - Nikky
   - Irina
+  isForCinematic: 0
+  doYouHaveFade: 0
 --- !u!1 &642544082
 GameObject:
   m_ObjectHideFlags: 0
@@ -3077,7 +3079,7 @@ MonoBehaviour:
   once: 0
   waypoints:
     listOfWaypoint: []
-  context: {fileID: 735649378}
+  context: {fileID: 1783934575}
   nextContext: {fileID: 0}
   distance: 0
   minDist: 0.4
@@ -3134,6 +3136,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   speedModifier: 10
+  Rooms: []
+  CellScr: []
+  offsetTrap: {x: 0, y: 0, z: 0}
 --- !u!4 &700961197
 Transform:
   m_ObjectHideFlags: 0
@@ -3142,7 +3147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 700961195}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5220001, y: -2.998, z: -1.826}
+  m_LocalPosition: {x: 0.29, y: -2.998, z: 0.45}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children:
   - {fileID: 1862334603}
@@ -3557,18 +3562,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 735649376}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &735649378 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6152247427429511313, guid: 73607c71e7e6d7b41aff850a8814807a,
-    type: 3}
-  m_PrefabInstance: {fileID: 735649376}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c6d515be52ffc249b7366d396de52d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &735649379 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6152247427429511319, guid: 73607c71e7e6d7b41aff850a8814807a,
@@ -9470,6 +9463,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   onQuest: 1
+  hasEventBeenInvoked: 0
   dialogueIndex: 0
 --- !u!1 &1765856217
 GameObject:
@@ -9533,6 +9527,18 @@ Transform:
   m_Father: {fileID: 1461190705}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1783934575 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6152247427429511313, guid: 73607c71e7e6d7b41aff850a8814807a,
+    type: 3}
+  m_PrefabInstance: {fileID: 735649376}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6d515be52ffc249b7366d396de52d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1794817143
 GameObject:
   m_ObjectHideFlags: 0
@@ -12772,6 +12778,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 148649318, guid: 0cd28c98a99c9f442b6a174ed2fb788d, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 148649319, guid: 0cd28c98a99c9f442b6a174ed2fb788d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 148649319, guid: 0cd28c98a99c9f442b6a174ed2fb788d, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cd28c98a99c9f442b6a174ed2fb788d, type: 3}
