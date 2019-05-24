@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-//[CustomEditor(typeof(OpacityKiller))]
+[CanEditMultipleObjects]
+[CustomEditor(typeof(OpacityKiller))]
 public class OpacityKillerSetUp : Editor
 {
     public override void OnInspectorGUI()
@@ -13,10 +14,10 @@ public class OpacityKillerSetUp : Editor
 
         if(GUILayout.Button("Set References"))
         {
-          //  ok.KillChilds.Clear();
-           // ok.myMaterial.Clear();
+            ok.KillChilds.Clear();
+            //ok.myMaterial.Clear();
 
-        //    ok.OpacitySetup();
+            //ok.OpacitySetup();
 
             if (GUI.changed)
                 EditorUtility.SetDirty(ok);

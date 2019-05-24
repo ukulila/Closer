@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[CanEditMultipleObjects]
 [CustomEditor(typeof(CellMovement))]
 public class CellMovementSetUp : Editor
 {

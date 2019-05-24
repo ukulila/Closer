@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public enum GameMode { PuzzleMode, InvestigationMode, Dialogue, CinematicMode, MenuMode }
+    public enum GameMode { PuzzleMode, InvestigationMode, Dialogue, CinematicMode, ClueMode, MenuMode }
 
     [Header("Mode de jeu")]
     public GameMode currentGameMode;
@@ -57,6 +57,11 @@ public class GameManager : MonoBehaviour
                     playerBehav.enabled = true;
                 }
 
+                if (ROOM_Manager.Instance.currentRoom.isThereClients == true)
+                {
+                    Harcelement_Manager.Instance.AmongThem();
+                }
+
                 previousGameMode = GameMode.PuzzleMode;
                 break;
 
@@ -79,6 +84,8 @@ public class GameManager : MonoBehaviour
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.dialogueGO));
                 }
+
+                Harcelement_Manager.Instance.FarFromThem();
 
                 playerBehav.enabled = false;
 
@@ -112,12 +119,49 @@ public class GameManager : MonoBehaviour
 
                 playerBehav.enabled = false;
 
+                Harcelement_Manager.Instance.FarFromThem();
+
                 previousGameMode = GameMode.Dialogue;
                 break;
 
             case GameMode.CinematicMode:
 
                 previousGameMode = GameMode.CinematicMode;
+                break;
+
+            case GameMode.ClueMode:
+
+                if (previousGameMode == GameMode.PuzzleMode)
+                {
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.WinningGO);
+
+                    UI_Manager.Instance.inventoryGO[2].GetComponent<Button>().onClick.Invoke();
+                    UI_Manager.Instance.inventoryButtonsGO[0].GetComponentInChildren<Button>().onClick.Invoke();
+                    InventorySystem.Instance.HideInventory();
+
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.inventoryGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.inventoryButtonsGO));
+                }
+
+                if (previousGameMode == GameMode.InvestigationMode)
+                {
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.WinningGO);
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.outOfContextGO);
+
+                    Camera_UI.Instance.SwitchToNoUi();
+
+                    ROOM_Manager.Instance.currentRoom.DisableUI();
+
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.contextuelleGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.backgroundGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.inventoryButtonsGO));
+
+                    playerBehav.enabled = true;
+                }
+
+                Harcelement_Manager.Instance.FarFromThem();
+
+                previousGameMode = GameMode.ClueMode;
                 break;
         }
     }

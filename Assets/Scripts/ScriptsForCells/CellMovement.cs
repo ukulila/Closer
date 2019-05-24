@@ -146,6 +146,16 @@ public class CellMovement : MonoBehaviour
                 //onlyone = true;
                 isEntering = true;
                 isSpawn = true;
+
+
+                if(ROOM_Manager.Instance.currentRoom.isThereClients == true)
+                {
+                    Harcelement_Manager.Instance.AmongThem();
+                }
+                else
+                {
+                    Harcelement_Manager.Instance.FarFromThem();
+                }
             }
 
         }

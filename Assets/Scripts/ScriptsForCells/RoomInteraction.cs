@@ -27,6 +27,10 @@ public class RoomInteraction : MonoBehaviour
     public Button interactWith;
     public Button changeFloor;
 
+    [Header("Clients")]
+    public bool isThereClients = false;
+    public List<GameObject> clients;
+
     [Header("Animators")]
     public List<Animator> uiAnimators;
 
@@ -192,9 +196,38 @@ public class RoomInteraction : MonoBehaviour
     }
 
 
+    IEnumerator ClientApparition()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        for (int i = 0; i < clients.Count; i++)
+        {
+            clients[i].SetActive(true);
+        }
+    }
+
+    IEnumerator ClientDisparition()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        for (int i = 0; i < clients.Count; i++)
+        {
+            clients[i].SetActive(false);
+        }
+    }
 
 
+    public void ClientsCome()
+    {
+        isThereClients = true;
+        StartCoroutine(ClientApparition());
+    }
 
+    public void NoClients()
+    {
+        isThereClients = false;
+        StartCoroutine(ClientDisparition());
+    }
 
     /// <summary>
     /// Ajouter un NPC
