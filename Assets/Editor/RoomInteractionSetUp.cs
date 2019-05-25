@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using TMPro;
 
+[CanEditMultipleObjects]
 [CustomEditor(typeof(RoomInteraction))]
 public class RoomInteractionSetUp : Editor
 {
