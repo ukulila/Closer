@@ -324,6 +324,20 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.Log("Add" + nextContext.gameObject);
 
             for (int i = 0; i < Rooms.Count; i++)
+<<<<<<< HEAD
+=======
+            {
+                if (Rooms[i] != nextContext.gameObject)
+                {
+                    Rooms[i].isOpen = false;
+                }
+            }
+
+            /*  if (doorBool)
+              {*/
+
+            if (context.doorWayPoints.Count != 0)
+>>>>>>> Develop
             {
                 if(Rooms[i] != nextContext.gameObject)
                 {
@@ -342,6 +356,7 @@ public class PlayerBehaviour : MonoBehaviour
                     for (int u = 0; u < context.doorWayPoints.Count; u++)
                     {
 
+<<<<<<< HEAD
                         RaycastHit hit;
                         int layerMaskDoor = LayerMask.GetMask("Door");
 
@@ -352,14 +367,63 @@ public class PlayerBehaviour : MonoBehaviour
                             //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 050);
                             //cP.okToSetup = true;
                             //Debug.Log("1st raycastHit");
+=======
+                    // Debug.Log("DoorWaypointCount");
+
+                    if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject && hit.transform.parent.gameObject == nextContext.gameObject)
+                    {
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 050);
+                        //cP.okToSetup = true;
+                        //Debug.Log("1st raycastHit");
 
 
+                        if (nextContext.GetComponent<ScrEnvironment>().doorWayPoints.Contains(hit.collider.transform))
+                        {
+                            doorDirection = (hit.collider.transform);
+                            myDoor = context.doorWayPoints[u];
+
+                        }
+
+                        castingRay = false;
+                    }
+                    else
+                    {
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
+                        castingRay = false;
+                        // Debug.Log("1st NoRaycastHit");
+>>>>>>> Develop
+
+
+<<<<<<< HEAD
                             if(nextContext.GetComponent<ScrEnvironment>().doorWayPoints.Contains(hit.collider.transform))
                             {
                                 doorDirection = (hit.collider.transform);
                                 myDoor = context.doorWayPoints[u];
 
                             }
+=======
+                    if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject && hit.transform.parent.gameObject == nextContext.gameObject)
+                    {
+                        //Debug.Log("2st RaycastHit");
+
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
+
+                        if (nextContext.GetComponent<ScrEnvironment>().doorWayPoints.Contains(hit.collider.transform))
+                        {
+                            myDoor = context.doorWayPoints[u];
+
+                            doorDirection = (hit.collider.transform);
+                        }
+
+                        castingRay = false;
+
+                    }
+                    else
+                    {
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
+                        castingRay = false;
+                        // Debug.Log("2st NoRaycastHit");
+>>>>>>> Develop
 
                             castingRay = false;
                         }
@@ -375,6 +439,7 @@ public class PlayerBehaviour : MonoBehaviour
                         {
                             //Debug.Log("2st RaycastHit");
 
+<<<<<<< HEAD
                             //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
 
                             if (nextContext.GetComponent<ScrEnvironment>().doorWayPoints.Contains(hit.collider.transform))
@@ -385,6 +450,35 @@ public class PlayerBehaviour : MonoBehaviour
                             }
 
                             castingRay = false;
+=======
+                if (doorDirection != null && myDoor != null && nextContext != null)
+                {
+                    // Debug.Log("2st NoRaycastHit");
+
+                    CheckList();
+                }
+
+                DoorsToCheck -= 1;
+                if (DoorsToCheck <= 0)
+                {
+                    add = false;
+                }
+
+                //  }
+            }
+            //////////////////////////////////////////////                                    //////////////////////////////////////////////////////
+
+            ///////////////////////////////////////////////////////// Hatches Only /////////////////////////////////////////////////////////////////
+
+            //////////////////////////////////////////////                                    /////////////////////////////////////////////////////
+
+            /*       if (HatchesBool)
+                   {*/
+            if (context.HatchesWayPoints.Count != 0)
+            {
+                for (int u = 0; u < context.HatchesWayPoints.Count; u++)
+                {
+>>>>>>> Develop
 
                         }
                         else
@@ -395,7 +489,24 @@ public class PlayerBehaviour : MonoBehaviour
 
                         }
 
+<<<<<<< HEAD
 
+=======
+                    if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject && hit.transform.parent.gameObject == nextContext.gameObject)
+                    {
+                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 050);
+                        //cP.okToSetup = true;
+
+
+                        if (nextContext.GetComponent<ScrEnvironment>().HatchesWayPoints.Contains(hit.collider.transform))
+                        {
+                            doorDirection = (hit.collider.transform);
+                            myDoor = context.HatchesWayPoints[u];
+
+                        }
+
+                        castingRay = false;
+>>>>>>> Develop
                     }
 
                     if (doorDirection != null && myDoor != null && nextContext != null)
@@ -405,10 +516,25 @@ public class PlayerBehaviour : MonoBehaviour
                         CheckList();
                     }
 
+<<<<<<< HEAD
                     DoorsToCheck -= 1;
                     if (DoorsToCheck <= 0)
                     {
                         add = false;
+=======
+                    if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject && hit.transform.parent.gameObject == nextContext.gameObject)
+                    {
+                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 50);
+                        myDoor = context.HatchesWayPoints[u];
+
+                        if (nextContext.GetComponent<ScrEnvironment>().HatchesWayPoints.Contains(hit.collider.transform))
+                        {
+                            doorDirection = (hit.collider.transform);
+                        }
+
+                        castingRay = false;
+
+>>>>>>> Develop
                     }
 
               //  }
@@ -426,6 +552,7 @@ public class PlayerBehaviour : MonoBehaviour
                     for (int u = 0; u < context.HatchesWayPoints.Count; u++)
                     {
 
+<<<<<<< HEAD
                         RaycastHit hit;
                         int layerMaskDoor = LayerMask.GetMask("Door");
 
@@ -487,6 +614,15 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                 }
            // }
+=======
+                DoorsToCheck -= 1;
+                if (DoorsToCheck <= 0)
+                {
+                    add = false;
+                }
+            }
+            // }
+>>>>>>> Develop
         }
 
 
@@ -497,21 +633,31 @@ public class PlayerBehaviour : MonoBehaviour
 
         /*  if (context.HatchesWayPoints.Count != 0)
           {*/
+<<<<<<< HEAD
       /*  if (castingRay)
         {
+=======
+        /*  if (castingRay)
+          {
+>>>>>>> Develop
 
-        }
+          }
 
-        if (add)
-        {
-            //myDoorList = context.doorWayPoints;
-            //Debug.Log("Je me tire Second ray");
-
-            
+          if (add)
+          {
+              //myDoorList = context.doorWayPoints;
+              //Debug.Log("Je me tire Second ray");
 
 
+
+<<<<<<< HEAD
         }
         */
+=======
+
+          }
+          */
+>>>>>>> Develop
 
         // }
 

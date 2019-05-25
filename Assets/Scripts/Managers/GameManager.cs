@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
                 if (previousGameMode == GameMode.Dialogue)
                 {
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.inventoryGO);
+                    UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.WinningGO);
 
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.dialogueGO));
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.backgroundGO));

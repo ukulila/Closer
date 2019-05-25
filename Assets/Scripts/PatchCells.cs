@@ -20,24 +20,24 @@ public class PatchCells : MonoBehaviour
         {
 
             RaycastHit hit;
+
             int LayerMaskCells = LayerMask.GetMask("Cell");
 
             if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, LayerMaskCells))
             {
                 click = true;
-                
 
-                cB.aboutCamera = false;
-
-                
-
+                if (cB != null)
+                    cB.aboutCamera = false;
+                else
+                    cR.aboutCamera = false;
             }
             else
             {
-               
-                 cB.aboutCamera = true;
-
-
+                if (cB != null)
+                    cB.aboutCamera = true;
+                else
+                    cR.aboutCamera = true;
             }
         }
     }
