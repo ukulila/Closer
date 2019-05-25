@@ -1070,13 +1070,15 @@ public class DialogueSystem : MonoBehaviour
     {
         if (currentTime < maxTime)
         {
-            currentTime += Time.deltaTime * typingTimeRatio;
+            currentTime += (Time.deltaTime * typingTimeRatio);
         }
         else
         {
             endOfTheLine = true;
             writting = false;
             typingTimeRatio = typingSpeedRatio;
+
+            dialogueTexts[currentLine].color = new Color32(82, 29, 80, 255);
         }
 
         currentCharacter = (int)lineTypingSpeed[currentLine].Evaluate(currentTime);
@@ -1103,7 +1105,6 @@ public class DialogueSystem : MonoBehaviour
         }
 
         dialogueTexts[currentLine].UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
-
     }
 
     private void NextLine()
@@ -1131,7 +1132,7 @@ public class DialogueSystem : MonoBehaviour
     {
         if (currentResetTime < maxResetTime)
         {
-            currentResetTime += Time.deltaTime * 1;
+            currentResetTime += Time.deltaTime;
         }
         else
         {

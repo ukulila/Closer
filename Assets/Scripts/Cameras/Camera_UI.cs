@@ -145,8 +145,6 @@ public class Camera_UI : MonoBehaviour
                             isPlayerHere = cellMove.isSpawn;
                     }
 
-                    //fovDiff = uiFOV - currentFOV;
-
 
                     if (isPlayerHere)
                     {
