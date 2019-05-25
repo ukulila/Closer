@@ -9,8 +9,6 @@ public class OutlineManager : MonoBehaviour
     public Material myMaterial;
 
 
-
-
     public void Start()
     {
         if (myCellMovement == null)
@@ -56,6 +54,5 @@ public class OutlineManager : MonoBehaviour
             myMaterial.SetColor("_myColor", Color.green);
             myMaterial.SetInt("_isActive", 1);
         }
-
     }
 }
