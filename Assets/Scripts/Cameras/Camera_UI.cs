@@ -209,7 +209,7 @@ public class Camera_UI : MonoBehaviour
                             selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
 
 
-                        if (selectionTimingImage.fillAmount == 1 && currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name && isPlayerHere)
+                        if (selectionTimingImage.fillAmount == 1 /*&& currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name*/ && isPlayerHere)
                         {
                             switchToUI = true;
                             cameraReposition = false;
