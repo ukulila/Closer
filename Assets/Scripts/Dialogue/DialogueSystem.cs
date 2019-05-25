@@ -1011,7 +1011,7 @@ public class DialogueSystem : MonoBehaviour
             {
                 FadeScript.Instance.FadeINandOUT();
 
-                StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(0.1f));
+                StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2f));
             }
             else
             {
