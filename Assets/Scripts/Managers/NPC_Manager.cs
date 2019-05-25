@@ -25,8 +25,11 @@ public class NPC_Manager : MonoBehaviour
             {
                 if (currentNPC.hasEventBeenInvoked == false)
                 {
-                    currentNPC.questTriggers[currentNPC.dialogueIndex].Invoke();
+                    //currentNPC.questTriggers[currentNPC.dialogueIndex].Invoke();
+
                     currentNPC.hasEventBeenInvoked = true;
+
+                    StartCoroutine(StartInvokeIn(1.5f));
                 }
 
             }
@@ -47,5 +50,12 @@ public class NPC_Manager : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         currentNPC.StartDialogueAbout();
+    }
+
+    IEnumerator StartInvokeIn(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        currentNPC.questTriggers[currentNPC.dialogueIndex].Invoke();
     }
 }

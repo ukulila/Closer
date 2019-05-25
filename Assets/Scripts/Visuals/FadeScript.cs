@@ -5,9 +5,14 @@ public class FadeScript : MonoBehaviour
 {
     public Animator fadeAnim;
 
+    public static FadeScript Instance;
+
+
 
     private void Awake()
     {
+        Instance = this;
+
         if (fadeAnim == null)
             fadeAnim = GetComponent<Animator>();
     }

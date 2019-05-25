@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 
@@ -14,4 +10,6 @@ public class Objet_Interaction : MonoBehaviour
     public Sprite objectImage;
     [Space]
     public UnityEvent objectEvent;
+
+    public bool doesTheObjectDisappearAfterInvoke = true;
 }
