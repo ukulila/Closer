@@ -16,6 +16,9 @@ public class ScrEnvironment : MonoBehaviour
     [Tooltip("Toutes les portes doivent être reférencées ici")]
     public List<Transform> doorWayPoints;
     [Space(5)]
+    [Tooltip("Toutes les trappes doivent être reférencées ici")]
+    public List<Transform> HatchesWayPoints;
+    [Space(5)]
     [Header("   HELP : Documentation en ligne")]
     [Tooltip("Copy-Paste me")]
     public string DriveLinkToDocumentation = "https://docs.google.com/document/d/1xnNaKkt93k7VyAbdshTUKTLybfpX1DaPGwhrvcgqN54/edit";

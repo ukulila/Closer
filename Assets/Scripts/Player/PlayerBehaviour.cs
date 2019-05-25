@@ -122,9 +122,10 @@ public class PlayerBehaviour : MonoBehaviour
 
         #region isDoorIn
 
-        if (!context.ContainsTrap)
+
+        if (castingRay)
         {
-            if (castingRay)
+            if (context.doorWayPoints.Count != 0)
             {
                 for (int u = 0; u < context.doorWayPoints.Count; u++)
                 {
@@ -207,7 +208,103 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
 
-            if (add)
+
+
+            //////////////////////////////////////////////                                    //////////////////////////////////////////////////////
+
+            ///////////////////////////////////////////////////////// Hatches Only /////////////////////////////////////////////////////////////////
+
+            //////////////////////////////////////////////                                    /////////////////////////////////////////////////////
+
+            if (context.HatchesWayPoints.Count != 0)
+            {
+                for (int u = 0; u < context.HatchesWayPoints.Count; u++)
+                {
+
+                    RaycastHit hit;
+                    int layerMaskDoor = LayerMask.GetMask("Door");
+                    Debug.Log("coucou");
+
+
+                    if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
+                    {
+                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 50);
+                        cP.okToSetup = true;
+
+
+                        Debug.Log(hit.transform.name);
+
+
+                        if (hit.transform.parent.GetComponent<CellMovement>())
+                        {
+                            //Debug.Log("parentparentconatinsCellmovement");
+
+                            CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
+
+                            if (cellMove.isOpen == false)
+                            {
+                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
+                                cellMove.isOpen = true;
+                            }
+                            else if (cellMove.isOpen == true)
+                            {
+                                //Debug.Log("close");
+                                cellMove.isOpen = false;
+                            }
+                        }
+
+                        castingRay = false;
+                    }
+                    else
+                    {
+                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.red, 50);
+                        castingRay = false;
+
+                    }
+
+                    if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
+                    {
+                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.green, 50);
+                        cP.okToSetup = true;
+
+
+                        //Debug.Log(hit.transform.parent.name);
+
+                        if (hit.transform.parent.GetComponent<CellMovement>())
+                        {
+                            //Debug.Log("parentparentconatinsCellmovement");
+
+                            CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
+
+                            if (cellMove.isOpen == false)
+                            {
+                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
+                                cellMove.isOpen = true;
+                            }
+                            else if (cellMove.isOpen == true)
+                            {
+                                //Debug.Log("close");
+                                cellMove.isOpen = false;
+                            }
+                        }
+                        castingRay = false;
+
+                    }
+                    else
+                    {
+                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.red, 50);
+                        castingRay = false;
+
+                    }
+                }
+
+            }
+        }
+
+
+        if (add)
+        {
+            if (context.doorWayPoints.Count != 0)
             {
                 //myDoorList = context.doorWayPoints;
                 //Debug.Log("Je me tire Second ray");
@@ -260,139 +357,44 @@ public class PlayerBehaviour : MonoBehaviour
 
                 add = false;
 
-
             }
 
-
-        }
-        #endregion
-
-        #region isTrapIn
-
-        if (context.ContainsTrap)
-        {
-            if (castingRay)
+            if (context.HatchesWayPoints.Count != 0)
             {
-                for (int u = 0; u < context.doorWayPoints.Count; u++)
-                {
-                    RaycastHit hit;
-                    int layerMaskDoor = LayerMask.GetMask("Door");
-
-
-                    if (Physics.Raycast(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
-                    {
-                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, Color.green, 50);
-                        cP.okToSetup = true;
-
-
-                        //Debug.Log(hit.transform.name);
-
-
-                        if (hit.transform.parent.GetComponent<CellMovement>())
-                        {
-                            //Debug.Log("parentparentconatinsCellmovement");
-
-                            CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
-
-                            if (cellMove.isOpen == false)
-                            {
-                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
-                                cellMove.isOpen = true;
-                            }
-                            else if (cellMove.isOpen == true)
-                            {
-                                //Debug.Log("close");
-                                cellMove.isOpen = false;
-                            }
-                        }
-
-                        castingRay = false;
-                    }
-                    else
-                    {
-                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, Color.red, 50);
-                        castingRay = false;
-
-                    }
-
-                    if (Physics.Raycast(context.doorWayPoints[u].transform.position + offsetTrap, context.doorWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
-                    {
-                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, context.doorWayPoints[u].transform.forward, Color.green, 50);
-                        cP.okToSetup = true;
-
-
-                        //Debug.Log(hit.transform.parent.name);
-
-                        if (hit.transform.parent.GetComponent<CellMovement>())
-                        {
-                            //Debug.Log("parentparentconatinsCellmovement");
-
-                            CellMovement cellMove = hit.transform.parent.GetComponent<CellMovement>();
-
-                            if (cellMove.isOpen == false)
-                            {
-                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
-                                cellMove.isOpen = true;
-                            }
-                            else if (cellMove.isOpen == true)
-                            {
-                                //Debug.Log("close");
-                                cellMove.isOpen = false;
-                            }
-                        }
-                        castingRay = false;
-
-                    }
-                    else
-                    {
-                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, context.doorWayPoints[u].transform.forward, Color.red, 50);
-                        castingRay = false;
-
-                    }
-
-
-                }
-            }
-
-            if (add)
-            {
-                //myDoorList = context.doorWayPoints;
-                //Debug.Log("Je me tire Second ray");
-
-                for (int u = 0; u < context.doorWayPoints.Count; u++)
+                for (int u = 0; u < context.HatchesWayPoints.Count; u++)
                 {
 
                     RaycastHit hit;
                     int layerMaskDoor = LayerMask.GetMask("Door");
 
 
-                    if (Physics.Raycast(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, out hit, 5, layerMaskDoor))
+                    if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor))
                     {
-                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, Color.green, 050);
+                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 050);
                         //cP.okToSetup = true;
 
-                        myDoor = context.doorWayPoints[u];
+                        myDoor = context.HatchesWayPoints[u];
                         doorDirection = (hit.collider.transform);
                         castingRay = false;
                     }
                     else
                     {
-                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, Color.red, 50);
+                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.red, 50);
                         castingRay = false;
 
                     }
 
-                    if (Physics.Raycast(context.doorWayPoints[u].transform.position + offsetTrap, context.doorWayPoints[u].transform.forward, out hit, 5, layerMaskDoor))
+                    if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor))
                     {
-                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, -context.doorWayPoints[u].transform.forward, Color.green, 50);
-                        myDoor = context.doorWayPoints[u];
+                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 50);
+                        myDoor = context.HatchesWayPoints[u];
                         doorDirection = (hit.collider.transform);
                         castingRay = false;
 
                     }
                     else
                     {
-                        Debug.DrawRay(context.doorWayPoints[u].transform.position + offsetTrap, context.doorWayPoints[u].transform.forward, Color.red, 50);
+                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.red, 50);
                         castingRay = false;
 
                     }
@@ -406,12 +408,34 @@ public class PlayerBehaviour : MonoBehaviour
                 }
 
                 add = false;
-
-
             }
+        }
+
+
+
+        #endregion
+
+        #region isTrapIn
+
+        /*  if (context.HatchesWayPoints.Count != 0)
+          {*/
+        if (castingRay)
+        {
+
+        }
+
+        if (add)
+        {
+            //myDoorList = context.doorWayPoints;
+            //Debug.Log("Je me tire Second ray");
+
+            
 
 
         }
+
+
+        // }
 
 
         #endregion
@@ -525,7 +549,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (context.gameObject.GetComponent<CellMovement>().hasEnded == true)
                 {
-                   // Debug.Log("           I draw          ");
+                    // Debug.Log("           I draw          ");
 
                     RaycastHit hit;
                     int layerMaskDoor = LayerMask.GetMask("Door");
@@ -534,17 +558,20 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                         {
-                        //    Debug.Log("                     " + hit.transform.name);
+                            //    Debug.Log("                     " + hit.transform.name);
 
                             //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
 
                             coneDoor = hit.transform.gameObject;
+                            if (hit.transform.parent.GetComponent<CellScript>().coneRed.Count != 0)
+                            {
+                                hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                                hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
 
-                            hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                            hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
+                                transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                                transform.parent.GetComponent<CellScript>().freeRoom = true;
+                            }
 
-                            transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                            transform.parent.GetComponent<CellScript>().freeRoom = true;
 
                             if (checkInt >= 3)
                             {
@@ -558,16 +585,19 @@ public class PlayerBehaviour : MonoBehaviour
                         }
                         else
                         {
-                         //   Debug.Log("            I touch Nothing         ");
+                            //   Debug.Log("            I touch Nothing         ");
 
                             //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
-                            transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                            transform.parent.GetComponent<CellScript>().freeRoom = false;
-
-                            if (coneDoor != null)
+                            if (transform.parent.GetComponent<CellScript>().coneRed.Count != 0)
                             {
-                                coneDoor.transform.parent.GetComponent<CellScript>().freeRoom = false;
-                                coneDoor.transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                                transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                                transform.parent.GetComponent<CellScript>().freeRoom = false;
+
+                                if (coneDoor != null && coneDoor.transform.parent.GetComponent<CellScript>().coneRed.Count != 0)
+                                {
+                                    coneDoor.transform.parent.GetComponent<CellScript>().freeRoom = false;
+                                    coneDoor.transform.parent.GetComponent<CellScript>().ConeFunction(0);
+                                }
                             }
 
                             if (checkInt >= 3)
@@ -586,12 +616,12 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if(!checkOpenDoor)
+        if (!checkOpenDoor)
         {
 
             timerOpenDoor++;
 
-            if(timerOpenDoor > 120)
+            if (timerOpenDoor > 120)
             {
                 checkOpenDoor = true;
             }
