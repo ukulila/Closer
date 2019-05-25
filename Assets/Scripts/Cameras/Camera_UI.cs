@@ -162,7 +162,7 @@ public class Camera_UI : MonoBehaviour
 
             if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube, Mathf.Infinity, cellMask))
             {
-                currentSelectedCell = selectedCube.collider.gameObject.name;
+                //currentSelectedCell = selectedCube.collider.gameObject.name;
 
                 if (isLookingForPathCells)
                 {
@@ -217,6 +217,12 @@ public class Camera_UI : MonoBehaviour
                             ROOM_Manager.Instance.LaunchUI((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier);
                         }
                     }
+                }
+                else
+                {
+                    selectionTimingImage.fillAmount = 0;
+                    timeBeforeSearch = 0;
+                    isPlayerHere = false;
                 }
             }
         }
@@ -394,8 +400,8 @@ public class Camera_UI : MonoBehaviour
                     currentTargetOffset.y + targetOffsetDiff.y * retarPercent, currentTargetOffset.z + targetOffsetDiff.z * retarPercent);
 
                 //Changement du Transform du dolly
-                dollyTransform.position = new Vector3(currentDollyPosition.x + dollyPositionDiff.x * repoPercent, currentDollyPosition.y + dollyPositionDiff.y * repoPercent,
-                    currentDollyPosition.z + dollyPositionDiff.z * repoPercent);
+                dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y + dollyPositionDiff.y * repoPercent,
+                    dollyTransform.position.z);
 
                 //Changement de la focale
                 virtualCamera.m_Lens.OrthographicSize = currentFOV + fovDiff * repoPercent;
@@ -409,8 +415,8 @@ public class Camera_UI : MonoBehaviour
 
 
             //Changement du Transform du dolly
-            dollyTransform.position = new Vector3(currentDollyPosition.x - dollyPositionDiff.x * repoPercent, currentDollyPosition.y - dollyPositionDiff.y * repoPercent,
-                    currentDollyPosition.z - dollyPositionDiff.z * repoPercent);
+            dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y - dollyPositionDiff.y * repoPercent,
+                    dollyTransform.position.z);
 
 
             //Changement de la focale
