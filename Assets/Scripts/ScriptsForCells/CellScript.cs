@@ -63,85 +63,88 @@ public class CellScript : MonoBehaviour
 
     void Update()
     {
-
-        if (first)
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
-            timer++;
-
-            if (timer >= timeBetweenTwoTouches)
+            if (first)
             {
-                nbrTouch = 0;
-                timer = 0;
-                first = false;
+                timer++;
+
+                if (timer >= timeBetweenTwoTouches)
+                {
+                    nbrTouch = 0;
+                    timer = 0;
+                    first = false;
+                }
+
             }
 
-        }
-
-        if (isInRotation)
-        {
-            transform.Rotate(new Vector3(0, 1, 0), speed);
-
-            if (cP != null)
+            if (isInRotation)
             {
-                cP.isInRotation = true;
-            }
-
-            timeRot++;
-
-            if (timeRot > fin)
-            {
-                timeRot = 0;
-                isInRotation = false;
+                transform.Rotate(new Vector3(0, 1, 0), speed);
 
                 if (cP != null)
                 {
-                    cP.isInRotation = false;
+                    cP.isInRotation = true;
                 }
 
-                if (brothers[0] != null)
+                timeRot++;
+
+                if (timeRot > fin)
                 {
-                    for (int r = 0; r < brothers.Count; r++)
+                    timeRot = 0;
+                    isInRotation = false;
+
+                    if (cP != null)
                     {
-                        brothers[r].hasEnded = true;
-                        player.checkOpenDoor = true;
+                        cP.isInRotation = false;
+                    }
+
+                    if (brothers[0] != null)
+                    {
+                        for (int r = 0; r < brothers.Count; r++)
+                        {
+                            brothers[r].hasEnded = true;
+                            player.checkOpenDoor = true;
+                        }
                     }
                 }
             }
-        }
 
 
 
-        if (Input.GetMouseButtonDown(0) && !playerMoving)
-        {
-            RaycastHit hit;
-            int LayerMaskCells = LayerMask.GetMask("Cell");
-
-            if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, LayerMaskCells))
+            if (Input.GetMouseButtonDown(0) && !playerMoving)
             {
-                if (hit.transform.gameObject == gameObject)
+                RaycastHit hit;
+                int LayerMaskCells = LayerMask.GetMask("Cell");
+
+                if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, LayerMaskCells))
                 {
-                    first = true;
-                    nbrTouch += 1;
-
-
-                    if (first && nbrTouch > 1)
+                    if (hit.transform.gameObject == gameObject)
                     {
-                        if (brothers[0] != null)
+                        first = true;
+                        nbrTouch += 1;
+
+
+                        if (first && nbrTouch > 1)
                         {
-                           /* for (int r = 0; r < brothers.Count; r++)
+                            if (brothers[0] != null)
                             {
-                                brothers[r].hasEnded = false;
-                            }*/
+                                /* for (int r = 0; r < brothers.Count; r++)
+                                 {
+                                     brothers[r].hasEnded = false;
+                                 }*/
+                            }
+
+                            set = true;
+                            if (set)
+                            {
+                                myRot = transform.rotation;
+                                set = false;
+                            }
+                            isInRotation = true;
+                            nbrTouch = 0;
                         }
 
-                        set = true;
-                        if (set)
-                        {
-                            myRot = transform.rotation;
-                            set = false;
-                        }
-                        isInRotation = true;
-                        nbrTouch = 0;
                     }
 
                 }
@@ -149,7 +152,6 @@ public class CellScript : MonoBehaviour
             }
 
         }
-
     }
 
     public void ConeFunction(int door)

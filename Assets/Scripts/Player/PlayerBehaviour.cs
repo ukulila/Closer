@@ -70,8 +70,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Vector3 offsetTrap;
     public int timerOpenDoor;
-    private bool doorBool;
-    private bool HatchesBool;
+    //private bool doorBool;
+    //private bool HatchesBool;
     public int DoorsToCheck;
 
 
@@ -145,8 +145,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 
                         //Debug.Log(hit.transform.name);
-                        doorBool = true;
-                        HatchesBool = false;
+                       // doorBool = true;
+                       // HatchesBool = false;
 
                         if (hit.transform.parent.GetComponent<CellMovement>() && !hit.transform.parent.GetComponent<OpacityKiller>().BlackRoom)
                         {
@@ -181,8 +181,8 @@ public class PlayerBehaviour : MonoBehaviour
                         Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.green, 50);
                         cP.okToSetup = true;
 
-                        doorBool = true;
-                        HatchesBool = false;
+                       // doorBool = true;
+                       // HatchesBool = false;
 
                         //Debug.Log(hit.transform.parent.name);
 
@@ -244,8 +244,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 
                         Debug.Log(hit.transform.name);
-                        HatchesBool = true;
-                        doorBool = false;
+                       // HatchesBool = true;
+                       // doorBool = false;
 
                         if (hit.transform.parent.GetComponent<CellMovement>())
                         {
@@ -281,8 +281,8 @@ public class PlayerBehaviour : MonoBehaviour
                         Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.green, 50);
                         cP.okToSetup = true;
 
-                        HatchesBool = true;
-                        doorBool = false;
+                       // HatchesBool = true;
+                       // doorBool = false;
                         //Debug.Log(hit.transform.parent.name);
 
                         if (hit.transform.parent.GetComponent<CellMovement>())
