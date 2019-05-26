@@ -77,6 +77,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
+        moveEnded = true;
+
+        oneList = true;
+        oneList02 = true;
         add = false;
         reset = true;
         //     onlyOne = true;
@@ -127,7 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
         #region isDoorIn
 
 
-        if (castingRay)
+        if (castingRay && moveEnded)
         {
             //Debug.Log("casting ray");
             if (context.doorWayPoints.Count != 0)
@@ -145,8 +149,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 
                         //Debug.Log(hit.transform.name);
-                       // doorBool = true;
-                       // HatchesBool = false;
+                        // doorBool = true;
+                        // HatchesBool = false;
 
                         if (hit.transform.parent.GetComponent<CellMovement>() && !hit.transform.parent.GetComponent<OpacityKiller>().BlackRoom)
                         {
@@ -181,8 +185,8 @@ public class PlayerBehaviour : MonoBehaviour
                         Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.green, 50);
                         cP.okToSetup = true;
 
-                       // doorBool = true;
-                       // HatchesBool = false;
+                        // doorBool = true;
+                        // HatchesBool = false;
 
                         //Debug.Log(hit.transform.parent.name);
 
@@ -244,8 +248,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 
                         Debug.Log(hit.transform.name);
-                       // HatchesBool = true;
-                       // doorBool = false;
+                        // HatchesBool = true;
+                        // doorBool = false;
 
                         if (hit.transform.parent.GetComponent<CellMovement>())
                         {
@@ -281,8 +285,8 @@ public class PlayerBehaviour : MonoBehaviour
                         Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.green, 50);
                         cP.okToSetup = true;
 
-                       // HatchesBool = true;
-                       // doorBool = false;
+                        // HatchesBool = true;
+                        // doorBool = false;
                         //Debug.Log(hit.transform.parent.name);
 
                         if (hit.transform.parent.GetComponent<CellMovement>())
@@ -316,11 +320,17 @@ public class PlayerBehaviour : MonoBehaviour
                 }
 
             }
+
+            
+
         }
 
 
-        if (add)
+        if (add )
         {
+            moveEnded = false;
+            movement = false;
+            reset = true;
             Debug.Log("Add" + nextContext.gameObject);
 
             for (int i = 0; i < Rooms.Count; i++)
@@ -486,6 +496,8 @@ public class PlayerBehaviour : MonoBehaviour
                     add = false;
                 }
             }
+
+           
             // }
         }
 
@@ -562,6 +574,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (movement && !context.gameObject.GetComponent<CellMovement>().once)
         {
+            moveEnded = false;
 
             Movement(waypoints.listOfWaypoint);
 
@@ -743,6 +756,8 @@ public class PlayerBehaviour : MonoBehaviour
 
             }
             //animator.SetBool("Walk", false);
+            moveEnded = true;
+
             lookCam = true;
             one = true;
         }
@@ -757,7 +772,7 @@ public class PlayerBehaviour : MonoBehaviour
         oneRef = true;
         oneRef01 = true;
         oneRef02 = true;
-
+        //moveEnded = true;
 
     }
 
@@ -777,38 +792,45 @@ public class PlayerBehaviour : MonoBehaviour
     public void CheckList()
     {
 
-
-        for (int i = 0; i < context.paths.list.Count; i++)
+        if (oneList)
         {
-            if (context.paths.list[i].listOfWaypoint.Contains(myDoor) && oneRef)
+            for (int i = 0; i < context.paths.list.Count; i++)
             {
-                for (int u = 0; u < context.paths.list[i].listOfWaypoint.Count; u++)
+                if (context.paths.list[i].listOfWaypoint.Contains(myDoor) && oneRef)
                 {
-                    //Debug.Log("FirstToPatch");
-                    ultimateList.Add(context.paths.list[i].listOfWaypoint[u]);
-                }
+                    for (int u = 0; u < context.paths.list[i].listOfWaypoint.Count; u++)
+                    {
+                        //Debug.Log("FirstToPatch");
+                        ultimateList.Add(context.paths.list[i].listOfWaypoint[u]);
 
-                oneRef = false;
+                    }
+                    oneList = false;
+                    oneRef = false;
+                }
             }
         }
 
-        for (int h = 0; h < nextContext.paths.list.Count; h++)
+        if (oneList02)
         {
-            if (nextContext.paths.list[h].listOfWaypoint.Contains(doorDirection))
+            for (int h = 0; h < nextContext.paths.list.Count; h++)
             {
-                if (inverseList.Count != nextContext.paths.list[h].listOfWaypoint.Count)
+                if (nextContext.paths.list[h].listOfWaypoint.Contains(doorDirection))
                 {
-                    for (int u = 0; u < nextContext.paths.list[h].listOfWaypoint.Count; u++)
+                    if (inverseList.Count != nextContext.paths.list[h].listOfWaypoint.Count)
                     {
-                        inverseList.Add(nextContext.paths.list[h].listOfWaypoint[u]);
+                        for (int u = 0; u < nextContext.paths.list[h].listOfWaypoint.Count; u++)
+                        {
+                            inverseList.Add(nextContext.paths.list[h].listOfWaypoint[u]);
+                        }
                     }
-                }
 
-                if (inverseList.Count == nextContext.paths.list[h].listOfWaypoint.Count)
-                {
-                    inverseList.Reverse();
-                }
+                    if (inverseList.Count == nextContext.paths.list[h].listOfWaypoint.Count)
+                    {
+                        inverseList.Reverse();
+                        oneList02 = false;
+                    }
 
+                }
             }
         }
 
@@ -842,9 +864,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     float curvePercent;
     private int timer;
+    private bool oneList;
+    private bool oneList02;
+    public bool moveEnded;
 
     public void Movement(List<Transform> listToMove)
     {
+        reset = false;
+
         for (int i = 0; i < Rooms.Count; i++)
         {
             Rooms[i].hasEnded = false;
@@ -922,6 +949,8 @@ public class PlayerBehaviour : MonoBehaviour
                 reset = true;                                                                                                                                 //////////////////
                 add = false;
                 movement = false;
+                oneList = true;
+                oneList02 = true;
 
                 //  door = listToMove[listToMove.Count - 1].gameObject;
                 return;
