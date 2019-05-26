@@ -190,7 +190,7 @@ public class RoomInteraction : MonoBehaviour
     /// <returns></returns>
     IEnumerator AddingAnObject(Objet_Interaction objectToAdd)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.8f);
 
         objectToAdd.gameObject.SetActive(true);
         isInteraction = true;

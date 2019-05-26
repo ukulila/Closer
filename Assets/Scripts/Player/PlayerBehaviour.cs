@@ -133,7 +133,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (castingRay && moveEnded)
         {
-            //Debug.Log("casting ray");
             if (context.doorWayPoints.Count != 0)
             {
                 for (int u = 0; u < context.doorWayPoints.Count; u++)
@@ -148,7 +147,6 @@ public class PlayerBehaviour : MonoBehaviour
                         cP.okToSetup = true;
 
 
-                        //Debug.Log(hit.transform.name);
                         // doorBool = true;
                         // HatchesBool = false;
 
@@ -238,7 +236,6 @@ public class PlayerBehaviour : MonoBehaviour
 
                     RaycastHit hit;
                     int layerMaskDoor = LayerMask.GetMask("Door");
-                    Debug.Log("coucou");
 
 
                     if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
@@ -247,7 +244,6 @@ public class PlayerBehaviour : MonoBehaviour
                         cP.okToSetup = true;
 
 
-                        Debug.Log(hit.transform.name);
                         // HatchesBool = true;
                         // doorBool = false;
 
@@ -331,7 +327,6 @@ public class PlayerBehaviour : MonoBehaviour
             moveEnded = false;
             movement = false;
             reset = true;
-            Debug.Log("Add" + nextContext.gameObject);
 
             for (int i = 0; i < Rooms.Count; i++)
             {

@@ -370,14 +370,25 @@ public class Camera_UI : MonoBehaviour
             {
                 InventorySystem.Instance.canBeDisplayed = false;
 
-                /*
-                if (InventorySystem.Instance.isInventoryDisplayed)
-                    InventorySystem.Instance.inventoryButton.onClick.Invoke();
-                    */
+                dollyCart.m_Position = currentPathPos + animationPosDifference;
+
+                virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x + targetOffsetDiff.x,
+                    currentTargetOffset.y + targetOffsetDiff.y, currentTargetOffset.z + targetOffsetDiff.z);
+
+                dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y + dollyPositionDiff.y, dollyTransform.position.z);
+
+                virtualCamera.m_Lens.OrthographicSize = currentFOV + fovDiff;
             }
             else
             {
                 InventorySystem.Instance.canBeDisplayed = true;
+
+                virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x - targetOffsetDiff.x,
+                currentTargetOffset.y - targetOffsetDiff.y, currentTargetOffset.z - targetOffsetDiff.z);
+
+                dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y - dollyPositionDiff.y, dollyTransform.position.z);
+
+                virtualCamera.m_Lens.OrthographicSize = currentFOV - fovDiff;
             }
 
             cameraReposition = true;

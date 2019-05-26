@@ -44,7 +44,7 @@ public class DialogueSystem : MonoBehaviour
     public float maxTime;
     public float typingTimeRatio;
     private float typingSpeedRatio = 1.5f;
-    private float typingFasterRatio = 3;
+    private float typingFasterRatio = 2.5f;
     public int currentCharacter;
     public int lastCharacter;
 

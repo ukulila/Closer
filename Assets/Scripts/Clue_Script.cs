@@ -6,9 +6,7 @@ public class Clue_Script : MonoBehaviour
 {
     public Animator clueAnim;
 
-
     public static Clue_Script Instance;
-
 
 
     public void LaunchClue()
@@ -26,7 +24,9 @@ public class Clue_Script : MonoBehaviour
     {
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.ClueMode);
 
-        yield return new WaitForSeconds(2f);
+        DataManager.Instance.Save();
+
+        yield return new WaitForSeconds(1.5f);
 
         clueAnim.SetTrigger("FadeIn");
     }

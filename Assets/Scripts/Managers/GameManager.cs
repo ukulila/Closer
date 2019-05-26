@@ -160,6 +160,8 @@ public class GameManager : MonoBehaviour
                     playerBehav.enabled = true;
                 }
 
+                Objectif_Scr.Instance.Disappearance();
+
                 Harcelement_Manager.Instance.FarFromThem();
 
                 previousGameMode = GameMode.ClueMode;
