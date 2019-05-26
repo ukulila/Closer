@@ -16,7 +16,7 @@ public class Camera_UI : MonoBehaviour
     [Header("Switching Interface Parameters")]
     public bool switchToUI;
     public bool isPlayerHere;
-    
+
     public CellMovement cellMove;
     public PatchCells cellPatch;
     public string currentSelectedCell;
@@ -409,18 +409,21 @@ public class Camera_UI : MonoBehaviour
         }
         else
         {
-            //Changement de la Target Offset
-            virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x - targetOffsetDiff.x * retarPercent,
+            if (!cameraReposition)
+            {
+                //Changement de la Target Offset
+                virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x - targetOffsetDiff.x * retarPercent,
                 currentTargetOffset.y - targetOffsetDiff.y * retarPercent, currentTargetOffset.z - targetOffsetDiff.z * retarPercent);
 
 
-            //Changement du Transform du dolly
-            dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y - dollyPositionDiff.y * repoPercent,
-                    dollyTransform.position.z);
+                //Changement du Transform du dolly
+                dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y - dollyPositionDiff.y * repoPercent,
+                        dollyTransform.position.z);
 
 
-            //Changement de la focale
-            virtualCamera.m_Lens.OrthographicSize = currentFOV - fovDiff * repoPercent;
+                //Changement de la focale
+                virtualCamera.m_Lens.OrthographicSize = currentFOV - fovDiff * repoPercent;
+            }
         }
 
     }
@@ -449,7 +452,7 @@ public class Camera_UI : MonoBehaviour
 
             if (continuePosDifference > reversePosDifference)
             {
-                animationPosDifference = reversePosDifference;
+                animationPosDifference = -reversePosDifference;
             }
             else
             {

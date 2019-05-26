@@ -407,7 +407,7 @@ public class DialogueSystem : MonoBehaviour
         ratioValue = 10f;
         maxTime = 3f;
         lastCharacter = -1;
-        maxSlideTime = 0.6f;
+        maxSlideTime = 0.5f;
 
         AppearTimeRatio = 5;
 
