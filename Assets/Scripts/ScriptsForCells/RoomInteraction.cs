@@ -164,6 +164,8 @@ public class RoomInteraction : MonoBehaviour
         npcToAdd.gameObject.SetActive(true);
         isDialogue = true;
         npc = npcToAdd;
+
+        CheckInvestigationOpportunities();
     }
 
     /// <summary>
@@ -193,6 +195,8 @@ public class RoomInteraction : MonoBehaviour
         objectToAdd.gameObject.SetActive(true);
         isInteraction = true;
         objet = objectToAdd;
+
+        CheckInvestigationOpportunities();
     }
 
 
@@ -254,5 +258,29 @@ public class RoomInteraction : MonoBehaviour
     public void AddAnObject(Objet_Interaction objectToAdd)
     {
         StartCoroutine(AddingAnObject(objectToAdd));
+    }
+
+    /// <summary>
+    /// Check les valeurs de la Room Interaction
+    /// </summary>
+    public void CheckInvestigationOpportunities()
+    {
+        if (transform.GetComponent<RoomInteraction>().isInteraction == true)
+        {
+            ObjectManager.Instance.currentObjet = transform.GetComponent<RoomInteraction>().objet;
+        }
+        else
+        {
+            ObjectManager.Instance.currentObjet = null;
+        }
+
+        if (transform.GetComponent<RoomInteraction>().isDialogue == true)
+        {
+            NPC_Manager.Instance.currentNPC = transform.GetComponent<RoomInteraction>().npc;
+        }
+        else
+        {
+            NPC_Manager.Instance.currentNPC = null;
+        }
     }
 }
