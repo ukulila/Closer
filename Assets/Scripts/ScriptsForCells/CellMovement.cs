@@ -396,6 +396,7 @@ public class CellMovement : MonoBehaviour
                 for (int o = 0; o < brothers.Count; o++)
                 {
                     brothers[o].DebugPos();
+                    brothers[o].isOpen = false;
                     brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
                     //   brothers[o].activatePosPreview = true;
@@ -459,6 +460,7 @@ public class CellMovement : MonoBehaviour
                 {
                     brothers[o].DebugPos();
                     brothers[o].debugBool = 0;
+                    brothers[o].isOpen = false;
                     brothers[o].hasEnded = true;
                     //    brothers[o].activatePosPreview = true;
                     OrderCells();
@@ -520,6 +522,7 @@ public class CellMovement : MonoBehaviour
                     brothers[o].DebugPos();
                     brothers[o].debugBool = 0;
                     brothers[o].hasEnded = true;
+                    brothers[o].isOpen = false;
                     //       brothers[o].activatePosPreview = true;
                     OrderCells();
                     player.checkOpenDoor = true;

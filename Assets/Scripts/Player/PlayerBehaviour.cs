@@ -39,7 +39,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool reverse;
     private Vector3 doorRot;
     public bool closeDoor;
-    private GameObject coneDoor;
+    private Transform coneDoor;
     public bool add;
 
     public CinemachineBrain Camera;
@@ -64,9 +64,11 @@ public class PlayerBehaviour : MonoBehaviour
     public List<CellMovement> Rooms;
     public List<CellScript> CellScr;
 
-    private bool oneRef;
-    private bool oneRef01;
-    private bool oneRef02;
+    public bool oneRef;
+    public bool oneRef01;
+    public bool oneRef02;
+    public bool oneList;
+    public bool oneList02;
 
     public Vector3 offsetTrap;
     public int timerOpenDoor;
@@ -74,13 +76,23 @@ public class PlayerBehaviour : MonoBehaviour
     //private bool HatchesBool;
     public int DoorsToCheck;
 
+    public static PlayerBehaviour Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
         moveEnded = true;
 
+        oneRef = true;
+        oneRef01 = true;
+        oneRef02 = true;
         oneList = true;
         oneList02 = true;
+
         add = false;
         reset = true;
         //     onlyOne = true;
@@ -317,12 +329,12 @@ public class PlayerBehaviour : MonoBehaviour
 
             }
 
-            
+
 
         }
 
 
-        if (add )
+        if (add)
         {
             moveEnded = false;
             movement = false;
@@ -492,7 +504,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
 
-           
+
             // }
         }
 
@@ -635,7 +647,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (context.gameObject.GetComponent<CellMovement>().hasEnded == true)
                 {
-                    // Debug.Log("           I draw          ");
+                    //Debug.Log("           I draw          ");
 
                     RaycastHit hit;
                     int layerMaskDoor = LayerMask.GetMask("Door");
@@ -646,60 +658,70 @@ public class PlayerBehaviour : MonoBehaviour
                         {
                             //Debug.Log("                     " + hit.transform.name);
 
-                            //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
+                        //    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
 
-                            coneDoor = hit.transform.gameObject;
-                            if (hit.transform.parent.GetComponent<CellScript>().coneRed.Count != 0)
-                            {
-                                hit.transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                                hit.transform.parent.GetComponent<CellScript>().freeRoom = true;
+                            coneDoor = hit.transform;
+                            context.doorWayPoints[u].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                            coneDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
 
-                                transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                                transform.parent.GetComponent<CellScript>().freeRoom = true;
-                            }
+                            checkOpenDoor = false;
 
-
-                            if (checkInt >= 3)
-                            {
-                                checkOpenDoor = false;
-                                checkInt = 0;
-                            }
-                            else
-                            {
-                                checkInt++;
-                            }
                         }
                         else
                         {
-                            //   Debug.Log("            I touch Nothing         ");
+                          //  Debug.Log("            I touch Nothing         ");
 
-                            //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
-                            if (transform.parent.GetComponent<CellScript>().coneRed.Count != 0)
+                           // Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.black, 500);
+
+                            context.doorWayPoints[u].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+
+                            if (coneDoor != null)
                             {
-                                transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                                transform.parent.GetComponent<CellScript>().freeRoom = false;
-
-                                if (coneDoor != null && coneDoor.transform.parent.GetComponent<CellScript>().coneRed.Count != 0)
-                                {
-                                    coneDoor.transform.parent.GetComponent<CellScript>().freeRoom = false;
-                                    coneDoor.transform.parent.GetComponent<CellScript>().ConeFunction(0);
-                                }
+                                coneDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
                             }
 
-                            if (checkInt >= 3)
-                            {
-                                coneDoor = null;
-                                checkOpenDoor = false;
-                                checkInt = 0;
-                            }
-                            else
-                            {
-                                checkInt++;
-                            }
+                            checkOpenDoor = false;
+
                         }
+                    }
+
+                    for (int z = 0; z < context.HatchesWayPoints.Count; z++)
+                    {
+
+                        if (Physics.Raycast(context.HatchesWayPoints[z].GetChild(0).transform.position, -context.HatchesWayPoints[z].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
+                        {
+                            //Debug.Log("                     " + hit.transform.name);
+
+                           // Debug.DrawRay(context.HatchesWayPoints[z].GetChild(0).transform.position, -context.HatchesWayPoints[z].transform.forward, Color.blue, 500);
+
+                            coneDoor = hit.transform;
+                            context.HatchesWayPoints[z].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                            coneDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+
+                            checkOpenDoor = false;
+
+                        }
+                        else
+                        {
+                            //Debug.Log("            I touch Nothing         ");
+
+                           // Debug.DrawRay(context.HatchesWayPoints[z].GetChild(0).transform.position, -context.HatchesWayPoints[z].transform.forward, Color.black, 500);
+
+                            context.HatchesWayPoints[z].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+
+                            if (coneDoor != null)
+                            {
+                                coneDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                            }
+
+                            checkOpenDoor = false;
+
+                        }
+
                     }
                 }
             }
+                
         }
 
         if (!checkOpenDoor)
@@ -753,20 +775,24 @@ public class PlayerBehaviour : MonoBehaviour
             //animator.SetBool("Walk", false);
             moveEnded = true;
 
+
+
             lookCam = true;
             one = true;
+
+            for (int i = 0; i < Rooms.Count; i++)
+            {
+                CellScr[i].playerMoving = false;
+
+                Rooms[i].hasEnded = true;
+                Rooms[i].once = true;
+            }
+
         }
 
-        for (int i = 0; i < Rooms.Count; i++)
-        {
-            CellScr[i].playerMoving = false;
-            Rooms[i].hasEnded = true;
-            Rooms[i].once = true;
-        }
-        // Debug.Log("ResetWhenTooFar");
-        oneRef = true;
-        oneRef01 = true;
-        oneRef02 = true;
+
+      //  Debug.Log("ResetWhenTooFar");
+
         //moveEnded = true;
 
     }
@@ -777,7 +803,7 @@ public class PlayerBehaviour : MonoBehaviour
         distance = Vector3.Distance(transform.position, objectif);
         if (distance > minDist)
         {
-            // Debug.Log("Distanceok");
+            //Debug.Log("Distanceok");
             next = true;
         }
 
@@ -795,7 +821,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     for (int u = 0; u < context.paths.list[i].listOfWaypoint.Count; u++)
                     {
-                        //Debug.Log("FirstToPatch");
+                       // Debug.Log("FirstToPatch");
                         ultimateList.Add(context.paths.list[i].listOfWaypoint[u]);
 
                     }
@@ -816,6 +842,8 @@ public class PlayerBehaviour : MonoBehaviour
                         for (int u = 0; u < nextContext.paths.list[h].listOfWaypoint.Count; u++)
                         {
                             inverseList.Add(nextContext.paths.list[h].listOfWaypoint[u]);
+                        //    Debug.Log("SecondToPatch");
+
                         }
                     }
 
@@ -834,15 +862,18 @@ public class PlayerBehaviour : MonoBehaviour
             for (int t = 0; t < inverseList.Count; t++)
             {
                 ultimateList.Add(inverseList[t]);
+              //  Debug.Log("LastToPatch");
             }
             oneRef01 = false;
         }
 
-        //Debug.Log("LastToPatch");
+
 
         if (oneRef02)
         {
             waypoints.listOfWaypoint = ultimateList;
+         //   Debug.Log("TurboLast");
+            oneRef02 = false;
         }
         movement = true;
         //Movement(waypoints.listOfWaypoint);
@@ -859,8 +890,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     float curvePercent;
     private int timer;
-    private bool oneList;
-    private bool oneList02;
+
     public bool moveEnded;
 
     public void Movement(List<Transform> listToMove)
@@ -946,6 +976,10 @@ public class PlayerBehaviour : MonoBehaviour
                 movement = false;
                 oneList = true;
                 oneList02 = true;
+
+                oneRef = true;
+                oneRef02 = true;
+                oneRef01 = true;
 
                 //  door = listToMove[listToMove.Count - 1].gameObject;
                 return;

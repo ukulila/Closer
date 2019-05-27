@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8331226719324314370
+--- !u!1 &2880201973044402618
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5073764117981211946}
-  - component: {fileID: 6255081411514424119}
-  - component: {fileID: 3285713915767936513}
-  - component: {fileID: 754016604563737527}
+  - component: {fileID: 3604137667808782693}
+  - component: {fileID: 7027200368046468301}
+  - component: {fileID: 5270610373518879896}
   m_Layer: 9
-  m_Name: Trappe
+  m_Name: "HatchMod\xE9"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5073764117981211946
+--- !u!4 &3604137667808782693
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8331226719324314370}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.31, y: 0.021343708, z: 5.2204013}
-  m_LocalScale: {x: 0.51012, y: 0.61019, z: 1}
+  m_GameObject: {fileID: 2880201973044402618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 5073764117981211946}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6255081411514424119
+--- !u!33 &7027200368046468301
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8331226719324314370}
+  m_GameObject: {fileID: 2880201973044402618}
   m_Mesh: {fileID: 4300002, guid: af2285d269fab3d45bdeed609b426f96, type: 3}
---- !u!23 &3285713915767936513
+--- !u!23 &5270610373518879896
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8331226719324314370}
+  m_GameObject: {fileID: 2880201973044402618}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -58,8 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100002, guid: af2285d269fab3d45bdeed609b426f96, type: 3}
-  - {fileID: 2100004, guid: af2285d269fab3d45bdeed609b426f96, type: 3}
+  - {fileID: 2100000, guid: 181909bacc8e51e43b7016fc2d43b731, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,6 +77,38 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &8331226719324314370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5073764117981211946}
+  - component: {fileID: 754016604563737527}
+  m_Layer: 9
+  m_Name: Trappe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5073764117981211946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331226719324314370}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.31, y: 0.021343708, z: 5.2204013}
+  m_LocalScale: {x: 0.51012, y: 0.61019, z: 1}
+  m_Children:
+  - {fileID: 3604137667808782693}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &754016604563737527
 BoxCollider:
   m_ObjectHideFlags: 0

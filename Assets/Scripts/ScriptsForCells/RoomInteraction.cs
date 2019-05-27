@@ -265,7 +265,7 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void CheckInvestigationOpportunities()
     {
-        if (transform.GetComponent<RoomInteraction>().isInteraction == true)
+        if (PlayerBehaviour.Instance.transform.parent.GetComponent<RoomInteraction>().isInteraction == true)
         {
             ObjectManager.Instance.currentObjet = transform.GetComponent<RoomInteraction>().objet;
         }
@@ -274,7 +274,7 @@ public class RoomInteraction : MonoBehaviour
             ObjectManager.Instance.currentObjet = null;
         }
 
-        if (transform.GetComponent<RoomInteraction>().isDialogue == true)
+        if (PlayerBehaviour.Instance.transform.parent.GetComponent<RoomInteraction>().isDialogue == true)
         {
             NPC_Manager.Instance.currentNPC = transform.GetComponent<RoomInteraction>().npc;
         }
