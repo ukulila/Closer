@@ -64,24 +64,27 @@ public class CellPlacement : MonoBehaviour
                         cellmove.hasEnded = false;
                     }
 
-                    if (cellmove.isSpawn == true)
+                    if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
                     {
-                        for (int i = 0; i < cM.Count; i++)
+                        if (cellmove.isSpawn == true)
                         {
-                            cM[i].isOpen = false;
+                            for (int i = 0; i < cM.Count; i++)
+                            {
+                                cM[i].isOpen = false;
+                            }
+                            cellmove.raycastAutor = true;
                         }
-                        cellmove.raycastAutor = true;
+
+
+
+
+                        if (cellmove.isOpen)
+                        {
+                            cellmove.clickDirection = true;
+                        }
+
+                        cellmove.originPos = Input.mousePosition;
                     }
-
-
-
-
-                    if (cellmove.isOpen)
-                    {
-                        cellmove.clickDirection = true;
-                    }
-
-                    cellmove.originPos = Input.mousePosition;
 
                     if (cB != null)
                         cB.aboutCamera = false;

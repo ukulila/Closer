@@ -24,6 +24,7 @@ public class MiscellaneousDis : MonoBehaviour
             }
         }
     }
+
     public void OnTriggerEnter(Collider other)
     {
 
@@ -37,6 +38,21 @@ public class MiscellaneousDis : MonoBehaviour
                 {
                     transform.GetChild(i).gameObject.SetActive(true);
                 }
+            }
+        }
+        else
+        {
+            if (mR.enabled == true)
+            {
+                if (transform.childCount != 0)
+                {
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        transform.GetChild(i).gameObject.SetActive(false);
+                    }
+                }
+                mR.enabled = false;
+
             }
         }
 
