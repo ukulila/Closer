@@ -57,6 +57,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool checkOpenDoor;
     private int checkInt;
     public AlwaysLookAtCam highlight;
+    public Vector3 rotationHighlight;
     private bool one;
     public AnimationCurve animCurve;
     public float speedModifier;
@@ -123,9 +124,11 @@ public class PlayerBehaviour : MonoBehaviour
 
             highlight.enabled = false;
 
+
             if (one)
             {
-                highlight.transform.localEulerAngles = new Vector3(-90, 90, 56);
+                highlight.transform.localEulerAngles = rotationHighlight;
+
                 one = false;
             }
 
