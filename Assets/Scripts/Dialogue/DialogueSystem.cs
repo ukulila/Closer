@@ -1093,7 +1093,7 @@ public class DialogueSystem : MonoBehaviour
         currentCharacter = (int)lineTypingSpeed[currentLine].Evaluate(currentTime);
 
 
-        if (currentCharacter != lastCharacter)
+        if (currentCharacter != lastCharacter && currentCharacter < textInfo.characterCount)
         {
             int materialIndex = textInfo.characterInfo[currentCharacter].materialReferenceIndex;
 
