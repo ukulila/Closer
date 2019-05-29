@@ -874,7 +874,7 @@ MonoBehaviour:
   ultimateList: []
   castingRay: 0
   cP: {fileID: 0}
-  offset: {x: 0, y: 0.75, z: 0}
+  offset: {x: 0, y: 2, z: 0}
   animator: {fileID: 3731939596217871782}
   RoomChecker: {fileID: 0}
   onlyTwo: 0
@@ -885,26 +885,35 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.125
+      inSlope: -0.13
+      outSlope: -0.13
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.06
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      value: 0.125
+      inSlope: 0.13
+      outSlope: 0.13
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speedModifier: 10
+  speedModifier: 0.001
   Rooms:
   - {fileID: 0}
   - {fileID: 0}
@@ -923,9 +932,16 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  ctrlTime: 0
+  oneRef: 0
+  oneRef01: 0
+  oneRef02: 0
+  oneList: 0
+  oneList02: 0
   offsetTrap: {x: 0, y: 0, z: 0}
   timerOpenDoor: 0
   DoorsToCheck: 0
+  moveEnded: 0
 --- !u!1 &3731939596255233069
 GameObject:
   m_ObjectHideFlags: 0
