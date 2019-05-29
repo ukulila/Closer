@@ -64,6 +64,9 @@ public class PlayerBehaviour : MonoBehaviour
     public List<CellMovement> Rooms;
     public List<CellScript> CellScr;
 
+    public float ctrlTime = 0;
+
+
     public bool oneRef;
     public bool oneRef01;
     public bool oneRef02;
@@ -77,6 +80,8 @@ public class PlayerBehaviour : MonoBehaviour
     public int DoorsToCheck;
 
     public static PlayerBehaviour Instance;
+
+
 
     private void Awake()
     {
@@ -804,6 +809,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (distance > minDist)
         {
             //Debug.Log("Distanceok");
+            ctrlTime = 0f;
             next = true;
         }
 
@@ -890,7 +896,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     float curvePercent;
     private int timer;
-
     public bool moveEnded;
 
     public void Movement(List<Transform> listToMove)
@@ -924,7 +929,8 @@ public class PlayerBehaviour : MonoBehaviour
             }
 
             //Actual movement to selected waypoint
-            curvePercent = animCurve.Evaluate(Time.deltaTime * speedModifier);
+            curvePercent = animCurve.Evaluate(ctrlTime);
+            ctrlTime += speedModifier;
             transform.position = Vector3.Lerp(transform.position, listToMove[index].position, curvePercent); ///0.05f
 
             if (x < 1 && y < 1)
@@ -953,6 +959,7 @@ public class PlayerBehaviour : MonoBehaviour
             else if (distance <= minDist && index == listToMove.Count - 1)        //if last point is reached, check if door 
             {
                 index = 0;
+                ctrlTime = 0;
                 // transform.LookAt(listToMove[listToMove.Count - 1].transform.position);
 
                 context = nextContext;
