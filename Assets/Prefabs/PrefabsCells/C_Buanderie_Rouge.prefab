@@ -228,12 +228,10 @@ MonoBehaviour:
   backgroundSprite: {fileID: 0}
   isDialogue: 0
   isInteraction: 0
-  isSecondFloor: 0
   npc: {fileID: 0}
   objet: {fileID: 0}
   talkTo: {fileID: 0}
   interactWith: {fileID: 0}
-  changeFloor: {fileID: 0}
   isThereClients: 0
   clients: []
   uiAnimators:
@@ -510,6 +508,7 @@ MonoBehaviour:
   - {fileID: 231503573045841835}
   - {fileID: 6648415699721832291}
   BlackRoom: 0
+  myEnviro: {fileID: 5593862794754416106}
 --- !u!1 &5593862795018050958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,11 +1337,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5593862794754416107}
     m_Modifications:
-    - target: {fileID: 1713053923111765594, guid: 36fd9efd0fb6bd740a62a0909ec06247,
-        type: 3}
-      propertyPath: m_Name
-      value: Outliner
-      objectReference: {fileID: 0}
     - target: {fileID: 1713053923111765593, guid: 36fd9efd0fb6bd740a62a0909ec06247,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1413,6 +1407,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 6.25
       objectReference: {fileID: 0}
+    - target: {fileID: 1713053923111765594, guid: 36fd9efd0fb6bd740a62a0909ec06247,
+        type: 3}
+      propertyPath: m_Name
+      value: Outliner
+      objectReference: {fileID: 0}
     - target: {fileID: 1713053923111765592, guid: 36fd9efd0fb6bd740a62a0909ec06247,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1439,11 +1438,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5593862794754416107}
     m_Modifications:
-    - target: {fileID: 144423872668838874, guid: b76fc380a689b464fa09ce03bb47cf4b,
-        type: 3}
-      propertyPath: m_Name
-      value: Buanderie
-      objectReference: {fileID: 0}
     - target: {fileID: 144423872668940282, guid: b76fc380a689b464fa09ce03bb47cf4b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1498,6 +1492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 144423872668838874, guid: b76fc380a689b464fa09ce03bb47cf4b,
+        type: 3}
+      propertyPath: m_Name
+      value: Buanderie
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b76fc380a689b464fa09ce03bb47cf4b, type: 3}

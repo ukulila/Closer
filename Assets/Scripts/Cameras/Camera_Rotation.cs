@@ -32,10 +32,10 @@ public class Camera_Rotation : MonoBehaviour
 
     public enum VerticalDirection { up, down, center }
     public VerticalDirection yDirection;
-    private bool onVertical;
+    public bool onVertical;
     public enum HorizontalDirection { left, right, none };
     public HorizontalDirection xDirection;
-    private bool onHorizontal;
+    public bool onHorizontal;
 
     public float currentHorizontalPos;
     public float currentVerticalPos;
@@ -145,16 +145,12 @@ public class Camera_Rotation : MonoBehaviour
                             onHorizontal = true;
                             onVertical = false;
 
-                            trail_Behaviour.Instance.ActivateTrail();
-
                             isOrientationSet = true;
                         }
                         else
                         {
                             onHorizontal = false;
                             onVertical = true;
-
-                            trail_Behaviour.Instance.DeactivateTrail();
 
                             isOrientationSet = true;
                         }
@@ -166,16 +162,12 @@ public class Camera_Rotation : MonoBehaviour
                             onHorizontal = true;
                             onVertical = false;
 
-                            trail_Behaviour.Instance.ActivateTrail();
-
                             isOrientationSet = true;
                         }
                         else
                         {
                             onHorizontal = false;
                             onVertical = true;
-
-                            trail_Behaviour.Instance.DeactivateTrail();
 
                             isOrientationSet = true;
                         }
@@ -190,16 +182,12 @@ public class Camera_Rotation : MonoBehaviour
                             onHorizontal = true;
                             onVertical = false;
 
-                            trail_Behaviour.Instance.ActivateTrail();
-
                             isOrientationSet = true;
                         }
                         else
                         {
                             onHorizontal = false;
                             onVertical = true;
-
-                            trail_Behaviour.Instance.DeactivateTrail();
 
                             isOrientationSet = true;
                         }
@@ -211,16 +199,12 @@ public class Camera_Rotation : MonoBehaviour
                             onHorizontal = true;
                             onVertical = false;
 
-                            trail_Behaviour.Instance.ActivateTrail();
-
                             isOrientationSet = true;
                         }
                         else
                         {
                             onHorizontal = false;
                             onVertical = true;
-
-                            trail_Behaviour.Instance.DeactivateTrail();
 
                             isOrientationSet = true;
                         }
@@ -249,7 +233,7 @@ public class Camera_Rotation : MonoBehaviour
             {
                 if (onHorizontal)
                 {
-                    //trail_Behaviour.Instance.ActivateTrail();
+                    trail_Behaviour.Instance.ActivateTrail();
 
                     if (currentX > 0)
                     {
@@ -264,7 +248,7 @@ public class Camera_Rotation : MonoBehaviour
 
                 if (onVertical)
                 {
-                    //trail_Behaviour.Instance.DeactivateTrail();
+                    trail_Behaviour.Instance.DeactivateTrail();
 
                     if (currentY > 0)
                     {
@@ -367,7 +351,17 @@ public class Camera_Rotation : MonoBehaviour
         {
             currentSlowTime += Time.deltaTime * horizontalSlowTimeRatio;
         }
-        
+        else
+        {
+            if (Input.touchCount == 0)
+            {
+                xDirection = HorizontalDirection.none;
+                yDirection = VerticalDirection.center;
+                onVertical = false;
+                onHorizontal = false;
+            }
+        }
+
         slowPercent = slowTimeCurve.Evaluate(currentSlowTime);
 
 
