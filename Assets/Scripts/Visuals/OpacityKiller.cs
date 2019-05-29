@@ -25,6 +25,8 @@ public class OpacityKiller : MonoBehaviour
     private bool upAndRunning;
 
     public bool BlackRoom;
+    public ScrEnvironment myEnviro;
+
 
     void Update()
     {
@@ -91,40 +93,77 @@ public class OpacityKiller : MonoBehaviour
             for (int i = 0; i < Planes.Count; i++)
             {
                 Planes[i].color = new Color32((byte)Planes[i].color.r, (byte)Planes[i].color.g, (byte)Planes[i].color.b, 255);
+
             }
+
+            if (KillChilds[KillChilds.Count - 1].activeInHierarchy == true)
+            {
+                for (int r = 0; r < KillChilds.Count; r++)
+                {
+                    KillChilds[r].SetActive(false);
+                    GetComponent<ScrEnvironment>().doorWayPoints[0].gameObject.SetActive(false);
+
+
+                }
+            }
+
+            if (myEnviro.doorWayPoints.Count > 0)
+            {
+                if (myEnviro.doorWayPoints[myEnviro.doorWayPoints.Count - 1].gameObject.activeInHierarchy == true)
+                {
+                    for (int o = 0; o < myEnviro.doorWayPoints.Count; o++)
+                    {
+                        myEnviro.doorWayPoints[o].gameObject.SetActive(false);
+
+                    }
+
+                }
+            }
+
+            if (myEnviro.HatchesWayPoints.Count > 0)
+            {
+                if (myEnviro.HatchesWayPoints[myEnviro.HatchesWayPoints.Count - 1].gameObject.activeInHierarchy == true)
+                {
+                    for (int p = 0; p < myEnviro.HatchesWayPoints.Count; p++)
+                    {
+                        myEnviro.HatchesWayPoints[p].gameObject.SetActive(false);
+
+                    }
+
+                }
+
+            }
+
+
+
+        }
+
+
+    }
+
+        public void SetBlackRoomTrue()
+        {
+            BlackRoom = true;
+        }
+
+        public void SetBlackRoomFalse()
+        {
+            BlackRoom = false;
+        }
+
+
+        public void OpacityCheck(/*int planeIndex,*/ int alpha)
+        {
+            upAndRunning = true;
+
+
+            //  localPlaneIndex = planeIndex;
+            localAlpha = alpha;
+
 
         }
 
 
 
-    }
-
-
-
-
-    public void SetBlackRoomTrue()
-    {
-        BlackRoom = true;
-    }
-
-    public void SetBlackRoomFalse()
-    {
-        BlackRoom = false;
-    }
-
-
-    public void OpacityCheck(/*int planeIndex,*/ int alpha)
-    {
-        upAndRunning = true;
-
-
-        //  localPlaneIndex = planeIndex;
-        localAlpha = alpha;
-
 
     }
-
-
-
-
-}
