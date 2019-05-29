@@ -71,10 +71,6 @@ public class Camera_UI : MonoBehaviour
     [Space]
     public bool cameraReposition = true;
 
-    [Header("Debug")]
-    public List<TextMeshProUGUI> debugText;
-
-
 
     public static Camera_UI Instance;
 
@@ -86,13 +82,6 @@ public class Camera_UI : MonoBehaviour
         Instance = this;
 
         positionMax = dollyCart.m_Path.PathLength;
-
-        debugText[0].text = "animationPosDiff = " + animationPosDifference;
-        debugText[1].text = "currentFOV = " + currentFOV;
-        debugText[2].text = "fovDiff = " + fovDiff;
-        debugText[3].text = "targetOffsetDiff = " + targetOffsetDiff;
-        debugText[4].text = "m_Position = " + dollyCart.m_Position;
-        debugText[5].text = "animationPosDiff = " + animationPosDifference;
     }
 
     public void SwitchToNoUi()
@@ -254,14 +243,6 @@ public class Camera_UI : MonoBehaviour
 
         if (!cameraReposition)
             RepositionCamera();
-
-        debugText[0].text = "animationPosDiff = " + animationPosDifference;
-        debugText[1].text = "currentFOV = " + virtualCamera.m_Lens.OrthographicSize;
-        debugText[2].text = "fovDiff = " + fovDiff;
-        debugText[3].text = "targetOffsetDiff = " + targetOffsetDiff;
-        debugText[4].text = "m_Position = " + dollyCart.m_Position;
-        debugText[5].text = "animationPosDiff = " + animationPosDifference;
-
     }
 
     public void SetInitialCameraValues()

@@ -52,7 +52,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float x;
     private float y;
 
-    public Transform RoomChecker;
+    //public Transform RoomChecker;
     public int onlyTwo;
     public bool checkOpenDoor;
     private int checkInt;

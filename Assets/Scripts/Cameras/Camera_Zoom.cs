@@ -59,8 +59,6 @@ public class Camera_Zoom : MonoBehaviour
     [Header("Trail Renderer Limit")]
     public float trailInvisibleAt;
 
-    [Header("Debug Texts")]
-    public List<TextMeshProUGUI> debugTextsCz;
 
 
     public static Camera_Zoom Instance;
@@ -159,11 +157,6 @@ public class Camera_Zoom : MonoBehaviour
                 areFingersMoving = false;
             }
 
-
-        //debugTextsCz[0].text = "touchesDistance = " + touchesDistance;
-        //debugTextsCz[1].text = "currentSlowTime = " + currentSlowTime;
-        //debugTextsCz[2].text = "onZoom = " + onZoom;
-        //debugTextsCz[3].text = "isSmoothing = " + isSmoothing;
 
         if (onZoom)
         {

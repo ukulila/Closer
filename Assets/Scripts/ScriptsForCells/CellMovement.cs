@@ -237,7 +237,7 @@ public class CellMovement : MonoBehaviour
 
         #region ---- Selection ----
 
-        if (click && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        if (click && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode && Camera_Zoom.Instance.onZoom == false)
         {
             selected = true;
         }
