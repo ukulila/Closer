@@ -14,14 +14,17 @@ public class Camera_Zoom : MonoBehaviour
     public float minFOV;
     public float maxFOV;
 
+    [Space]
+    private bool onZoom;
     public enum ZoomDirection { inside, outside, none }
     public ZoomDirection zDirection;
-    private bool onZoom;
 
 
+    [Space]
     private Touch touchOne;
     private Touch touchTwo;
 
+    [Space]
     private Vector2 currentOnePos;
     private Vector2 previousOnePos;
     private Vector2 currentTwoPos;
@@ -29,12 +32,14 @@ public class Camera_Zoom : MonoBehaviour
     private float touchesDistance;
     private float touchesDistanceTest;
 
+    [Space]
     public float currentZoomPos;
     public float nextZoomPos;
     public float smoothTime = 0.5f;
     public float zoomRatio = 0.009f;
     public float minimumDistanceNecessary = 1f;
 
+    [Space]
     private bool areFingersMoving;
 
     [Header("Slow Zoom Parameters")]
@@ -43,10 +48,13 @@ public class Camera_Zoom : MonoBehaviour
     private float maxSlowTime = 1f;
     private float slowDownPercent;
 
+    [Space]
     public float zoomSlowTimeRatio = 0.012f;
     public float zoomSlowValueRatio = 0.025f;
     private float zoomSlowValue;
 
+    [Header("Trail Renderer Limit")]
+    public float trailInvisibleAt;
 
     public static Camera_Zoom Instance;
 
@@ -57,6 +65,8 @@ public class Camera_Zoom : MonoBehaviour
     void Awake()
     {
         Instance = this;
+
+        currentZoomPos = virtualCamera.m_Lens.OrthographicSize;
     }
 
 
@@ -99,6 +109,14 @@ public class Camera_Zoom : MonoBehaviour
                 case TouchPhase.Ended:
                     // Report that the touch has ended when it ends
                     areFingersMoving = false;
+                    if (virtualCamera.m_Lens.OrthographicSize < trailInvisibleAt)
+                    {
+                        trail_Behaviour.Instance.isTrailStillVisible = false;
+                        trail_Behaviour.Instance.DeactivateTrail();
+                    }
+
+                    else
+                        trail_Behaviour.Instance.isTrailStillVisible = true;
                     //touchesDistance = 0;
                     break;
             }
@@ -108,6 +126,7 @@ public class Camera_Zoom : MonoBehaviour
             else
                 areFingersMoving = false;
 
+            currentZoomPos = virtualCamera.m_Lens.OrthographicSize;
 
             if (touchesDistance < 0)
             {
@@ -121,7 +140,7 @@ public class Camera_Zoom : MonoBehaviour
             }
 
 
-            currentZoomPos = virtualCamera.m_Lens.OrthographicSize;
+
         }
 
 

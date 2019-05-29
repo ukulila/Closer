@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 432065931}
   - component: {fileID: 432065932}
+  - component: {fileID: 4917297853447564719}
   m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
@@ -69,7 +70,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1.5
+  m_Time: 1.65
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.7
@@ -135,6 +136,21 @@ TrailRenderer:
   m_MinVertexDistance: 0.01
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &4917297853447564719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432065930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7bd3d2f1df69b4190b64d24a62e533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrailActivated: 1
+  isTrailStillVisible: 1
+  trailRenderer: {fileID: 432065932}
 --- !u!1 &18960434505264623
 GameObject:
   m_ObjectHideFlags: 0
@@ -1857,8 +1873,8 @@ GameObject:
   - component: {fileID: 1241135056598317763}
   - component: {fileID: 1241135056598317762}
   - component: {fileID: 1241135056598317765}
-  - component: {fileID: 1241135056598317764}
   - component: {fileID: 1241135056598317767}
+  - component: {fileID: 1241135056598317764}
   m_Layer: 0
   m_Name: CM_CUBE
   m_TagString: Untagged
@@ -1873,8 +1889,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241135056598317769}
-  m_LocalRotation: {x: -0.14741902, y: 0.5073035, z: -0.088563785, w: -0.8444331}
-  m_LocalPosition: {x: 22.063974, y: 9, z: -11.735715}
+  m_LocalRotation: {x: -4.0553762e-16, y: 0.97032315, z: 9.558841e-16, w: -0.24181192}
+  m_LocalPosition: {x: 22.063997, y: 9, z: -11.735675}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1241135058228366032}
@@ -1999,53 +2015,6 @@ MonoBehaviour:
   verticalSlowTimeRatio: 0.17
   verticalSlowValueRatio: 0.012
   verticalSmoothTime: 2
---- !u!114 &1241135056598317764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1241135056598317769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7388b12aed934c241a697ede0838bbf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 1241135056598317763}
-  minFOV: 6
-  maxFOV: 11
-  zDirection: 2
-  currentZoomPos: 0
-  nextZoomPos: 0
-  smoothTime: 0.5
-  zoomRatio: 0.01
-  minimumDistanceNecessary: 1
-  slowDownZoomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -2.6399992
-      outSlope: -2.6399992
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.10416669
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  zoomSlowTimeRatio: 0.012
-  zoomSlowValueRatio: 0.025
 --- !u!114 &1241135056598317767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2161,6 +2130,53 @@ MonoBehaviour:
   currentRepositionTime: 0
   switchDurationRatioModifier: 0.01
   cameraReposition: 1
+--- !u!114 &1241135056598317764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241135056598317769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7388b12aed934c241a697ede0838bbf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 1241135056598317763}
+  minFOV: 6
+  maxFOV: 11
+  zDirection: 2
+  currentZoomPos: 0
+  nextZoomPos: 0
+  smoothTime: 0.5
+  zoomRatio: 0.01
+  minimumDistanceNecessary: 1
+  slowDownZoomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.6399992
+      outSlope: -2.6399992
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10416669
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  zoomSlowTimeRatio: 0.012
+  zoomSlowValueRatio: 0.025
 --- !u!1 &1241135057083059884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,8 +2294,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241135057184425490}
-  m_LocalRotation: {x: -0.14741902, y: 0.5073035, z: -0.088563785, w: -0.8444331}
-  m_LocalPosition: {x: 22.063974, y: 9, z: -11.735715}
+  m_LocalRotation: {x: -4.0553762e-16, y: 0.97032315, z: 9.558841e-16, w: -0.24181192}
+  m_LocalPosition: {x: 22.063997, y: 9, z: -11.735675}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432065931}

@@ -84,6 +84,8 @@ public class CellPlacement : MonoBehaviour
                         }
 
                         cellmove.originPos = Input.mousePosition;
+
+                        
                     }
 
                     if (cB != null)
@@ -91,6 +93,8 @@ public class CellPlacement : MonoBehaviour
 
                     if (Cr != null)
                         Cr.aboutCamera = false;
+
+                    trail_Behaviour.Instance.DeactivateTrail();
                 }
 
 

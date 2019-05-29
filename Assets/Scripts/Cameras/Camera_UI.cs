@@ -2,7 +2,6 @@
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
-using TMPro;
 
 public class Camera_UI : MonoBehaviour
 {
@@ -370,14 +369,14 @@ public class Camera_UI : MonoBehaviour
             {
                 InventorySystem.Instance.canBeDisplayed = false;
 
+                virtualCamera.m_Lens.OrthographicSize = currentFOV + fovDiff;
+
                 dollyCart.m_Position = currentPathPos + animationPosDifference;
 
                 virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x + targetOffsetDiff.x,
                     currentTargetOffset.y + targetOffsetDiff.y, currentTargetOffset.z + targetOffsetDiff.z);
 
                 dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y + dollyPositionDiff.y, dollyTransform.position.z);
-
-                virtualCamera.m_Lens.OrthographicSize = currentFOV + fovDiff;
             }
             else
             {
@@ -402,20 +401,20 @@ public class Camera_UI : MonoBehaviour
         {
             if (!cameraReposition)
             {
+                //Changement de la focale
+                virtualCamera.m_Lens.OrthographicSize = currentFOV + (fovDiff * repoPercent);
+
                 //Changement de la position
-                dollyCart.m_Position = currentPathPos + animationPosDifference * repoPercent;
+                dollyCart.m_Position = currentPathPos + (animationPosDifference * repoPercent);
 
 
                 //Changement de la Target Offset
                 virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x + targetOffsetDiff.x * retarPercent,
-                    currentTargetOffset.y + targetOffsetDiff.y * retarPercent, currentTargetOffset.z + targetOffsetDiff.z * retarPercent);
+                    currentTargetOffset.y + targetOffsetDiff.y * retarPercent, currentTargetOffset.z + (targetOffsetDiff.z * retarPercent));
 
                 //Changement du Transform du dolly
-                dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y + dollyPositionDiff.y * repoPercent,
+                dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y + (dollyPositionDiff.y * repoPercent),
                     dollyTransform.position.z);
-
-                //Changement de la focale
-                virtualCamera.m_Lens.OrthographicSize = currentFOV + fovDiff * repoPercent;
             }
         }
         else

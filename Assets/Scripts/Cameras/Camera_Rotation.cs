@@ -145,12 +145,16 @@ public class Camera_Rotation : MonoBehaviour
                             onHorizontal = true;
                             onVertical = false;
 
+                            trail_Behaviour.Instance.ActivateTrail();
+
                             isOrientationSet = true;
                         }
                         else
                         {
                             onHorizontal = false;
                             onVertical = true;
+
+                            trail_Behaviour.Instance.DeactivateTrail();
 
                             isOrientationSet = true;
                         }
@@ -162,12 +166,16 @@ public class Camera_Rotation : MonoBehaviour
                             onHorizontal = true;
                             onVertical = false;
 
+                            trail_Behaviour.Instance.ActivateTrail();
+
                             isOrientationSet = true;
                         }
                         else
                         {
                             onHorizontal = false;
                             onVertical = true;
+
+                            trail_Behaviour.Instance.DeactivateTrail();
 
                             isOrientationSet = true;
                         }
@@ -182,12 +190,16 @@ public class Camera_Rotation : MonoBehaviour
                             onHorizontal = true;
                             onVertical = false;
 
+                            trail_Behaviour.Instance.ActivateTrail();
+
                             isOrientationSet = true;
                         }
                         else
                         {
                             onHorizontal = false;
                             onVertical = true;
+
+                            trail_Behaviour.Instance.DeactivateTrail();
 
                             isOrientationSet = true;
                         }
@@ -199,12 +211,16 @@ public class Camera_Rotation : MonoBehaviour
                             onHorizontal = true;
                             onVertical = false;
 
+                            trail_Behaviour.Instance.ActivateTrail();
+
                             isOrientationSet = true;
                         }
                         else
                         {
                             onHorizontal = false;
                             onVertical = true;
+
+                            trail_Behaviour.Instance.DeactivateTrail();
 
                             isOrientationSet = true;
                         }
@@ -233,6 +249,8 @@ public class Camera_Rotation : MonoBehaviour
             {
                 if (onHorizontal)
                 {
+                    //trail_Behaviour.Instance.ActivateTrail();
+
                     if (currentX > 0)
                     {
                         xDirection = HorizontalDirection.right;
@@ -246,6 +264,8 @@ public class Camera_Rotation : MonoBehaviour
 
                 if (onVertical)
                 {
+                    //trail_Behaviour.Instance.DeactivateTrail();
+
                     if (currentY > 0)
                     {
                         yDirection = VerticalDirection.down;
