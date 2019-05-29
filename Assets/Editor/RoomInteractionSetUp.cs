@@ -11,7 +11,6 @@ public class RoomInteractionSetUp : Editor
     public GameObject UI;
     public GameObject talk;
     public GameObject interact;
-    public GameObject floor;
     public GameObject title;
     public GameObject description;
     public GameObject nothing;
@@ -70,11 +69,6 @@ public class RoomInteractionSetUp : Editor
                 roomInteraction.interactWith = GameObject.Find(interact.name).GetComponent<Button>();
             }
 
-            if (roomInteraction.changeFloor == null)
-            {
-                roomInteraction.changeFloor = GameObject.Find(floor.name).GetComponent<Button>();
-            }
-
             if (roomInteraction.nameText == null)
             {
                 roomInteraction.nameText = GameObject.Find(title.name).GetComponent<TextMeshProUGUI>();
@@ -107,13 +101,6 @@ public class RoomInteractionSetUp : Editor
             if (roomInteraction.interactWith != null)
             {
                 roomInteraction.uiAnimators.Add(roomInteraction.interactWith.gameObject.GetComponent<Animator>());
-            }
-            else
-                Debug.LogWarning("This Button is not assigned");
-
-            if (roomInteraction.changeFloor != null)
-            {
-                roomInteraction.uiAnimators.Add(roomInteraction.changeFloor.gameObject.GetComponent<Animator>());
             }
             else
                 Debug.LogWarning("This Button is not assigned");

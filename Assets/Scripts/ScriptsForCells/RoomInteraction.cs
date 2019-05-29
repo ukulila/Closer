@@ -18,14 +18,12 @@ public class RoomInteraction : MonoBehaviour
     [Header("Opportunities")]
     public bool isDialogue;
     public bool isInteraction;
-    public bool isSecondFloor;
 
     public NPCInteractions npc;
     public Objet_Interaction objet;
 
     public Button talkTo;
     public Button interactWith;
-    public Button changeFloor;
 
     [Header("Clients")]
     public bool isThereClients = false;
@@ -49,22 +47,28 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void InteractionAppears()
     {
-        uiAnimators[3].ResetTrigger("Enabled");
         uiAnimators[4].ResetTrigger("Enabled");
-        uiAnimators[6].ResetTrigger("Enabled");
-        uiAnimators[3].ResetTrigger("Disabled");
+        uiAnimators[5].ResetTrigger("Enabled");
+        
         uiAnimators[4].ResetTrigger("Disabled");
-        uiAnimators[6].ResetTrigger("Disabled");
+        uiAnimators[5].ResetTrigger("Disabled");
 
-        uiAnimators[6].SetTrigger("Enabled");
+        uiAnimators[5].SetTrigger("Enabled");
 
         Objectif_Scr.Instance.Disappearance();
         ProgressionBar.Instance.Disparition();
 
         if (UI_Manager.Instance.contextuelleGO[0].activeInHierarchy)
         {
+            uiAnimators[2].ResetTrigger("Disabled");
+            uiAnimators[3].ResetTrigger("Disabled");
+
+            uiAnimators[2].ResetTrigger("Enabled");
+            uiAnimators[3].ResetTrigger("Enabled");
+
+            uiAnimators[2].SetTrigger("Enabled");
             uiAnimators[3].SetTrigger("Enabled");
-            uiAnimators[4].SetTrigger("Enabled");
+            
 
             if (isDialogue)
             {
@@ -82,18 +86,11 @@ public class RoomInteraction : MonoBehaviour
                 uiAnimators[1].SetTrigger("Enabled");
             }
 
-            if (isSecondFloor)
+            if (!isInteraction && !isDialogue)
             {
-                uiAnimators[2].ResetTrigger("Enabled");
-                uiAnimators[2].ResetTrigger("Disabled");
-                uiAnimators[2].SetTrigger("Enabled");
-            }
-
-            if (!isSecondFloor && !isInteraction && !isDialogue)
-            {
-                uiAnimators[5].ResetTrigger("Disabled");
-                uiAnimators[5].ResetTrigger("Enabled");
-                uiAnimators[5].SetTrigger("Enabled");
+                uiAnimators[4].ResetTrigger("Disabled");
+                uiAnimators[4].ResetTrigger("Enabled");
+                uiAnimators[4].SetTrigger("Enabled");
             }
         }
     }
@@ -116,23 +113,21 @@ public class RoomInteraction : MonoBehaviour
             uiAnimators[1].ResetTrigger("Enabled");
             uiAnimators[1].SetTrigger("Disabled");
 
-            changeFloor.interactable = false;
             uiAnimators[2].ResetTrigger("Enabled");
             uiAnimators[2].SetTrigger("Disabled");
 
             uiAnimators[3].ResetTrigger("Enabled");
             uiAnimators[3].SetTrigger("Disabled");
 
-            uiAnimators[4].ResetTrigger("Enabled");
-            uiAnimators[4].SetTrigger("Disabled");
-
-            uiAnimators[5].ResetTrigger("Enabled");
-            uiAnimators[5].SetTrigger("Disabled");
-
+            if (!isInteraction && !isDialogue)
+            {
+                uiAnimators[4].ResetTrigger("Enabled");
+                uiAnimators[4].SetTrigger("Disabled");
+            }
         }
 
-        uiAnimators[6].ResetTrigger("Enabled");
-        uiAnimators[6].SetTrigger("Disabled");
+        uiAnimators[5].ResetTrigger("Enabled");
+        uiAnimators[5].SetTrigger("Disabled");
     }
 
 
