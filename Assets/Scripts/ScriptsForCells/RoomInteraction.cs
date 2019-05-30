@@ -47,10 +47,10 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void InteractionAppears()
     {
-        uiAnimators[4].ResetTrigger("Enabled");
+        //uiAnimators[4].ResetTrigger("Enabled");
         uiAnimators[5].ResetTrigger("Enabled");
         
-        uiAnimators[4].ResetTrigger("Disabled");
+        //uiAnimators[4].ResetTrigger("Disabled");
         uiAnimators[5].ResetTrigger("Disabled");
 
         uiAnimators[5].SetTrigger("Enabled");
@@ -62,9 +62,11 @@ public class RoomInteraction : MonoBehaviour
         {
             uiAnimators[2].ResetTrigger("Disabled");
             uiAnimators[3].ResetTrigger("Disabled");
+            uiAnimators[4].ResetTrigger("Enabled");
 
             uiAnimators[2].ResetTrigger("Enabled");
             uiAnimators[3].ResetTrigger("Enabled");
+            uiAnimators[4].ResetTrigger("Disabled");
 
             uiAnimators[2].SetTrigger("Enabled");
             uiAnimators[3].SetTrigger("Enabled");

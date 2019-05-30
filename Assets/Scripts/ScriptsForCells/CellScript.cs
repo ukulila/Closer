@@ -63,7 +63,7 @@ public class CellScript : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode && Camera_Zoom.Instance.onZoom == false)
         {
             if (first)
             {

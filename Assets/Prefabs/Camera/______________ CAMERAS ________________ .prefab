@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432065930}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 6.56, y: -8.12, z: 16.01}
+  m_LocalPosition: {x: 6.56, y: -8.2, z: 16.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1241135057184425967}
@@ -73,7 +73,7 @@ TrailRenderer:
   m_Time: 1.65
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.7
+    widthMultiplier: 0.6
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1889,8 +1889,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241135056598317769}
-  m_LocalRotation: {x: -4.0553762e-16, y: 0.97032315, z: 9.558841e-16, w: -0.24181192}
-  m_LocalPosition: {x: 22.063997, y: 9, z: -11.735675}
+  m_LocalRotation: {x: -0.15963675, y: 0.36625287, z: -0.06393463, w: -0.91448754}
+  m_LocalPosition: {x: 17.252129, y: 9, z: -18.083454}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1241135058228366032}
@@ -1952,7 +1952,7 @@ MonoBehaviour:
   m_UpdateMethod: 0
   m_PositionUnits: 1
   m_Speed: 0
-  m_Position: 130
+  m_Position: 138
 --- !u!114 &1241135056598317765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1973,7 +1973,9 @@ MonoBehaviour:
   isFingerMoving: 0
   minimumMoveNecessary: 8
   yDirection: 2
+  onVertical: 0
   xDirection: 2
+  onHorizontal: 0
   currentHorizontalPos: 120.9629
   currentVerticalPos: 6
   nextHorizontalPos: 120.9629
@@ -2075,33 +2077,9 @@ MonoBehaviour:
   dollyPositionDiff: {x: 0, y: 0, z: 0}
   selectionTimingImage: {fileID: 0}
   timeBeforeSearch: 0
-  maxTimeBeforeSearch: 0.4
+  maxTimeBeforeSearch: 0.35
   timingOfSelection: 1
   cameraRepositioningCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  targetRepositioningCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -2128,6 +2106,7 @@ MonoBehaviour:
   animationCurveTimingMax: 0
   animationTimingMin: 2
   currentRepositionTime: 0
+  repoPercent: 0
   switchDurationRatioModifier: 0.01
   cameraReposition: 1
 --- !u!114 &1241135056598317764
@@ -2145,12 +2124,15 @@ MonoBehaviour:
   virtualCamera: {fileID: 1241135056598317763}
   minFOV: 6
   maxFOV: 11
+  onZoom: 0
   zDirection: 2
+  touchesDistance: 0
   currentZoomPos: 0
   nextZoomPos: 0
   smoothTime: 0.5
   zoomRatio: 0.01
   minimumDistanceNecessary: 1
+  areFingersMoving: 0
   slowDownZoomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2175,8 +2157,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  maxSlowTime: 0.1
+  slowDownPercent: 0
   zoomSlowTimeRatio: 0.012
   zoomSlowValueRatio: 0.025
+  isSmoothing: 0
+  trailInvisibleAt: 9
 --- !u!1 &1241135057083059884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,8 +2280,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241135057184425490}
-  m_LocalRotation: {x: -4.0553762e-16, y: 0.97032315, z: 9.558841e-16, w: -0.24181192}
-  m_LocalPosition: {x: 22.063997, y: 9, z: -11.735675}
+  m_LocalRotation: {x: -0.15963675, y: 0.36625287, z: -0.06393463, w: -0.91448754}
+  m_LocalPosition: {x: 17.252129, y: 9, z: -18.083454}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432065931}
@@ -2365,7 +2351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
+  m_ShowCameraFrustum: 0
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2

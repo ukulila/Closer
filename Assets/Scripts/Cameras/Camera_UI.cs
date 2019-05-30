@@ -2,6 +2,7 @@
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Camera_UI : MonoBehaviour
 {
@@ -57,21 +58,18 @@ public class Camera_UI : MonoBehaviour
 
     public float timingOfSelection;
 
+    [Space]
     public AnimationCurve cameraRepositioningCurve;
-    public AnimationCurve targetRepositioningCurve;
     public float animationCurveTimingMax;
     public float animationTimingMin;
     public float currentRepositionTime;
-    private float repoPercent;
-    private float retarPercent;
+    public float repoPercent;
 
     [Range(0, 0.3f)]
     public float switchDurationRatioModifier;
 
     [Space]
     public bool cameraReposition = true;
-
-
 
 
     public static Camera_UI Instance;
@@ -84,7 +82,6 @@ public class Camera_UI : MonoBehaviour
         Instance = this;
 
         positionMax = dollyCart.m_Path.PathLength;
-
     }
 
     public void SwitchToNoUi()
@@ -212,6 +209,15 @@ public class Camera_UI : MonoBehaviour
                         {
                             switchToUI = true;
                             cameraReposition = false;
+
+                            Camera_Rotation.Instance.xDirection = Camera_Rotation.HorizontalDirection.none;
+                            Camera_Rotation.Instance.yDirection = Camera_Rotation.VerticalDirection.center;
+
+                            Camera_Rotation.Instance.onHorizontal = false;
+                            Camera_Rotation.Instance.onVertical = false;
+
+                            Camera_Zoom.Instance.zDirection = Camera_Zoom.ZoomDirection.none;
+                            Camera_Zoom.Instance.onZoom = false;
 
                             ROOM_Manager.Instance.LaunchUI((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier);
                         }
@@ -368,26 +374,10 @@ public class Camera_UI : MonoBehaviour
             if (switchToUI)
             {
                 InventorySystem.Instance.canBeDisplayed = false;
-
-                virtualCamera.m_Lens.OrthographicSize = currentFOV + fovDiff;
-
-                dollyCart.m_Position = currentPathPos + animationPosDifference;
-
-                virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x + targetOffsetDiff.x,
-                    currentTargetOffset.y + targetOffsetDiff.y, currentTargetOffset.z + targetOffsetDiff.z);
-
-                dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y + dollyPositionDiff.y, dollyTransform.position.z);
             }
             else
             {
                 InventorySystem.Instance.canBeDisplayed = true;
-
-                virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x - targetOffsetDiff.x,
-                currentTargetOffset.y - targetOffsetDiff.y, currentTargetOffset.z - targetOffsetDiff.z);
-
-                dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y - dollyPositionDiff.y, dollyTransform.position.z);
-
-                virtualCamera.m_Lens.OrthographicSize = currentFOV - fovDiff;
             }
 
             cameraReposition = true;
@@ -395,47 +385,39 @@ public class Camera_UI : MonoBehaviour
 
         repoPercent = cameraRepositioningCurve.Evaluate(currentRepositionTime / animationCurveTimingMax);
 
-        retarPercent = targetRepositioningCurve.Evaluate(currentRepositionTime / animationCurveTimingMax);
 
-        if (switchToUI)
+        if (!cameraReposition)
         {
-            if (!cameraReposition)
+            if (switchToUI)
             {
                 //Changement de la focale
                 virtualCamera.m_Lens.OrthographicSize = currentFOV + (fovDiff * repoPercent);
 
+                //Changement de la Target Offset
+                virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x + targetOffsetDiff.x * repoPercent,
+                    currentTargetOffset.y + targetOffsetDiff.y * repoPercent, currentTargetOffset.z + (targetOffsetDiff.z * repoPercent));
+
                 //Changement de la position
                 dollyCart.m_Position = currentPathPos + (animationPosDifference * repoPercent);
-
-
-                //Changement de la Target Offset
-                virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x + targetOffsetDiff.x * retarPercent,
-                    currentTargetOffset.y + targetOffsetDiff.y * retarPercent, currentTargetOffset.z + (targetOffsetDiff.z * retarPercent));
 
                 //Changement du Transform du dolly
                 dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y + (dollyPositionDiff.y * repoPercent),
                     dollyTransform.position.z);
             }
-        }
-        else
-        {
-            if (!cameraReposition)
+            else
             {
                 //Changement de la Target Offset
-                virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x - targetOffsetDiff.x * retarPercent,
-                currentTargetOffset.y - targetOffsetDiff.y * retarPercent, currentTargetOffset.z - targetOffsetDiff.z * retarPercent);
-
+                virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(currentTargetOffset.x - targetOffsetDiff.x * repoPercent,
+                currentTargetOffset.y - targetOffsetDiff.y * repoPercent, currentTargetOffset.z - targetOffsetDiff.z * repoPercent);
 
                 //Changement du Transform du dolly
                 dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y - dollyPositionDiff.y * repoPercent,
                         dollyTransform.position.z);
 
-
                 //Changement de la focale
                 virtualCamera.m_Lens.OrthographicSize = currentFOV - fovDiff * repoPercent;
             }
         }
-
     }
 
     /// <summary>
@@ -462,7 +444,7 @@ public class Camera_UI : MonoBehaviour
 
             if (continuePosDifference > reversePosDifference)
             {
-                animationPosDifference = -reversePosDifference;
+                animationPosDifference = (reversePosDifference * -1);
             }
             else
             {

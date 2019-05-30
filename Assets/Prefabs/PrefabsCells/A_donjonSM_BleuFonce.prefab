@@ -511,12 +511,10 @@ MonoBehaviour:
   backgroundSprite: {fileID: 0}
   isDialogue: 0
   isInteraction: 0
-  isSecondFloor: 0
   npc: {fileID: 0}
   objet: {fileID: 0}
   talkTo: {fileID: 0}
   interactWith: {fileID: 0}
-  changeFloor: {fileID: 0}
   isThereClients: 0
   clients: []
   uiAnimators:
@@ -794,6 +792,7 @@ MonoBehaviour:
   - {fileID: 4367285136963066154}
   - {fileID: 1919099401571460673}
   BlackRoom: 0
+  myEnviro: {fileID: 1034982461261382517}
 --- !u!1 &1034982461541565201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,11 +1345,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1034982461261382516}
     m_Modifications:
-    - target: {fileID: 1713053923111765594, guid: 36fd9efd0fb6bd740a62a0909ec06247,
-        type: 3}
-      propertyPath: m_Name
-      value: Outliner
-      objectReference: {fileID: 0}
     - target: {fileID: 1713053923111765593, guid: 36fd9efd0fb6bd740a62a0909ec06247,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1421,6 +1415,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 6.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1713053923111765594, guid: 36fd9efd0fb6bd740a62a0909ec06247,
+        type: 3}
+      propertyPath: m_Name
+      value: Outliner
+      objectReference: {fileID: 0}
     - target: {fileID: 1713053923111765592, guid: 36fd9efd0fb6bd740a62a0909ec06247,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1447,11 +1446,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1034982461261382516}
     m_Modifications:
-    - target: {fileID: 6144399091019073756, guid: 0a45d862684b6154c81dbb8c8a04e536,
-        type: 3}
-      propertyPath: m_Name
-      value: Chambre SM
-      objectReference: {fileID: 0}
     - target: {fileID: 6144399091018978556, guid: 0a45d862684b6154c81dbb8c8a04e536,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1506,6 +1500,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6144399091019073756, guid: 0a45d862684b6154c81dbb8c8a04e536,
+        type: 3}
+      propertyPath: m_Name
+      value: Chambre SM
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a45d862684b6154c81dbb8c8a04e536, type: 3}
