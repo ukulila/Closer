@@ -10,6 +10,9 @@ public class TimeLineScript : MonoBehaviour
 {
 
     public GraphicRaycaster m_Raycaster;
+
+    public bool mouseDown;
+
     public PointerEventData m_PointerEventData;
     public EventSystem m_EventSystem;
 
@@ -31,30 +34,38 @@ public class TimeLineScript : MonoBehaviour
     public List<GameObject> truth;
 
     public List<GameObject> reality;
+    private Vector3 lerpPos;
 
     [Space]
 
     public GameObject submitButton;
+    public Transform pola;
+    public bool lerpAnim;
+    public Vector3 targetOriginScale;
+    private bool once;
+    private bool autorisation;
+    public Transform originTarget;
+    public GameObject signal;
+    public int totalNumberOfClues;
 
-
-    void Start()
-    {
-
-    }
 
     void Update()
     {
-
+        //Reset everything on mouse Up
         if (Input.GetMouseButtonUp(0) && polaroidInteraction)
         {
             Cursor.visible = true;
             currentPolaroid.position = originPos;
+            currentPolaroid = null;
+            pola = null;
             polaroidInteraction = false;
 
         }
 
+        //Graph Raycaster To detect Polaroids
         if (Input.GetMouseButtonDown(0))
         {
+
             m_PointerEventData = new PointerEventData(m_EventSystem);
             m_PointerEventData.position = Input.mousePosition;
 
@@ -72,8 +83,9 @@ public class TimeLineScript : MonoBehaviour
                 {
                     Cursor.visible = false;
 
-
-
+                    originTarget = result.gameObject.transform.parent;
+                    autorisation = true;
+                    lerpAnim = false;
                     currentPolaroid = result.gameObject.transform;
                     originPos = currentPolaroid.position;
                     polaroidInteraction = true;
@@ -82,77 +94,94 @@ public class TimeLineScript : MonoBehaviour
             }
         }
 
-
-        if (polaroidInteraction)
+        //Lerp to Exchange pos between 2 polaroids
+        if (lerpAnim)
         {
-            ClueMove();
-
-
-
-        }
-
-        if (currentPolaroid != null)
-        {
-            for (int i = 0; i < TargetRangement.Count; i++)
+            if (pola != null)
             {
-                if (currentPolaroid.position.x - TargetRangement[i].position.x < 180 && currentPolaroid.position.x - TargetRangement[i].position.x > -70 && currentPolaroid.position.y - TargetRangement[i].position.y > -70 && currentPolaroid.position.y - TargetRangement[i].position.y < 70)
-                {
 
-                    if (TargetRangement[i].childCount == 0)
-                    {
-                        LerpSpeed = LerpCurve.Evaluate(Time.deltaTime);
+                lerpPos = Vector3.Lerp(pola.transform.position, originPos, 0.2f);
 
-                        polaroidInteraction = false;
-                        Deduction.Remove(currentPolaroid.gameObject);
+                pola.position = lerpPos;
+                pola.transform.SetParent(originTarget);
+                pola = null;
+                
+            }
+        }
+        else
+        {
+            if (pola != null)
+            {
+                pola.position = originPos;
+                pola.SetParent(originTarget);
+                pola = null;
 
-                        isInListRangement();
-
-                        if (!isInListRangement())
-                        {
-                            Rangement.Add(currentPolaroid.gameObject);
-                        }
-
-                        currentPolaroid.SetParent(TargetRangement[i]);
-                        currentPolaroid.position = TargetRangement[i].position + unTouchedOffset;
-                        Cursor.visible = true;
-                    }
-
-
-                }
-
-                if (currentPolaroid.position.x - TargetClues[i].position.x < 180 && currentPolaroid.position.x - TargetClues[i].position.x > -70 && currentPolaroid.position.y - TargetClues[i].position.y > -70 && currentPolaroid.position.y - TargetClues[i].position.y < 70)
-                {
-
-                    if (TargetClues[i].childCount == 0)
-                    {
-                        LerpSpeed = LerpCurve.Evaluate(Time.deltaTime);
-
-                        polaroidInteraction = false;
-
-                        isInListDeduction();
-
-                        if(!isInListDeduction())
-                        {
-                            Deduction.Add(currentPolaroid.gameObject);
-                        }
-
-
-
-
-                        Rangement.Remove(currentPolaroid.gameObject);
-                        currentPolaroid.SetParent(TargetClues[i]);
-                        currentPolaroid.position = TargetClues[i].position + unTouchedOffset;
-                        Cursor.visible = true;
-                    }
-
-
-                }
             }
 
         }
 
+        ///Start Function when polaroid on hand
+        if (polaroidInteraction)
+        {
+            ClueMove();
+        }
 
-        if (Deduction.Count >= 4)
+        //All checks for polaroid assignation
+        if (currentPolaroid != null)
+        {
+
+            for (int i = 0; i < TargetClues.Count; i++)
+            {
+
+                if (TargetClues[i].transform != originTarget && currentPolaroid != null && pola == null)
+                {
+                    if (currentPolaroid.position.x - TargetClues[i].position.x < 180 && currentPolaroid.position.x - TargetClues[i].position.x > -70 && currentPolaroid.position.y - TargetClues[i].position.y > -70 && currentPolaroid.position.y - TargetClues[i].position.y < 70)
+                    {
+                        signal.SetActive(true);
+
+                        //if there is nothing on the pin
+                        if (TargetClues[i].childCount == 0 && autorisation)
+                        {
+
+                            currentPolaroid.SetParent(TargetClues[i]);
+                            currentPolaroid.position = TargetClues[i].position + unTouchedOffset;
+                            Cursor.visible = true;
+                            currentPolaroid = null;
+                            autorisation = false;
+                            polaroidInteraction = false;
+
+                        }
+
+                        //if there is already something
+                        if (TargetClues[i].childCount == 1 && autorisation)
+                        {
+                            pola = TargetClues[i].GetChild(0).transform;
+                            lerpAnim = true;
+
+                            currentPolaroid.SetParent(TargetClues[i]);
+                            currentPolaroid.position = TargetClues[i].position + unTouchedOffset;
+                            Cursor.visible = true;
+                            currentPolaroid = null;
+                            autorisation = false;
+                            polaroidInteraction = false;
+
+                        }
+
+                    }
+                    else
+                    {
+                        signal.SetActive(false);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        //Cannot submit when all clues aren't unlocked
+        if (Deduction.Count >= totalNumberOfClues)
         {
             submitButton.SetActive(true);
         }
@@ -166,12 +195,18 @@ public class TimeLineScript : MonoBehaviour
 
     }
 
+
+
+    //Polaroid follows mouse position on screen
     public void ClueMove()
     {
         transPos = cam.ScreenToWorldPoint(Input.mousePosition + offset);
 
         currentPolaroid.position = transPos;
     }
+
+
+    //Compares to lists : deduction and truth. Check if win
     public void submitCheck()
     {
         truth.Clear();
@@ -202,28 +237,29 @@ public class TimeLineScript : MonoBehaviour
 
     }
 
+    
 
 
-    bool isInListRangement()
-    {
-        for (int y = 0; y < Rangement.Count; y++)
-        {
-            if (currentPolaroid.gameObject == Rangement[y])
-                return true;
-        }
-        return false;
-    }
+    /* bool isInListRangement()
+     {
+         for (int y = 0; y < Rangement.Count; y++)
+         {
+             if (currentPolaroid.gameObject == Rangement[y])
+                 return true;
+         }
+         return false;
+     }*/
 
-    bool isInListDeduction()
-    {
-        for (int y = 0; y < Deduction.Count; y++)
-        {
-            if (currentPolaroid.gameObject == Deduction[y])
-                return true;
-        }
-        return false;
-    }
-
+    /* bool isInListDeduction()
+     {
+         for (int y = 0; y < Deduction.Count; y++)
+         {
+             if (currentPolaroid.gameObject == Deduction[y])
+                 return true;
+         }
+         return false;
+     }
+     */
 
 
 }

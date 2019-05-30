@@ -55,13 +55,13 @@ public class LevelManager : MonoBehaviour
         if (!isMoveAwayAnimationOver && SmoothMoveSwipe.Instance.isCranAnimationOver == true)
         {
             MoveLevels();
-        }
+        }/*
 
         if (isMoveAwayAnimationOver && SmoothMoveSwipe.Instance.isCranAnimationOver == true && !isCloseUpAllSet)
         {
             ShowCloseUp();
             isCloseUpAllSet = true;
-        }
+        }*/
     }
 
     /// <summary>
