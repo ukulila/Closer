@@ -264,7 +264,7 @@ public class RoomInteraction : MonoBehaviour
     {
         if (PlayerBehaviour.Instance.transform.parent.GetComponent<RoomInteraction>().isInteraction == true)
         {
-            ObjectManager.Instance.currentObjet = transform.GetComponent<RoomInteraction>().objet;
+            ObjectManager.Instance.currentObjet = PlayerBehaviour.Instance.transform.parent.GetComponent<RoomInteraction>().objet;
         }
         else
         {
@@ -273,7 +273,7 @@ public class RoomInteraction : MonoBehaviour
 
         if (PlayerBehaviour.Instance.transform.parent.GetComponent<RoomInteraction>().isDialogue == true)
         {
-            NPC_Manager.Instance.currentNPC = transform.GetComponent<RoomInteraction>().npc;
+            NPC_Manager.Instance.currentNPC = PlayerBehaviour.Instance.transform.parent.GetComponent<RoomInteraction>().npc;
         }
         else
         {

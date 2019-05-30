@@ -85,7 +85,7 @@ public class Camera_Zoom : MonoBehaviour
             trail_Behaviour.Instance.isTrailStillVisible = true;
     }
 
-
+    
     void Update()
     {
         if (Input.touchCount == 2 && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
@@ -164,7 +164,7 @@ public class Camera_Zoom : MonoBehaviour
         }
         
     }
-
+    
     /// <summary>
     /// Son nom parle pour lui ... enfin peut etre pas dans toutes les langues
     /// </summary>

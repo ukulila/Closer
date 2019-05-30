@@ -809,7 +809,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
 
         distance = Vector3.Distance(transform.position, objectif);
-        if (distance > minDist)
+        if (distance < minDist)
         {
             //Debug.Log("Distanceok");
             ctrlTime = 0f;

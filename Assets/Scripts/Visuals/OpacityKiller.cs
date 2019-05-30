@@ -137,6 +137,35 @@ public class OpacityKiller : MonoBehaviour
 
 
         }
+        else
+        {
+            if (myEnviro.doorWayPoints.Count > 0)
+            {
+                if (myEnviro.doorWayPoints[myEnviro.doorWayPoints.Count - 1].gameObject.activeInHierarchy == false)
+                {
+                    for (int o = 0; o < myEnviro.doorWayPoints.Count; o++)
+                    {
+                        myEnviro.doorWayPoints[o].gameObject.SetActive(true);
+
+                    }
+
+                }
+            }
+
+            if (myEnviro.HatchesWayPoints.Count > 0)
+            {
+                if (myEnviro.HatchesWayPoints[myEnviro.HatchesWayPoints.Count - 1].gameObject.activeInHierarchy == false)
+                {
+                    for (int p = 0; p < myEnviro.HatchesWayPoints.Count; p++)
+                    {
+                        myEnviro.HatchesWayPoints[p].gameObject.SetActive(true);
+
+                    }
+
+                }
+
+            }
+        }
 
 
     }

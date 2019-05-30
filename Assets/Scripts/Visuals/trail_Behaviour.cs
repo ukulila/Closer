@@ -25,6 +25,7 @@ public class trail_Behaviour : MonoBehaviour
         if (!isTrailActivated && isTrailStillVisible)
         {
             isTrailActivated = true;
+            trailRenderer.time = 1.65f;
             trailRenderer.enabled = true;
         }
     }
@@ -34,6 +35,7 @@ public class trail_Behaviour : MonoBehaviour
         if (isTrailActivated)
         {
             isTrailActivated = false;
+            trailRenderer.time = 0;
             trailRenderer.enabled = false;
         }
     }
