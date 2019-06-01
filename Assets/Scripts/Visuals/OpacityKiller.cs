@@ -26,15 +26,20 @@ public class OpacityKiller : MonoBehaviour
 
     public bool BlackRoom;
     public ScrEnvironment myEnviro;
-
+    private bool once;
+    private int timer;
 
     void Update()
     {
-        if (!BlackRoom)
+        //  Debug.Log("DesactCells       " + CellPlacement.Instance.DesactCells);
+        // Debug.Log("DoOnce       " + CellPlacement.Instance.doOnce);
+        //   Debug.Log("Blackroom      " + BlackRoom);
+
+
+        if (!BlackRoom /*&& CellPlacement.Instance.DesactCells == false*/)
         {
             if (upAndRunning == true)
             {
-
 
                 if (localAlpha == 0)
                 {
@@ -90,22 +95,13 @@ public class OpacityKiller : MonoBehaviour
 
         if (BlackRoom)
         {
+
             for (int i = 0; i < Planes.Count; i++)
             {
                 Planes[i].color = new Color32((byte)Planes[i].color.r, (byte)Planes[i].color.g, (byte)Planes[i].color.b, 255);
 
             }
 
-            if (KillChilds[KillChilds.Count - 1].activeInHierarchy == true)
-            {
-                for (int r = 0; r < KillChilds.Count; r++)
-                {
-                    KillChilds[r].SetActive(false);
-                    GetComponent<ScrEnvironment>().doorWayPoints[0].gameObject.SetActive(false);
-
-
-                }
-            }
 
             if (myEnviro.doorWayPoints.Count > 0)
             {
@@ -134,11 +130,20 @@ public class OpacityKiller : MonoBehaviour
 
             }
 
+            if (KillChilds[KillChilds.Count - 1].activeInHierarchy == true)
+            {
+                for (int r = 0; r < KillChilds.Count; r++)
+                {
+                    KillChilds[r].SetActive(false);
+                    GetComponent<ScrEnvironment>().doorWayPoints[0].gameObject.SetActive(false);
 
+                }
 
+            }
         }
-        else
+        else /*(!BlackRoom && !CellPlacement.Instance.DesactCells)*/
         {
+
             if (myEnviro.doorWayPoints.Count > 0)
             {
                 if (myEnviro.doorWayPoints[myEnviro.doorWayPoints.Count - 1].gameObject.activeInHierarchy == false)
@@ -168,31 +173,99 @@ public class OpacityKiller : MonoBehaviour
         }
 
 
+        /*
+        if (CellPlacement.Instance.DesactCells)
+        {
+
+            if (GetComponent<CellMovement>().isSpawn == false && CellPlacement.Instance.doOnce)
+            {
+                for (int i = 0; i < Planes.Count; i++)
+                {
+                    Planes[i].color = new Color32((byte)Planes[i].color.r, (byte)Planes[i].color.g, (byte)Planes[i].color.b, 255);
+
+                }
+
+
+                if (myEnviro.doorWayPoints.Count > 0)
+                {
+                    if (myEnviro.doorWayPoints[myEnviro.doorWayPoints.Count - 1].gameObject.activeInHierarchy == true)
+                    {
+                        for (int o = 0; o < myEnviro.doorWayPoints.Count; o++)
+                        {
+                            myEnviro.doorWayPoints[o].gameObject.SetActive(false);
+
+                        }
+
+                    }
+                }
+
+                if (myEnviro.HatchesWayPoints.Count > 0)
+                {
+                    if (myEnviro.HatchesWayPoints[myEnviro.HatchesWayPoints.Count - 1].gameObject.activeInHierarchy == true)
+                    {
+                        for (int p = 0; p < myEnviro.HatchesWayPoints.Count; p++)
+                        {
+                            myEnviro.HatchesWayPoints[p].gameObject.SetActive(false);
+
+                        }
+
+                    }
+
+                }
+
+                if (KillChilds[KillChilds.Count - 1].activeInHierarchy == true)
+                {
+                    for (int r = 0; r < KillChilds.Count; r++)
+                    {
+                        if (r < KillChilds.Count)
+                        {
+                            KillChilds[r].SetActive(false);
+                            GetComponent<ScrEnvironment>().doorWayPoints[0].gameObject.SetActive(false);
+                        }
+
+
+                    }
+
+                }
+
+
+                timer++;
+                if (timer == 5)
+                {
+                    CellPlacement.Instance.doOnce = false;
+                    timer = 0;
+                }
+
+            }
+            
+        }*/
+
+
     }
 
-        public void SetBlackRoomTrue()
-        {
-            BlackRoom = true;
-        }
+    public void SetBlackRoomTrue()
+    {
+        BlackRoom = true;
+    }
 
-        public void SetBlackRoomFalse()
-        {
-            BlackRoom = false;
-        }
-
-
-        public void OpacityCheck(/*int planeIndex,*/ int alpha)
-        {
-            upAndRunning = true;
+    public void SetBlackRoomFalse()
+    {
+        BlackRoom = false;
+    }
 
 
-            //  localPlaneIndex = planeIndex;
-            localAlpha = alpha;
+    public void OpacityCheck(/*int planeIndex,*/ int alpha)
+    {
+        upAndRunning = true;
 
 
-        }
-
-
+        //  localPlaneIndex = planeIndex;
+        localAlpha = alpha;
 
 
     }
+
+
+
+
+}

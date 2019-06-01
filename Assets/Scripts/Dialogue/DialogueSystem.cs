@@ -199,6 +199,7 @@ public class DialogueSystem : MonoBehaviour
 
     public void StartDialogue()
     {
+        CellPlacement.Instance.doOnce = true;
         StartCoroutine(StartDialogueIn(1.5f));
     }
 

@@ -156,6 +156,8 @@ public class RoomInteraction : MonoBehaviour
     /// <returns></returns>
     IEnumerator AddingNpc(NPCInteractions npcToAdd)
     {
+        CellPlacement.Instance.ReactivateCells();
+
         yield return new WaitForSeconds(1.5f);
 
         npcToAdd.gameObject.SetActive(true);
@@ -172,6 +174,8 @@ public class RoomInteraction : MonoBehaviour
     /// <returns></returns>
     IEnumerator RemovingNpc(NPCInteractions npcToRemove)
     {
+        CellPlacement.Instance.ReactivateCells();
+
         npc = null;
         isDialogue = false;
 
@@ -187,6 +191,8 @@ public class RoomInteraction : MonoBehaviour
     /// <returns></returns>
     IEnumerator AddingAnObject(Objet_Interaction objectToAdd)
     {
+        CellPlacement.Instance.ReactivateCells();
+
         yield return new WaitForSeconds(1.8f);
 
         objectToAdd.gameObject.SetActive(true);
@@ -199,6 +205,8 @@ public class RoomInteraction : MonoBehaviour
 
     IEnumerator ClientApparition()
     {
+        CellPlacement.Instance.ReactivateCells();
+
         yield return new WaitForSeconds(1.5f);
 
         for (int i = 0; i < clients.Count; i++)
@@ -209,6 +217,8 @@ public class RoomInteraction : MonoBehaviour
 
     IEnumerator ClientDisparition()
     {
+        CellPlacement.Instance.ReactivateCells();
+
         yield return new WaitForSeconds(1.5f);
 
         for (int i = 0; i < clients.Count; i++)

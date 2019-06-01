@@ -104,6 +104,7 @@ public class CellScript : MonoBehaviour
                         for (int r = 0; r < brothers.Count; r++)
                         {
                             brothers[r].hasEnded = true;
+                            brothers[r].isOpen = false;
                             player.checkOpenDoor = true;
                         }
                     }
@@ -127,14 +128,14 @@ public class CellScript : MonoBehaviour
 
                         if (first && nbrTouch > 1)
                         {
-                            if (brothers[0] != null)
+                           /* if (brothers[0] != null)
                             {
-                                /* for (int r = 0; r < brothers.Count; r++)
+                                 for (int r = 0; r < brothers.Count; r++)
                                  {
                                      brothers[r].hasEnded = false;
-                                 }*/
+                                 }
                             }
-
+                            */
                             set = true;
                             if (set)
                             {

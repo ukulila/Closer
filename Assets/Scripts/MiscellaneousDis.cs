@@ -40,7 +40,23 @@ public class MiscellaneousDis : MonoBehaviour
                 }
             }
         }
-        else
+      /*  else
+        {
+            if (mR.enabled == true)
+            {
+                if (transform.childCount != 0)
+                {
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        transform.GetChild(i).gameObject.SetActive(false);
+                    }
+                }
+                mR.enabled = false;
+
+            }
+        }*/
+        
+        if(other.name.Contains("Plan"))
         {
             if (mR.enabled == true)
             {

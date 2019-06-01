@@ -15,6 +15,7 @@ public class CellPlacement : MonoBehaviour
 
     [Header("   Bool Manager")]
     public bool once;
+    public bool doOnce;
     public bool okToSetup;
     public bool isInRotation;
 
@@ -24,8 +25,42 @@ public class CellPlacement : MonoBehaviour
     public int timerObjectif;
     public Objectif_Scr objectif;
 
+    public bool DesactCells;
+    public static CellPlacement Instance;
+
+    public void Awake()
+    {
+        doOnce = true;
+
+        Instance = this;
+    }
+
     void Update()
     {
+
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue)
+        {
+            if (doOnce)
+            {
+                DesactCells = true;
+                doOnce = false;
+            }
+
+            if (DesactCells == true)
+            {
+
+              DeActivateCells();
+
+            }
+        }
+        else
+        {
+            ReactivateCells();
+        }
+
+
+
+
         if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             TimerObjectif();
@@ -38,7 +73,7 @@ public class CellPlacement : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
 
-            if(GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+            if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
             {
                 FingerOnScreen = true;
             }
@@ -61,17 +96,17 @@ public class CellPlacement : MonoBehaviour
 
                     if (Cui.switchToUI == true)
                     {
-                        cellmove.hasEnded = false;
+                        //cellmove.hasEnded = false;
                     }
 
                     if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
                     {
                         if (cellmove.isSpawn == true)
                         {
-                            for (int i = 0; i < cM.Count; i++)
+                            /*for (int i = 0; i < cM.Count; i++)
                             {
                                 cM[i].isOpen = false;
-                            }
+                            }*/
                             cellmove.raycastAutor = true;
                         }
 
@@ -85,7 +120,7 @@ public class CellPlacement : MonoBehaviour
 
                         cellmove.originPos = Input.mousePosition;
 
-                        
+
                     }
 
                     if (cB != null)
@@ -130,7 +165,7 @@ public class CellPlacement : MonoBehaviour
         }
 
 
-        if(Input.GetMouseButtonUp(0) && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        if (Input.GetMouseButtonUp(0) && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
 
             FingerOnScreen = false;
@@ -155,12 +190,39 @@ public class CellPlacement : MonoBehaviour
 
     }
 
+    private void DeActivateCells()
+    {
+       
+        for (int i = 0; i < cM.Count; i++)
+        {
+            if (!cM[i].isSpawn)
+            {
+                cM[i].gameObject.SetActive(false);
 
+            }
+        }
+    }
+
+    public void ReactivateCells()
+    {
+        DesactCells = false;
+
+        for (int i = 0; i < cM.Count; i++)
+        {
+            if (cM[i].gameObject.activeInHierarchy == false)
+            {
+
+                cM[i].gameObject.SetActive(true);
+
+            }
+        }
+
+    }
 
     public void TimerObjectif()
     {
 
-        if(!FingerOnScreen)
+        if (!FingerOnScreen)
         {
             timerObjectif++;
         }
@@ -171,7 +233,7 @@ public class CellPlacement : MonoBehaviour
         }
 
 
-        if(timerObjectif > 200)
+        if (timerObjectif > 200)
         {
             objectif.Appearance();
         }

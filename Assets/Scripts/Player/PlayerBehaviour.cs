@@ -39,7 +39,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool reverse;
     private Vector3 doorRot;
     public bool closeDoor;
-    private Transform coneDoor;
+    public List<Transform> freeDoor;
     public bool add;
 
     public CinemachineBrain Camera;
@@ -114,7 +114,7 @@ public class PlayerBehaviour : MonoBehaviour
         animator.SetFloat("ValueX", x);
         animator.SetFloat("ValueY", y);
 
-        CheckConeLight();
+        //CheckConeLight();
 
         if (lookCam)
         {
@@ -178,13 +178,10 @@ public class PlayerBehaviour : MonoBehaviour
 
                             if (cellMove.isOpen == false)
                             {
-                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
-                                DoorsToCheck += 1;
                                 cellMove.isOpen = true;
                             }
-                            else if (cellMove.isOpen == true)
+                            else
                             {
-                                //Debug.Log("close");
                                 cellMove.isOpen = false;
                             }
                         }
@@ -216,14 +213,10 @@ public class PlayerBehaviour : MonoBehaviour
 
                             if (cellMove.isOpen == false)
                             {
-                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
-                                DoorsToCheck += 1;
-
                                 cellMove.isOpen = true;
                             }
-                            else if (cellMove.isOpen == true)
+                            else
                             {
-                                //Debug.Log("close");
                                 cellMove.isOpen = false;
                             }
                         }
@@ -275,14 +268,10 @@ public class PlayerBehaviour : MonoBehaviour
 
                             if (cellMove.isOpen == false)
                             {
-                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
-                                DoorsToCheck += 1;
-
                                 cellMove.isOpen = true;
                             }
-                            else if (cellMove.isOpen == true)
+                            else
                             {
-                                //Debug.Log("close");
                                 cellMove.isOpen = false;
                             }
                         }
@@ -313,15 +302,12 @@ public class PlayerBehaviour : MonoBehaviour
 
                             if (cellMove.isOpen == false)
                             {
-                                //Debug.Log("here is a door i could take" + hit.transform.parent.name);
-                                DoorsToCheck += 1;
-
                                 cellMove.isOpen = true;
                             }
-                            else if (cellMove.isOpen == true)
+                            else
                             {
-                                //Debug.Log("close");
                                 cellMove.isOpen = false;
+
                             }
                         }
                         castingRay = false;
@@ -644,15 +630,16 @@ public class PlayerBehaviour : MonoBehaviour
 
         }
     }
-
+    /*
     public void CheckConeLight()
     {
 
         if (checkOpenDoor)
         {
-
+            freeDoor.Clear();
             if (context.gameObject.GetComponent<CellMovement>() != null)
             {
+
                 if (context.gameObject.GetComponent<CellMovement>().hasEnded == true)
                 {
                     //Debug.Log("           I draw          ");
@@ -664,14 +651,20 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                         {
-                            //Debug.Log("                     " + hit.transform.name);
+                            
 
-                        //    Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.blue, 500);
+                            if (freeDoor.Contains(hit.transform) == false)
+                            {
+                                freeDoor.Add(hit.transform);
+                            }
 
-                            coneDoor = hit.transform;
+                            //Debug.Log(coneDoor);
                             context.doorWayPoints[u].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
-                            coneDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
 
+                            for (int d = 0; d < freeDoor.Count; d++)
+                            {
+                                freeDoor[d].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                            }
                             checkOpenDoor = false;
 
                         }
@@ -683,9 +676,13 @@ public class PlayerBehaviour : MonoBehaviour
 
                             context.doorWayPoints[u].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
 
-                            if (coneDoor != null)
+                            if (freeDoor.Count >= u && freeDoor.Count != 0)
                             {
-                                coneDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                                for (int i = 0; i < freeDoor.Count; i++)
+                                {
+                                    freeDoor[i].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                                }
+                                //coneDoor = null;
                             }
 
                             checkOpenDoor = false;
@@ -700,11 +697,18 @@ public class PlayerBehaviour : MonoBehaviour
                         {
                             //Debug.Log("                     " + hit.transform.name);
 
-                           // Debug.DrawRay(context.HatchesWayPoints[z].GetChild(0).transform.position, -context.HatchesWayPoints[z].transform.forward, Color.blue, 500);
+                            // Debug.DrawRay(context.HatchesWayPoints[z].GetChild(0).transform.position, -context.HatchesWayPoints[z].transform.forward, Color.blue, 500);
 
-                            coneDoor = hit.transform;
+                            if (freeDoor.Count != 0 && freeDoor.Contains(hit.transform) == false)
+                            {
+                                freeDoor.Add(hit.transform);
+                            }
                             context.HatchesWayPoints[z].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
-                            coneDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+
+                            for (int i = 0; i < freeDoor.Count; i++)
+                            {
+                                freeDoor[i].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                            }
 
                             checkOpenDoor = false;
 
@@ -717,9 +721,10 @@ public class PlayerBehaviour : MonoBehaviour
 
                             context.HatchesWayPoints[z].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
 
-                            if (coneDoor != null)
+                            if ( freeDoor.Count >= z)
                             {
-                                coneDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                                freeDoor[z].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                                //freeDoor = null;
                             }
 
                             checkOpenDoor = false;
@@ -729,12 +734,11 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                 }
             }
-                
+            Debug.Log(freeDoor.Count);
         }
 
         if (!checkOpenDoor)
         {
-
             timerOpenDoor++;
 
             if (timerOpenDoor > 120)
@@ -743,9 +747,21 @@ public class PlayerBehaviour : MonoBehaviour
                 timerOpenDoor = 0;
             }
 
+         /*   if (freeDoor.Count != 0 && freeDoor.Count >= 8)
+            {
+                for (int i = 0; i < freeDoor.Count; i++)
+                {
+
+                    freeDoor[i].GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+
+                }
+                checkOpenDoor = true;
+
+                freeDoor.Clear();
+            }
         }
 
-    }
+    }*/
 
     public void GetPath(int path)
     {
@@ -799,7 +815,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
 
-      //  Debug.Log("ResetWhenTooFar");
+        //  Debug.Log("ResetWhenTooFar");
 
         //moveEnded = true;
 
@@ -830,7 +846,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     for (int u = 0; u < context.paths.list[i].listOfWaypoint.Count; u++)
                     {
-                       // Debug.Log("FirstToPatch");
+                        // Debug.Log("FirstToPatch");
                         ultimateList.Add(context.paths.list[i].listOfWaypoint[u]);
 
                     }
@@ -851,7 +867,7 @@ public class PlayerBehaviour : MonoBehaviour
                         for (int u = 0; u < nextContext.paths.list[h].listOfWaypoint.Count; u++)
                         {
                             inverseList.Add(nextContext.paths.list[h].listOfWaypoint[u]);
-                        //    Debug.Log("SecondToPatch");
+                            //    Debug.Log("SecondToPatch");
 
                         }
                     }
@@ -871,7 +887,7 @@ public class PlayerBehaviour : MonoBehaviour
             for (int t = 0; t < inverseList.Count; t++)
             {
                 ultimateList.Add(inverseList[t]);
-              //  Debug.Log("LastToPatch");
+                //  Debug.Log("LastToPatch");
             }
             oneRef01 = false;
         }
@@ -881,7 +897,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (oneRef02)
         {
             waypoints.listOfWaypoint = ultimateList;
-         //   Debug.Log("TurboLast");
+            //   Debug.Log("TurboLast");
             oneRef02 = false;
         }
         movement = true;

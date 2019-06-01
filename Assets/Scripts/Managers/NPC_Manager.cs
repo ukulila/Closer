@@ -7,7 +7,7 @@ public class NPC_Manager : MonoBehaviour
 
 
     public static NPC_Manager Instance;
-
+    public CellPlacement cP;
 
 
     private void Awake()
@@ -54,8 +54,9 @@ public class NPC_Manager : MonoBehaviour
 
     IEnumerator StartInvokeIn(float time)
     {
+        CellPlacement.Instance.ReactivateCells();
         yield return new WaitForSeconds(time);
-
+        
         currentNPC.questTriggers[currentNPC.dialogueIndex].Invoke();
     }
 }

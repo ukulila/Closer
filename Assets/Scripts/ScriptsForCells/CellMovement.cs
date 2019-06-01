@@ -53,7 +53,7 @@ public class CellMovement : MonoBehaviour
     public List<CellMovement> brothers;
     [Tooltip("Sujet à changement UNIQUEMENT selon la taille du cube")]
     [Range(0.0001f, 5)]
-    public float resetPosValue = 3.05f;
+    public float resetPosValue; //= 3.05f;
     [Tooltip("Vitesse à laquelle se font les translations")]
     [Range(0.01f, 1)]
     public float translateSpeed;
@@ -73,14 +73,16 @@ public class CellMovement : MonoBehaviour
     private Vector3 offsetHorizontal;
     private int trailTime;
 
+    public O_GlowOrientation Outline;
+
     //private bool activatePosPreview;
     #region Init
 
     public void Awake()
     {
         over = true;
-     //   offset = new Vector3(-200, 100, 18);
-      //  offsetHorizontal = new Vector3(-200, 100, 18);
+        //Outline.ReColor("");
+        // Outline.gameObject.SetActive(false);
 
         ready = false;
         hasEnded = true;
@@ -117,6 +119,29 @@ public class CellMovement : MonoBehaviour
 
     public void Update()
     {
+        if (selected)
+        {
+            if (Outline.gameObject.activeInHierarchy == false)
+            {
+                Outline.gameObject.SetActive(true);
+                Outline.ReColor("isSelected");
+            }
+        }
+
+        if (!selected && Outline.gameObject.activeInHierarchy == true && isOpen == false && isSpawn == false)
+        {
+            Outline.ReColor("");
+            Outline.gameObject.SetActive(false);
+        }
+
+        if (isOpen)
+        {
+            if (Outline.gameObject.activeInHierarchy == false)
+            {
+                Outline.gameObject.SetActive(true);
+                Outline.ReColor("isOpen");
+            }
+        }
 
         if (player.context.gameObject == gameObject)
         {
@@ -148,7 +173,7 @@ public class CellMovement : MonoBehaviour
                 isSpawn = true;
 
 
-                if(ROOM_Manager.Instance.currentRoom.isThereClients == true)
+                if (ROOM_Manager.Instance.currentRoom.isThereClients == true)
                 {
                     Harcelement_Manager.Instance.AmongThem();
                 }
@@ -173,19 +198,14 @@ public class CellMovement : MonoBehaviour
 
         if (isSpawn)
         {
+            Outline.gameObject.SetActive(true);
+            Outline.ReColor("isSpawn");
+
             if (isEntering)
             {
                 player.transform.SetParent(transform);
                 isOpen = false;
                 selected = true;
-                /*
-                for (int i = 0; i < PlaneMtlIsSpawn.Count; i++)
-                {
-                    PlaneMtlIsSpawn[i].SetColor("_myColor", Color.green);
-
-                    PlaneMtlIsSpawn[i].SetInt("_isActive", 1);
-                }
-                */
                 isEntering = false;
             }
             if (selected && raycastAutor)
@@ -367,7 +387,7 @@ public class CellMovement : MonoBehaviour
             for (int r = 0; r < brothers.Count; r++)
             {
                 brothers[r].hasEnded = false;
-               // TrailManager(offsetHorizontal);
+                // TrailManager(offsetHorizontal);
 
             }
 
@@ -431,7 +451,7 @@ public class CellMovement : MonoBehaviour
             for (int r = 0; r < brothers.Count; r++)
             {
                 brothers[r].hasEnded = false;
-               // TrailManager(offset);
+                // TrailManager(offset);
 
             }
 
@@ -490,7 +510,7 @@ public class CellMovement : MonoBehaviour
             for (int r = 0; r < brothers.Count; r++)
             {
                 brothers[r].hasEnded = false;
-               // TrailManager(offset);
+                // TrailManager(offset);
 
 
             }

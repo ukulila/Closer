@@ -31,7 +31,7 @@ public class Cell_Renamer : MonoBehaviour
             {
                 if (ExposedPlanes[i] == true)
                 {*/
-                    ConcernedCell.OpacityCheck( CellType);
+                    ConcernedCell.OpacityCheck(CellType);
                // }
 
          //   }
