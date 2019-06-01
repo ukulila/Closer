@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public class CellMovement : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class CellMovement : MonoBehaviour
     public List<CellMovement> toRotate;
     public Vector3 myPosFreeze;
     private int timer;
+    public TextMeshProUGUI slectedRoomText;
 
     [Space(10)]
     [Header("   ***** Values : Need Assignment *****")]
@@ -262,6 +264,9 @@ public class CellMovement : MonoBehaviour
         if (click && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode && Camera_Zoom.Instance.onZoom == false)
         {
             selected = true;
+
+            slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
+            slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
         }
 
 
@@ -270,6 +275,7 @@ public class CellMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isSpawn)
         {
             selected = false;
+            slectedRoomText.text = " ";
         }
 
 

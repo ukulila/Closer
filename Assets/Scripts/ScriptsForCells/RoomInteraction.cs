@@ -9,6 +9,7 @@ public class RoomInteraction : MonoBehaviour
     [Header("Room Description")]
     public string roomName = "Enter a room name please";
     public string roomDescription = "Enter a description please";
+    public Color32 roomColor;
 
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descritpionText;
@@ -135,8 +136,6 @@ public class RoomInteraction : MonoBehaviour
 
         uiAnimators[5].ResetTrigger("Enabled");
         uiAnimators[5].SetTrigger("Disabled");
-
-        Debug.Log("Disable everything");
 
         uiAnimators[6].ResetTrigger("Disabled");
         //uiAnimators[6].ResetTrigger("Enabled");
