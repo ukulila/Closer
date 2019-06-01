@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class ROOM_Manager : MonoBehaviour
 {
     public RoomInteraction currentRoom;
-    //public Button outOfContext;
 
 
     public static ROOM_Manager Instance;
@@ -44,12 +43,20 @@ public class ROOM_Manager : MonoBehaviour
             UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = false;
             UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.outOfContextGO);
 
-            currentRoom.DisableUI();
-
             GameManager.Instance.SwitchModeTo(GameManager.GameMode.PuzzleMode);
+
+            currentRoom.DisableUI();
         }
 
     }
+
+    public void ExamineRoom()
+    {
+        Camera_UI.Instance.SetContextuelleRepositionValues(currentRoom.gameObject.name);
+
+        Camera_UI.Instance.SwitchToUI();
+    }
+
 
     public IEnumerator ActiveAnimationIn(float time)
     {
@@ -58,11 +65,17 @@ public class ROOM_Manager : MonoBehaviour
         currentRoom.InteractionAppears();
     }
 
+    public IEnumerator DeactiveAnimationIn(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        currentRoom.DisableUI();
+    }
+
     IEnumerator ActiveOutContext()
     {
         yield return new WaitForSeconds(2);
 
         UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = true;
     }
-
 }

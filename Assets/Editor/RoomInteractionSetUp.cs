@@ -15,6 +15,8 @@ public class RoomInteractionSetUp : Editor
     public GameObject description;
     public GameObject nothing;
     public GameObject background;
+    public GameObject examine;
+
 
     [Header("Gameobject in Scene")]
     public GameObject currentUI;
@@ -89,6 +91,11 @@ public class RoomInteractionSetUp : Editor
                 roomInteraction.backgroundSprite = GameObject.Find(background.name).GetComponent<SpriteRenderer>();
             }
 
+            if (roomInteraction.examineAnim == null)
+            {
+                roomInteraction.examineAnim = GameObject.Find(examine.name).GetComponent<Animator>();
+            }
+
             roomInteraction.uiAnimators.Clear();
 
             if (roomInteraction.talkTo != null)
@@ -129,6 +136,13 @@ public class RoomInteractionSetUp : Editor
             if (roomInteraction.backgroundSprite != null)
             {
                 roomInteraction.uiAnimators.Add(roomInteraction.backgroundSprite.gameObject.GetComponent<Animator>());
+            }
+            else
+                Debug.LogWarning("This Button is not assigned");
+
+            if (roomInteraction.examineAnim != null)
+            {
+                roomInteraction.uiAnimators.Add(roomInteraction.examineAnim);
             }
             else
                 Debug.LogWarning("This Button is not assigned");

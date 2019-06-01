@@ -88,6 +88,8 @@ public class Camera_UI : MonoBehaviour
     {
         if (GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode || GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue)
         {
+            animationCurveTimingMax = animationTimingMin;
+
             currentPathPos = dollyCart.m_Position;
             currentDollyPosition = dollyTransform.localPosition;
             currentTargetOffset = virtualCamera.GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset;
@@ -97,19 +99,15 @@ public class Camera_UI : MonoBehaviour
             switchToUI = false;
 
             ROOM_Manager.Instance.DeactivateUI();
+
             cameraReposition = false;
         }
     }
 
     void Update()
     {
-        if (switchToUI)
-        {
-            if (cameraReposition)
-            {
-                animationCurveTimingMax = animationTimingMin;
-            }
-        }
+        #region old Contextuelle Input
+        /*
         else
         {
             InventorySystem.Instance.canBeDisplayed = true;
@@ -205,21 +203,9 @@ public class Camera_UI : MonoBehaviour
                             selectionTimingImage.fillAmount += Time.deltaTime * timingOfSelection;
 
 
-                        if (selectionTimingImage.fillAmount == 1 /*&& currentSelectedCell == selectedCube.collider.gameObject.transform.parent.name*/ && isPlayerHere)
+                        if (selectionTimingImage.fillAmount == 1 && isPlayerHere)
                         {
-                            switchToUI = true;
-                            cameraReposition = false;
-
-                            Camera_Rotation.Instance.xDirection = Camera_Rotation.HorizontalDirection.none;
-                            Camera_Rotation.Instance.yDirection = Camera_Rotation.VerticalDirection.center;
-
-                            Camera_Rotation.Instance.onHorizontal = false;
-                            Camera_Rotation.Instance.onVertical = false;
-
-                            Camera_Zoom.Instance.zDirection = Camera_Zoom.ZoomDirection.none;
-                            Camera_Zoom.Instance.onZoom = false;
-
-                            ROOM_Manager.Instance.LaunchUI((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier);
+                            SwitchToUI();
                         }
                     }
                 }
@@ -239,10 +225,38 @@ public class Camera_UI : MonoBehaviour
             timeBeforeSearch = 0;
             isPlayerHere = false;
         }
-
+    */
+        #endregion
 
         if (!cameraReposition)
             RepositionCamera();
+    }
+
+    public void SwitchToUI()
+    {
+        if(GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        {
+            switchToUI = true;
+            cameraReposition = false;
+
+            Camera_Rotation.Instance.xDirection = Camera_Rotation.HorizontalDirection.none;
+            Camera_Rotation.Instance.yDirection = Camera_Rotation.VerticalDirection.center;
+
+            Camera_Rotation.Instance.onHorizontal = false;
+            Camera_Rotation.Instance.onVertical = false;
+
+            Camera_Zoom.Instance.zDirection = Camera_Zoom.ZoomDirection.none;
+            Camera_Zoom.Instance.onZoom = false;
+
+            ROOM_Manager.Instance.LaunchUI((animationCurveTimingMax - animationTimingMin) * switchDurationRatioModifier);
+        }
+    }
+
+    public void SetContextuelleRepositionValues(string nextLocationName)
+    {
+        SetInitialCameraValues();
+
+        SetCameraNextLocation(nextLocationName);
     }
 
     public void SetInitialCameraValues()
@@ -254,6 +268,10 @@ public class Camera_UI : MonoBehaviour
         currentRepositionTime = 0;
     }
 
+    /// <summary>
+    /// Récupère les valeurs d'arrivée
+    /// </summary>
+    /// <param name="nextLocationName"></param>
     public void SetCameraNextLocation(string nextLocationName)
     {
         if (nextLocationName == "B_d2_Cell_Down_FrontRight")
@@ -361,6 +379,62 @@ public class Camera_UI : MonoBehaviour
     }
 
     /// <summary>
+    /// Set le sens de rotation camera pour la reposition
+    /// </summary>
+    private void CheckRepositionWay()
+    {
+        if (continuePosDifference < 0)
+        {
+            reversePosDifference = positionMax + continuePosDifference;
+
+            if ((continuePosDifference * -1) > reversePosDifference)
+            {
+                animationPosDifference = reversePosDifference;
+            }
+            else
+            {
+                animationPosDifference = continuePosDifference;
+            }
+        }
+        else
+        {
+            reversePosDifference = positionMax - continuePosDifference;
+
+            if (continuePosDifference > reversePosDifference)
+            {
+                animationPosDifference = (reversePosDifference * -1);
+            }
+            else
+            {
+                animationPosDifference = continuePosDifference;
+            }
+        }
+
+        SetAnimationTiming();
+    }
+
+    /// <summary>
+    /// Set le temps d'animation en fonction de la "distance"
+    /// </summary>
+    private void SetAnimationTiming()
+    {
+        if (continuePosDifference == 0)
+        {
+            animationCurveTimingMax = animationTimingMin;
+        }
+
+
+        if (animationPosDifference < 0)
+        {
+            animationCurveTimingMax = animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
+        }
+        else
+        {
+            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
+        }
+    }
+
+    /// <summary>
     /// Passe la camera en mode Investigation (zoom sur la room du joueur)
     /// </summary>
     public void RepositionCamera()
@@ -378,6 +452,8 @@ public class Camera_UI : MonoBehaviour
             else
             {
                 InventorySystem.Instance.canBeDisplayed = true;
+
+                animationCurveTimingMax = animationTimingMin;
             }
 
             cameraReposition = true;
@@ -417,54 +493,6 @@ public class Camera_UI : MonoBehaviour
                 //Changement de la focale
                 virtualCamera.m_Lens.OrthographicSize = currentFOV - fovDiff * repoPercent;
             }
-        }
-    }
-
-    /// <summary>
-    /// Set le sens de rotation camera pour la reposition
-    /// </summary>
-    private void CheckRepositionWay()
-    {
-        if (continuePosDifference < 0)
-        {
-            reversePosDifference = positionMax + continuePosDifference;
-
-            if ((continuePosDifference * -1) > reversePosDifference)
-            {
-                animationPosDifference = reversePosDifference;
-            }
-            else
-            {
-                animationPosDifference = continuePosDifference;
-            }
-        }
-        else
-        {
-            reversePosDifference = positionMax - continuePosDifference;
-
-            if (continuePosDifference > reversePosDifference)
-            {
-                animationPosDifference = (reversePosDifference * -1);
-            }
-            else
-            {
-                animationPosDifference = continuePosDifference;
-            }
-        }
-
-        if (continuePosDifference == 0)
-        {
-            animationCurveTimingMax = animationTimingMin;
-        }
-
-
-        if (animationPosDifference < 0)
-        {
-            animationCurveTimingMax = animationTimingMin + (animationPosDifference * -1) * switchDurationRatioModifier;
-        }
-        else
-        {
-            animationCurveTimingMax = animationTimingMin + animationPosDifference * switchDurationRatioModifier;
         }
     }
 }

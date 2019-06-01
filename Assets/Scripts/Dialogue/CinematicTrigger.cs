@@ -86,7 +86,6 @@ public class CinematicTrigger : MonoBehaviour
     /// </summary>
     public void EndCinematicNOW()
     {
-        //CellPlacement.Instance.ReactivateCells();
         Camera_UI.Instance.SwitchToNoUi();
 
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.PuzzleMode);

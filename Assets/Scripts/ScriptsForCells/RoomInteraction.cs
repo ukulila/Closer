@@ -14,6 +14,7 @@ public class RoomInteraction : MonoBehaviour
     public TextMeshProUGUI descritpionText;
     public TextMeshProUGUI nothingText;
     public SpriteRenderer backgroundSprite;
+    public Animator examineAnim;
 
     [Header("Opportunities")]
     public bool isDialogue;
@@ -47,13 +48,17 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void InteractionAppears()
     {
-        //uiAnimators[4].ResetTrigger("Enabled");
         uiAnimators[5].ResetTrigger("Enabled");
-        
-        //uiAnimators[4].ResetTrigger("Disabled");
+        uiAnimators[6].ResetTrigger("Enabled");
+
         uiAnimators[5].ResetTrigger("Disabled");
+        uiAnimators[6].ResetTrigger("Disabled");
+
+        uiAnimators[6].ResetTrigger("Selected");
 
         uiAnimators[5].SetTrigger("Enabled");
+        uiAnimators[6].SetTrigger("Disabled");
+
 
         Objectif_Scr.Instance.Disappearance();
         ProgressionBar.Instance.Disparition();
@@ -130,6 +135,13 @@ public class RoomInteraction : MonoBehaviour
 
         uiAnimators[5].ResetTrigger("Enabled");
         uiAnimators[5].SetTrigger("Disabled");
+
+        Debug.Log("Disable everything");
+
+        uiAnimators[6].ResetTrigger("Disabled");
+        //uiAnimators[6].ResetTrigger("Enabled");
+        //uiAnimators[6].ResetTrigger("Selected");
+        uiAnimators[6].SetTrigger("Enabled");
     }
 
 
@@ -272,18 +284,18 @@ public class RoomInteraction : MonoBehaviour
     /// </summary>
     public void CheckInvestigationOpportunities()
     {
-        if (PlayerBehaviour.Instance.transform.parent.GetComponent<RoomInteraction>().isInteraction == true)
+        if (ROOM_Manager.Instance.currentRoom.isInteraction == true)
         {
-            ObjectManager.Instance.currentObjet = PlayerBehaviour.Instance.transform.parent.GetComponent<RoomInteraction>().objet;
+            ObjectManager.Instance.currentObjet = ROOM_Manager.Instance.currentRoom.objet;
         }
         else
         {
             ObjectManager.Instance.currentObjet = null;
         }
 
-        if (PlayerBehaviour.Instance.transform.parent.GetComponent<RoomInteraction>().isDialogue == true)
+        if (ROOM_Manager.Instance.currentRoom.isDialogue == true)
         {
-            NPC_Manager.Instance.currentNPC = PlayerBehaviour.Instance.transform.parent.GetComponent<RoomInteraction>().npc;
+            NPC_Manager.Instance.currentNPC = ROOM_Manager.Instance.currentRoom.npc;
         }
         else
         {

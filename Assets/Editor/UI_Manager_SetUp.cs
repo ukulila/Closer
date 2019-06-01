@@ -10,6 +10,7 @@ public class UI_Manager_SetUp : Editor
     [Header("Asset Name References")]
     public GameObject dialogueCharacterBox_Ref;
     public GameObject dialogueUImask_Ref;
+    public GameObject actors_Ref;
     [Space]
     public GameObject ui_Contextuelle_Ref;
     public GameObject outOfContext_Ref;
@@ -20,6 +21,7 @@ public class UI_Manager_SetUp : Editor
     public GameObject objectif_Ref;
     public GameObject progression_Ref;
     public GameObject inventoryButtons_Ref;
+    public GameObject examineButton_Ref;
     [Space]
     public GameObject uI_Background_Ref;
     [Space]
@@ -28,6 +30,7 @@ public class UI_Manager_SetUp : Editor
     [Header("Current for each scene")]
     public GameObject current_DialogueCharacterBox;
     public GameObject current_DialogueUImask;
+    public GameObject current_Actors;
     [Space]
     public GameObject current_ui_Contextuelle;
     public GameObject current_outOfContext;
@@ -38,6 +41,7 @@ public class UI_Manager_SetUp : Editor
     public GameObject current_objectif;
     public GameObject current_progression;
     public GameObject current_inventoryButtons;
+    public GameObject current_examineButton;
     [Space]
     public GameObject current_UI_Background;
     [Space]
@@ -82,6 +86,10 @@ public class UI_Manager_SetUp : Editor
                 current_DialogueUImask = GameObject.Find(dialogueUImask_Ref.name + "(Clone)");
             }
 
+            if (GameObject.Find(actors_Ref.name))
+            {
+                current_Actors = GameObject.Find(actors_Ref.name);
+            }
 
 
             if (GameObject.Find(ui_Contextuelle_Ref.name))
@@ -131,6 +139,10 @@ public class UI_Manager_SetUp : Editor
                 current_inventoryButtons = GameObject.Find(inventoryButtons_Ref.name);
             }
 
+            if (GameObject.Find(examineButton_Ref.name))
+            {
+                current_examineButton = GameObject.Find(examineButton_Ref.name);
+            }
 
 
             if (GameObject.Find(uI_Background_Ref.name))
@@ -157,6 +169,11 @@ public class UI_Manager_SetUp : Editor
             if (current_DialogueUImask != null)
             {
                 ui_Manager.dialogueGO.Add(current_DialogueUImask);
+            }
+
+            if (current_Actors != null)
+            {
+                ui_Manager.dialogueGO.Add(current_Actors);
             }
 
 
@@ -197,6 +214,11 @@ public class UI_Manager_SetUp : Editor
             //{
             //    ui_Manager.inventoryGO.Add(current_progression);
             //}
+
+            if (current_examineButton != null)
+            {
+                ui_Manager.inventoryGO.Add(current_examineButton);
+            }
 
             if (current_inventoryButtons != null)
             {
