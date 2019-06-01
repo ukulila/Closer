@@ -75,6 +75,8 @@ public class CellMovement : MonoBehaviour
 
     public O_GlowOrientation Outline;
 
+    public bool NoVertical;
+
     //private bool activatePosPreview;
     #region Init
 
@@ -245,7 +247,7 @@ public class CellMovement : MonoBehaviour
 
         }
 
-        /* if (toRotate.Count < 4)
+       /*  if (toRotate.Count < 4)
          {
 
              toRotate.Clear();
@@ -313,16 +315,39 @@ public class CellMovement : MonoBehaviour
                 transform.position = new Vector3(transform.position.x, transform.position.y, resetPosValue);
             }*/
             #endregion
-            brothers = brothers.OrderBy(go => go.name).ToList();
 
-            brothers[0].transform.position = PositionsDebug[0];
-            brothers[1].transform.position = PositionsDebug[1];
-            brothers[2].transform.position = PositionsDebug[2];
-            brothers[3].transform.position = PositionsDebug[3];
-            brothers[4].transform.position = PositionsDebug[4];
-            brothers[5].transform.position = PositionsDebug[5];
-            brothers[6].transform.position = PositionsDebug[6];
-            brothers[7].transform.position = PositionsDebug[7];
+            if (brothers.Count == 2)
+            {
+                /* brothers[0].transform.position = PositionsDebug[7];
+                 brothers[1].transform.position = PositionsDebug[6];*/
+                if (gameObject.name.Contains("G_"))
+                {
+                    brothers[1].transform.position = PositionsDebug[7];
+                    transform.position = PositionsDebug[6];
+                }
+                if (gameObject.name.Contains("E_"))
+                {
+                    brothers[1].transform.position = PositionsDebug[6];
+                    transform.position = PositionsDebug[7];
+                }
+
+
+            }
+
+            if (brothers.Count == 8)
+            {
+                brothers = brothers.OrderBy(go => go.name).ToList();
+
+                brothers[0].transform.position = PositionsDebug[0];
+                brothers[1].transform.position = PositionsDebug[1];
+                brothers[2].transform.position = PositionsDebug[2];
+                brothers[3].transform.position = PositionsDebug[3];
+                brothers[4].transform.position = PositionsDebug[4];
+                brothers[5].transform.position = PositionsDebug[5];
+                brothers[6].transform.position = PositionsDebug[6];
+                brothers[7].transform.position = PositionsDebug[7];
+            }
+
 
 
 
@@ -364,6 +389,19 @@ public class CellMovement : MonoBehaviour
                 {
                     myPosFreeze = transform.position;
                     freezePosValue = false;
+                }
+                else
+                {
+                    if (gameObject.name.Contains("G_"))
+                    {
+                        brothers[1].transform.position = PositionsDebug[7];
+                        transform.position = PositionsDebug[6];
+                    }
+                    if (gameObject.name.Contains("E_"))
+                    {
+                        brothers[1].transform.position = PositionsDebug[6];
+                        transform.position = PositionsDebug[7];
+                    }
                 }
             }
 
@@ -424,10 +462,13 @@ public class CellMovement : MonoBehaviour
                     player.checkOpenDoor = true;
                 }
 
-                toRotate[0].freezePosValue = true;
-                toRotate[1].freezePosValue = true;
+                for (int i = 0; i < toRotate.Count; i++)
+                {
+                    toRotate[i].freezePosValue = true;
+                }
+                /*toRotate[1].freezePosValue = true;
                 toRotate[2].freezePosValue = true;
-                toRotate[3].freezePosValue = true;
+                toRotate[3].freezePosValue = true;*/
 
                 once = false;
                 selected = false;
@@ -443,7 +484,7 @@ public class CellMovement : MonoBehaviour
         #region [SUITE DES MOUVEMENTS]
 
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..  BUT INVERSE
-        if (moveVerticalZ)
+        if (moveVerticalZ && !NoVertical)
         {
 
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
@@ -487,10 +528,15 @@ public class CellMovement : MonoBehaviour
                     player.checkOpenDoor = true;
                 }
 
-                toRotate[0].freezePosValue = true;
+                for (int i = 0; i < toRotate.Count; i++)
+                {
+                    toRotate[i].freezePosValue = true;
+                }
+
+                /*toRotate[0].freezePosValue = true;
                 toRotate[1].freezePosValue = true;
                 toRotate[2].freezePosValue = true;
-                toRotate[3].freezePosValue = true;
+                toRotate[3].freezePosValue = true;*/
 
                 once = false;
                 selected = false;
@@ -501,7 +547,7 @@ public class CellMovement : MonoBehaviour
             }
         }
 
-        if (moveVerticalX)
+        if (moveVerticalX && !NoVertical)
         {
 
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
@@ -548,11 +594,15 @@ public class CellMovement : MonoBehaviour
                     player.checkOpenDoor = true;
                 }
 
-
+                for (int i = 0; i < toRotate.Count; i++)
+                {
+                    toRotate[i].freezePosValue = true;
+                }
+                /*
                 toRotate[0].freezePosValue = true;
                 toRotate[1].freezePosValue = true;
                 toRotate[2].freezePosValue = true;
-                toRotate[3].freezePosValue = true;
+                toRotate[3].freezePosValue = true;*/
 
 
 
@@ -592,7 +642,7 @@ public class CellMovement : MonoBehaviour
 
             if (!once)
             {
-                toRotate.Clear();
+                RotateClear();
                 HorizontalRotateSide(1);
             }
         }
@@ -602,7 +652,7 @@ public class CellMovement : MonoBehaviour
 
             if (!once)
             {
-                toRotate.Clear();
+                RotateClear();
                 HorizontalRotateSide(2);
             }
         }
@@ -612,7 +662,7 @@ public class CellMovement : MonoBehaviour
 
             if (!once)
             {
-                toRotate.Clear();
+                RotateClear();
                 HorizontalRotateSide(3);
             }
         }
@@ -622,7 +672,7 @@ public class CellMovement : MonoBehaviour
 
             if (!once)
             {
-                toRotate.Clear();
+                RotateClear();
                 HorizontalRotateSide(4);
             }
         }
@@ -634,6 +684,14 @@ public class CellMovement : MonoBehaviour
         }
 
 
+    }
+
+    private void RotateClear()
+    {
+        for (int i = 0; i < brothers.Count; i++)
+        {
+            brothers[i].toRotate.Clear();
+        }
     }
     #endregion
 
@@ -949,38 +1007,38 @@ public class CellMovement : MonoBehaviour
 
     public void DebugPos()
     {
-        if (transform.position.x < 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
-        {
-            transform.position = new Vector3(-resetPosValue, transform.position.y, transform.position.z);
-            return;
-        }
-        else if (transform.position.x > 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
-        {
-            transform.position = new Vector3(resetPosValue, transform.position.y, transform.position.z);
-            return;
-        }
+         if (transform.position.x < 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
+         {
+             transform.position = new Vector3(-resetPosValue, transform.position.y, transform.position.z);
+             return;
+         }
+         else if (transform.position.x > 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
+         {
+             transform.position = new Vector3(resetPosValue, transform.position.y, transform.position.z);
+             return;
+         }
 
-        if (transform.position.y < 0 && (transform.position.y != resetPosValue || transform.position.y != -resetPosValue))
-        {
-            transform.position = new Vector3(transform.position.x, -resetPosValue, transform.position.z);
-            return;
-        }
-        else if (transform.position.y > 0 && (transform.position.y != resetPosValue || transform.position.y != -resetPosValue))
-        {
-            transform.position = new Vector3(transform.position.x, resetPosValue, transform.position.z);
-            return;
-        }
+         if (transform.position.y < 0 && (transform.position.y != resetPosValue || transform.position.y != -resetPosValue))
+         {
+             transform.position = new Vector3(transform.position.x, -resetPosValue, transform.position.z);
+             return;
+         }
+         else if (transform.position.y > 0 && (transform.position.y != resetPosValue || transform.position.y != -resetPosValue))
+         {
+             transform.position = new Vector3(transform.position.x, resetPosValue, transform.position.z);
+             return;
+         }
 
-        if (transform.position.z < 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, -resetPosValue);
-            return;
-        }
-        else if (transform.position.z > 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, resetPosValue);
-            return;
-        }
+         if (transform.position.z < 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
+         {
+             transform.position = new Vector3(transform.position.x, transform.position.y, -resetPosValue);
+             return;
+         }
+         else if (transform.position.z > 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
+         {
+             transform.position = new Vector3(transform.position.x, transform.position.y, resetPosValue);
+             return;
+         }
 
     }
     /*
