@@ -471,7 +471,7 @@ public class DialogueSystem : MonoBehaviour
     {
         if (actorsIconHierarchyReference == null)
         {
-            for (int i = 0; i < actorsIconHierarchyReference.GetComponentsInChildren<Image>().Length - 1; i++)
+            for (int i = 0; i < actorsIconHierarchyReference.GetComponentsInChildren<Image>().Length; i++)
             {
                 actorsIcon.Add(actorsIconHierarchyReference.GetComponentsInChildren<Image>()[i]);
             }
@@ -847,7 +847,7 @@ public class DialogueSystem : MonoBehaviour
 
     private void SetActorsParameters()
     {
-        for (int i = 0; i < actors.Count - 1; i++)
+        for (int i = 0; i < actors.Count; i++)
         {
             if (actors[i] == Actors.Blanche)
             {
@@ -915,7 +915,7 @@ public class DialogueSystem : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < actorsIcon.Count - 1; i++)
+        for (int i = 0; i < actorsIcon.Count; i++)
         {
             if (actorsIcon[i].IsActive())
             {

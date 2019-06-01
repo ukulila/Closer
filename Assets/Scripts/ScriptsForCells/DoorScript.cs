@@ -46,7 +46,7 @@ public class DoorScript : MonoBehaviour
                 otherDoor = hit.transform;
 
                 transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
-                //transform.GetChild(1).gameObject.SetActive(true);
+               // transform.GetChild(1).gameObject.SetActive(true);
                 otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
 
                 checkOpenDoor = false;
