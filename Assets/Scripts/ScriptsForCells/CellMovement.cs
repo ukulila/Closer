@@ -410,7 +410,7 @@ public class CellMovement : MonoBehaviour
 
 
         //Stores position of The Mouse after timer is 30
-        if (click && timer >= 15 && hasEnded)
+        if (click && timer >= 8 && hasEnded)
         {
             thenPos = Input.mousePosition;
             movement = true;
