@@ -78,6 +78,9 @@ public class CellMovement : MonoBehaviour
     public O_GlowOrientation Outline;
 
     public bool NoVertical;
+    public bool NoHorizontal;
+    public bool isTuto02;
+    public bool isTuto03;
 
     //private bool activatePosPreview;
     #region Init
@@ -198,7 +201,18 @@ public class CellMovement : MonoBehaviour
             }
         }
 
+        if(isTuto03)
+        {
+            if (transform.position == PositionsDebug[3] && gameObject.name.Contains("D_"))
+            {
+                hasEnded = true;
+            }
 
+            if (transform.position == PositionsDebug[4] && gameObject.name.Contains("E_"))
+            {
+                hasEnded = true;
+            }
+        }
 
         if (isSpawn)
         {
@@ -249,12 +263,12 @@ public class CellMovement : MonoBehaviour
 
         }
 
-       /*  if (toRotate.Count < 4)
-         {
+        /*  if (toRotate.Count < 4)
+          {
 
-             toRotate.Clear();
+              toRotate.Clear();
 
-         }*/
+          }*/
 
 
         #endregion
@@ -322,7 +336,7 @@ public class CellMovement : MonoBehaviour
             }*/
             #endregion
 
-            if (brothers.Count == 2)
+            if (brothers.Count == 2 && isTuto02)
             {
                 /* brothers[0].transform.position = PositionsDebug[7];
                  brothers[1].transform.position = PositionsDebug[6];*/
@@ -335,6 +349,24 @@ public class CellMovement : MonoBehaviour
                 {
                     brothers[1].transform.position = PositionsDebug[6];
                     transform.position = PositionsDebug[7];
+                }
+
+
+            }
+
+            if (brothers.Count == 2 && isTuto03)
+            {
+                /* brothers[0].transform.position = PositionsDebug[7];
+                 brothers[1].transform.position = PositionsDebug[6];*/
+                if (gameObject.name.Contains("D_"))
+                {
+                    brothers[1].transform.position = PositionsDebug[4];
+                    transform.position = PositionsDebug[3];
+                }
+                if (gameObject.name.Contains("E_"))
+                {
+                    brothers[1].transform.position = PositionsDebug[3];
+                    transform.position = PositionsDebug[4];
                 }
 
 
@@ -398,23 +430,42 @@ public class CellMovement : MonoBehaviour
                 }
                 else
                 {
-                    if (gameObject.name.Contains("G_"))
+                    if (isTuto02)
                     {
-                        brothers[1].transform.position = PositionsDebug[7];
-                        transform.position = PositionsDebug[6];
+                        if (gameObject.name.Contains("G_"))
+                        {
+                            brothers[1].transform.position = PositionsDebug[7];
+                            transform.position = PositionsDebug[6];
+                        }
+                        if (gameObject.name.Contains("E_"))
+                        {
+                            brothers[1].transform.position = PositionsDebug[6];
+                            transform.position = PositionsDebug[7];
+                        }
                     }
-                    if (gameObject.name.Contains("E_"))
+
+                    if(isTuto03)
                     {
-                        brothers[1].transform.position = PositionsDebug[6];
-                        transform.position = PositionsDebug[7];
+                        if (gameObject.name.Contains("D_"))
+                        {
+                            brothers[1].transform.position = PositionsDebug[4];
+                            transform.position = PositionsDebug[3];
+                        }
+                        if (gameObject.name.Contains("E_"))
+                        {
+                            brothers[1].transform.position = PositionsDebug[3];
+                            transform.position = PositionsDebug[4];
+                        }
+
                     }
+
                 }
             }
 
         }
 
         //Starts to check for an other Drag/Swipe only if the previous one has ended
-        if (movement && hasEnded)
+        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             ready = false;
             CheckMove();
@@ -424,7 +475,7 @@ public class CellMovement : MonoBehaviour
 
 
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..
-        if (moveHorizontal)
+        if (moveHorizontal && !NoHorizontal)
         {
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
@@ -1013,38 +1064,38 @@ public class CellMovement : MonoBehaviour
 
     public void DebugPos()
     {
-         if (transform.position.x < 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
-         {
-             transform.position = new Vector3(-resetPosValue, transform.position.y, transform.position.z);
-             return;
-         }
-         else if (transform.position.x > 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
-         {
-             transform.position = new Vector3(resetPosValue, transform.position.y, transform.position.z);
-             return;
-         }
+        if (transform.position.x < 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
+        {
+            transform.position = new Vector3(-resetPosValue, transform.position.y, transform.position.z);
+            return;
+        }
+        else if (transform.position.x > 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
+        {
+            transform.position = new Vector3(resetPosValue, transform.position.y, transform.position.z);
+            return;
+        }
 
-         if (transform.position.y < 0 && (transform.position.y != resetPosValue || transform.position.y != -resetPosValue))
-         {
-             transform.position = new Vector3(transform.position.x, -resetPosValue, transform.position.z);
-             return;
-         }
-         else if (transform.position.y > 0 && (transform.position.y != resetPosValue || transform.position.y != -resetPosValue))
-         {
-             transform.position = new Vector3(transform.position.x, resetPosValue, transform.position.z);
-             return;
-         }
+        if (transform.position.y < 0 && (transform.position.y != resetPosValue || transform.position.y != -resetPosValue))
+        {
+            transform.position = new Vector3(transform.position.x, -resetPosValue, transform.position.z);
+            return;
+        }
+        else if (transform.position.y > 0 && (transform.position.y != resetPosValue || transform.position.y != -resetPosValue))
+        {
+            transform.position = new Vector3(transform.position.x, resetPosValue, transform.position.z);
+            return;
+        }
 
-         if (transform.position.z < 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
-         {
-             transform.position = new Vector3(transform.position.x, transform.position.y, -resetPosValue);
-             return;
-         }
-         else if (transform.position.z > 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
-         {
-             transform.position = new Vector3(transform.position.x, transform.position.y, resetPosValue);
-             return;
-         }
+        if (transform.position.z < 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -resetPosValue);
+            return;
+        }
+        else if (transform.position.z > 0 && (transform.position.z != resetPosValue || transform.position.z != -resetPosValue))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, resetPosValue);
+            return;
+        }
 
     }
     /*
