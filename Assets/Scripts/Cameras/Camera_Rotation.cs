@@ -28,7 +28,8 @@ public class Camera_Rotation : MonoBehaviour
 
     private float currentX;
     private float currentY;
-    public float minimumMoveNecessary = 8f;
+    public float minimumVerticalMoveNecessary = 8f;
+    public float minimumHorizontalMoveNecessary = 8f;
 
     public enum VerticalDirection { up, down, center }
     public VerticalDirection yDirection;
@@ -115,12 +116,12 @@ public class Camera_Rotation : MonoBehaviour
                     //Determine if the touch is a moving touch
                     case TouchPhase.Moved:
                         // Determine direction by comparing the current touch position with the initial one
-                        if (oneTouchDistance > minimumMoveNecessary)
+                        if (oneTouchDistance > minimumHorizontalMoveNecessary)
                             isFingerMoving = true;
                         break;
 
                     case TouchPhase.Stationary:
-                        if (oneTouchDistance < minimumMoveNecessary)
+                        if (oneTouchDistance < minimumHorizontalMoveNecessary)
                             isFingerMoving = false;
                         break;
 
@@ -133,98 +134,18 @@ public class Camera_Rotation : MonoBehaviour
                 }
             }
 
-            //Set orientation
-            if (!isOrientationSet && isFingerMoving)
+            if (isFingerMoving)
             {
-                if (currentX < 0)
-                {
-                    if (currentY > 0)
-                    {
-                        if ((currentX * -1) > currentY)
-                        {
-                            onHorizontal = true;
-                            onVertical = false;
-
-                            isOrientationSet = true;
-                        }
-                        else
-                        {
-                            onHorizontal = false;
-                            onVertical = true;
-
-                            isOrientationSet = true;
-                        }
-                    }
-                    else
-                    {
-                        if (currentX > currentY)
-                        {
-                            onHorizontal = true;
-                            onVertical = false;
-
-                            isOrientationSet = true;
-                        }
-                        else
-                        {
-                            onHorizontal = false;
-                            onVertical = true;
-
-                            isOrientationSet = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if (currentY > 0)
-                    {
-                        if ((currentX * -1) > currentY)
-                        {
-                            onHorizontal = true;
-                            onVertical = false;
-
-                            isOrientationSet = true;
-                        }
-                        else
-                        {
-                            onHorizontal = false;
-                            onVertical = true;
-
-                            isOrientationSet = true;
-                        }
-                    }
-                    else
-                    {
-                        if (currentX > currentY)
-                        {
-                            onHorizontal = true;
-                            onVertical = false;
-
-                            isOrientationSet = true;
-                        }
-                        else
-                        {
-                            onHorizontal = false;
-                            onVertical = true;
-
-                            isOrientationSet = true;
-                        }
-                    }
-                }
-
-                if (currentX > minimumMoveNecessary || currentX < -minimumMoveNecessary)
+                if (currentX > minimumHorizontalMoveNecessary || currentX < minimumHorizontalMoveNecessary)
                 {
                     onHorizontal = true;
                     isOrientationSet = true;
-                    onVertical = false;
-                    yDirection = VerticalDirection.center;
                 }
 
-                if (currentY > minimumMoveNecessary || currentY < -minimumMoveNecessary)
+                if (currentY > minimumVerticalMoveNecessary || currentY < -minimumVerticalMoveNecessary)
                 {
                     onVertical = true;
                     isOrientationSet = true;
-                    onHorizontal = false;
-                    xDirection = HorizontalDirection.none;
                 }
             }
 
@@ -289,11 +210,21 @@ public class Camera_Rotation : MonoBehaviour
             if (yDirection == VerticalDirection.down)
             {
                 nextVerticalPos = currentVerticalPos - oneTouchDistance * verticalRotationRatio;
+
+                if(nextVerticalPos < minHeight)
+                {
+                    nextVerticalPos = minHeight;
+                }
             }
 
             if (yDirection == VerticalDirection.up)
             {
                 nextVerticalPos = currentVerticalPos + oneTouchDistance * verticalRotationRatio;
+
+                if (nextVerticalPos > maxHeight)
+                {
+                    nextVerticalPos = maxHeight;
+                }
             }
 
             AdjustHeight();
@@ -336,9 +267,6 @@ public class Camera_Rotation : MonoBehaviour
         {
             SlowDown();
         }
-
-        if (dollyTransform.position.y > maxHeight || dollyTransform.position.y < minHeight)
-            dollyTransform.position = new Vector3(dollyTransform.position.x, Mathf.Clamp(dollyTransform.position.y, minHeight, maxHeight), dollyTransform.position.z);
     }
 
 
