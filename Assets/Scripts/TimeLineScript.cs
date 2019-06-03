@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 
 public class TimeLineScript : MonoBehaviour
@@ -43,27 +44,43 @@ public class TimeLineScript : MonoBehaviour
     public bool lerpAnim;
     public Vector3 targetOriginScale;
     private bool once;
-    private bool autorisation;
+    public bool autorisation;
     public Transform originTarget;
-    public GameObject signal;
+    public TMP_Text signal;
     public int totalNumberOfClues;
+    public Transform previewTarget;
 
+    private float DownCheckValue = -225;
+    public bool NothingInTranzit;
+    private int timer;
+   
+
+    private void Start()
+    {
+        NothingInTranzit = true;
+    }
 
     void Update()
     {
         //Reset everything on mouse Up
-        if (Input.GetMouseButtonUp(0) && polaroidInteraction)
+        if (Input.GetMouseButtonUp(0) && polaroidInteraction && previewTarget == null)
         {
-            Cursor.visible = true;
-            currentPolaroid.position = originPos;
-            currentPolaroid = null;
-            pola = null;
-            polaroidInteraction = false;
+            if (autorisation == false)
+            {
+                Cursor.visible = true;
+                currentPolaroid.position = originPos;
+                currentPolaroid.SetParent(originTarget);
+                currentPolaroid = null;
+                previewTarget = null;
+                signal.gameObject.SetActive(false);
+                NothingInTranzit = true;
 
+                polaroidInteraction = false;
+            }
         }
 
         //Graph Raycaster To detect Polaroids
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && NothingInTranzit)
         {
 
             m_PointerEventData = new PointerEventData(m_EventSystem);
@@ -84,14 +101,20 @@ public class TimeLineScript : MonoBehaviour
                     Cursor.visible = false;
 
                     originTarget = result.gameObject.transform.parent;
-                    autorisation = true;
                     lerpAnim = false;
                     currentPolaroid = result.gameObject.transform;
                     originPos = currentPolaroid.position;
                     polaroidInteraction = true;
+                    autorisation = false;
+                    NothingInTranzit = false;
 
                 }
             }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            autorisation = true;
         }
 
         //Lerp to Exchange pos between 2 polaroids
@@ -101,24 +124,32 @@ public class TimeLineScript : MonoBehaviour
             {
 
                 lerpPos = Vector3.Lerp(pola.transform.position, originPos, 0.2f);
-
+                timer++;
                 pola.position = lerpPos;
                 pola.transform.SetParent(originTarget);
-                pola = null;
-                
-            }
-        }
-        else
-        {
-            if (pola != null)
-            {
-                pola.position = originPos;
-                pola.SetParent(originTarget);
-                pola = null;
+                if(timer>25)
+                {
+                    NothingInTranzit = true;
+                    timer = 0;
+                    signal.gameObject.SetActive(false);
+                }
+                // pola = null;
+                polaroidInteraction = false;
 
             }
-
         }
+        /*   else
+           {
+               if (pola != null)
+               {
+                   pola.position = originPos;
+                   pola.SetParent(originTarget);
+                   pola = null;
+                   polaroidInteraction = false;
+
+               }
+
+           }*/
 
         ///Start Function when polaroid on hand
         if (polaroidInteraction)
@@ -133,29 +164,33 @@ public class TimeLineScript : MonoBehaviour
             for (int i = 0; i < TargetClues.Count; i++)
             {
 
-                if (TargetClues[i].transform != originTarget && currentPolaroid != null && pola == null)
+                if (TargetClues[i].transform != originTarget && currentPolaroid != null /*&& pola == null*/)
                 {
-                    if (currentPolaroid.position.x - TargetClues[i].position.x < 180 && currentPolaroid.position.x - TargetClues[i].position.x > -70 && currentPolaroid.position.y - TargetClues[i].position.y > -70 && currentPolaroid.position.y - TargetClues[i].position.y < 70)
+                    if (currentPolaroid.position.x - TargetClues[i].position.x < 180 && currentPolaroid.position.x - TargetClues[i].position.x > -70 && currentPolaroid.position.y - TargetClues[i].position.y > DownCheckValue && currentPolaroid.position.y - TargetClues[i].position.y < 70)
                     {
-                        signal.SetActive(true);
+                        signal.gameObject.SetActive(true);
+                        signal.text = TargetClues[i].GetChild(0).GetComponent<TMP_Text>().text;
+
+                        previewTarget = TargetClues[i];
 
                         //if there is nothing on the pin
-                        if (TargetClues[i].childCount == 0 && autorisation)
+                        if (TargetClues[i].childCount == 1 && Input.GetMouseButtonUp(0))
                         {
-
+                            pola = null;
                             currentPolaroid.SetParent(TargetClues[i]);
                             currentPolaroid.position = TargetClues[i].position + unTouchedOffset;
                             Cursor.visible = true;
                             currentPolaroid = null;
                             autorisation = false;
+                            NothingInTranzit = true;
                             polaroidInteraction = false;
 
                         }
 
                         //if there is already something
-                        if (TargetClues[i].childCount == 1 && autorisation)
+                        if (TargetClues[i].childCount == 2 && Input.GetMouseButtonUp(0))
                         {
-                            pola = TargetClues[i].GetChild(0).transform;
+                            pola = TargetClues[i].GetChild(1).transform;
                             lerpAnim = true;
 
                             currentPolaroid.SetParent(TargetClues[i]);
@@ -163,15 +198,18 @@ public class TimeLineScript : MonoBehaviour
                             Cursor.visible = true;
                             currentPolaroid = null;
                             autorisation = false;
-                            polaroidInteraction = false;
 
                         }
 
                     }
                     else
                     {
-                        signal.SetActive(false);
-
+                        if (previewTarget != null && previewTarget == TargetClues[i])
+                        {
+                            signal.text = "00:00";
+                            signal.gameObject.SetActive(false);
+                            previewTarget = null;
+                        }
                     }
 
                 }
@@ -200,9 +238,12 @@ public class TimeLineScript : MonoBehaviour
     //Polaroid follows mouse position on screen
     public void ClueMove()
     {
-        transPos = cam.ScreenToWorldPoint(Input.mousePosition + offset);
+        if (Input.GetMouseButton(0))
+        {
+            transPos = cam.ScreenToWorldPoint(Input.mousePosition + offset);
 
-        currentPolaroid.position = transPos;
+            currentPolaroid.position = transPos;
+        }
     }
 
 
@@ -214,7 +255,7 @@ public class TimeLineScript : MonoBehaviour
         for (int i = 0; i < TargetClues.Count; i++)
         {
 
-            truth.Add(TargetClues[i].GetChild(0).gameObject);
+            truth.Add(TargetClues[i].GetChild(1).gameObject);
 
         }
 
@@ -232,12 +273,15 @@ public class TimeLineScript : MonoBehaviour
 
         if (CheckMatch() == true)
         {
+            signal.gameObject.SetActive(true);
+
+            signal.text = "Win";
             Debug.Log("win");
         }
 
     }
 
-    
+
 
 
     /* bool isInListRangement()
@@ -260,6 +304,5 @@ public class TimeLineScript : MonoBehaviour
          return false;
      }
      */
-
 
 }
