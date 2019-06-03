@@ -273,6 +273,9 @@ public class TimeLineScript : MonoBehaviour
 
         if (CheckMatch() == true)
         {
+            signal.gameObject.SetActive(true);
+
+            signal.text = "Win";
             Debug.Log("win");
         }
 
