@@ -180,7 +180,7 @@ public class CellPlacement : MonoBehaviour
                     if(cM[i].selected)
                     {
                         cM[i].unSelection = true;
-
+                        cM[i].isOpen = true;
                     }
                 }
 

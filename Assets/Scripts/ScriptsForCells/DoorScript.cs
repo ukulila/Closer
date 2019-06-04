@@ -6,15 +6,19 @@ public class DoorScript : MonoBehaviour
 {
     private bool checkOpenDoor;
     private Transform otherDoor;
-    private Vector3 offset = new Vector3(0, 2, 0);
+    private Vector3 offset = new Vector3(0, 1.5f, 0);
     private int timerOpenDoor;
 
     public Color OpenDoorColor;
     public Color ClosedDoorColor;
 
+    public bool playerBeenHere;
+
     // Start is called before the first frame update
     void Start()
     {
+        playerBeenHere = true;
+
         checkOpenDoor = true;
         transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
     }
@@ -24,7 +28,14 @@ public class DoorScript : MonoBehaviour
     {
         if (transform.parent.GetComponent<CellMovement>().isSpawn)
         {
+            playerBeenHere = true;
             CheckForDoors();
+        }
+
+
+        if (playerBeenHere && !transform.parent.GetComponent<CellMovement>().isSpawn)
+        {
+            OnExitPlayer();
         }
     }
 
@@ -46,12 +57,17 @@ public class DoorScript : MonoBehaviour
 
                 //  Debug.DrawRay (transform.position + offset, -transform.up, Color.blue, 500);
 
+                if (otherDoor != null && otherDoor.GetChild(0).GetComponent<Renderer>().material.GetColor("_EmissionColor") == OpenDoorColor)
+                {
+
+                    otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
+
+                }
                 otherDoor = hit.transform;
 
                 transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
-               // transform.GetChild(1).gameObject.SetActive(true);
-                otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
-
+                // transform.GetChild(1).gameObject.SetActive(true);
+                    otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
                 checkOpenDoor = false;
 
             }
@@ -90,12 +106,42 @@ public class DoorScript : MonoBehaviour
         }
 
     }
-    /*
 
-    public void OnDrawGizmos()
+
+
+
+    public void OnExitPlayer()
     {
-        //transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
 
-        transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
-    }*/
+        RaycastHit hit;
+        int layerMaskDoor = LayerMask.GetMask("Door");
+
+        if (Physics.Raycast(transform.GetChild(0).transform.position + offset, -transform.up, out hit, 5, layerMaskDoor) && hit.transform.gameObject != gameObject)
+        {
+
+        }
+        else
+        {
+            if (transform.GetChild(0).GetComponent<Renderer>().material.GetColor("_EmissionColor") == OpenDoorColor)
+            {
+
+                transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
+                otherDoor = hit.transform;
+                playerBeenHere = false;
+
+            }
+            else
+            {
+                playerBeenHere = false;
+            }
+        }
+        /*
+
+        public void OnDrawGizmos()
+        {
+            //transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
+
+            transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
+        }*/
+    }
 }
