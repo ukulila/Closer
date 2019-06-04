@@ -44,7 +44,11 @@ public class HatchesScript : MonoBehaviour
             {
                 // Debug.DrawRay(transform.transform.position + offset, -transform.forward,Color.black, 500);
 
-                otherDoor = hit.transform;
+                if (otherDoor != null && otherDoor.GetChild(0).GetComponent<Renderer>().material.GetColor("_EmissionColor") == openHatchColor)
+                {
+                    otherDoor = hit.transform;
+
+                }
 
                 transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", openHatchColor);
                 otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", openHatchColor);

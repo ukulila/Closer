@@ -156,7 +156,6 @@ public class CellMovement : MonoBehaviour
         }
 
 
-
         if ((selected && !isSpawn && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode))
         {
             slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
@@ -191,6 +190,9 @@ public class CellMovement : MonoBehaviour
                 Outline.gameObject.SetActive(true);
                 Outline.ReColor("isOpen");
             }
+
+            Outline.ReColor("isOpen");
+
         }
 
         if (player.context.gameObject == gameObject)
