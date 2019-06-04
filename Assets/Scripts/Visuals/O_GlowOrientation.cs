@@ -20,12 +20,14 @@ public class O_GlowOrientation : MonoBehaviour
 
     public List<SpriteRenderer> Childs;
 
+    public Animator animator;
+
     //isSpawn = "isSpawn";
     //isSelected = "isSelected";
     //isOpen = "isOpen";
 
 
-    private void OnEnable()
+    private void Start()
     {
         if(Childs.Count == 0)
         {
@@ -33,7 +35,16 @@ public class O_GlowOrientation : MonoBehaviour
         }
     }
 
-   
+    public void OnEnable()
+    {
+        animator.SetTrigger("In");
+    }
+
+    public void OnDisable()
+    {
+        animator.SetTrigger("Out");
+    }
+
 
     void Update()
     {
@@ -96,7 +107,7 @@ public class O_GlowOrientation : MonoBehaviour
 
 
 
-
+    /*
 
 
     private void OnDrawGizmos()
@@ -110,7 +121,7 @@ public class O_GlowOrientation : MonoBehaviour
         {
            
         }
-    }
+    }*/
 
     private void GetChilds()
     {
