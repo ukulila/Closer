@@ -11,6 +11,7 @@ public class UI_Manager_SetUp : Editor
     public GameObject dialogueCharacterBox_Ref;
     public GameObject dialogueUImask_Ref;
     public GameObject actors_Ref;
+    public GameObject dialogueOption_Ref;
     [Space]
     public GameObject ui_Contextuelle_Ref;
     public GameObject outOfContext_Ref;
@@ -31,6 +32,7 @@ public class UI_Manager_SetUp : Editor
     public GameObject current_DialogueCharacterBox;
     public GameObject current_DialogueUImask;
     public GameObject current_Actors;
+    public GameObject current_DialogueOption;
     [Space]
     public GameObject current_ui_Contextuelle;
     public GameObject current_outOfContext;
@@ -89,6 +91,11 @@ public class UI_Manager_SetUp : Editor
             if (GameObject.Find(actors_Ref.name))
             {
                 current_Actors = GameObject.Find(actors_Ref.name);
+            }
+
+            if (GameObject.Find(dialogueOption_Ref.name))
+            {
+                current_DialogueOption = GameObject.Find(dialogueOption_Ref.name);
             }
 
 
@@ -174,6 +181,11 @@ public class UI_Manager_SetUp : Editor
             if (current_Actors != null)
             {
                 ui_Manager.dialogueGO.Add(current_Actors);
+            }
+
+            if (current_DialogueOption != null)
+            {
+                ui_Manager.dialogueGO.Add(current_DialogueOption);
             }
 
 

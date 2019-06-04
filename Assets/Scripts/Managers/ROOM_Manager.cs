@@ -47,7 +47,6 @@ public class ROOM_Manager : MonoBehaviour
 
             currentRoom.DisableUI();
         }
-
     }
 
     public void ExamineRoom()
@@ -61,6 +60,9 @@ public class ROOM_Manager : MonoBehaviour
     public IEnumerator ActiveAnimationIn(float time)
     {
         yield return new WaitForSeconds(time);
+
+        if (currentRoom.isDialogue)
+            NPC_Manager.Instance.SetDialogueOPTION();
 
         currentRoom.InteractionAppears();
     }

@@ -221,14 +221,14 @@ public class DialogueSystem : MonoBehaviour
 
         float numberOfActors = activeActorsIndex.Count;
 
-        if (numberOfActors == 1)
-        {
-            actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
-        }
+        //if (numberOfActors == 1)
+        //{
+        //    actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+        //}
 
         if (numberOfActors == 2)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+            //actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
 
             actorsIcon[activeActorsIndex[1]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
         }
@@ -935,14 +935,12 @@ public class DialogueSystem : MonoBehaviour
     }
     #endregion
 
-    private void ActivateActorsIcons()
+    public void ActivateActorsIcons()
     {
         for (int i = 0; i < activeActorsIndex.Count; i++)
         {
             actorsIcon[activeActorsIndex[i]].gameObject.SetActive(true);
         }
-
-        //SetDialogueParameters();
     }
 
     private void SlideDialogueTo()
@@ -997,28 +995,49 @@ public class DialogueSystem : MonoBehaviour
         {
             if (doYouHaveFade)
             {
-                FadeScript.Instance.FadeINandOUT();
+                if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked == false)
+                {
+                    FadeScript.Instance.FadeINandOUT();
 
-                ROOM_Manager.Instance.LaunchUI(2.5f);
+                    NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
+
+                    StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
+
+                    StartCoroutine(NPC_Manager.Instance.StartDialogueOPTIONAnimIn(3f));
+                }
+                else
+                {
+                    StartCoroutine(NPC_Manager.Instance.StartDialogueOPTIONAnimIn(1f));
+                }
             }
             else
             {
-                ROOM_Manager.Instance.LaunchUI(0.1f);
+                StartCoroutine(NPC_Manager.Instance.StartDialogueOPTIONAnimIn(1f));
             }
         }
         else
         {
             if (doYouHaveFade)
             {
-                FadeScript.Instance.FadeINandOUT();
+                if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked == false)
+                {
+                    FadeScript.Instance.FadeINandOUT();
 
-                StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(1.5f));
+                    NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
+
+                    StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
+
+                    StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(1.5f));
+                }
+                else
+                {
+                    StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(1.5f));
+                }
             }
             else
             {
                 CinematicTrigger.Instance.EndCinematicNOW();
             }
-
         }
 
 
