@@ -234,7 +234,7 @@ public class Camera_UI : MonoBehaviour
 
     public void SwitchToUI()
     {
-        if(GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             switchToUI = true;
             cameraReposition = false;
@@ -448,12 +448,21 @@ public class Camera_UI : MonoBehaviour
             if (switchToUI)
             {
                 InventorySystem.Instance.canBeDisplayed = false;
+
+                Examine_Script.Instance.examineImage.sprite = Examine_Script.Instance.examineOUT;
+
+                if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questDialogueSystems.isForCinematic == false)
+                    Examine_Script.Instance.examineButton.interactable = true;
             }
             else
             {
                 InventorySystem.Instance.canBeDisplayed = true;
 
+                Examine_Script.Instance.examineImage.sprite = Examine_Script.Instance.examineIN;
+
                 animationCurveTimingMax = animationTimingMin;
+
+                Examine_Script.Instance.examineButton.interactable = true;
             }
 
             cameraReposition = true;

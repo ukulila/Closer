@@ -40,22 +40,17 @@ public class GameManager : MonoBehaviour
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.inventoryGO);
                     UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.WinningGO);
 
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.dialogueGO));
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.backgroundGO));
-
-                    playerBehav.enabled = true;
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.dialogueGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.backgroundGO));
                 }
 
                 if (previousGameMode == GameMode.InvestigationMode)
                 {
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.inventoryGO);
 
-                    UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = false;
 
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.contextuelleGO));
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.backgroundGO));
-
-                    playerBehav.enabled = true;
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.contextuelleGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.backgroundGO));
                 }
 
                 if (ROOM_Manager.Instance.currentRoom.isThereClients == true)
@@ -76,19 +71,19 @@ public class GameManager : MonoBehaviour
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.backgroundGO);
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.contextuelleGO);
 
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2f, UI_Manager.Instance.inventoryGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.inventoryGO));
                 }
 
                 if (previousGameMode == GameMode.Dialogue)
                 {
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.contextuelleGO);
 
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.dialogueGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.dialogueGO));
                 }
 
                 Harcelement_Manager.Instance.FarFromThem();
 
-                playerBehav.enabled = false;
+                //playerBehav.enabled = false;
 
                 previousGameMode = GameMode.InvestigationMode;
                 break;
@@ -99,26 +94,22 @@ public class GameManager : MonoBehaviour
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.backgroundGO);
                     UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.contextuelleGO);
-                    UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.outOfContextGO);
 
                     UI_Manager.Instance.inventoryGO[2].GetComponent<Button>().onClick.Invoke();
                     UI_Manager.Instance.inventoryButtonsGO[0].GetComponentInChildren<Button>().onClick.Invoke();
                     InventorySystem.Instance.HideInventory();
 
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.inventoryGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.inventoryGO));
                 }
 
                 if (previousGameMode == GameMode.InvestigationMode)
                 {
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
 
-                    UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = false;
-                    UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.outOfContextGO);
-
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.contextuelleGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.contextuelleGO));
                 }
 
-                playerBehav.enabled = false;
+                //playerBehav.enabled = false;
 
                 Harcelement_Manager.Instance.FarFromThem();
 
@@ -140,22 +131,21 @@ public class GameManager : MonoBehaviour
                     UI_Manager.Instance.inventoryButtonsGO[0].GetComponentInChildren<Button>().onClick.Invoke();
                     InventorySystem.Instance.HideInventory();
 
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.inventoryGO));
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.inventoryButtonsGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.inventoryGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.inventoryButtonsGO));
                 }
 
                 if (previousGameMode == GameMode.InvestigationMode)
                 {
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.WinningGO);
-                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.outOfContextGO);
 
                     Camera_UI.Instance.SwitchToNoUi();
 
                     ROOM_Manager.Instance.currentRoom.DisableUI();
 
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.contextuelleGO));
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.backgroundGO));
-                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(2, UI_Manager.Instance.inventoryButtonsGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.contextuelleGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.backgroundGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.inventoryButtonsGO));
 
                     playerBehav.enabled = true;
                 }

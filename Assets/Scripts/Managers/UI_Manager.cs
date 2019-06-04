@@ -13,7 +13,6 @@ public class UI_Manager : MonoBehaviour
 
     [Header("UI_Contextuelle")]
     public List<GameObject> contextuelleGO;
-    public List<GameObject> outOfContextGO;
 
     [Header("UI_Background")]
     public List<GameObject> backgroundGO;

@@ -216,19 +216,24 @@ public class DialogueSystem : MonoBehaviour
 
         currentStartPercent = startCurve.Evaluate(currentStartTime / maxStartTime);
 
-        nameBox.color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
-        nameCharacter.color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+        if (isForCinematic)
+        {
+            nameBox.color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+            nameCharacter.color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+        }
+
 
         float numberOfActors = activeActorsIndex.Count;
 
-        //if (numberOfActors == 1)
-        //{
-        //    actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
-        //}
+        if (numberOfActors == 1 && isForCinematic)
+        {
+            actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+        }
 
         if (numberOfActors == 2)
         {
-            //actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
+            if (isForCinematic)
+                actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
 
             actorsIcon[activeActorsIndex[1]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
         }

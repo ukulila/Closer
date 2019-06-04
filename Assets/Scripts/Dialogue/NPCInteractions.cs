@@ -13,16 +13,14 @@ public class NPCInteractions : MonoBehaviour
 
 
 
-    private void Update()
-    {
-        
-    }
 
     public void StartAnyDialogueViaIndex(int DialogueIndex)
     {
         dialogue[DialogueIndex].questDialogueSystems.StartDialogue();
 
         currentDialogueIndex = DialogueIndex;
+
+        Examine_Script.Instance.examineButton.interactable = false;
     }
 
     public void StartDialogueAbout(int DialogueIndex)
@@ -30,5 +28,7 @@ public class NPCInteractions : MonoBehaviour
         dialogue[questionIndex[DialogueIndex]].questDialogueSystems.StartDialogue();
 
         currentDialogueIndex = DialogueIndex;
+
+        Examine_Script.Instance.examineButton.interactable = false;
     }
 }

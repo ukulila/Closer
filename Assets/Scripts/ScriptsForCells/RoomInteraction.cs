@@ -50,15 +50,9 @@ public class RoomInteraction : MonoBehaviour
     public void InteractionAppears()
     {
         uiAnimators[5].ResetTrigger("Enabled");
-        uiAnimators[6].ResetTrigger("Enabled");
-
         uiAnimators[5].ResetTrigger("Disabled");
-        uiAnimators[6].ResetTrigger("Disabled");
-
-        uiAnimators[6].ResetTrigger("Selected");
 
         uiAnimators[5].SetTrigger("Enabled");
-        uiAnimators[6].SetTrigger("Disabled");
 
 
         Objectif_Scr.Instance.Disappearance();
@@ -135,12 +129,8 @@ public class RoomInteraction : MonoBehaviour
         }
 
         uiAnimators[5].ResetTrigger("Enabled");
-        uiAnimators[5].SetTrigger("Disabled");
 
-        uiAnimators[6].ResetTrigger("Disabled");
-        //uiAnimators[6].ResetTrigger("Enabled");
-        //uiAnimators[6].ResetTrigger("Selected");
-        uiAnimators[6].SetTrigger("Enabled");
+        uiAnimators[5].SetTrigger("Disabled");
     }
 
 

@@ -62,10 +62,10 @@ public class DialogueTool : EditorWindow
         GUILayout.Label("Sujet de la conversation", EditorStyles.boldLabel);
         dialogueName = EditorGUILayout.TextField(dialogueName);
 
-        GUILayout.Label("Sujet de la conversation", EditorStyles.boldLabel);
+        GUILayout.Label("Question", EditorStyles.boldLabel);
         question = EditorGUILayout.TextField(question);
 
-        GUILayout.Label("Fait-elle partie des premières questions posées au NPC", EditorStyles.boldLabel);
+        GUILayout.Label("Fait-elle partie des premières questions posées au NPC ?", EditorStyles.boldLabel);
         isPresentInDialogueOPTION = EditorGUILayout.Toggle(isPresentInDialogueOPTION);
 
 

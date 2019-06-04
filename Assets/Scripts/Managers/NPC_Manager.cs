@@ -7,23 +7,31 @@ using TMPro;
 public class NPC_Manager : MonoBehaviour
 {
     public NPCInteractions currentNPC;
+
+    [Header("Questions References")]
     public List<Animator> questionsAnim;
     public List<TextMeshProUGUI> questionsTexts;
-
     public List<Question_Ref> questionRef;
-    public List<Animator> questionAnimators;
 
+    [Header("Dialogue OPTION curve")]
     public AnimationCurve blancheIconCurve;
     public float currentTime;
     public float maxTime;
     public float percent;
 
+    [Header("Variables 4 curve")]
     public Image blancheIcon;
+    public TextMeshProUGUI nameCharacter;
+    public Image nameBox;
 
+    [Header("Fade IN or OUT")]
+    public Animator returnAnim;
     public bool isCurveNeeded = false;
     public bool onReverse = false;
 
+    [Header("Dialogues state")]
     public bool isEveryDialogueDone;
+
 
 
 
@@ -188,6 +196,10 @@ public class NPC_Manager : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         ActivateDialogueOPTION();
+
+        yield return new WaitForSeconds(1.1f);
+
+        Examine_Script.Instance.examineButton.interactable = true;
     }
 
 
@@ -207,6 +219,9 @@ public class NPC_Manager : MonoBehaviour
             else
             {
                 isCurveNeeded = false;
+                returnAnim.SetTrigger("FadeIN");
+
+                Examine_Script.Instance.examineButton.interactable = true;
             }
         }
         else
@@ -219,6 +234,8 @@ public class NPC_Manager : MonoBehaviour
             {
                 isCurveNeeded = false;
                 currentTime = 0;
+
+                Examine_Script.Instance.examineButton.interactable = true;
             }
         }
 
@@ -227,5 +244,7 @@ public class NPC_Manager : MonoBehaviour
 
 
         blancheIcon.color = new Color(1, 1, 1, (0 + (1 * percent)));
+        nameBox.color = new Color(1, 1, 1, (0 + (1 * percent)));
+        nameCharacter.color = new Color(1, 1, 1, (0 + (1 * percent)));
     }
 }
