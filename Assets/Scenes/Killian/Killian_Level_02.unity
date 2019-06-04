@@ -1782,6 +1782,31 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4357570390644708645, guid: 73607c71e7e6d7b41aff850a8814807a,
+        type: 3}
+      propertyPath: OpenDoorColor.b
+      value: 0.9647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 4357570390644708645, guid: 73607c71e7e6d7b41aff850a8814807a,
+        type: 3}
+      propertyPath: OpenDoorColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4357570390644708645, guid: 73607c71e7e6d7b41aff850a8814807a,
+        type: 3}
+      propertyPath: ClosedDoorColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4357570390644708645, guid: 73607c71e7e6d7b41aff850a8814807a,
+        type: 3}
+      propertyPath: ClosedDoorColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4357570390644708645, guid: 73607c71e7e6d7b41aff850a8814807a,
+        type: 3}
+      propertyPath: ClosedDoorColor.b
+      value: 0.5058824
+      objectReference: {fileID: 0}
     - target: {fileID: 7903275076611177697, guid: 73607c71e7e6d7b41aff850a8814807a,
         type: 3}
       propertyPath: m_IsActive
@@ -1912,6 +1937,11 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 131072
       objectReference: {fileID: 0}
+    - target: {fileID: 6933695269170861864, guid: 73607c71e7e6d7b41aff850a8814807a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1988452503}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73607c71e7e6d7b41aff850a8814807a, type: 3}
 --- !u!114 &249652390 stripped
@@ -2189,6 +2219,87 @@ Transform:
   m_Father: {fileID: 1014017069}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!21 &278379698
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!1001 &294198948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2881,6 +2992,89 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e889776c3609b184ea0c2e4c3c4e7741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openHatchColor: {r: 0, g: 1, b: 0.9647059, a: 0}
+  ClosedHatchColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+--- !u!21 &369354316
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!4 &392933231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3365292404350247215, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
@@ -3374,6 +3568,87 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!21 &517851263
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!4 &535446346 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 640131787349449543, guid: 76850c34e7045444588e448bd7e42d6f,
@@ -4861,6 +5136,11 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 8452903320415708357, guid: b4ac537463303f6439fc87998167a98d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 369354316}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4ac537463303f6439fc87998167a98d, type: 3}
 --- !u!4 &543764163 stripped
@@ -5581,6 +5861,87 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 634460507}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &710148790
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!1001 &717480809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7163,6 +7524,87 @@ Transform:
   m_Father: {fileID: 1692301447}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 180, y: 90, z: 90}
+--- !u!21 &749882072
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!1001 &760428410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7408,12 +7850,12 @@ PrefabInstance:
     - target: {fileID: 7301092357952618358, guid: b4428a226513c0543a8030c7d4fa8b88,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7301092357952618358, guid: b4428a226513c0543a8030c7d4fa8b88,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 70
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7301092357952618358, guid: b4428a226513c0543a8030c7d4fa8b88,
         type: 3}
@@ -8392,6 +8834,36 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.b
+      value: 0.9647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.b
+      value: 0.5058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6185689823069620290, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 981933444}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca, type: 3}
 --- !u!4 &878222178 stripped
@@ -8996,6 +9468,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979811717}
   m_CullTransparentMesh: 0
+--- !u!21 &981933444
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!1 &987112127
 GameObject:
   m_ObjectHideFlags: 0
@@ -10253,6 +10806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e889776c3609b184ea0c2e4c3c4e7741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openHatchColor: {r: 0, g: 1, b: 0.9647059, a: 0}
+  ClosedHatchColor: {r: 1, g: 0, b: 0.5058824, a: 0}
 --- !u!65 &1139385343
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10824,6 +11379,87 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1218915624}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1236605433
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!1 &1248009880 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6415755087797445905, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
@@ -10864,6 +11500,87 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76850c34e7045444588e448bd7e42d6f, type: 3}
+--- !u!21 &1288327249
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!1 &1292261838
 GameObject:
   m_ObjectHideFlags: 0
@@ -11870,6 +12587,31 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8150394504989725271, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
+        type: 3}
+      propertyPath: OpenDoorColor.b
+      value: 0.9647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150394504989725271, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
+        type: 3}
+      propertyPath: OpenDoorColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150394504989725271, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
+        type: 3}
+      propertyPath: ClosedDoorColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150394504989725271, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
+        type: 3}
+      propertyPath: ClosedDoorColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150394504989725271, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
+        type: 3}
+      propertyPath: ClosedDoorColor.b
+      value: 0.5058824
+      objectReference: {fileID: 0}
     - target: {fileID: 3348624963135689094, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
         type: 3}
       propertyPath: m_IsActive
@@ -11944,6 +12686,11 @@ PrefabInstance:
       propertyPath: invisibleOnSpawn
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3268584925735571546, guid: 8271620d49ec8cb4ea1bd6085f604c3f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1988999562}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8271620d49ec8cb4ea1bd6085f604c3f, type: 3}
 --- !u!1 &1308536231 stripped
@@ -12085,7 +12832,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 181909bacc8e51e43b7016fc2d43b731, type: 2}
+  - {fileID: 710148790}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12131,6 +12878,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e889776c3609b184ea0c2e4c3c4e7741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openHatchColor: {r: 0, g: 1, b: 0.9647059, a: 0}
+  ClosedHatchColor: {r: 1, g: 0, b: 0.5058824, a: 0}
 --- !u!1 &1359643637 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6185689823071884930, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
@@ -13396,6 +14145,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 2.072
       objectReference: {fileID: 0}
+    - target: {fileID: 7104972005352135823, guid: 9ee1eb3eba17ea74daf5fb6136407507,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 749882072}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ee1eb3eba17ea74daf5fb6136407507, type: 3}
 --- !u!114 &1445703693 stripped
@@ -14279,6 +15033,87 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1927830702}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1659809099
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!1 &1664438438
 GameObject:
   m_ObjectHideFlags: 0
@@ -15114,12 +15949,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_subTextObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 1743350723}
+      objectReference: {fileID: 0}
     - target: {fileID: 1408908304212671750, guid: d9fb543e625b91b4db93feafa70306a6,
         type: 3}
       propertyPath: m_subTextObjects.Array.data[2]
       value: 
-      objectReference: {fileID: 1743350722}
+      objectReference: {fileID: 0}
     - target: {fileID: 7906836053359300131, guid: d9fb543e625b91b4db93feafa70306a6,
         type: 3}
       propertyPath: m_Material
@@ -15295,6 +16130,76 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1408908304518877927, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908304518877927, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908304601592458, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908304601592458, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908304212671753, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908304212671753, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908304212671753, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908304212671753, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908304212671753, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908303133767562, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908303133767562, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908303133767562, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908303133767562, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408908303133767562, guid: d9fb543e625b91b4db93feafa70306a6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9fb543e625b91b4db93feafa70306a6, type: 3}
 --- !u!224 &1743350707 stripped
@@ -15391,30 +16296,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1743350722 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5463789485686954824, guid: d9fb543e625b91b4db93feafa70306a6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1743350706}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1743350723 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7906836053359300131, guid: d9fb543e625b91b4db93feafa70306a6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1743350706}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1770148891
@@ -15918,25 +16799,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: '______________ CAMERAS ________________ '
       objectReference: {fileID: 0}
-    - target: {fileID: 1241135056598317767, guid: 87d0b1113276f8646a9b3a1c91897f9d,
+    - target: {fileID: 1241135057083059885, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
-      propertyPath: selectionTimingImage
-      value: 
-      objectReference: {fileID: 1707860547}
-    - target: {fileID: 1241135057184425966, guid: 87d0b1113276f8646a9b3a1c91897f9d,
+      propertyPath: m_LocalPosition.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241135057083059885, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
-      propertyPath: orthographic size
-      value: 9.5
+      propertyPath: m_LocalPosition.x
+      value: -2.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241135057083059885, guid: 87d0b1113276f8646a9b3a1c91897f9d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 1241135057184425967, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.18211715
+      value: -0.18211716
       objectReference: {fileID: 0}
     - target: {fileID: 1241135057184425967, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.3317568
+      value: 0.33175677
       objectReference: {fileID: 0}
     - target: {fileID: 1241135057184425967, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
@@ -15962,6 +16848,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -19.148062
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241135056598317767, guid: 87d0b1113276f8646a9b3a1c91897f9d,
+        type: 3}
+      propertyPath: selectionTimingImage
+      value: 
+      objectReference: {fileID: 1707860547}
+    - target: {fileID: 1241135057184425966, guid: 87d0b1113276f8646a9b3a1c91897f9d,
+        type: 3}
+      propertyPath: orthographic size
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 1241135057599476109, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
@@ -16036,12 +16932,12 @@ PrefabInstance:
     - target: {fileID: 1241135056598317766, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.18211715
+      value: -0.18211716
       objectReference: {fileID: 0}
     - target: {fileID: 1241135056598317766, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.3317568
+      value: 0.33175677
       objectReference: {fileID: 0}
     - target: {fileID: 1241135056598317766, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
@@ -16072,21 +16968,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Position
       value: 139.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1241135057083059885, guid: 87d0b1113276f8646a9b3a1c91897f9d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1241135057083059885, guid: 87d0b1113276f8646a9b3a1c91897f9d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.68
-      objectReference: {fileID: 0}
-    - target: {fileID: 1241135057083059885, guid: 87d0b1113276f8646a9b3a1c91897f9d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 1241135056598317769, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
@@ -17209,6 +18090,31 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8150394506427846127, guid: 094952af23c3f114aa87c6a8d36d6146,
+        type: 3}
+      propertyPath: OpenDoorColor.b
+      value: 0.9647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150394506427846127, guid: 094952af23c3f114aa87c6a8d36d6146,
+        type: 3}
+      propertyPath: OpenDoorColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150394506427846127, guid: 094952af23c3f114aa87c6a8d36d6146,
+        type: 3}
+      propertyPath: ClosedDoorColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150394506427846127, guid: 094952af23c3f114aa87c6a8d36d6146,
+        type: 3}
+      propertyPath: ClosedDoorColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150394506427846127, guid: 094952af23c3f114aa87c6a8d36d6146,
+        type: 3}
+      propertyPath: ClosedDoorColor.b
+      value: 0.5058824
+      objectReference: {fileID: 0}
     - target: {fileID: 2934778991316592867, guid: 094952af23c3f114aa87c6a8d36d6146,
         type: 3}
       propertyPath: m_IsActive
@@ -17359,6 +18265,11 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 524288
       objectReference: {fileID: 0}
+    - target: {fileID: 3268584926654648290, guid: 094952af23c3f114aa87c6a8d36d6146,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 517851263}
     m_RemovedComponents:
     - {fileID: 166002974, guid: 094952af23c3f114aa87c6a8d36d6146, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 094952af23c3f114aa87c6a8d36d6146, type: 3}
@@ -17410,6 +18321,168 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2a2c041378ead144bfd64848bea6fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1988452503
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+--- !u!21 &1988999562
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Chambranle01 (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 5b085734b10bf984a87e81f5c0c3571c, type: 3}
+  m_ShaderKeywords: BOOLEAN_A2329E22_ON BOOLEAN_CA615FC3_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_613DF8F7:
+        m_Texture: {fileID: 2800000, guid: b779a957ca8908a428a49fc893263b33, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_8A0AD302:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_A2329E22: 1
+    - Boolean_CA615FC3: 1
+    - Vector1_39E5420C: 0.75
+    - Vector1_545810F7: 17.96
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _ReceiveShadows: 1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_23EB8FB4: {r: 0.4716981, g: 0.3376155, b: 0.05562477, a: 1}
+    - Color_C7B7D66F: {r: 0.2924528, g: 0, b: 0, a: 1}
+    - Vector2_29CB8E41: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0.5058824, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!1 &1992625900
 GameObject:
   m_ObjectHideFlags: 0
@@ -17559,6 +18632,36 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.b
+      value: 0.9647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.b
+      value: 0.5058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6185689823069620290, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 278379698}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca, type: 3}
 --- !u!1 &1997533724
@@ -17881,6 +18984,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e889776c3609b184ea0c2e4c3c4e7741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openHatchColor: {r: 0, g: 1, b: 0.9647059, a: 0}
+  ClosedHatchColor: {r: 1, g: 0, b: 0.5058824, a: 0}
 --- !u!1001 &2092085692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23380,6 +24485,36 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.b
+      value: 0.9647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.b
+      value: 0.5058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6185689823069620290, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1659809099}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca, type: 3}
 --- !u!4 &8686217393065169296 stripped
@@ -23460,6 +24595,36 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.b
+      value: 0.9647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.b
+      value: 0.5058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6185689823069620290, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1288327249}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca, type: 3}
 --- !u!4 &8686217393313128640 stripped
@@ -23544,6 +24709,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.b
+      value: 0.9647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.b
+      value: 0.5058824
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca, type: 3}
@@ -23630,6 +24820,36 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.b
+      value: 0.9647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: OpenDoorColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: ClosedDoorColor.b
+      value: 0.5058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6185689823069620290, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1236605433}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca, type: 3}
 --- !u!4 &8686217394811489118 stripped

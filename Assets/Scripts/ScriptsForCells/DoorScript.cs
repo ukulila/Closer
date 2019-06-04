@@ -9,11 +9,14 @@ public class DoorScript : MonoBehaviour
     private Vector3 offset = new Vector3(0, 2, 0);
     private int timerOpenDoor;
 
+    public Color OpenDoorColor;
+    public Color ClosedDoorColor;
+
     // Start is called before the first frame update
     void Start()
     {
         checkOpenDoor = true;
-
+        transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
     }
 
     // Update is called once per frame
@@ -45,9 +48,9 @@ public class DoorScript : MonoBehaviour
 
                 otherDoor = hit.transform;
 
-                transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
                // transform.GetChild(1).gameObject.SetActive(true);
-                otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
 
                 checkOpenDoor = false;
 
@@ -63,8 +66,8 @@ public class DoorScript : MonoBehaviour
                     if (transform.childCount > 1)
                         transform.GetChild(1).gameObject.SetActive(false);
 
-                    transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
-                    otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                    transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
+                    otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
                 }
                 checkOpenDoor = false;
 
@@ -85,5 +88,14 @@ public class DoorScript : MonoBehaviour
                 timerOpenDoor = 0;
             }
         }
+
     }
+    /*
+
+    public void OnDrawGizmos()
+    {
+        //transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
+
+        transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
+    }*/
 }

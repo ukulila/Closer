@@ -8,10 +8,15 @@ public class HatchesScript : MonoBehaviour
     private Transform otherDoor;
     private Vector3 offset = new Vector3(0, 0, 0);
     private int timerOpenDoor;
+    public Color openHatchColor;
+    public Color ClosedHatchColor;
+
     // Start is called before the first frame update
     void Start()
     {
         checkOpenDoor = true;
+        transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedHatchColor);
+
     }
 
     // Update is called once per frame
@@ -37,12 +42,12 @@ public class HatchesScript : MonoBehaviour
 
             if (Physics.Raycast(transform.transform.position + offset, -transform.forward, out hit, 5, layerMaskDoor) && hit.transform.gameObject != gameObject)
             {
-               // Debug.DrawRay(transform.transform.position + offset, -transform.forward,Color.black, 500);
+                // Debug.DrawRay(transform.transform.position + offset, -transform.forward,Color.black, 500);
 
                 otherDoor = hit.transform;
 
-                transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
-                otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", openHatchColor);
+                otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", openHatchColor);
 
                 checkOpenDoor = false;
 
@@ -50,18 +55,18 @@ public class HatchesScript : MonoBehaviour
             else
             {
 
-            //     Debug.DrawRay(transform.transform.position + offset, -transform.forward, Color.black, 500);
+                //     Debug.DrawRay(transform.transform.position + offset, -transform.forward, Color.black, 500);
                 if (otherDoor != null)
                 {
-                    transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
-                    otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                    transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedHatchColor);
+                    otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedHatchColor);
                 }
 
                 checkOpenDoor = false;
 
             }
 
-            
+
         }
         if (!checkOpenDoor)
         {
@@ -74,4 +79,11 @@ public class HatchesScript : MonoBehaviour
             }
         }
     }
+
+    /*
+    public void OnDrawGizmos()
+    {
+        transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedHatchColor);
+
+    }*/
 }

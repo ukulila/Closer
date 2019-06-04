@@ -661,7 +661,7 @@ public class TextMeshAnimator : MonoBehaviour {
 		}
 		++currentFrame;
 	}
-}
+}/*
 [CustomEditor(typeof(TextMeshAnimator))]
 public class TextMeshAnimatorEditor : Editor 
 {
@@ -737,6 +737,6 @@ public class TextMeshAnimatorEditor : Editor
 
 		serializedObject.ApplyModifiedProperties ();
 	}
-}
+}*/
 
 //hi skawo :>

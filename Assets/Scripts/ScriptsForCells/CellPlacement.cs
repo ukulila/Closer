@@ -27,12 +27,15 @@ public class CellPlacement : MonoBehaviour
 
     public bool DesactCells;
     public static CellPlacement Instance;
+    public int speed;
 
     public void Awake()
     {
         doOnce = true;
 
         Instance = this;
+        Application.targetFrameRate = 400;
+
     }
 
     void Update()
@@ -49,7 +52,7 @@ public class CellPlacement : MonoBehaviour
             if (DesactCells == true)
             {
 
-              DeActivateCells();
+                DeActivateCells();
 
             }
         }
@@ -73,11 +76,18 @@ public class CellPlacement : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
 
-            if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+          /*  RaycastHit hitAnywhere;
+
+            if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hitAnywhere, 250))
+            {
+                Debug.Log(hitAnywhere.transform.name);
+            }
+            */
+                if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
             {
                 FingerOnScreen = true;
             }
-
+            
             once = true;
 
             RaycastHit hit;
@@ -93,6 +103,13 @@ public class CellPlacement : MonoBehaviour
                     cellmove.click = true;
                     cellmove.over = true;
 
+                    for (int i = 0; i < cM.Count; i++)
+                    {
+                        if (cM[i] != cellmove && !cM[i].isSpawn)
+                        {
+                            cM[i].unSelection = true;
+                        }
+                    }
 
                     if (Cui.switchToUI == true)
                     {
@@ -129,7 +146,7 @@ public class CellPlacement : MonoBehaviour
                     if (Cr != null)
                         Cr.aboutCamera = false;
 
-                    trail_Behaviour.Instance.DeactivateTrail();
+                 //   trail_Behaviour.Instance.DeactivateTrail();
                 }
 
 
@@ -160,7 +177,14 @@ public class CellPlacement : MonoBehaviour
 
                     cM[i].over = false;
 
+                    if(cM[i].selected)
+                    {
+                        cM[i].unSelection = true;
+
+                    }
                 }
+
+
             }
         }
 
@@ -192,7 +216,7 @@ public class CellPlacement : MonoBehaviour
 
     private void DeActivateCells()
     {
-       
+
         for (int i = 0; i < cM.Count; i++)
         {
             if (!cM[i].isSpawn)
@@ -241,6 +265,51 @@ public class CellPlacement : MonoBehaviour
     }
 
 
+    public void turnLeft()
+    {
 
+        for (int i = 0; i < cM.Count; i++)
+        {
+            if (cM[i].selected && cM[i].isSpawn == false && cM[i].GetComponent<CellScript>().isInRotationInverse == false)
+            {
+                cM[i].OutlineOff = false;
+
+                cM[i].selected = false;
+                cM[i].Outline.gameObject.SetActive(true);
+                cM[i].CanvasRotation.gameObject.SetActive(true);
+
+                cM[i].unSelection = false;
+                cM[i].timerUnSelection = 0;
+
+                //Debug.Log(cM[i].gameObject.name);
+                cM[i].GetComponent<CellScript>().isInRotation = true;
+            }
+        }
+
+    }
+
+    public void turnRight()
+    {
+
+        for (int i = 0; i < cM.Count; i++)
+        {
+            if (cM[i].selected && cM[i].isSpawn == false && cM[i].GetComponent<CellScript>().isInRotation == false)
+            {
+                cM[i].OutlineOff = false;
+
+                cM[i].selected = false;
+                cM[i].Outline.gameObject.SetActive(true);
+                cM[i].CanvasRotation.gameObject.SetActive(true);
+
+
+
+                cM[i].unSelection = false;
+                cM[i].timerUnSelection = 0;
+
+              //Debug.Log(cM[i].gameObject.name);
+                cM[i].GetComponent<CellScript>().isInRotationInverse = true;
+            }
+        }
+    }
 
 }

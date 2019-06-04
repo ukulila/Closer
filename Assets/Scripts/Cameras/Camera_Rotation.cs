@@ -154,7 +154,7 @@ public class Camera_Rotation : MonoBehaviour
             {
                 if (onHorizontal)
                 {
-                    trail_Behaviour.Instance.ActivateTrail();
+                    //trail_Behaviour.Instance.ActivateTrail();
 
                     if (currentX > 0)
                     {
@@ -169,7 +169,7 @@ public class Camera_Rotation : MonoBehaviour
 
                 if (onVertical)
                 {
-                    trail_Behaviour.Instance.DeactivateTrail();
+                    //trail_Behaviour.Instance.DeactivateTrail();
 
                     if (currentY > 0)
                     {
