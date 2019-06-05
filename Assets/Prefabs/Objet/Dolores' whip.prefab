@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 709288678281288905}
   - component: {fileID: 709288678280518889}
   - component: {fileID: 709288678279388713}
+  - component: {fileID: 5681765949077232702}
   m_Layer: 0
-  m_Name: fouet_a_trouver
+  m_Name: Dolores' whip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709288678281576681}
-  m_Mesh: {fileID: 4300000, guid: d91578805af97f24089d5293c95b2424, type: 3}
+  m_Mesh: {fileID: 4300018, guid: 92dde7be713378e47bc0690b15b3a572, type: 3}
 --- !u!23 &709288678279388713
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -57,9 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 49872a33c090b8848baa994aa7cab3fd, type: 2}
-  - {fileID: 2100000, guid: fae7991fd8e48a74e8f3df8cd1ea6744, type: 2}
-  - {fileID: 2100000, guid: 69bae0da3bcc30b4d973a436743b3238, type: 2}
+  - {fileID: 2100000, guid: deb46f6f25d066c4bad92510b8b3fb75, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,3 +78,25 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5681765949077232702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709288678281576681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16fded9703800444da04a2922359e18c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Dolores' whip
+  objectDescription: I only know one or two simple trick with that thing.. Hope I'll
+    do ok..
+  objectImage: {fileID: 21300000, guid: 053b42faedfa953448c2501be8e305d5, type: 3}
+  objectEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  doesTheObjectDisappearAfterInvoke: 1

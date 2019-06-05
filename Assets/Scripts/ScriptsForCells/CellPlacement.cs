@@ -180,7 +180,7 @@ public class CellPlacement : MonoBehaviour
                     if(cM[i].selected)
                     {
                         cM[i].unSelection = true;
-                        cM[i].isOpen = true;
+                        cM[i].isOpen = false;
                     }
                 }
 
@@ -271,7 +271,7 @@ public class CellPlacement : MonoBehaviour
         for (int i = 0; i < cM.Count; i++)
         {
             if (cM[i].selected && cM[i].isSpawn == false && cM[i].GetComponent<CellScript>().isInRotationInverse == false)
-            {
+            {/*
                 cM[i].OutlineOff = false;
 
                 cM[i].selected = false;
@@ -283,6 +283,9 @@ public class CellPlacement : MonoBehaviour
 
                 //Debug.Log(cM[i].gameObject.name);
                 cM[i].GetComponent<CellScript>().isInRotation = true;
+                */
+                cM[i].RotationButtonLeft();
+
             }
         }
 
@@ -294,7 +297,7 @@ public class CellPlacement : MonoBehaviour
         for (int i = 0; i < cM.Count; i++)
         {
             if (cM[i].selected && cM[i].isSpawn == false && cM[i].GetComponent<CellScript>().isInRotation == false)
-            {
+            {/*
                 cM[i].OutlineOff = false;
 
                 cM[i].selected = false;
@@ -308,6 +311,9 @@ public class CellPlacement : MonoBehaviour
 
               //Debug.Log(cM[i].gameObject.name);
                 cM[i].GetComponent<CellScript>().isInRotationInverse = true;
+                */
+                cM[i].RotationButtonRight();
+
             }
         }
     }

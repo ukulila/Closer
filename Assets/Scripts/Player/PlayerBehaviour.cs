@@ -121,8 +121,8 @@ public class PlayerBehaviour : MonoBehaviour
             Vector3 camX = new Vector3(Camera.transform.position.x, transform.position.y, Camera.transform.position.z);
             transform.LookAt(camX);
 
-
-            highlight.enabled = false;
+            highlight.gameObject.SetActive(true);
+            //highlight.enabled = false;
 
 
             if (one)
@@ -143,8 +143,8 @@ public class PlayerBehaviour : MonoBehaviour
         }
         else if (!lookCam)
         {
-
-            highlight.enabled = true;
+            highlight.gameObject.SetActive(false);
+            //highlight.enabled = true;
 
         }
 
