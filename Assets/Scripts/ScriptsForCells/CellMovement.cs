@@ -1216,4 +1216,38 @@ public class CellMovement : MonoBehaviour
 
      }*/
 
+    public void RotationButtonLeft()
+    {
+
+        OutlineOff = false;
+
+        selected = false;
+        Outline.gameObject.SetActive(true);
+        CanvasRotation.gameObject.SetActive(true);
+
+        unSelection = false;
+        timerUnSelection = 0;
+
+        //Debug.Log(cM[i].gameObject.name);
+        GetComponent<CellScript>().isInRotation = true;
+
+    }
+
+    public void RotationButtonRight()
+    {
+        OutlineOff = false;
+
+        selected = false;
+        Outline.gameObject.SetActive(true);
+        CanvasRotation.gameObject.SetActive(true);
+
+        unSelection = false;
+        timerUnSelection = 0;
+
+        //Debug.Log(cM[i].gameObject.name);
+        GetComponent<CellScript>().isInRotationInverse = true;
+    }
+
+
+
 }
