@@ -24,9 +24,6 @@ public class ROOM_Manager : MonoBehaviour
     {
         if (currentRoom != null)
         {
-            UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.outOfContextGO);
-
-            StartCoroutine(ActiveOutContext());
             StartCoroutine(ActiveAnimationIn(animDelay));
 
             GameManager.Instance.SwitchModeTo(GameManager.GameMode.InvestigationMode);
@@ -40,14 +37,10 @@ public class ROOM_Manager : MonoBehaviour
     {
         if (currentRoom != null)
         {
-            UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = false;
-            UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.outOfContextGO);
-
             GameManager.Instance.SwitchModeTo(GameManager.GameMode.PuzzleMode);
 
             currentRoom.DisableUI();
         }
-
     }
 
     public void ExamineRoom()
@@ -62,6 +55,9 @@ public class ROOM_Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
+        if (currentRoom.isDialogue)
+            NPC_Manager.Instance.SetDialogueOPTION();
+
         currentRoom.InteractionAppears();
     }
 
@@ -70,12 +66,5 @@ public class ROOM_Manager : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         currentRoom.DisableUI();
-    }
-
-    IEnumerator ActiveOutContext()
-    {
-        yield return new WaitForSeconds(2);
-
-        UI_Manager.Instance.outOfContextGO[0].GetComponent<Button>().interactable = true;
     }
 }

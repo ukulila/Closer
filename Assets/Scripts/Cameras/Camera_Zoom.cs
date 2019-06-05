@@ -74,7 +74,7 @@ public class Camera_Zoom : MonoBehaviour
         currentZoomPos = virtualCamera.m_Lens.OrthographicSize;
     }
 
-    private void Start()
+   /* private void Start()
     {
         if (virtualCamera.m_Lens.OrthographicSize < trailInvisibleAt)
         {
@@ -84,7 +84,7 @@ public class Camera_Zoom : MonoBehaviour
         else
             trail_Behaviour.Instance.isTrailStillVisible = true;
     }
-
+    */
     
     void Update()
     {
@@ -129,11 +129,11 @@ public class Camera_Zoom : MonoBehaviour
                         areFingersMoving = false;
                         if (virtualCamera.m_Lens.OrthographicSize < trailInvisibleAt)
                         {
-                            trail_Behaviour.Instance.isTrailStillVisible = false;
-                            trail_Behaviour.Instance.DeactivateTrail();
+                            //trail_Behaviour.Instance.isTrailStillVisible = false;
+                           // trail_Behaviour.Instance.DeactivateTrail();
                         }
-                        else
-                            trail_Behaviour.Instance.isTrailStillVisible = true;
+                        //else
+                           // trail_Behaviour.Instance.isTrailStillVisible = true;
                         break;
                 }
 

@@ -5,8 +5,11 @@ public class CinematicTrigger : MonoBehaviour
 {
     public bool playOnAwake;
 
-    public NPCInteractions dialogueNpcToActivate;
+    public NPCInteractions npcConcerned;
+    public int dialogueNpcIndex;
     public string NpcLocation;
+
+
 
 
     public static CinematicTrigger Instance;
@@ -47,7 +50,7 @@ public class CinematicTrigger : MonoBehaviour
 
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.Dialogue);
 
-        NpcLocation = dialogueNpcToActivate.transform.parent.name;
+        NpcLocation = npcConcerned.transform.parent.name;
 
         Camera_UI.Instance.SetInitialCameraValues();
         Camera_UI.Instance.SetCameraNextLocation(NpcLocation);
@@ -63,8 +66,8 @@ public class CinematicTrigger : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        if (dialogueNpcToActivate != null)
-            dialogueNpcToActivate.StartDialogueAbout();
+        if (npcConcerned != null)
+            npcConcerned.StartAnyDialogueViaIndex(dialogueNpcIndex);
         else
             StartCoroutine(DelayBoforeEndingCinematic(2f));
     }

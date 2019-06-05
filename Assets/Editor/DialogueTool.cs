@@ -4,12 +4,12 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public enum DialogueType { ChéPo, Commun, Quest };
-
 public class DialogueTool : EditorWindow
 {
     public Object yourTextFile;
     string dialogueName;
+    string question;
+
 
     public Object selectedNPC;
 
@@ -34,7 +34,7 @@ public class DialogueTool : EditorWindow
     public GameObject currentUImask;
     public bool isThereUImask;
 
-    public DialogueType type;
+    public bool isPresentInDialogueOPTION;
 
     public NPCInteractions npcSelected;
 
@@ -62,9 +62,11 @@ public class DialogueTool : EditorWindow
         GUILayout.Label("Sujet de la conversation", EditorStyles.boldLabel);
         dialogueName = EditorGUILayout.TextField(dialogueName);
 
+        GUILayout.Label("Question", EditorStyles.boldLabel);
+        question = EditorGUILayout.TextField(question);
 
-
-        type = (DialogueType)EditorGUILayout.EnumPopup(type);
+        GUILayout.Label("Fait-elle partie des premières questions posées au NPC ?", EditorStyles.boldLabel);
+        isPresentInDialogueOPTION = EditorGUILayout.Toggle(isPresentInDialogueOPTION);
 
 
 
@@ -212,14 +214,14 @@ public class DialogueTool : EditorWindow
                 isThereROOM_Manager = true;
             }
 
-            if (yourTextFile != null && npcSelected != null && type != DialogueType.ChéPo && currentCanvas != null)
+            if (yourTextFile != null && npcSelected != null && question != null && currentCanvas != null)
             {
                 if (dialogueName == "")
                 {
                     dialogueName = "NewDialogue";
                 }
 
-                GameObject newDialogue = new GameObject(selectedNPC.name + "_" + type.ToString() + "_" + dialogueName, typeof(RectTransform));
+                GameObject newDialogue = new GameObject(selectedNPC.name + "_" + dialogueName, typeof(RectTransform));
                 newDialogue.GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
 
                 if (currentUImask != null)
@@ -236,17 +238,6 @@ public class DialogueTool : EditorWindow
                 newDialogue.GetComponent<DialogueSystem>().asset = (TextAsset)yourTextFile;
                 newDialogue.GetComponent<DialogueSystem>().dialogueBoxPrefab = dialogueBoxPrefab_Reference;
                 newDialogue.GetComponent<DialogueSystem>().dialogueGo = newDialogue.GetComponent<RectTransform>();
-
-                if (type == DialogueType.Commun)
-                    npcSelected.GetComponent<NPCInteractions>().communDialogueSystems.Add(newDialogue.GetComponent<DialogueSystem>());
-
-                if (type == DialogueType.Quest)
-                {
-                    Undo.RecordObject(this, "Bla bla");
-                    npcSelected.GetComponent<NPCInteractions>().questDialogueSystems.Add(newDialogue.GetComponent<DialogueSystem>());
-                    npcSelected.GetComponent<NPCInteractions>().questTriggers.Add(new UnityEngine.Events.UnityEvent());
-                    EditorUtility.SetDirty(this);
-                }
 
 
 
@@ -272,11 +263,31 @@ public class DialogueTool : EditorWindow
                 newDialogue.GetComponent<DialogueSystem>().speakingColor = speakingColor_Reference;
                 newDialogue.GetComponent<DialogueSystem>().listeningColor = listeningColor_Reference;
 
+                npcSelected.dialogue.Add(new DialogueClass());
+                
+                npcSelected.dialogue[npcSelected.dialogue.Count - 1].questHasBeenAsked = false;
 
+                npcSelected.dialogue[npcSelected.dialogue.Count - 1].questDialogueSystems = newDialogue.GetComponent<DialogueSystem>();
+
+                if (isPresentInDialogueOPTION)
+                {
+                    npcSelected.questionIndex.Add(npcSelected.dialogue.Count - 1);
+                    npcSelected.dialogue[npcSelected.dialogue.Count - 1].isNewQuest = false;
+                }
+                else
+                {
+                    npcSelected.dialogue[npcSelected.dialogue.Count - 1].isNewQuest = true;
+                }
+
+                npcSelected.dialogue[npcSelected.dialogue.Count - 1].questQuestion = question;
+
+
+
+                isPresentInDialogueOPTION = false;
                 yourTextFile = null;
                 npcSelected = null;
                 dialogueName = null;
-                type = DialogueType.ChéPo;
+                question = " ";
 
                 newDialogue.GetComponent<DialogueSystem>().SetUp();
             }

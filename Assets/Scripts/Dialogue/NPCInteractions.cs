@@ -1,61 +1,34 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class NPCInteractions : MonoBehaviour
 {
 
-    public List<DialogueSystem> communDialogueSystems;
-    public List<DialogueSystem> questDialogueSystems;
-    public List<UnityEvent> questTriggers;
-    public bool onQuest;
-    public bool hasEventBeenInvoked;
+    public List<DialogueClass> dialogue;
 
+    public List<int> questionIndex;
 
-    public int dialogueIndex;
+    public int currentDialogueIndex;
 
 
 
 
-    /// <summary>
-    /// Set le prochain dialogue spécifique
-    /// </summary>
-    /// <param name="questIndex"></param>
-    public void SetDialogueForQuest(int questIndex)
+
+    public void StartAnyDialogueViaIndex(int DialogueIndex)
     {
-        dialogueIndex = questIndex;
-        onQuest = true;
+        dialogue[DialogueIndex].questDialogueSystems.StartDialogue();
+
+        currentDialogueIndex = DialogueIndex;
+
+        Examine_Script.Instance.examineButton.interactable = false;
     }
 
-    /// <summary>
-    /// Repasse sur les dialogues communs
-    /// </summary>
-    public void SetDialogueBackToCommun()
+    public void StartDialogueAbout(int DialogueIndex)
     {
-        dialogueIndex = 0;
-        onQuest = false;
-    }
+        dialogue[questionIndex[DialogueIndex]].questDialogueSystems.StartDialogue();
 
-    /// <summary>
-    /// Joue les dialogues communs en boucle, et les dialogues de quêtes selon l'index donnée (au cas où un personnage disposerait de plusieurs réponses nécéssitant un dialogue spécifique)
-    /// </summary>
-    public void StartDialogueAbout()
-    {
-        if (onQuest)
-        {
-            questDialogueSystems[dialogueIndex].StartDialogue();
-            hasEventBeenInvoked = false;
-        }
-        else
-        {
-            communDialogueSystems[dialogueIndex].StartDialogue();
+        currentDialogueIndex = DialogueIndex;
 
-            dialogueIndex++;
-
-            if (dialogueIndex > communDialogueSystems.Count - 1)
-            {
-                dialogueIndex = 0;
-            }
-        }
+        Examine_Script.Instance.examineButton.interactable = false;
     }
 }

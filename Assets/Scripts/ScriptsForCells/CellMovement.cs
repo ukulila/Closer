@@ -82,11 +82,21 @@ public class CellMovement : MonoBehaviour
     public bool isTuto02;
     public bool isTuto03;
 
+    public GameObject CanvasRotation;
+    public bool actiCanvas;
+    public bool unSelection;
+    public int timerUnSelection;
+    public CubeRotationPatch cRP;
+
+    public bool OutlineOff;
+
     //private bool activatePosPreview;
     #region Init
 
     public void Awake()
     {
+        CanvasRotation.SetActive(false);
+
         over = true;
         //Outline.ReColor("");
         // Outline.gameObject.SetActive(false);
@@ -126,7 +136,7 @@ public class CellMovement : MonoBehaviour
 
     public void Update()
     {
-        if (selected)
+        if (selected && !OutlineOff)
         {
             if (Outline.gameObject.activeInHierarchy == false)
             {
@@ -134,6 +144,38 @@ public class CellMovement : MonoBehaviour
                 Outline.ReColor("isSelected");
             }
         }
+        else
+        {
+
+            if (Outline.gameObject.activeInHierarchy == false)
+            {
+                Outline.gameObject.SetActive(false);
+               // Outline.ReColor("isSelected");
+            }
+
+        }
+
+
+        if ((selected && !isSpawn && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode))
+        {
+            slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
+            slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
+            actiCanvas = true;
+            CanvasRotation.SetActive(true);
+
+        }
+
+
+        if(Outline.gameObject.activeInHierarchy == false)
+        {
+            if (actiCanvas == true)
+            {
+                CanvasRotation.SetActive(false);
+                actiCanvas = false;
+            }
+        }
+
+
 
         if (!selected && Outline.gameObject.activeInHierarchy == true && isOpen == false && isSpawn == false)
         {
@@ -148,6 +190,9 @@ public class CellMovement : MonoBehaviour
                 Outline.gameObject.SetActive(true);
                 Outline.ReColor("isOpen");
             }
+
+            Outline.ReColor("isOpen");
+
         }
 
         if (player.context.gameObject == gameObject)
@@ -286,13 +331,32 @@ public class CellMovement : MonoBehaviour
 
 
         //Takes off the Outline when click elsewhere
-        if (Input.GetMouseButtonDown(0) && !isSpawn)
+        /* if (/*Input.GetMouseButtonDown(0) && !isSpawn)
+         {
+             unSelection = true;
+           //  selected = false;
+             slectedRoomText.text = " ";
+         }*/
+
+        if (unSelection && !isSpawn)
         {
-            selected = false;
-            slectedRoomText.text = " ";
+
+            timerUnSelection++;
+            if (timerUnSelection > 15)
+            {
+                selected = false;
+                slectedRoomText.text = " ";
+                unSelection = false;
+                timerUnSelection = 0;
+            }
+
+
         }
 
-
+        if (!unSelection)
+        {
+            timerUnSelection = 0;
+        }
 
         #endregion
 
@@ -423,7 +487,7 @@ public class CellMovement : MonoBehaviour
 
         if (freezePosValue)
         {
-           // print("freezePosValue");
+            // print("freezePosValue");
 
             for (int i = 0; i < PositionsDebug.Count; i++)
             {
@@ -1069,7 +1133,7 @@ public class CellMovement : MonoBehaviour
     public void DebugPos()
     {
 
-          //  print("oldReset");
+        //  print("oldReset");
 
         if (transform.position.x < 0 && (transform.position.x != resetPosValue || transform.position.x != -resetPosValue))
         {
@@ -1151,5 +1215,5 @@ public class CellMovement : MonoBehaviour
                  brothers[7].transform.position = PositionsDebug[7];
 
      }*/
-     
+
 }

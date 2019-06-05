@@ -11,9 +11,9 @@ public class UI_Manager_SetUp : Editor
     public GameObject dialogueCharacterBox_Ref;
     public GameObject dialogueUImask_Ref;
     public GameObject actors_Ref;
+    public GameObject dialogueOption_Ref;
     [Space]
     public GameObject ui_Contextuelle_Ref;
-    public GameObject outOfContext_Ref;
     [Space]
     public GameObject slots_Ref;
     public GameObject outOfUI_Ref;
@@ -21,7 +21,6 @@ public class UI_Manager_SetUp : Editor
     public GameObject objectif_Ref;
     public GameObject progression_Ref;
     public GameObject inventoryButtons_Ref;
-    public GameObject examineButton_Ref;
     [Space]
     public GameObject uI_Background_Ref;
     [Space]
@@ -31,9 +30,9 @@ public class UI_Manager_SetUp : Editor
     public GameObject current_DialogueCharacterBox;
     public GameObject current_DialogueUImask;
     public GameObject current_Actors;
+    public GameObject current_DialogueOption;
     [Space]
     public GameObject current_ui_Contextuelle;
-    public GameObject current_outOfContext;
     [Space]
     public GameObject current_slots;
     public GameObject current_outOfUI;
@@ -41,7 +40,6 @@ public class UI_Manager_SetUp : Editor
     public GameObject current_objectif;
     public GameObject current_progression;
     public GameObject current_inventoryButtons;
-    public GameObject current_examineButton;
     [Space]
     public GameObject current_UI_Background;
     [Space]
@@ -59,7 +57,6 @@ public class UI_Manager_SetUp : Editor
         {
             ui_Manager.dialogueGO.Clear();
             ui_Manager.contextuelleGO.Clear();
-            ui_Manager.outOfContextGO.Clear();
             ui_Manager.inventoryGO.Clear();
             ui_Manager.inventoryButtonsGO.Clear();
             ui_Manager.backgroundGO.Clear();
@@ -91,6 +88,11 @@ public class UI_Manager_SetUp : Editor
                 current_Actors = GameObject.Find(actors_Ref.name);
             }
 
+            if (GameObject.Find(dialogueOption_Ref.name))
+            {
+                current_DialogueOption = GameObject.Find(dialogueOption_Ref.name);
+            }
+
 
             if (GameObject.Find(ui_Contextuelle_Ref.name))
             {
@@ -100,11 +102,6 @@ public class UI_Manager_SetUp : Editor
             if (GameObject.Find(ui_Contextuelle_Ref.name + "(Clone)"))
             {
                 current_ui_Contextuelle = GameObject.Find(ui_Contextuelle_Ref.name + "(Clone)");
-            }
-
-            if (GameObject.Find(outOfContext_Ref.name))
-            {
-                current_outOfContext = GameObject.Find(outOfContext_Ref.name);
             }
 
 
@@ -139,10 +136,6 @@ public class UI_Manager_SetUp : Editor
                 current_inventoryButtons = GameObject.Find(inventoryButtons_Ref.name);
             }
 
-            if (GameObject.Find(examineButton_Ref.name))
-            {
-                current_examineButton = GameObject.Find(examineButton_Ref.name);
-            }
 
 
             if (GameObject.Find(uI_Background_Ref.name))
@@ -176,18 +169,17 @@ public class UI_Manager_SetUp : Editor
                 ui_Manager.dialogueGO.Add(current_Actors);
             }
 
+            if (current_DialogueOption != null)
+            {
+                ui_Manager.dialogueGO.Add(current_DialogueOption);
+            }
+
 
 
             if (current_ui_Contextuelle != null)
             {
                 ui_Manager.contextuelleGO.Add(current_ui_Contextuelle);
             }
-
-            if (current_outOfContext != null)
-            {
-                ui_Manager.outOfContextGO.Add(current_outOfContext);
-            }
-
 
 
             if (current_slots != null)
@@ -215,10 +207,6 @@ public class UI_Manager_SetUp : Editor
             //    ui_Manager.inventoryGO.Add(current_progression);
             //}
 
-            if (current_examineButton != null)
-            {
-                ui_Manager.inventoryGO.Add(current_examineButton);
-            }
 
             if (current_inventoryButtons != null)
             {

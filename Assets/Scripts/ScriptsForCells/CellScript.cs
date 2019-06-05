@@ -19,7 +19,7 @@ public class CellScript : MonoBehaviour
     public bool isInRotation;
     public int timer;
     private bool first;
-    private int nbrTouch;
+    //private int nbrTouch;
     private bool set;
     private Quaternion myRot;
     private int timeRot = 0;
@@ -46,6 +46,7 @@ public class CellScript : MonoBehaviour
     public List<Material> material;
     private Vector3 rotationVector = new Vector3(0, 90, 0);
     public bool playerMoving;
+    public bool isInRotationInverse;
 
     void Start()
     {
@@ -53,11 +54,11 @@ public class CellScript : MonoBehaviour
         freeRoom = false;
 
         
-        for (int i = 0; i < coneRed.Count; i++)
+       /* for (int i = 0; i < coneRed.Count; i++)
         {
             material.Add(coneRed[i].GetComponent<Renderer>().material);
             material[i].SetColor("_EmissionColor", Color.red);
-        }
+        }*/
         
     }
 
@@ -71,7 +72,7 @@ public class CellScript : MonoBehaviour
 
                 if (timer >= timeBetweenTwoTouches)
                 {
-                    nbrTouch = 0;
+                    //nbrTouch = 0;
                     timer = 0;
                     first = false;
                 }
@@ -93,6 +94,44 @@ public class CellScript : MonoBehaviour
                 {
                     timeRot = 0;
                     isInRotation = false;
+                    GetComponent<CellMovement>().selected = true;
+
+                    if (cP != null)
+                    {
+                        cP.isInRotation = false;
+                    }
+
+                    if (brothers[0] != null)
+                    {
+                        for (int r = 0; r < brothers.Count; r++)
+                        {
+                            brothers[r].hasEnded = true;
+                            brothers[r].isOpen = false;
+                            player.checkOpenDoor = true;
+                        }
+                    }
+                }
+            }
+
+            if (isInRotationInverse)
+            {
+                transform.Rotate(new Vector3(0, -1, 0), speed);
+
+                if (cP != null)
+                {
+                    cP.isInRotation = true;
+                }
+
+                timeRot++;
+
+                if (timeRot > fin)
+                {
+                    timeRot = 0;
+                    // GetComponent<CellMovement>().OutlineOff = false;
+
+                    GetComponent<CellMovement>().selected = true;
+
+                    isInRotationInverse = false;
 
                     if (cP != null)
                     {
@@ -112,8 +151,7 @@ public class CellScript : MonoBehaviour
             }
 
 
-
-            if (Input.GetMouseButtonDown(0) && !playerMoving)
+           /* if (Input.GetMouseButtonDown(0) && !playerMoving)
             {
                 RaycastHit hit;
                 int LayerMaskCells = LayerMask.GetMask("Cell");
@@ -135,7 +173,7 @@ public class CellScript : MonoBehaviour
                                      brothers[r].hasEnded = false;
                                  }
                             }
-                            */
+                            
                             set = true;
                             if (set)
                             {
@@ -150,12 +188,12 @@ public class CellScript : MonoBehaviour
 
                 }
 
-            }
+            }*/
 
         }
     }
 
-    public void ConeFunction(int door)
+    /*public void ConeFunction(int door)
     {
         if (freeRoom)
         {
@@ -167,5 +205,12 @@ public class CellScript : MonoBehaviour
         {
             material[door].SetColor("_EmissionColor", Color.red);
         }
+    }*/
+
+    public void TurnLeft()
+    {
+
+        transform.localEulerAngles = new Vector3(transform.rotation.x, Mathf.Lerp(transform.rotation.y, transform.rotation.y + 90, 0.3f), transform.rotation.z);
+
     }
 }

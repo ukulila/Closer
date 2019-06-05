@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7306695837256206400}
   - component: {fileID: 7306695837256206401}
   - component: {fileID: 1008815498}
+  - component: {fileID: 8907627350744425232}
   m_Layer: 5
   m_Name: Examine
   m_TagString: Untagged
@@ -60,14 +61,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3a37a45a32e4b7444a24c5cf46a78426, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2a7eb188e01d65c48a27d96cb3e17df9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -159,3 +160,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8907627350744425232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7306695837256206403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d21ac848512ba43a6104778dfeb00a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  examineImage: {fileID: 7306695837256206400}
+  examineButton: {fileID: 7306695837256206401}
+  examineIN: {fileID: 21300000, guid: 2a7eb188e01d65c48a27d96cb3e17df9, type: 3}
+  examineOUT: {fileID: 21300000, guid: 1eca20e40c6461844992a5572d6013ed, type: 3}
