@@ -7,7 +7,7 @@ public class CellScript : MonoBehaviour
 {
     [Header("   Tweaking Values")]
     [Tooltip("Checker Avec le prog Gameplay pour le tweak de cette value")]
-    [Range(0.1f, 5)]
+    [Range(0.1f, 10)]
     public float speed = 3;
     [Space(10)]
     public float fin;
@@ -206,11 +206,11 @@ public class CellScript : MonoBehaviour
             material[door].SetColor("_EmissionColor", Color.red);
         }
     }*/
-
+    /*
     public void TurnLeft()
     {
 
         transform.localEulerAngles = new Vector3(transform.rotation.x, Mathf.Lerp(transform.rotation.y, transform.rotation.y + 90, 0.3f), transform.rotation.z);
 
-    }
+    }*/
 }
