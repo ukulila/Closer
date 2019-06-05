@@ -86,7 +86,7 @@ public class Camera_UI : MonoBehaviour
 
     public void SwitchToNoUi()
     {
-        if (GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode || GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue)
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode || GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue | GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
         {
             animationCurveTimingMax = animationTimingMin;
 
@@ -451,7 +451,7 @@ public class Camera_UI : MonoBehaviour
 
                 Examine_Script.Instance.examineImage.sprite = Examine_Script.Instance.examineOUT;
 
-                if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questDialogueSystems.isForCinematic == false)
+                if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode)
                     Examine_Script.Instance.examineButton.interactable = true;
             }
             else

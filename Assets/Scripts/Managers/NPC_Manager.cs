@@ -23,9 +23,10 @@ public class NPC_Manager : MonoBehaviour
     public Image blancheIcon;
     public TextMeshProUGUI nameCharacter;
     public Image nameBox;
+    public Image returnIcon;
+    public Button returnButton;
 
     [Header("Fade IN or OUT")]
-    public Animator returnAnim;
     public bool isCurveNeeded = false;
     public bool onReverse = false;
 
@@ -84,7 +85,7 @@ public class NPC_Manager : MonoBehaviour
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
-            if (currentNPC.dialogue[currentNPC.currentDialogueIndex].isNewQuest == true)
+            if (currentNPC.dialogue[currentNPC.questionIndex[i]].isNewQuest == true)
             {
                 questionsAnim[i].SetBool("Discovered", true);
 
@@ -95,7 +96,7 @@ public class NPC_Manager : MonoBehaviour
                 questionsAnim[i].SetBool("Discovered", false);
             }
 
-            if (currentNPC.dialogue[currentNPC.currentDialogueIndex].questHasBeenAsked == true)
+            if (currentNPC.dialogue[currentNPC.questionIndex[i]].questHasBeenAsked == true)
             {
                 questionsAnim[i].SetBool("hasBeenAsked", true);
 
@@ -106,7 +107,7 @@ public class NPC_Manager : MonoBehaviour
                 questionsAnim[i].SetBool("hasBeenAsked", false);
             }
 
-            questionsTexts[i].text = currentNPC.dialogue[currentNPC.currentDialogueIndex].questQuestion;
+            questionsTexts[i].text = currentNPC.dialogue[currentNPC.questionIndex[i]].questQuestion;
 
             questionsAnim[i].ResetTrigger("FadeIN");
             questionsAnim[i].ResetTrigger("Selected");
@@ -134,7 +135,7 @@ public class NPC_Manager : MonoBehaviour
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
-            questionsAnim[currentNPC.questionIndex[i]].SetTrigger("FadeIN");
+            questionsAnim[i].SetTrigger("FadeIN");
         }
 
         onReverse = false;
@@ -151,9 +152,12 @@ public class NPC_Manager : MonoBehaviour
     /// </summary>
     public void DeactivateDialogueOPTION()
     {
+        returnButton.interactable = false;
+
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
-            questionsAnim[currentNPC.questionIndex[i]].SetTrigger("FadeOUT");
+            Debug.Log(i);
+            questionsAnim[i].SetTrigger("Gone");
         }
 
         onReverse = true;
@@ -219,9 +223,9 @@ public class NPC_Manager : MonoBehaviour
             else
             {
                 isCurveNeeded = false;
-                returnAnim.SetTrigger("FadeIN");
 
                 Examine_Script.Instance.examineButton.interactable = true;
+                returnButton.interactable = true;
             }
         }
         else
@@ -246,5 +250,6 @@ public class NPC_Manager : MonoBehaviour
         blancheIcon.color = new Color(1, 1, 1, (0 + (1 * percent)));
         nameBox.color = new Color(1, 1, 1, (0 + (1 * percent)));
         nameCharacter.color = new Color(1, 1, 1, (0 + (1 * percent)));
+        returnIcon.color = new Color(1, 1, 1, (0 + (1 * percent)));
     }
 }

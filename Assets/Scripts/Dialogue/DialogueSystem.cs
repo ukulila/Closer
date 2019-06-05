@@ -1032,7 +1032,7 @@ public class DialogueSystem : MonoBehaviour
 
                     StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
 
-                    StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(1.5f));
+                    StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2f));
                 }
                 else
                 {

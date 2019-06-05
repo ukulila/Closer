@@ -53,6 +53,16 @@ public class GameManager : MonoBehaviour
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.backgroundGO));
                 }
 
+                if (previousGameMode == GameMode.CinematicMode)
+                {
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.inventoryGO);
+                    UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.WinningGO);
+
+                    //UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.dialogueGO));
+                    //UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.contextuelleGO));
+                    //UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.backgroundGO));
+                }
+
                 if (ROOM_Manager.Instance.currentRoom.isThereClients == true)
                 {
                     Harcelement_Manager.Instance.AmongThem();
@@ -117,7 +127,25 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameMode.CinematicMode:
+                if (previousGameMode == GameMode.PuzzleMode)
+                {
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.backgroundGO);
+                    UI_Manager.Instance.DeactivateListOfUI(UI_Manager.Instance.contextuelleGO);
 
+                    UI_Manager.Instance.inventoryGO[2].GetComponent<Button>().onClick.Invoke();
+                    UI_Manager.Instance.inventoryButtonsGO[0].GetComponentInChildren<Button>().onClick.Invoke();
+                    InventorySystem.Instance.HideInventory();
+
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.inventoryGO));
+                }
+
+                if (previousGameMode == GameMode.InvestigationMode)
+                {
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
+
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.contextuelleGO));
+                }
                 previousGameMode = GameMode.CinematicMode;
                 break;
 

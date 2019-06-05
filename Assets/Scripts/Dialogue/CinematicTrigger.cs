@@ -48,7 +48,7 @@ public class CinematicTrigger : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
 
-        GameManager.Instance.SwitchModeTo(GameManager.GameMode.Dialogue);
+        GameManager.Instance.SwitchModeTo(GameManager.GameMode.CinematicMode);
 
         NpcLocation = npcConcerned.transform.parent.name;
 
