@@ -123,18 +123,26 @@ public class TimeLineScript : MonoBehaviour
             if (pola != null)
             {
 
-                lerpPos = Vector3.Lerp(pola.transform.position, originPos, 0.2f);
-                timer++;
-                pola.position = lerpPos;
+                //lerpPos = Vector3.Lerp(pola.transform.position, originPos, 0.2f);
+                pola.position = originPos;
+               // timer++;
+               // pola.position = lerpPos;
                 pola.transform.SetParent(originTarget);
-                if(timer>25)
-                {
-                    NothingInTranzit = true;
-                    timer = 0;
-                    signal.gameObject.SetActive(false);
-                }
+
+                /* if(timer>25)
+                 {
+                     NothingInTranzit = true;
+                     timer = 0;
+                     signal.gameObject.SetActive(false);
+                 }*/
                 // pola = null;
+
+                NothingInTranzit = true;
+
+                signal.gameObject.SetActive(false);
+
                 polaroidInteraction = false;
+                lerpAnim = false;
 
             }
         }

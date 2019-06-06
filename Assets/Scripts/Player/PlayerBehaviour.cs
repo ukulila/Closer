@@ -1030,7 +1030,14 @@ public class PlayerBehaviour : MonoBehaviour
                     // closeDoor = true;
 
                 }
+
+
+                if( listToMove[index-1].name.Contains("Door") && listToMove[index].name.Contains("Door"))
+                {
+                    Debug.Log("BetweenTwoDoors");
+                }
             }
+
 
         }
     }
