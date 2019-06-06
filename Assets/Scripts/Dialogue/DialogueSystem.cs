@@ -51,7 +51,7 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("   Récupération des acteurs")]
     public GameObject actorsIconHierarchyReference;
-    public enum Actors { Blanche, Mireille, Louis, MmeBerleau, Dotty, Jolly, Dolores, Maggie, Esdie, Walter, Ray, Barney, Nikky, Irina };
+    public enum Actors { Blanche, Mireille, Mehdi, MmeBerleau, Dotty, Jolly, Dolores, Maggie, Esdie, Walter, Ray, Barney, Nikky, Irina };
     public Actors currentActor;
     public List<Actors> actors;
     public List<int> activeActorsIndex;
@@ -618,9 +618,9 @@ public class DialogueSystem : MonoBehaviour
                             currentWord = "";
                         }
 
-                        if (currentWord == Actors.Louis.ToString().ToUpper())
+                        if (currentWord == Actors.Mehdi.ToString().ToUpper())
                         {
-                            actors.Add(Actors.Louis);
+                            actors.Add(Actors.Mehdi);
                             spaceCount = 0;
                             actorSet = true;
                             lines.Add("");
@@ -865,9 +865,9 @@ public class DialogueSystem : MonoBehaviour
                 actorsIcon[(int)Actors.Mireille].gameObject.SetActive(true);
             }
 
-            if (actors[i] == Actors.Louis)
+            if (actors[i] == Actors.Mehdi)
             {
-                actorsIcon[(int)Actors.Louis].gameObject.SetActive(true);
+                actorsIcon[(int)Actors.Mehdi].gameObject.SetActive(true);
             }
 
             if (actors[i] == Actors.MmeBerleau)
