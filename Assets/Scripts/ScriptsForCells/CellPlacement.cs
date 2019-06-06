@@ -29,6 +29,23 @@ public class CellPlacement : MonoBehaviour
     public static CellPlacement Instance;
     public int speed;
 
+
+    [Header("   Sounds")]
+
+    public bool playHasEndedSound;
+    public bool playSelectionSound;
+    public bool playIsOpenSound;
+    public bool playMovingRooms;
+    public bool playUnsSlectionSound;
+
+    public AudioSource LeMouvementSeTermine;
+    public AudioSource SelectionDUnePièce;
+    public AudioSource UnePièceEstOpen;
+    public AudioSource DéplacementDesPièces;
+    public AudioSource DésélectionDUnePièce;
+    public AudioSource ClicQuandDeuxPortesSeFontFace;
+
+
     public void Awake()
     {
         doOnce = true;
@@ -40,6 +57,18 @@ public class CellPlacement : MonoBehaviour
 
     void Update()
     {
+
+        if (playHasEndedSound)
+        {
+            PlayHasEndedSound();
+            playHasEndedSound = false;
+        }
+
+        if (playSelectionSound)
+        {
+            PlaySelectionSound();
+            playSelectionSound = false;
+        }
 
         if (GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue || GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
         {
@@ -76,18 +105,18 @@ public class CellPlacement : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
 
-          /*  RaycastHit hitAnywhere;
+            /*  RaycastHit hitAnywhere;
 
-            if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hitAnywhere, 250))
-            {
-                Debug.Log(hitAnywhere.transform.name);
-            }
-            */
-                if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+              if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hitAnywhere, 250))
+              {
+                  Debug.Log(hitAnywhere.transform.name);
+              }
+              */
+            if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
             {
                 FingerOnScreen = true;
             }
-            
+
             once = true;
 
             RaycastHit hit;
@@ -146,7 +175,7 @@ public class CellPlacement : MonoBehaviour
                     if (Cr != null)
                         Cr.aboutCamera = false;
 
-                 //   trail_Behaviour.Instance.DeactivateTrail();
+                    //   trail_Behaviour.Instance.DeactivateTrail();
                 }
 
 
@@ -177,7 +206,7 @@ public class CellPlacement : MonoBehaviour
 
                     cM[i].over = false;
 
-                    if(cM[i].selected)
+                    if (cM[i].selected)
                     {
                         cM[i].unSelection = true;
                         cM[i].isOpen = false;
@@ -316,6 +345,43 @@ public class CellPlacement : MonoBehaviour
 
             }
         }
+    }
+
+
+    public void PlayHasEndedSound()
+    {
+        if (LeMouvementSeTermine != null)
+            LeMouvementSeTermine.Play(0);
+    }
+
+    public void PlaySelectionSound()
+    {
+        if (SelectionDUnePièce != null)
+            SelectionDUnePièce.Play(0);
+    }
+
+    public void PlayIsOpenSound()
+    {
+        if (UnePièceEstOpen != null)
+            UnePièceEstOpen.Play(0);
+    }
+
+    public void PlayMovingRoomsSound()
+    {
+        if (DéplacementDesPièces != null)
+            DéplacementDesPièces.Play(0);
+    }
+
+    public void PlayUnSelectionSound()
+    {
+        if (DésélectionDUnePièce != null)
+            DésélectionDUnePièce.Play(0);
+    }
+
+    public void PlayClicQuandDeuxPortesSeFontFaceSound()
+    {
+        if (ClicQuandDeuxPortesSeFontFace != null)
+            ClicQuandDeuxPortesSeFontFace.Play(0);
     }
 
 }
