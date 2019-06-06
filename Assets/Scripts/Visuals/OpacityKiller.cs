@@ -68,29 +68,33 @@ public class OpacityKiller : MonoBehaviour
 
 
 
-
-            if (Planes[0].color.a == 1)
+            if (KillChilds.Count != 0)
             {
-                if (KillChilds[KillChilds.Count - 1].activeInHierarchy == true)
+                if (Planes[0].color.a == 1)
                 {
-                    for (int i = 0; i < KillChilds.Count; i++)
+                    if (KillChilds[KillChilds.Count - 1].activeInHierarchy == true)
                     {
-                        KillChilds[i].SetActive(false);
+                        for (int i = 0; i < KillChilds.Count; i++)
+                        {
+                            KillChilds[i].SetActive(false);
 
+                        }
+                    }
+                }
+                else
+                {
+                    if (KillChilds[KillChilds.Count - 1].activeInHierarchy == false)
+                    {
+                        for (int i = 0; i < KillChilds.Count; i++)
+                        {
+                            KillChilds[i].SetActive(true);
+
+                        }
                     }
                 }
             }
-            else
-            {
-                if (KillChilds[KillChilds.Count - 1].activeInHierarchy == false)
-                {
-                    for (int i = 0; i < KillChilds.Count; i++)
-                    {
-                        KillChilds[i].SetActive(true);
 
-                    }
-                }
-            }
+
         }
 
         if (BlackRoom)
@@ -130,15 +134,18 @@ public class OpacityKiller : MonoBehaviour
 
             }
 
-            if (KillChilds[KillChilds.Count - 1].activeInHierarchy == true)
+            if (KillChilds.Count != 0)
             {
-                for (int r = 0; r < KillChilds.Count; r++)
+                if (KillChilds[KillChilds.Count - 1].activeInHierarchy == true)
                 {
-                    KillChilds[r].SetActive(false);
-                    GetComponent<ScrEnvironment>().doorWayPoints[0].gameObject.SetActive(false);
+                    for (int r = 0; r < KillChilds.Count; r++)
+                    {
+                        KillChilds[r].SetActive(false);
+                        GetComponent<ScrEnvironment>().doorWayPoints[0].gameObject.SetActive(false);
+
+                    }
 
                 }
-
             }
         }
         else /*(!BlackRoom && !CellPlacement.Instance.DesactCells)*/

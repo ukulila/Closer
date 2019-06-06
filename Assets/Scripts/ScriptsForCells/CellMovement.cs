@@ -533,7 +533,7 @@ public class CellMovement : MonoBehaviour
         }
 
         //Starts to check for an other Drag/Swipe only if the previous one has ended
-        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode && !Camera_Zoom.Instance.onZoom)
         {
             ready = false;
             CheckMove();
@@ -1193,10 +1193,10 @@ public class CellMovement : MonoBehaviour
             return;
         }
     }*/
-    /*
+    
      public void OnDrawGizmos()
      {
-         PositionsDebug[0] = new Vector3(-resetPosValue, -resetPosValue, -resetPosValue);
+       /*  PositionsDebug[0] = new Vector3(-resetPosValue, -resetPosValue, -resetPosValue);
          PositionsDebug[1] = new Vector3(resetPosValue, -resetPosValue, -resetPosValue);
          PositionsDebug[2] = new Vector3(resetPosValue, -resetPosValue, resetPosValue);
          PositionsDebug[3] = new Vector3(-resetPosValue, -resetPosValue, resetPosValue);
@@ -1212,9 +1212,9 @@ public class CellMovement : MonoBehaviour
                  brothers[4].transform.position = PositionsDebug[4];
                  brothers[5].transform.position = PositionsDebug[5];
                  brothers[6].transform.position = PositionsDebug[6];
-                 brothers[7].transform.position = PositionsDebug[7];
+                 brothers[7].transform.position = PositionsDebug[7];*/
 
-     }*/
+     }
 
     public void RotationButtonLeft()
     {
