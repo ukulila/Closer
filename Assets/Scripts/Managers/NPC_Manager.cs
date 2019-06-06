@@ -23,8 +23,8 @@ public class NPC_Manager : MonoBehaviour
     public Image blancheIcon;
     public TextMeshProUGUI nameCharacter;
     public Image nameBox;
-    public Image returnIcon;
-    public Button returnButton;
+    //public Image returnIcon;
+    //public Button returnButton;
 
     [Header("Fade IN or OUT")]
     public bool isCurveNeeded = false;
@@ -32,7 +32,7 @@ public class NPC_Manager : MonoBehaviour
 
     [Header("Dialogues state")]
     public bool isEveryDialogueDone;
-
+    public Animator returnAnim;
 
 
 
@@ -131,6 +131,8 @@ public class NPC_Manager : MonoBehaviour
     {
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.Dialogue);
 
+        Examine_Script.Instance.examineButton.interactable = false;
+
         currentNPC.dialogue[0].questDialogueSystems.actorsIcon[0].gameObject.SetActive(true);
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
@@ -140,6 +142,28 @@ public class NPC_Manager : MonoBehaviour
 
         onReverse = false;
         isCurveNeeded = true;
+
+        returnAnim.ResetTrigger("Off");
+        returnAnim.ResetTrigger("Selected");
+
+        returnAnim.SetTrigger("On");
+    }
+
+    private void ReturnToDialogueOPTION()
+    {
+        GameManager.Instance.SwitchModeTo(GameManager.GameMode.Dialogue);
+
+        currentNPC.dialogue[0].questDialogueSystems.actorsIcon[0].gameObject.SetActive(true);
+
+        for (int i = 0; i < currentNPC.questionIndex.Count; i++)
+        {
+            questionsAnim[i].SetTrigger("FadeIN");
+        }
+
+        returnAnim.ResetTrigger("Off");
+        returnAnim.ResetTrigger("Selected");
+
+        returnAnim.SetTrigger("On");
     }
 
     public void ActivateDialogueOptionIN(float time)
@@ -147,12 +171,18 @@ public class NPC_Manager : MonoBehaviour
         StartCoroutine(StartDialogueOPTIONAnimIn(time));
     }
 
+
+
     /// <summary>
     /// Lance la disparition des boutons
     /// </summary>
     public void DeactivateDialogueOPTION()
     {
-        returnButton.interactable = false;
+        returnAnim.ResetTrigger("On");
+
+        //returnButton.interactable = false;
+        returnAnim.SetTrigger("Selected");
+        //returnAnim.SetTrigger("Off");
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
@@ -171,6 +201,7 @@ public class NPC_Manager : MonoBehaviour
     public void TalkToCurrentNPC(int dialogueIndex)
     {
         StartCoroutine(StartDialogueIn(1.5f, dialogueIndex));
+        returnAnim.SetTrigger("Off");
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.Dialogue);
     }
 
@@ -200,12 +231,14 @@ public class NPC_Manager : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         ActivateDialogueOPTION();
-
-        yield return new WaitForSeconds(1.1f);
-
-        Examine_Script.Instance.examineButton.interactable = true;
     }
 
+    public IEnumerator ReturnToDialogueOPTIONAnimIn(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        ReturnToDialogueOPTION();
+    }
 
 
 
@@ -224,8 +257,8 @@ public class NPC_Manager : MonoBehaviour
             {
                 isCurveNeeded = false;
 
-                Examine_Script.Instance.examineButton.interactable = true;
-                returnButton.interactable = true;
+                //Examine_Script.Instance.examineButton.interactable = true;
+                //returnButton.interactable = true;
             }
         }
         else
@@ -239,7 +272,7 @@ public class NPC_Manager : MonoBehaviour
                 isCurveNeeded = false;
                 currentTime = 0;
 
-                Examine_Script.Instance.examineButton.interactable = true;
+                //Examine_Script.Instance.examineButton.interactable = true;
             }
         }
 
@@ -250,6 +283,6 @@ public class NPC_Manager : MonoBehaviour
         blancheIcon.color = new Color(1, 1, 1, (0 + (1 * percent)));
         nameBox.color = new Color(1, 1, 1, (0 + (1 * percent)));
         nameCharacter.color = new Color(1, 1, 1, (0 + (1 * percent)));
-        returnIcon.color = new Color(1, 1, 1, (0 + (1 * percent)));
+        //returnIcon.color = new Color(1, 1, 1, (0 + (1 * percent)));
     }
 }

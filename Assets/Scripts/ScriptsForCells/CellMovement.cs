@@ -545,7 +545,7 @@ public class CellMovement : MonoBehaviour
         }
 
         //Starts to check for an other Drag/Swipe only if the previous one has ended
-        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode && !Camera_Zoom.Instance.onZoom)
+        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             ready = false;
             CheckMove();

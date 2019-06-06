@@ -25,13 +25,4 @@ public class FadeScript : MonoBehaviour
 
         fadeAnim.SetTrigger("FadeOut");
     }
-
-    //IEnumerator DeactivateGameObject()
-    //{
-    //    fadeAnim.SetTrigger("FadeIn");
-
-    //    yield return new WaitForSeconds(1.5f);
-
-    //    fadeAnim.SetTrigger("FadeOut");
-    //}
 }

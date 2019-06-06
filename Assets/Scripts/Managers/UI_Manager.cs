@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class UI_Manager : MonoBehaviour
 {
-    [Header("UI_Dialogue")]
+    [Header("Related to Dialogue or Cinematic Modes")]
     public List<GameObject> dialogueGO;
 
-    [Header("UI_Inventory")]
+    [Header("Related to Puzzle Mode")]
     public List<GameObject> inventoryGO;
     public List<GameObject> inventoryButtonsGO;
 
-    [Header("UI_Contextuelle")]
+    [Header("Related to Investigation Mode")]
     public List<GameObject> contextuelleGO;
-
-    [Header("UI_Background")]
     public List<GameObject> backgroundGO;
 
-    [Header("UI_Winning")]
+    [Header("Related to Clue Mode")]
     public List<GameObject> WinningGO;
 
 
