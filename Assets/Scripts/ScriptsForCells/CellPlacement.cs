@@ -41,7 +41,7 @@ public class CellPlacement : MonoBehaviour
     void Update()
     {
 
-        if (GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue || GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue)
         {
             if (doOnce)
             {

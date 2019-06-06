@@ -177,7 +177,6 @@ public class DialogueSystem : MonoBehaviour
 
     private void Awake()
     {
-
         dialogueHasStarted = false;
 
         if (currentLine == maxLines)
@@ -519,7 +518,9 @@ public class DialogueSystem : MonoBehaviour
             for (int i = 0; i < iconsList.Length; i++)
             {
                 actorsIcon.Add(iconsList[i]);
-                actorsIcon[i].gameObject.SetActive(false);
+
+                if (i > 0)
+                    actorsIcon[i].gameObject.SetActive(false);
             }
         }
     }
@@ -935,7 +936,8 @@ public class DialogueSystem : MonoBehaviour
     {
         for (int i = 0; i < activeActorsIndex.Count; i++)
         {
-            actorsIcon[(activeActorsIndex[i])].gameObject.SetActive(false);
+            if (i > 0)
+                actorsIcon[(activeActorsIndex[i])].gameObject.SetActive(false);
         }
     }
     #endregion
@@ -989,6 +991,7 @@ public class DialogueSystem : MonoBehaviour
         currentTime = 0;
         currentSlideTime = 0;
         currentCharacter = 0;
+        currentResetTime = 0;
         lastCharacter = -1;
         currentLine = 0;
         currentAppearingTime = 0;
@@ -1008,17 +1011,19 @@ public class DialogueSystem : MonoBehaviour
 
                     StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
 
-                    StartCoroutine(NPC_Manager.Instance.StartDialogueOPTIONAnimIn(3f));
+                    StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(3f));
                 }
                 else
                 {
-                    StartCoroutine(NPC_Manager.Instance.StartDialogueOPTIONAnimIn(1f));
+                    StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
                 }
             }
             else
             {
-                StartCoroutine(NPC_Manager.Instance.StartDialogueOPTIONAnimIn(1f));
+                StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
             }
+
+            actorsIcon[activeActorsIndex[0]].color = speakingColor;
         }
         else
         {
@@ -1171,7 +1176,6 @@ public class DialogueSystem : MonoBehaviour
         else
         {
             DesactivateIcons();
-            //ROOM_Manager.Instance.LaunchUI();
             ending = false;
         }
 
@@ -1179,28 +1183,33 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, lastY + Ydisplacment * percentY);
 
+        if (isForCinematic)
+        {
+            nameBox.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+            nameCharacter.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+        }
 
-        nameBox.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
-        nameCharacter.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
 
         float numberOfActors = activeActorsIndex.Count;
 
-        if (numberOfActors == 1)
+        if (numberOfActors == 1 && isForCinematic)
         {
             actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
         }
 
         if (numberOfActors == 2)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+            if (isForCinematic)
+                actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
             actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
         }
 
         if (numberOfActors == 3)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+            if (isForCinematic)
+                actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
             actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
@@ -1209,7 +1218,8 @@ public class DialogueSystem : MonoBehaviour
 
         if (numberOfActors == 4)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+            if (isForCinematic)
+                actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
             actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 

@@ -34,6 +34,11 @@ public class RoomInteraction : MonoBehaviour
     [Header("Animators")]
     public List<Animator> uiAnimators;
 
+    [Header("Animators for MENU")]
+    public Animator menuAnim;
+    public Animator roomNameAnim;
+
+
 
     private void Awake()
     {
@@ -51,9 +56,18 @@ public class RoomInteraction : MonoBehaviour
     {
         uiAnimators[5].ResetTrigger("Enabled");
         uiAnimators[5].ResetTrigger("Disabled");
+        menuAnim.ResetTrigger("Off");
+        menuAnim.ResetTrigger("On");
+        roomNameAnim.ResetTrigger("FadeOut");
+        roomNameAnim.ResetTrigger("FadeIn");
+
 
         uiAnimators[5].SetTrigger("Enabled");
+        menuAnim.SetTrigger("Off");
+        roomNameAnim.SetTrigger("FadeOut");
 
+        if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.Dialogue)
+            Examine_Script.Instance.examineButton.interactable = true;
 
         Objectif_Scr.Instance.Disappearance();
         ProgressionBar.Instance.Disparition();
@@ -70,7 +84,7 @@ public class RoomInteraction : MonoBehaviour
 
             uiAnimators[2].SetTrigger("Enabled");
             uiAnimators[3].SetTrigger("Enabled");
-            
+
 
             if (isDialogue)
             {
@@ -129,8 +143,12 @@ public class RoomInteraction : MonoBehaviour
         }
 
         uiAnimators[5].ResetTrigger("Enabled");
+        menuAnim.ResetTrigger("Off");
+        roomNameAnim.ResetTrigger("FadeOut");
 
         uiAnimators[5].SetTrigger("Disabled");
+        menuAnim.SetTrigger("On");
+        roomNameAnim.SetTrigger("FadeIn");
     }
 
 

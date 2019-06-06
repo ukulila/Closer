@@ -163,7 +163,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                     if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                     {
-                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
                         cP.okToSetup = true;
 
 
@@ -190,14 +190,14 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
                         castingRay = false;
 
                     }
 
                     if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                     {
-                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.green, 50);
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.green, 50);
                         cP.okToSetup = true;
 
                         // doorBool = true;
@@ -225,7 +225,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
                         castingRay = false;
 
                     }
@@ -253,7 +253,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                     if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                     {
-                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 50);
+                        //Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 50);
                         cP.okToSetup = true;
 
 
@@ -280,14 +280,14 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.red, 50);
+                        //Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.red, 50);
                         castingRay = false;
 
                     }
 
                     if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject)
                     {
-                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.green, 50);
+                        //Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.green, 50);
                         cP.okToSetup = true;
 
                         // HatchesBool = true;
@@ -315,7 +315,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.red, 50);
+                        //Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.red, 50);
                         castingRay = false;
 
                     }
@@ -443,7 +443,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                     if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject && hit.transform.parent.gameObject == nextContext.gameObject)
                     {
-                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 050);
+                        //Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 050);
                         //cP.okToSetup = true;
 
 
@@ -458,14 +458,14 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.red, 50);
+                        //Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.red, 50);
                         castingRay = false;
 
                     }
 
                     if (Physics.Raycast(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject && hit.transform.parent.gameObject == nextContext.gameObject)
                     {
-                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 50);
+                        //Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, -context.HatchesWayPoints[u].transform.forward, Color.green, 50);
                         myDoor = context.HatchesWayPoints[u];
 
                         if (nextContext.GetComponent<ScrEnvironment>().HatchesWayPoints.Contains(hit.collider.transform))
@@ -478,7 +478,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.red, 50);
+                        //Debug.DrawRay(context.HatchesWayPoints[u].transform.position + offsetTrap, context.HatchesWayPoints[u].transform.forward, Color.red, 50);
                         castingRay = false;
 
                     }
