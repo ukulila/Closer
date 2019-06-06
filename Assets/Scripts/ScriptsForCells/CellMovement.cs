@@ -90,6 +90,12 @@ public class CellMovement : MonoBehaviour
 
     public bool OutlineOff;
 
+
+
+
+
+
+
     //private bool activatePosPreview;
     #region Init
 
@@ -150,7 +156,7 @@ public class CellMovement : MonoBehaviour
             if (Outline.gameObject.activeInHierarchy == false)
             {
                 Outline.gameObject.SetActive(false);
-               // Outline.ReColor("isSelected");
+                // Outline.ReColor("isSelected");
             }
 
         }
@@ -158,6 +164,8 @@ public class CellMovement : MonoBehaviour
 
         if ((selected && !isSpawn && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode))
         {
+            CellPlacement.Instance.PlaySelectionSound();
+
             slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
             slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
             actiCanvas = true;
@@ -166,7 +174,7 @@ public class CellMovement : MonoBehaviour
         }
 
 
-        if(Outline.gameObject.activeInHierarchy == false)
+        if (Outline.gameObject.activeInHierarchy == false)
         {
             if (actiCanvas == true)
             {
@@ -179,12 +187,16 @@ public class CellMovement : MonoBehaviour
 
         if (!selected && Outline.gameObject.activeInHierarchy == true && isOpen == false && isSpawn == false)
         {
+            CellPlacement.Instance.PlayUnSelectionSound();
+
             Outline.ReColor("");
             Outline.gameObject.SetActive(false);
         }
 
         if (isOpen)
         {
+            CellPlacement.Instance.PlayIsOpenSound();
+
             if (Outline.gameObject.activeInHierarchy == false)
             {
                 Outline.gameObject.SetActive(true);
@@ -533,7 +545,7 @@ public class CellMovement : MonoBehaviour
         }
 
         //Starts to check for an other Drag/Swipe only if the previous one has ended
-        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode && !Camera_Zoom.Instance.onZoom)
+        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             ready = false;
             CheckMove();
@@ -545,6 +557,9 @@ public class CellMovement : MonoBehaviour
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..
         if (moveHorizontal && !NoHorizontal)
         {
+
+            CellPlacement.Instance.PlayMovingRoomsSound();
+
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
             for (int r = 0; r < brothers.Count; r++)
@@ -595,6 +610,8 @@ public class CellMovement : MonoBehaviour
                 toRotate[2].freezePosValue = true;
                 toRotate[3].freezePosValue = true;*/
 
+                CellPlacement.Instance.PlayHasEndedSound();
+
                 once = false;
                 selected = false;
                 click = false;
@@ -611,7 +628,7 @@ public class CellMovement : MonoBehaviour
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..  BUT INVERSE
         if (moveVerticalZ && !NoVertical)
         {
-
+            CellPlacement.Instance.PlayMovingRoomsSound();
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
             for (int r = 0; r < brothers.Count; r++)
@@ -663,6 +680,8 @@ public class CellMovement : MonoBehaviour
                 toRotate[2].freezePosValue = true;
                 toRotate[3].freezePosValue = true;*/
 
+                CellPlacement.Instance.PlayHasEndedSound();
+
                 once = false;
                 selected = false;
                 click = false;
@@ -675,6 +694,7 @@ public class CellMovement : MonoBehaviour
         if (moveVerticalX && !NoVertical)
         {
 
+            CellPlacement.Instance.PlayMovingRoomsSound();
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
 
@@ -729,7 +749,7 @@ public class CellMovement : MonoBehaviour
                 toRotate[2].freezePosValue = true;
                 toRotate[3].freezePosValue = true;*/
 
-
+                CellPlacement.Instance.PlayHasEndedSound();
 
                 once = false;
                 selected = false;
@@ -1193,28 +1213,28 @@ public class CellMovement : MonoBehaviour
             return;
         }
     }*/
-    
-     public void OnDrawGizmos()
-     {
-       /*  PositionsDebug[0] = new Vector3(-resetPosValue, -resetPosValue, -resetPosValue);
-         PositionsDebug[1] = new Vector3(resetPosValue, -resetPosValue, -resetPosValue);
-         PositionsDebug[2] = new Vector3(resetPosValue, -resetPosValue, resetPosValue);
-         PositionsDebug[3] = new Vector3(-resetPosValue, -resetPosValue, resetPosValue);
-         PositionsDebug[4] = new Vector3(-resetPosValue, resetPosValue, resetPosValue);
-         PositionsDebug[5] = new Vector3(resetPosValue, resetPosValue, resetPosValue);
-         PositionsDebug[6] = new Vector3(resetPosValue, resetPosValue, -resetPosValue);
-         PositionsDebug[7] = new Vector3(-resetPosValue, resetPosValue, -resetPosValue);
 
-                 brothers[0].transform.position = PositionsDebug[0];
-                 brothers[1].transform.position = PositionsDebug[1];
-                 brothers[2].transform.position = PositionsDebug[2];
-                 brothers[3].transform.position = PositionsDebug[3];
-                 brothers[4].transform.position = PositionsDebug[4];
-                 brothers[5].transform.position = PositionsDebug[5];
-                 brothers[6].transform.position = PositionsDebug[6];
-                 brothers[7].transform.position = PositionsDebug[7];*/
+    public void OnDrawGizmos()
+    {
+        /*  PositionsDebug[0] = new Vector3(-resetPosValue, -resetPosValue, -resetPosValue);
+          PositionsDebug[1] = new Vector3(resetPosValue, -resetPosValue, -resetPosValue);
+          PositionsDebug[2] = new Vector3(resetPosValue, -resetPosValue, resetPosValue);
+          PositionsDebug[3] = new Vector3(-resetPosValue, -resetPosValue, resetPosValue);
+          PositionsDebug[4] = new Vector3(-resetPosValue, resetPosValue, resetPosValue);
+          PositionsDebug[5] = new Vector3(resetPosValue, resetPosValue, resetPosValue);
+          PositionsDebug[6] = new Vector3(resetPosValue, resetPosValue, -resetPosValue);
+          PositionsDebug[7] = new Vector3(-resetPosValue, resetPosValue, -resetPosValue);
 
-     }
+                  brothers[0].transform.position = PositionsDebug[0];
+                  brothers[1].transform.position = PositionsDebug[1];
+                  brothers[2].transform.position = PositionsDebug[2];
+                  brothers[3].transform.position = PositionsDebug[3];
+                  brothers[4].transform.position = PositionsDebug[4];
+                  brothers[5].transform.position = PositionsDebug[5];
+                  brothers[6].transform.position = PositionsDebug[6];
+                  brothers[7].transform.position = PositionsDebug[7];*/
+
+    }
 
     public void RotationButtonLeft()
     {

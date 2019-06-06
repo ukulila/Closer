@@ -97,43 +97,31 @@ public class RoomInteractionSetUp : Editor
             {
                 roomInteraction.uiAnimators.Add(roomInteraction.talkTo.gameObject.GetComponent<Animator>());
             }
-            else
-                Debug.LogWarning("This Button is not assigned");
 
             if (roomInteraction.interactWith != null)
             {
                 roomInteraction.uiAnimators.Add(roomInteraction.interactWith.gameObject.GetComponent<Animator>());
             }
-            else
-                Debug.LogWarning("This Button is not assigned");
 
             if (roomInteraction.nameText != null)
             {
                 roomInteraction.uiAnimators.Add(roomInteraction.nameText.gameObject.GetComponent<Animator>());
             }
-            else
-                Debug.LogWarning("This Button is not assigned");
 
             if (roomInteraction.descritpionText != null)
             {
                 roomInteraction.uiAnimators.Add(roomInteraction.descritpionText.gameObject.GetComponent<Animator>());
             }
-            else
-                Debug.LogWarning("This Button is not assigned");
 
             if (roomInteraction.nothingText != null)
             {
                 roomInteraction.uiAnimators.Add(roomInteraction.nothingText.gameObject.GetComponent<Animator>());
             }
-            else
-                Debug.LogWarning("This Button is not assigned");
 
             if (roomInteraction.backgroundSprite != null)
             {
                 roomInteraction.uiAnimators.Add(roomInteraction.backgroundSprite.gameObject.GetComponent<Animator>());
             }
-            else
-                Debug.LogWarning("This Button is not assigned");
 
 
             if (GUI.changed)

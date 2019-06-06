@@ -409,7 +409,7 @@ public class CameraMovement : MonoBehaviour
 
                     if (currentSelectedCell == "E_u1_Cell_Up_BackLeft" || currentSelectedCell == "D_d4_Cell_Down_BackLeft")
                     {
-                        Debug.Log("1");
+                        //Debug.Log("1");
                         continuePosDifference = (uiPathPosition[1] - currentPathPos);
 
 
@@ -454,7 +454,7 @@ public class CameraMovement : MonoBehaviour
 
                     if (currentSelectedCell == "A_d1_Cell_Down_FrontLeft" || currentSelectedCell == "H_u4_Cell _Up_FrontLeft")
                     {
-                        Debug.Log("0");
+                        //Debug.Log("0");
                         continuePosDifference = (uiPathPosition[0] - currentPathPos);
 
                         if (continuePosDifference < 0)
@@ -542,7 +542,7 @@ public class CameraMovement : MonoBehaviour
 
                     if (currentSelectedCell == "F_u2_Cell_Up_BackRight" || currentSelectedCell == "C_d3_Cell_Down_BackRight")
                     {
-                        Debug.Log("2");
+                        //Debug.Log("2");
                         continuePosDifference = (uiPathPosition[2] - currentPathPos);
 
                         if (continuePosDifference < 0)
@@ -597,7 +597,7 @@ public class CameraMovement : MonoBehaviour
 
             if (Physics.Raycast(brain.OutputCamera.ScreenPointToRay(Input.mousePosition), out selectedCube))
             {
-                Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
+                //Debug.DrawRay(brain.OutputCamera.ScreenPointToRay(Input.mousePosition).origin, brain.OutputCamera.ScreenPointToRay(Input.mousePosition).direction * 8, Color.blue, 5);
 
                 if (currentSelectedCell == selectedCube.collider.gameObject.name && selectedCube.collider.gameObject.GetComponent<CellMovement>().once == false && cameraReposition == true)
                 {
@@ -609,10 +609,6 @@ public class CameraMovement : MonoBehaviour
                         cameraReposition = false;
                     }
                 }
-                else
-                {
-                    Debug.LogError("No selection valid");
-                }
             }
         }
 
@@ -623,7 +619,7 @@ public class CameraMovement : MonoBehaviour
 
 
         #region DEBUG TEXT
-        
+        /*
         debugTexts[0].text = ("onZoom : " + onZoom);
         debugTexts[1].text = ("distanceDiff : " + distanceDiff);
         debugTexts[2].text = ("isOrientationSet : " + isOrientationSet);
@@ -638,7 +634,7 @@ public class CameraMovement : MonoBehaviour
         debugTexts[11].text = ("currentY : " + currentY);
         debugTexts[12].text = ("pathOffset : " + pathOffset);
         debugTexts[13].text = ("pathSpeed : " + pathSpeed);
-        
+        */
         #endregion
 
 
@@ -686,7 +682,7 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     void CameraTracking()
     {
-        Debug.Log("Tracking");
+        //Debug.Log("Tracking");
 
         if (isFingerMoving && oneTouchDistance > 1)
         {
@@ -709,7 +705,7 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     void AdjustHeight()
     {
-        Debug.Log("Adjusting");
+        //Debug.Log("Adjusting");
 
         if (isFingerMoving && oneTouchDistance > 1)
         {
@@ -732,7 +728,7 @@ public class CameraMovement : MonoBehaviour
 
     void Zoom()
     {
-        Debug.Log("Zooming");
+        //Debug.Log("Zooming");
 
         if (isFingerMoving && distanceDiff != 0)
         {

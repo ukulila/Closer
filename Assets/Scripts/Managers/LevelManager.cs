@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,13 +29,17 @@ public class LevelManager : MonoBehaviour
     public List<Vector2> posRef;
 
     [Header("Close Up Mode")]
-    public Button goBackButton;
     public Button playButton;
+    public Button levels_ReturnToMain;
+    public Button levels_ReturnToGlobal;
 
     public Animator closeUpAnim;
 
 
+
+
     public static LevelManager Instance;
+
 
 
     private void Awake()
@@ -55,13 +60,13 @@ public class LevelManager : MonoBehaviour
         if (!isMoveAwayAnimationOver && SmoothMoveSwipe.Instance.isCranAnimationOver == true)
         {
             MoveLevels();
-        }/*
+        }
 
-        if (isMoveAwayAnimationOver && SmoothMoveSwipe.Instance.isCranAnimationOver == true && !isCloseUpAllSet)
+        if (isMoveAwayAnimationOver /*&& SmoothMoveSwipe.Instance.isCranAnimationOver == true*/ && !isCloseUpAllSet)
         {
             ShowCloseUp();
             isCloseUpAllSet = true;
-        }*/
+        }
     }
 
     /// <summary>
@@ -74,12 +79,17 @@ public class LevelManager : MonoBehaviour
             levels[i].lockedImage.color = new Color32((byte)255, (byte)255, (byte)255, (byte)0);
         }
 
+        for (int i = progressionIndex; i < levels.Count; i++)
+        {
+            levels[i].GetComponent<Button>().interactable = false;
+        }
+
         for (int i = 0; i < progressionIndex - 1; i++)
         {
             levels[i].isLevelFinished = true;
         }
 
-        //levels[progressionIndex].lvlAnim.SetTrigger("Reveal");
+        levels[progressionIndex].lvlAnim.SetTrigger("Reveal");
     }
 
     /// <summary>
@@ -91,32 +101,27 @@ public class LevelManager : MonoBehaviour
 
         isCloseUpAllSet = false;
 
+        levels_ReturnToMain.gameObject.SetActive(false);
+        StartCoroutine(GoCloseIn());
+
         currentMoveTime = 0;
         isMovedAway = true;
         isMoveAwayAnimationOver = false;
 
         SmoothMoveSwipe.Instance.lastPos = SmoothMoveSwipe.Instance.line.localPosition;
 
-        for (int i = 0; i < SmoothMoveSwipe.Instance.levelCranRef.Count - 1; i++)
+        for (int i = 0; i < SmoothMoveSwipe.Instance.levelCranRef.Count; i++)
         {
             Vector2 rightLimit = new Vector2(0, 0);
             Vector2 leftLimit = new Vector2(0, 0);
-
-            //Debug.Log("Name = " + this.gameObject.name);
 
             if (levelOnCloseUp.gameObject.name == levels[i].gameObject.name)
             {
                 closeUpLevelIndex = i;
 
-                //Debug.Log("== " + levels[i].gameObject.name);
-
                 SmoothMoveSwipe.Instance.diffPos = SmoothMoveSwipe.Instance.levelCranRef[i] - SmoothMoveSwipe.Instance.lastPos;
 
-                //Debug.Log(SmoothMoveSwipe.Instance.diffPos);
-                //Debug.Log("i" + i);
-
                 SmoothMoveSwipe.Instance.isCranAnimationOver = false;
-                return;
             }
         }
     }
@@ -161,10 +166,6 @@ public class LevelManager : MonoBehaviour
             levels[i].gameObject.GetComponent<Button>().interactable = false;
         }
 
-        goBackButton.interactable = true;
-        goBackButton.gameObject.GetComponent<Image>().raycastTarget = true;
-        goBackButton.gameObject.GetComponent<Animator>().SetTrigger("FadeIn");
-
         playButton.interactable = true;
         playButton.gameObject.GetComponent<Image>().raycastTarget = true;
         playButton.gameObject.GetComponent<Animator>().SetTrigger("FadeIn");
@@ -187,20 +188,32 @@ public class LevelManager : MonoBehaviour
         isMovedAway = false;
         isMoveAwayAnimationOver = false;
 
-        goBackButton.interactable = false;
-        goBackButton.gameObject.GetComponent<Image>().raycastTarget = false;
-        goBackButton.gameObject.GetComponent<Animator>().SetTrigger("FadeOut");
-
         playButton.interactable = false;
         playButton.gameObject.GetComponent<Image>().raycastTarget = false;
         playButton.gameObject.GetComponent<Animator>().SetTrigger("FadeOut");
 
-        for (int i = 0; i < levels.Count; i++)
+        StartCoroutine(GoBackIn());
+    }
+
+    private IEnumerator GoBackIn()
+    {
+        yield return new WaitForSeconds(2f);
+
+        for (int i = 0; i < progressionIndex; i++)
         {
             levels[i].gameObject.GetComponent<Image>().raycastTarget = true;
             levels[i].gameObject.GetComponent<Button>().interactable = true;
         }
 
+        levels_ReturnToMain.gameObject.SetActive(true);
+
         SmoothMoveSwipe.Instance.isSwipping = true;
+    }
+
+    private IEnumerator GoCloseIn()
+    {
+        yield return new WaitForSeconds(2f);
+
+        levels_ReturnToGlobal.interactable = true;
     }
 }

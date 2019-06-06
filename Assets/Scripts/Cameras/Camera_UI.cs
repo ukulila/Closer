@@ -451,8 +451,8 @@ public class Camera_UI : MonoBehaviour
 
                 Examine_Script.Instance.examineImage.sprite = Examine_Script.Instance.examineOUT;
 
-                if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode)
-                    Examine_Script.Instance.examineButton.interactable = true;
+                //if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.Dialogue)
+                //    Examine_Script.Instance.examineButton.interactable = true;
             }
             else
             {
