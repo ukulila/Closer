@@ -435,19 +435,19 @@ public class DialogueSystem : MonoBehaviour
         actorsColorReference = new List<Color>();
 
         blancheColor = new Color32(255, 255, 255, 255);
-        mireilleColor = new Color32(245, 255, 96, 255);
-        louisColor = new Color32(220, 120, 140, 255); ;
+        mireilleColor = new Color32(241, 172, 90, 255);
+        louisColor = new Color32(200, 99, 166, 255); ;
         berleauColor = new Color32(255, 255, 255, 255);
-        dottyColor = new Color32(155, 100, 135, 255);
+        dottyColor = new Color32(191, 148, 205, 255);
         jollyColor = new Color32(255, 255, 255, 255);
-        doloresColor = new Color32(255, 130, 80, 255);
-        maggieColor = new Color32(255, 255, 255, 255);
-        esdieColor = new Color32(150, 210, 150, 255);
-        walterColor = new Color32(150, 100, 200, 255);
-        rayColor = new Color32(255, 255, 255, 255);
+        doloresColor = new Color32(255, 144, 126, 255);
+        maggieColor = new Color32(217, 112, 132, 255);
+        esdieColor = new Color32(133, 219, 125, 255);
+        walterColor = new Color32(196, 145, 224, 255);
+        rayColor = new Color32(204, 149, 130, 255);
         barneyColor = new Color32(255, 255, 255, 255);
-        nikkyColor = new Color32(95, 195, 140, 255);
-        irinaColor = new Color32(255, 255, 255, 255);
+        nikkyColor = new Color32(161, 236, 196, 255);
+        irinaColor = new Color32(158, 218, 231, 255);
     }
 
     private void SetUpCharactersName()
