@@ -30,13 +30,14 @@ public class CellPlacement : MonoBehaviour
     public int speed;
 
 
-    [Header("   Sounds")]
-
+    /*
     public bool playHasEndedSound;
     public bool playSelectionSound;
     public bool playIsOpenSound;
     public bool playMovingRooms;
     public bool playUnsSlectionSound;
+    */
+    [Header("   Sounds")]
 
     public AudioSource LeMouvementSeTermine;
     public AudioSource SelectionDUnePièce;
@@ -44,7 +45,7 @@ public class CellPlacement : MonoBehaviour
     public AudioSource DéplacementDesPièces;
     public AudioSource DésélectionDUnePièce;
     public AudioSource ClicQuandDeuxPortesSeFontFace;
-
+    public AudioSource RotationDesPièces;
 
     public void Awake()
     {
@@ -58,7 +59,7 @@ public class CellPlacement : MonoBehaviour
     void Update()
     {
 
-        if (playHasEndedSound)
+     /*   if (playHasEndedSound)
         {
             PlayHasEndedSound();
             playHasEndedSound = false;
@@ -68,7 +69,7 @@ public class CellPlacement : MonoBehaviour
         {
             PlaySelectionSound();
             playSelectionSound = false;
-        }
+        }*/
 
         if (GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue || GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
         {
@@ -382,6 +383,12 @@ public class CellPlacement : MonoBehaviour
     {
         if (ClicQuandDeuxPortesSeFontFace != null)
             ClicQuandDeuxPortesSeFontFace.Play(0);
+    }
+
+    public void PlayRotationDesPièces()
+    {
+        if (RotationDesPièces != null)
+            RotationDesPièces.Play(0);
     }
 
 }
