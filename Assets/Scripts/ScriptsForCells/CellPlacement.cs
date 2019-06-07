@@ -126,7 +126,7 @@ public class CellPlacement : MonoBehaviour
             if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, LayerMaskCells))
             {
 
-                if (hit.collider.gameObject.GetComponent<CellMovement>() != null)
+                if (hit.collider.gameObject.GetComponent<CellMovement>() != null && Camera_UI.Instance.canMoveCells)
                 {
                     CellMovement cellmove = hit.collider.gameObject.GetComponent<CellMovement>();
 

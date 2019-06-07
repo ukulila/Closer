@@ -482,7 +482,7 @@ public class CellMovement : MonoBehaviour
         }
 
         //Increment a value (timer) when OnMouseDown
-        if (click)
+        if (click && Camera_UI.Instance.canMoveCells && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode )
         {
             timer++;
 
@@ -547,7 +547,7 @@ public class CellMovement : MonoBehaviour
         }
 
         //Starts to check for an other Drag/Swipe only if the previous one has ended
-        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode )
         {
             ready = false;
             CheckMove();
