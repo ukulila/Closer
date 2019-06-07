@@ -81,12 +81,16 @@ public class PlayerBehaviour : MonoBehaviour
     public int DoorsToCheck;
 
     public static PlayerBehaviour Instance;
-
+    public List<GameObject> childs;
 
 
     private void Awake()
     {
         Instance = this;
+        for (int i = 0; i < transform.childCount-1; i++)
+        {
+            childs.Add(transform.GetChild(i).gameObject);
+        }
     }
 
     void Start()
@@ -1031,10 +1035,19 @@ public class PlayerBehaviour : MonoBehaviour
 
                 }
 
-
-                if( listToMove[index-1].name.Contains("Door") && listToMove[index].name.Contains("Door"))
+                if ( listToMove[index-1].name.Contains("Porte") && listToMove[index].name.Contains("Porte"))
                 {
-                    Debug.Log("BetweenTwoDoors");
+                    for (int i = 0; i < childs.Count; i++)
+                    {
+                        childs[i].SetActive(false);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < childs.Count; i++)
+                    {
+                        childs[i].SetActive(true);
+                    }
                 }
             }
 

@@ -42,10 +42,10 @@ public class CellPlacement : MonoBehaviour
     public AudioSource LeMouvementSeTermine;
     public AudioSource SelectionDUnePièce;
     public AudioSource UnePièceEstOpen;
-    public AudioSource DéplacementDesPièces;
+    public List<AudioSource> DéplacementDesPièces;
     public AudioSource DésélectionDUnePièce;
     public AudioSource ClicQuandDeuxPortesSeFontFace;
-    public AudioSource RotationDesPièces;
+    public List<AudioSource> RotationDesPièces;
 
     public void Awake()
     {
@@ -370,7 +370,7 @@ public class CellPlacement : MonoBehaviour
     public void PlayMovingRoomsSound()
     {
         if (DéplacementDesPièces != null)
-            DéplacementDesPièces.Play(0);
+            DéplacementDesPièces[Random.Range(0, DéplacementDesPièces.Count)].Play(0);
     }
 
     public void PlayUnSelectionSound()
@@ -388,7 +388,7 @@ public class CellPlacement : MonoBehaviour
     public void PlayRotationDesPièces()
     {
         if (RotationDesPièces != null)
-            RotationDesPièces.Play(0);
+            RotationDesPièces[Random.Range(0, RotationDesPièces.Count)].Play(0);
     }
 
 }
