@@ -25,7 +25,7 @@ public class ObjectManager : MonoBehaviour
 
         if (currentObjet.doesTheObjectDisappearAfterInvoke == true)
         {
-            FadeScript.Instance.FadeINandOUT();
+            //FadeScript.Instance.FadeINandOUT();
             StartCoroutine(DelayBeforeInvoke());
         }
         else
@@ -45,8 +45,6 @@ public class ObjectManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         currentObjet.objectEvent.Invoke();
-
-        //yield return new WaitForSeconds(1.5f);
 
         currentObjet = null;
     }
