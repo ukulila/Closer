@@ -81,6 +81,8 @@ public class CellScript : MonoBehaviour
 
             if (isInRotation)
             {
+                CellPlacement.Instance.PlayRotationDesPièces();
+
                 transform.Rotate(new Vector3(0, 1, 0), speed);
 
                 if (cP != null)

@@ -45,7 +45,5 @@ public class LevelSumUp : MonoBehaviour
         LevelCloseUp.Instance.levelDescriptionCU.text = levelDescription;
 
         LevelManager.Instance.levelOnCloseUp = this;
-
-        
     }
 }

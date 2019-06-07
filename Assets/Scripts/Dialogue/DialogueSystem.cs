@@ -51,7 +51,7 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("   Récupération des acteurs")]
     public GameObject actorsIconHierarchyReference;
-    public enum Actors { Blanche, Mireille, Louis, MmeBerleau, Dotty, Jolly, Dolores, Maggie, Esdie, Walter, Ray, Barney, Nikky, Irina };
+    public enum Actors { Blanche, Mireille, Mehdi, MmeBerleau, Dotty, Jolly, Dolores, Maggie, Esdie, Walter, Ray, Barney, Nikky, Irina };
     public Actors currentActor;
     public List<Actors> actors;
     public List<int> activeActorsIndex;
@@ -177,7 +177,6 @@ public class DialogueSystem : MonoBehaviour
 
     private void Awake()
     {
-
         dialogueHasStarted = false;
 
         if (currentLine == maxLines)
@@ -436,19 +435,19 @@ public class DialogueSystem : MonoBehaviour
         actorsColorReference = new List<Color>();
 
         blancheColor = new Color32(255, 255, 255, 255);
-        mireilleColor = new Color32(245, 255, 96, 255);
-        louisColor = new Color32(220, 120, 140, 255); ;
+        mireilleColor = new Color32(241, 172, 90, 255);
+        louisColor = new Color32(200, 99, 166, 255); ;
         berleauColor = new Color32(255, 255, 255, 255);
-        dottyColor = new Color32(155, 100, 135, 255);
+        dottyColor = new Color32(191, 148, 205, 255);
         jollyColor = new Color32(255, 255, 255, 255);
-        doloresColor = new Color32(255, 130, 80, 255);
-        maggieColor = new Color32(255, 255, 255, 255);
-        esdieColor = new Color32(150, 210, 150, 255);
-        walterColor = new Color32(150, 100, 200, 255);
-        rayColor = new Color32(255, 255, 255, 255);
+        doloresColor = new Color32(255, 144, 126, 255);
+        maggieColor = new Color32(217, 112, 132, 255);
+        esdieColor = new Color32(133, 219, 125, 255);
+        walterColor = new Color32(196, 145, 224, 255);
+        rayColor = new Color32(204, 149, 130, 255);
         barneyColor = new Color32(255, 255, 255, 255);
-        nikkyColor = new Color32(95, 195, 140, 255);
-        irinaColor = new Color32(255, 255, 255, 255);
+        nikkyColor = new Color32(161, 236, 196, 255);
+        irinaColor = new Color32(158, 218, 231, 255);
     }
 
     private void SetUpCharactersName()
@@ -519,7 +518,9 @@ public class DialogueSystem : MonoBehaviour
             for (int i = 0; i < iconsList.Length; i++)
             {
                 actorsIcon.Add(iconsList[i]);
-                actorsIcon[i].gameObject.SetActive(false);
+
+                if (i > 0)
+                    actorsIcon[i].gameObject.SetActive(false);
             }
         }
     }
@@ -617,9 +618,9 @@ public class DialogueSystem : MonoBehaviour
                             currentWord = "";
                         }
 
-                        if (currentWord == Actors.Louis.ToString().ToUpper())
+                        if (currentWord == Actors.Mehdi.ToString().ToUpper())
                         {
-                            actors.Add(Actors.Louis);
+                            actors.Add(Actors.Mehdi);
                             spaceCount = 0;
                             actorSet = true;
                             lines.Add("");
@@ -864,9 +865,9 @@ public class DialogueSystem : MonoBehaviour
                 actorsIcon[(int)Actors.Mireille].gameObject.SetActive(true);
             }
 
-            if (actors[i] == Actors.Louis)
+            if (actors[i] == Actors.Mehdi)
             {
-                actorsIcon[(int)Actors.Louis].gameObject.SetActive(true);
+                actorsIcon[(int)Actors.Mehdi].gameObject.SetActive(true);
             }
 
             if (actors[i] == Actors.MmeBerleau)
@@ -935,7 +936,8 @@ public class DialogueSystem : MonoBehaviour
     {
         for (int i = 0; i < activeActorsIndex.Count; i++)
         {
-            actorsIcon[(activeActorsIndex[i])].gameObject.SetActive(false);
+            if (i > 0)
+                actorsIcon[(activeActorsIndex[i])].gameObject.SetActive(false);
         }
     }
     #endregion
@@ -989,6 +991,7 @@ public class DialogueSystem : MonoBehaviour
         currentTime = 0;
         currentSlideTime = 0;
         currentCharacter = 0;
+        currentResetTime = 0;
         lastCharacter = -1;
         currentLine = 0;
         currentAppearingTime = 0;
@@ -1008,17 +1011,19 @@ public class DialogueSystem : MonoBehaviour
 
                     StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
 
-                    StartCoroutine(NPC_Manager.Instance.StartDialogueOPTIONAnimIn(3f));
+                    StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(3f));
                 }
                 else
                 {
-                    StartCoroutine(NPC_Manager.Instance.StartDialogueOPTIONAnimIn(1f));
+                    StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
                 }
             }
             else
             {
-                StartCoroutine(NPC_Manager.Instance.StartDialogueOPTIONAnimIn(1f));
+                StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
             }
+
+            actorsIcon[activeActorsIndex[0]].color = speakingColor;
         }
         else
         {
@@ -1171,7 +1176,6 @@ public class DialogueSystem : MonoBehaviour
         else
         {
             DesactivateIcons();
-            //ROOM_Manager.Instance.LaunchUI();
             ending = false;
         }
 
@@ -1179,28 +1183,33 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, lastY + Ydisplacment * percentY);
 
+        if (isForCinematic)
+        {
+            nameBox.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+            nameCharacter.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+        }
 
-        nameBox.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
-        nameCharacter.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
 
         float numberOfActors = activeActorsIndex.Count;
 
-        if (numberOfActors == 1)
+        if (numberOfActors == 1 && isForCinematic)
         {
             actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
         }
 
         if (numberOfActors == 2)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+            if (isForCinematic)
+                actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
             actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
         }
 
         if (numberOfActors == 3)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+            if (isForCinematic)
+                actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
             actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
@@ -1209,7 +1218,8 @@ public class DialogueSystem : MonoBehaviour
 
         if (numberOfActors == 4)
         {
-            actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
+            if (isForCinematic)
+                actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
             actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
