@@ -189,7 +189,7 @@ public class CameraBehaviour : MonoBehaviour
             {
                 animationCurveTimingMax = 1.5f;
 
-                Debug.Log("Room set");
+                //Debug.Log("Room set");
 
 
                 if (Input.GetMouseButtonDown(0))
@@ -221,7 +221,7 @@ public class CameraBehaviour : MonoBehaviour
         }
         else
         {
-            Debug.Log("Room unset");
+            //Debug.Log("Room unset");
 
             
 
@@ -386,10 +386,6 @@ public class CameraBehaviour : MonoBehaviour
                         cameraReposition = false;
                         StartCoroutine(UIapparitionTime());
                     }
-                }
-                else
-                {
-                    Debug.LogError("No selection valid");
                 }
             }
         }
@@ -692,7 +688,7 @@ public class CameraBehaviour : MonoBehaviour
     /// </summary>
     void CameraTracking()
     {
-        Debug.Log("Tracking");
+        //Debug.Log("Tracking");
 
 
         if (isFingerMoving)
@@ -717,7 +713,7 @@ public class CameraBehaviour : MonoBehaviour
     /// </summary>
     void AdjustHeight()
     {
-        Debug.Log("Adjusting");
+        //Debug.Log("Adjusting");
 
         if (isFingerMoving)
         {
