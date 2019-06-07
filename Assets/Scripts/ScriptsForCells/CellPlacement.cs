@@ -30,9 +30,9 @@ public class CellPlacement : MonoBehaviour
     public int speed;
 
 
-    /*
+   
     public bool playHasEndedSound;
-    public bool playSelectionSound;
+    /* public bool playSelectionSound;
     public bool playIsOpenSound;
     public bool playMovingRooms;
     public bool playUnsSlectionSound;
@@ -59,17 +59,17 @@ public class CellPlacement : MonoBehaviour
     void Update()
     {
 
-        /*   if (playHasEndedSound)
+          if (playHasEndedSound)
            {
                PlayHasEndedSound();
                playHasEndedSound = false;
            }
-
-           if (playSelectionSound)
-           {
-               PlaySelectionSound();
-               playSelectionSound = false;
-           }*/
+        /*
+        if (playSelectionSound)
+        {
+            PlaySelectionSound();
+            playSelectionSound = false;
+        }*/
 
         if (GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue || GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
         {
