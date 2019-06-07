@@ -1216,7 +1216,7 @@ public class CellMovement : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        /*  PositionsDebug[0] = new Vector3(-resetPosValue, -resetPosValue, -resetPosValue);
+          PositionsDebug[0] = new Vector3(-resetPosValue, -resetPosValue, -resetPosValue);
           PositionsDebug[1] = new Vector3(resetPosValue, -resetPosValue, -resetPosValue);
           PositionsDebug[2] = new Vector3(resetPosValue, -resetPosValue, resetPosValue);
           PositionsDebug[3] = new Vector3(-resetPosValue, -resetPosValue, resetPosValue);
@@ -1225,7 +1225,7 @@ public class CellMovement : MonoBehaviour
           PositionsDebug[6] = new Vector3(resetPosValue, resetPosValue, -resetPosValue);
           PositionsDebug[7] = new Vector3(-resetPosValue, resetPosValue, -resetPosValue);
 
-                  brothers[0].transform.position = PositionsDebug[0];
+               /*   brothers[0].transform.position = PositionsDebug[0];
                   brothers[1].transform.position = PositionsDebug[1];
                   brothers[2].transform.position = PositionsDebug[2];
                   brothers[3].transform.position = PositionsDebug[3];
@@ -1233,22 +1233,18 @@ public class CellMovement : MonoBehaviour
                   brothers[5].transform.position = PositionsDebug[5];
                   brothers[6].transform.position = PositionsDebug[6];
                   brothers[7].transform.position = PositionsDebug[7];*/
-
+                  
     }
 
     public void RotationButtonLeft()
     {
 
         OutlineOff = false;
-
         selected = false;
         Outline.gameObject.SetActive(true);
         CanvasRotation.gameObject.SetActive(true);
-
         unSelection = false;
         timerUnSelection = 0;
-
-        //Debug.Log(cM[i].gameObject.name);
         GetComponent<CellScript>().isInRotation = true;
 
     }
@@ -1256,15 +1252,11 @@ public class CellMovement : MonoBehaviour
     public void RotationButtonRight()
     {
         OutlineOff = false;
-
         selected = false;
         Outline.gameObject.SetActive(true);
         CanvasRotation.gameObject.SetActive(true);
-
         unSelection = false;
         timerUnSelection = 0;
-
-        //Debug.Log(cM[i].gameObject.name);
         GetComponent<CellScript>().isInRotationInverse = true;
     }
 
