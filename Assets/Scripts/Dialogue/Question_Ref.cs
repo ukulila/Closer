@@ -9,7 +9,14 @@ public class Question_Ref : MonoBehaviour
 
     public void ReplaceCurrentQuestionTo(int dialogueIndex)
     {
-        NPC_Manager.Instance.currentNPC.questionIndex[indexReference] = dialogueIndex;
+        if (NPC_Manager.Instance.currentNPC.questionIndex.Count == (indexReference + 1))
+        {
+            NPC_Manager.Instance.currentNPC.questionIndex[indexReference] = dialogueIndex;
+        }
+        else
+        {
+            NPC_Manager.Instance.currentNPC.questionIndex.Add(dialogueIndex);
+        }
     }
 
     public void EndOfCelebrity()
