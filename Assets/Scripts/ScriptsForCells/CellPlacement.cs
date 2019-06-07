@@ -369,8 +369,10 @@ public class CellPlacement : MonoBehaviour
 
     public void PlayMovingRoomsSound()
     {
-        if (DéplacementDesPièces != null)
+        if (DéplacementDesPièces.Count > 0 )
+        {
             DéplacementDesPièces[Random.Range(0, DéplacementDesPièces.Count)].Play(0);
+        }
     }
 
     public void PlayUnSelectionSound()
@@ -387,7 +389,7 @@ public class CellPlacement : MonoBehaviour
 
     public void PlayRotationDesPièces()
     {
-        if (RotationDesPièces != null)
+        if (RotationDesPièces.Count > 0)
             RotationDesPièces[Random.Range(0, RotationDesPièces.Count)].Play(0);
     }
 
