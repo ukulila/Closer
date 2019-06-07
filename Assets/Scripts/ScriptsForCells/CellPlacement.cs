@@ -59,17 +59,17 @@ public class CellPlacement : MonoBehaviour
     void Update()
     {
 
-     /*   if (playHasEndedSound)
-        {
-            PlayHasEndedSound();
-            playHasEndedSound = false;
-        }
+        /*   if (playHasEndedSound)
+           {
+               PlayHasEndedSound();
+               playHasEndedSound = false;
+           }
 
-        if (playSelectionSound)
-        {
-            PlaySelectionSound();
-            playSelectionSound = false;
-        }*/
+           if (playSelectionSound)
+           {
+               PlaySelectionSound();
+               playSelectionSound = false;
+           }*/
 
         if (GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue || GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
         {
@@ -244,6 +244,20 @@ public class CellPlacement : MonoBehaviour
 
     }
 
+
+    public void CellsDeSelection()
+    {
+        for (int i = 0; i < cM.Count; i++)
+        {
+            if (!cM[i].isSpawn)
+            {
+                cM[i].selected = false;
+
+            }
+
+        }
+    }
+
     private void DeActivateCells()
     {
 
@@ -272,6 +286,7 @@ public class CellPlacement : MonoBehaviour
         }
 
     }
+
 
     public void TimerObjectif()
     {
@@ -369,7 +384,7 @@ public class CellPlacement : MonoBehaviour
 
     public void PlayMovingRoomsSound()
     {
-        if (DéplacementDesPièces.Count > 0 )
+        if (DéplacementDesPièces.Count > 0)
         {
             DéplacementDesPièces[Random.Range(0, DéplacementDesPièces.Count)].Play(0);
         }
