@@ -178,6 +178,9 @@ public class NPC_Manager : MonoBehaviour
             questionsAnim[i].SetTrigger("Gone");
         }
 
+        if (GameManager.Instance.previousGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.previousGameMode != GameManager.GameMode.Dialogue)
+            Examine_Script.Instance.examineButton.interactable = true;
+
         onReverse = true;
         isCurveNeeded = true;
     }

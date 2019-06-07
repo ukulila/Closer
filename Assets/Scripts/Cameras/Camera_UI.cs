@@ -452,6 +452,9 @@ public class Camera_UI : MonoBehaviour
                 Examine_Script.Instance.examineImage.sprite = Examine_Script.Instance.examineOUT;
 
                 canMoveCells = false;
+
+                if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.Dialogue)
+                    Examine_Script.Instance.examineButton.interactable = true;
             }
             else
             {
@@ -497,7 +500,7 @@ public class Camera_UI : MonoBehaviour
                 currentTargetOffset.y - targetOffsetDiff.y * repoPercent, currentTargetOffset.z - targetOffsetDiff.z * repoPercent);
 
                 //Changement du Transform du dolly
-                dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y - dollyPositionDiff.y * repoPercent,
+                dollyTransform.position = new Vector3(dollyTransform.position.x, currentDollyPosition.y - (dollyPositionDiff.y * repoPercent),
                         dollyTransform.position.z);
 
                 //Changement de la focale

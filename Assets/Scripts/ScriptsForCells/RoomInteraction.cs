@@ -66,8 +66,8 @@ public class RoomInteraction : MonoBehaviour
         menuAnim.SetTrigger("Off");
         roomNameAnim.SetTrigger("FadeOut");
 
-        if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.Dialogue)
-            Examine_Script.Instance.examineButton.interactable = true;
+        //if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.Dialogue)
+        //    Examine_Script.Instance.examineButton.interactable = true;
 
         Objectif_Scr.Instance.Disappearance();
         ProgressionBar.Instance.Disparition();

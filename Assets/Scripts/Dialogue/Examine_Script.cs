@@ -36,6 +36,8 @@ public class Examine_Script : MonoBehaviour
             examineButton.interactable = false;
 
             ROOM_Manager.Instance.ExamineRoom();
+
+            CellPlacement.Instance.CellsDeSelection();
         }
     }
 }

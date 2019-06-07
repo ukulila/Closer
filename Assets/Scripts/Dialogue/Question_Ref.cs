@@ -9,7 +9,7 @@ public class Question_Ref : MonoBehaviour
 
     public void ReplaceCurrentQuestionTo(int dialogueIndex)
     {
-        if (NPC_Manager.Instance.currentNPC.questionIndex.Count == (indexReference + 1))
+        if (NPC_Manager.Instance.currentNPC.questionIndex.Count >= (indexReference + 1))
         {
             Debug.Log("Replace question " + indexReference + " by dialogue " + dialogueIndex);
             NPC_Manager.Instance.currentNPC.questionIndex[indexReference] = dialogueIndex;
