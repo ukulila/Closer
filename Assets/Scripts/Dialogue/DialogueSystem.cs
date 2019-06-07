@@ -43,8 +43,8 @@ public class DialogueSystem : MonoBehaviour
     public float currentTime;
     public float maxTime;
     public float typingTimeRatio;
-    private float typingSpeedRatio = 1.5f;
-    private float typingFasterRatio = 2.5f;
+    private float typingSpeedRatio = 2.5f;
+    private float typingFasterRatio = 3.5f;
     public int currentCharacter;
     public int lastCharacter;
 
@@ -68,7 +68,7 @@ public class DialogueSystem : MonoBehaviour
     public float boxMinHeight = 80f;
     public float boxHeigthPerLine = 25f;
     [Space]
-    public float boxInitPos_X = -445f;
+    public float boxInitPos_X = -480f;
     public float boxInitPos_Y = -150f;
     [Space]
     public float boxInitPos_X2 = -125f;
@@ -395,7 +395,7 @@ public class DialogueSystem : MonoBehaviour
         boxMinHeight = 80f; //74.63f
         boxHeigthPerLine = 30f; //26.59f
 
-        boxInitPos_X = -477f;
+        boxInitPos_X = -480f;
         boxInitPos_Y = -150f;
 
         boxInitPos_X2 = -177f;
@@ -1007,20 +1007,43 @@ public class DialogueSystem : MonoBehaviour
                 {
                     FadeScript.Instance.FadeINandOUT();
 
+                    Debug.Log("INVOKE");
+
                     NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
 
                     StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
 
                     StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(3f));
+
+                    Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
                 }
                 else
                 {
+                    Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+
                     StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
                 }
             }
             else
             {
-                StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
+                if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked == false)
+                {
+                    Debug.Log("INVOKE");
+
+                    NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
+
+                    StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1f));
+
+                    StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1.5f));
+
+                    Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+                }
+                else
+                {
+                    Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+
+                    StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
+                }
             }
 
             actorsIcon[activeActorsIndex[0]].color = speakingColor;

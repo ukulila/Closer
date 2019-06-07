@@ -5,6 +5,8 @@ using TMPro;
 
 public class CellMovement : MonoBehaviour
 {
+    public int V = 20;
+
     [Header("   Bool Manager")]
     public bool click;
     public bool over;
@@ -167,7 +169,7 @@ public class CellMovement : MonoBehaviour
             CellPlacement.Instance.PlaySelectionSound();
 
             slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
-            slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
+            //slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
             actiCanvas = true;
             CanvasRotation.SetActive(true);
 
@@ -337,7 +339,7 @@ public class CellMovement : MonoBehaviour
             selected = true;
 
             slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
-            slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
+            //slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
         }
 
 
@@ -354,7 +356,7 @@ public class CellMovement : MonoBehaviour
         {
 
             timerUnSelection++;
-            if (timerUnSelection > 15)
+            if (timerUnSelection > V)
             {
                 selected = false;
                 slectedRoomText.text = " ";
