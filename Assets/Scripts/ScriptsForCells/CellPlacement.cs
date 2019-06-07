@@ -30,9 +30,9 @@ public class CellPlacement : MonoBehaviour
     public int speed;
 
 
-    /*
+   
     public bool playHasEndedSound;
-    public bool playSelectionSound;
+    /* public bool playSelectionSound;
     public bool playIsOpenSound;
     public bool playMovingRooms;
     public bool playUnsSlectionSound;
@@ -59,17 +59,17 @@ public class CellPlacement : MonoBehaviour
     void Update()
     {
 
-        /*   if (playHasEndedSound)
+          if (playHasEndedSound)
            {
                PlayHasEndedSound();
                playHasEndedSound = false;
            }
-
-           if (playSelectionSound)
-           {
-               PlaySelectionSound();
-               playSelectionSound = false;
-           }*/
+        /*
+        if (playSelectionSound)
+        {
+            PlaySelectionSound();
+            playSelectionSound = false;
+        }*/
 
         if (GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue || GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
         {
@@ -126,7 +126,7 @@ public class CellPlacement : MonoBehaviour
             if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, LayerMaskCells))
             {
 
-                if (hit.collider.gameObject.GetComponent<CellMovement>() != null)
+                if (hit.collider.gameObject.GetComponent<CellMovement>() != null && Camera_UI.Instance.canMoveCells)
                 {
                     CellMovement cellmove = hit.collider.gameObject.GetComponent<CellMovement>();
 
