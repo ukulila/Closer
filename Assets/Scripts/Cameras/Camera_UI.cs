@@ -70,10 +70,10 @@ public class Camera_UI : MonoBehaviour
 
     [Space]
     public bool cameraReposition = true;
+    public bool canMoveCells = true;
 
 
     public static Camera_UI Instance;
-
 
 
 
@@ -451,8 +451,7 @@ public class Camera_UI : MonoBehaviour
 
                 Examine_Script.Instance.examineImage.sprite = Examine_Script.Instance.examineOUT;
 
-                //if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.Dialogue)
-                //    Examine_Script.Instance.examineButton.interactable = true;
+                canMoveCells = false;
             }
             else
             {
@@ -463,6 +462,8 @@ public class Camera_UI : MonoBehaviour
                 animationCurveTimingMax = animationTimingMin;
 
                 Examine_Script.Instance.examineButton.interactable = true;
+
+                canMoveCells = true;
             }
 
             cameraReposition = true;

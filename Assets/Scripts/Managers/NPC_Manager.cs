@@ -50,26 +50,6 @@ public class NPC_Manager : MonoBehaviour
 
     private void Update()
     {
-        if (currentNPC != null)
-        {
-            /*
-            if (currentNPC.dialogue[currentNPC.currentDialogueIndex].questDialogueSystems.isDialogueFinished == true && currentNPC.dialogue[currentNPC.currentDialogueIndex].questDialogueSystems.ending == true
-            && currentNPC.dialogue[currentNPC.currentDialogueIndex].questDialogueSystems.dialogueBoxReady == true && currentNPC.dialogue[currentNPC.currentDialogueIndex].questDialogueSystems.dialogueHasStarted == true)
-            {
-                if (currentNPC.dialogue[currentNPC.currentDialogueIndex].questHasBeenAsked == false)
-                {
-                    currentNPC.dialogue[currentNPC.currentDialogueIndex].questHasBeenAsked = true;
-
-                    StartCoroutine(StartInvokeIn(1.5f));
-                }
-                else
-                {
-                    SetDialogueOPTION();
-                }
-            }
-            */
-        }
-
         if (isCurveNeeded)
         {
             AnimationCurveForBlanche();
@@ -82,6 +62,8 @@ public class NPC_Manager : MonoBehaviour
     public void SetDialogueOPTION()
     {
         int nbrDialogueAsked = 0;
+
+        Debug.Log("AT SET     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
@@ -135,6 +117,8 @@ public class NPC_Manager : MonoBehaviour
 
         currentNPC.dialogue[0].questDialogueSystems.actorsIcon[0].gameObject.SetActive(true);
 
+        Debug.Log("AT ACTIVATION     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
+
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
             questionsAnim[i].SetTrigger("FadeIN");
@@ -155,8 +139,11 @@ public class NPC_Manager : MonoBehaviour
 
         currentNPC.dialogue[0].questDialogueSystems.actorsIcon[0].gameObject.SetActive(true);
 
+        Debug.Log("AT RETURN     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
+
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
+            questionsAnim[i].ResetTrigger("Gone");
             questionsAnim[i].SetTrigger("FadeIN");
         }
 
@@ -187,6 +174,7 @@ public class NPC_Manager : MonoBehaviour
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
             Debug.Log(i);
+            questionsAnim[i].ResetTrigger("FadeIN");
             questionsAnim[i].SetTrigger("Gone");
         }
 
@@ -202,6 +190,11 @@ public class NPC_Manager : MonoBehaviour
     {
         StartCoroutine(StartDialogueIn(1.5f, dialogueIndex));
         returnAnim.SetTrigger("Off");
+
+        currentNPC.currentDialogueIndex = currentNPC.questionIndex[dialogueIndex];
+
+        NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.questionIndex[dialogueIndex]].isNewQuest = false;
+
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.Dialogue);
     }
 
@@ -218,6 +211,8 @@ public class NPC_Manager : MonoBehaviour
         CellPlacement.Instance.ReactivateCells();
 
         yield return new WaitForSeconds(time);
+
+        Debug.Log("currentDialogueIndex = " + currentNPC.currentDialogueIndex);
 
         currentNPC.dialogue[currentNPC.currentDialogueIndex].questEvents.Invoke();
 
