@@ -47,19 +47,21 @@ public class CellScript : MonoBehaviour
     private Vector3 rotationVector = new Vector3(0, 90, 0);
     public bool playerMoving;
     public bool isInRotationInverse;
+    private bool onceFunction;
+
 
     void Start()
     {
         first = false;
         freeRoom = false;
 
-        
-       /* for (int i = 0; i < coneRed.Count; i++)
-        {
-            material.Add(coneRed[i].GetComponent<Renderer>().material);
-            material[i].SetColor("_EmissionColor", Color.red);
-        }*/
-        
+
+        /* for (int i = 0; i < coneRed.Count; i++)
+         {
+             material.Add(coneRed[i].GetComponent<Renderer>().material);
+             material[i].SetColor("_EmissionColor", Color.red);
+         }*/
+
     }
 
     void Update()
@@ -81,7 +83,8 @@ public class CellScript : MonoBehaviour
 
             if (isInRotation)
             {
-                CellPlacement.Instance.PlayRotationDesPièces();
+
+                //CellPlacement.Instance.PlayRotationDesPièces();
 
                 transform.Rotate(new Vector3(0, 1, 0), speed);
 
@@ -117,6 +120,9 @@ public class CellScript : MonoBehaviour
 
             if (isInRotationInverse)
             {
+                //CellPlacement.Instance.PlayRotationDesPièces();
+
+
                 transform.Rotate(new Vector3(0, -1, 0), speed);
 
                 if (cP != null)
@@ -153,44 +159,44 @@ public class CellScript : MonoBehaviour
             }
 
 
-           /* if (Input.GetMouseButtonDown(0) && !playerMoving)
-            {
-                RaycastHit hit;
-                int LayerMaskCells = LayerMask.GetMask("Cell");
+            /* if (Input.GetMouseButtonDown(0) && !playerMoving)
+             {
+                 RaycastHit hit;
+                 int LayerMaskCells = LayerMask.GetMask("Cell");
 
-                if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, LayerMaskCells))
-                {
-                    if (hit.transform.gameObject == gameObject)
-                    {
-                        first = true;
-                        nbrTouch += 1;
+                 if (Physics.Raycast(myBrain.OutputCamera.ScreenPointToRay(Input.mousePosition), out hit, 250, LayerMaskCells))
+                 {
+                     if (hit.transform.gameObject == gameObject)
+                     {
+                         first = true;
+                         nbrTouch += 1;
 
 
-                        if (first && nbrTouch > 1)
-                        {
-                           /* if (brothers[0] != null)
-                            {
-                                 for (int r = 0; r < brothers.Count; r++)
-                                 {
-                                     brothers[r].hasEnded = false;
-                                 }
-                            }
-                            
-                            set = true;
-                            if (set)
-                            {
-                                myRot = transform.rotation;
-                                set = false;
-                            }
-                            isInRotation = true;
-                            nbrTouch = 0;
-                        }
+                         if (first && nbrTouch > 1)
+                         {
+                            /* if (brothers[0] != null)
+                             {
+                                  for (int r = 0; r < brothers.Count; r++)
+                                  {
+                                      brothers[r].hasEnded = false;
+                                  }
+                             }
 
-                    }
+                             set = true;
+                             if (set)
+                             {
+                                 myRot = transform.rotation;
+                                 set = false;
+                             }
+                             isInRotation = true;
+                             nbrTouch = 0;
+                         }
 
-                }
+                     }
 
-            }*/
+                 }
+
+             }*/
 
         }
     }
