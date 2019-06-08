@@ -92,6 +92,7 @@ public class CellMovement : MonoBehaviour
 
     public bool OutlineOff;
     private bool SoundSelectionOnce;
+    private bool onceSoundMovement;
 
 
 
@@ -555,6 +556,7 @@ public class CellMovement : MonoBehaviour
         if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             ready = false;
+            onceSoundMovement = true;
             CheckMove();
         }
 
@@ -564,8 +566,11 @@ public class CellMovement : MonoBehaviour
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..
         if (moveHorizontal && !NoHorizontal)
         {
-
-            CellPlacement.Instance.PlayMovingRoomsSound();
+            if(onceSoundMovement == true)
+            {
+                CellPlacement.Instance.PlayMovingRoomsSound();
+                onceSoundMovement = false;
+            }
 
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
@@ -635,7 +640,12 @@ public class CellMovement : MonoBehaviour
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..  BUT INVERSE
         if (moveVerticalZ && !NoVertical)
         {
-            CellPlacement.Instance.PlayMovingRoomsSound();
+            if (onceSoundMovement == true)
+            {
+                CellPlacement.Instance.PlayMovingRoomsSound();
+                onceSoundMovement = false;
+            }
+
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
             for (int r = 0; r < brothers.Count; r++)
@@ -701,7 +711,12 @@ public class CellMovement : MonoBehaviour
         if (moveVerticalX && !NoVertical)
         {
 
-            CellPlacement.Instance.PlayMovingRoomsSound();
+            if (onceSoundMovement == true)
+            {
+                CellPlacement.Instance.PlayMovingRoomsSound();
+                onceSoundMovement = false;
+            }
+
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
 
