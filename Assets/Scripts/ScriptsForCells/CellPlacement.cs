@@ -29,14 +29,14 @@ public class CellPlacement : MonoBehaviour
     public static CellPlacement Instance;
     public int speed;
 
+    public GameObject canvasRotation;
 
-   
     public bool playHasEndedSound;
-    /* public bool playSelectionSound;
+    public bool playSelectionSound;
     public bool playIsOpenSound;
     public bool playMovingRooms;
     public bool playUnsSlectionSound;
-    */
+
     [Header("   Sounds")]
 
     public AudioSource LeMouvementSeTermine;
@@ -59,17 +59,35 @@ public class CellPlacement : MonoBehaviour
     void Update()
     {
 
-          if (playHasEndedSound)
-           {
-               PlayHasEndedSound();
-               playHasEndedSound = false;
-           }
-        /*
+        if (playHasEndedSound)
+        {
+            PlayHasEndedSound();
+            playHasEndedSound = false;
+        }
+
         if (playSelectionSound)
         {
             PlaySelectionSound();
             playSelectionSound = false;
-        }*/
+        }
+
+        if (playIsOpenSound)
+        {
+            PlayIsOpenSound();
+            playIsOpenSound = false;
+        }
+
+        if (playMovingRooms)
+        {
+            PlayMovingRoomsSound();
+            playMovingRooms = false;
+        }
+
+        if (playUnsSlectionSound)
+        {
+            PlayUnSelectionSound();
+            playUnsSlectionSound = false;
+        }
 
         if (GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue || GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
         {
@@ -137,6 +155,7 @@ public class CellPlacement : MonoBehaviour
                     {
                         if (cM[i] != cellmove && !cM[i].isSpawn)
                         {
+
                             cM[i].unSelection = true;
                         }
                     }
@@ -209,6 +228,10 @@ public class CellPlacement : MonoBehaviour
 
                     if (cM[i].selected)
                     {
+                      /*  if (canvasRotation.activeInHierarchy == false)
+                            PlayUnSelectionSound();*/
+                            
+
                         cM[i].unSelection = true;
                         cM[i].isOpen = false;
                     }
@@ -251,7 +274,7 @@ public class CellPlacement : MonoBehaviour
         {
             if (!cM[i].isSpawn)
             {
-                cM[i].selected = false;
+                cM[i].unSelection = true;
 
             }
 
@@ -316,19 +339,8 @@ public class CellPlacement : MonoBehaviour
         for (int i = 0; i < cM.Count; i++)
         {
             if (cM[i].selected && cM[i].isSpawn == false && cM[i].GetComponent<CellScript>().isInRotationInverse == false)
-            {/*
-                cM[i].OutlineOff = false;
-
-                cM[i].selected = false;
-                cM[i].Outline.gameObject.SetActive(true);
-                cM[i].CanvasRotation.gameObject.SetActive(true);
-
-                cM[i].unSelection = false;
-                cM[i].timerUnSelection = 0;
-
-                //Debug.Log(cM[i].gameObject.name);
-                cM[i].GetComponent<CellScript>().isInRotation = true;
-                */
+            {
+                PlayRotationDesPièces();
                 cM[i].RotationButtonLeft();
 
             }
@@ -342,21 +354,8 @@ public class CellPlacement : MonoBehaviour
         for (int i = 0; i < cM.Count; i++)
         {
             if (cM[i].selected && cM[i].isSpawn == false && cM[i].GetComponent<CellScript>().isInRotation == false)
-            {/*
-                cM[i].OutlineOff = false;
-
-                cM[i].selected = false;
-                cM[i].Outline.gameObject.SetActive(true);
-                cM[i].CanvasRotation.gameObject.SetActive(true);
-
-
-
-                cM[i].unSelection = false;
-                cM[i].timerUnSelection = 0;
-
-              //Debug.Log(cM[i].gameObject.name);
-                cM[i].GetComponent<CellScript>().isInRotationInverse = true;
-                */
+            {
+                PlayRotationDesPièces();
                 cM[i].RotationButtonRight();
 
             }
@@ -404,8 +403,15 @@ public class CellPlacement : MonoBehaviour
 
     public void PlayRotationDesPièces()
     {
-        if (RotationDesPièces.Count > 0)
-            RotationDesPièces[Random.Range(0, RotationDesPièces.Count)].Play(0);
+        if (RotationDesPièces.Count > 0 )
+        {
+            int indexRand = Random.Range(0, RotationDesPièces.Count);
+            RotationDesPièces[indexRand].Play(0);
+            print(indexRand);
+            return;
+        }
+
+
     }
 
 }

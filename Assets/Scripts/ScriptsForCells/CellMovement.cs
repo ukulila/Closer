@@ -91,10 +91,8 @@ public class CellMovement : MonoBehaviour
     public CubeRotationPatch cRP;
 
     public bool OutlineOff;
-
-
-
-
+    private bool SoundSelectionOnce;
+    private bool onceSoundMovement;
 
 
 
@@ -146,27 +144,25 @@ public class CellMovement : MonoBehaviour
     {
         if (selected && !OutlineOff)
         {
+
             if (Outline.gameObject.activeInHierarchy == false)
             {
                 Outline.gameObject.SetActive(true);
                 Outline.ReColor("isSelected");
             }
         }
-        else
-        {
 
-            if (Outline.gameObject.activeInHierarchy == false)
-            {
-                Outline.gameObject.SetActive(false);
-                // Outline.ReColor("isSelected");
-            }
-
-        }
 
 
         if ((selected && !isSpawn && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode))
         {
-            CellPlacement.Instance.PlaySelectionSound();
+            if (SoundSelectionOnce)
+            {
+                CellPlacement.Instance.PlaySelectionSound();
+
+                SoundSelectionOnce = false;
+            }
+
 
             slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
             //slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
@@ -189,7 +185,7 @@ public class CellMovement : MonoBehaviour
 
         if (!selected && Outline.gameObject.activeInHierarchy == true && isOpen == false && isSpawn == false)
         {
-            CellPlacement.Instance.PlayUnSelectionSound();
+            //  CellPlacement.Instance.PlayUnSelectionSound();
 
             Outline.ReColor("");
             Outline.gameObject.SetActive(false);
@@ -336,7 +332,11 @@ public class CellMovement : MonoBehaviour
 
         if (click && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode && Camera_Zoom.Instance.onZoom == false)
         {
-            selected = true;
+            if (selected == false)
+            {
+                selected = true;
+                SoundSelectionOnce = true;
+            }
 
             slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
             //slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
@@ -354,11 +354,17 @@ public class CellMovement : MonoBehaviour
 
         if (unSelection && !isSpawn)
         {
+            //CellPlacement.Instance.PlayUnSelectionSound();
 
             timerUnSelection++;
+
             if (timerUnSelection > V)
             {
-                selected = false;
+                if (selected == true)
+                {
+                    CellPlacement.Instance.PlayUnSelectionSound();
+                    selected = false;
+                }
                 slectedRoomText.text = " ";
                 unSelection = false;
                 timerUnSelection = 0;
@@ -482,7 +488,7 @@ public class CellMovement : MonoBehaviour
         }
 
         //Increment a value (timer) when OnMouseDown
-        if (click && Camera_UI.Instance.canMoveCells && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode )
+        if (click && Camera_UI.Instance.canMoveCells && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             timer++;
 
@@ -547,9 +553,10 @@ public class CellMovement : MonoBehaviour
         }
 
         //Starts to check for an other Drag/Swipe only if the previous one has ended
-        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode )
+        if (movement && hasEnded && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
             ready = false;
+            onceSoundMovement = true;
             CheckMove();
         }
 
@@ -559,8 +566,11 @@ public class CellMovement : MonoBehaviour
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..
         if (moveHorizontal && !NoHorizontal)
         {
-
-            CellPlacement.Instance.PlayMovingRoomsSound();
+            if(onceSoundMovement == true)
+            {
+                CellPlacement.Instance.PlayMovingRoomsSound();
+                onceSoundMovement = false;
+            }
 
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
@@ -630,7 +640,12 @@ public class CellMovement : MonoBehaviour
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..  BUT INVERSE
         if (moveVerticalZ && !NoVertical)
         {
-            CellPlacement.Instance.PlayMovingRoomsSound();
+            if (onceSoundMovement == true)
+            {
+                CellPlacement.Instance.PlayMovingRoomsSound();
+                onceSoundMovement = false;
+            }
+
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
             for (int r = 0; r < brothers.Count; r++)
@@ -696,7 +711,12 @@ public class CellMovement : MonoBehaviour
         if (moveVerticalX && !NoVertical)
         {
 
-            CellPlacement.Instance.PlayMovingRoomsSound();
+            if (onceSoundMovement == true)
+            {
+                CellPlacement.Instance.PlayMovingRoomsSound();
+                onceSoundMovement = false;
+            }
+
             curvePercent = LerpSpeed.Evaluate(Time.deltaTime * speedModifier);
 
 
@@ -1218,24 +1238,24 @@ public class CellMovement : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-          PositionsDebug[0] = new Vector3(-resetPosValue, -resetPosValue, -resetPosValue);
-          PositionsDebug[1] = new Vector3(resetPosValue, -resetPosValue, -resetPosValue);
-          PositionsDebug[2] = new Vector3(resetPosValue, -resetPosValue, resetPosValue);
-          PositionsDebug[3] = new Vector3(-resetPosValue, -resetPosValue, resetPosValue);
-          PositionsDebug[4] = new Vector3(-resetPosValue, resetPosValue, resetPosValue);
-          PositionsDebug[5] = new Vector3(resetPosValue, resetPosValue, resetPosValue);
-          PositionsDebug[6] = new Vector3(resetPosValue, resetPosValue, -resetPosValue);
-          PositionsDebug[7] = new Vector3(-resetPosValue, resetPosValue, -resetPosValue);
+        PositionsDebug[0] = new Vector3(-resetPosValue, -resetPosValue, -resetPosValue);
+        PositionsDebug[1] = new Vector3(resetPosValue, -resetPosValue, -resetPosValue);
+        PositionsDebug[2] = new Vector3(resetPosValue, -resetPosValue, resetPosValue);
+        PositionsDebug[3] = new Vector3(-resetPosValue, -resetPosValue, resetPosValue);
+        PositionsDebug[4] = new Vector3(-resetPosValue, resetPosValue, resetPosValue);
+        PositionsDebug[5] = new Vector3(resetPosValue, resetPosValue, resetPosValue);
+        PositionsDebug[6] = new Vector3(resetPosValue, resetPosValue, -resetPosValue);
+        PositionsDebug[7] = new Vector3(-resetPosValue, resetPosValue, -resetPosValue);
 
-               /*   brothers[0].transform.position = PositionsDebug[0];
-                  brothers[1].transform.position = PositionsDebug[1];
-                  brothers[2].transform.position = PositionsDebug[2];
-                  brothers[3].transform.position = PositionsDebug[3];
-                  brothers[4].transform.position = PositionsDebug[4];
-                  brothers[5].transform.position = PositionsDebug[5];
-                  brothers[6].transform.position = PositionsDebug[6];
-                  brothers[7].transform.position = PositionsDebug[7];*/
-                  
+        /*   brothers[0].transform.position = PositionsDebug[0];
+           brothers[1].transform.position = PositionsDebug[1];
+           brothers[2].transform.position = PositionsDebug[2];
+           brothers[3].transform.position = PositionsDebug[3];
+           brothers[4].transform.position = PositionsDebug[4];
+           brothers[5].transform.position = PositionsDebug[5];
+           brothers[6].transform.position = PositionsDebug[6];
+           brothers[7].transform.position = PositionsDebug[7];*/
+
     }
 
     public void RotationButtonLeft()
