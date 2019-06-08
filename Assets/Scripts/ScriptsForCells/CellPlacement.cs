@@ -58,7 +58,7 @@ public class CellPlacement : MonoBehaviour
         onlyOnce = true;
         Instance = this;
         Application.targetFrameRate = 400;
-
+        Time.timeScale = 0.1f;
     }
 
     void Update()
@@ -241,10 +241,10 @@ public class CellPlacement : MonoBehaviour
 
                     cM[i].over = false;
 
-                    if (cM[i].selected)
+                    if (cM[i].selected && !cM[i].isSpawn)
                     {
-                      /*  if (canvasRotation.activeInHierarchy == false)
-                            PlayUnSelectionSound();*/
+                        if (canvasRotation.activeInHierarchy == true)
+                            PlayUnSelectionSound();
                             
 
                         cM[i].unSelection = true;
@@ -401,10 +401,13 @@ public class CellPlacement : MonoBehaviour
 
     public void PlayMovingRoomsSound()
     {
+        /*
         if (DéplacementDesPièces.Count > 0)
         {
             DéplacementDesPièces[Random.Range(0, DéplacementDesPièces.Count)].Play(0);
-        }
+        }*/
+
+
     }
 
     public void PlayUnSelectionSound()

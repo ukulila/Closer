@@ -362,7 +362,7 @@ public class CellMovement : MonoBehaviour
             {
                 if (selected == true)
                 {
-                    CellPlacement.Instance.PlayUnSelectionSound();
+                    //CellPlacement.Instance.PlayUnSelectionSound();
                     selected = false;
                 }
                 slectedRoomText.text = " ";
