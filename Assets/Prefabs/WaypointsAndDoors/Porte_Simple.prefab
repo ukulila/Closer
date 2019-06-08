@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OpenDoorColor: {r: 0, g: 1, b: 0.9647059, a: 0}
   ClosedDoorColor: {r: 0.11277485, g: 0, b: 1, a: 0}
+  playerBeenHere: 0
 --- !u!1001 &6185689823071916066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -177,8 +178,9 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: cb5fd4b8c91c87c449f53b2384c21308, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+      objectReference: {fileID: 2100000, guid: 181909bacc8e51e43b7016fc2d43b731, type: 2}
+    m_RemovedComponents:
+    - {fileID: 9500000, guid: cb5fd4b8c91c87c449f53b2384c21308, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cb5fd4b8c91c87c449f53b2384c21308, type: 3}
 --- !u!4 &6185689823072045730 stripped
 Transform:

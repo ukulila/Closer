@@ -54,6 +54,8 @@ public class HatchesScript : MonoBehaviour
                 otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", openHatchColor);
 
                 checkOpenDoor = false;
+                if (CellPlacement.Instance.canPlayDoorSound == false)
+                    CellPlacement.Instance.canPlayDoorSound = true;
 
             }
             else
@@ -67,7 +69,8 @@ public class HatchesScript : MonoBehaviour
                 }
 
                 checkOpenDoor = false;
-
+                CellPlacement.Instance.canPlayDoorSound = false;
+                CellPlacement.Instance.onlyOnce = true;
             }
 
 

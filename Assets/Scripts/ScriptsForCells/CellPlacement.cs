@@ -41,16 +41,21 @@ public class CellPlacement : MonoBehaviour
 
     public AudioSource LeMouvementSeTermine;
     public AudioSource SelectionDUnePièce;
-    public AudioSource UnePièceEstOpen;
+    public AudioSource DeuxPortesSeFontFace;
     public List<AudioSource> DéplacementDesPièces;
     public AudioSource DésélectionDUnePièce;
     public AudioSource ClicQuandDeuxPortesSeFontFace;
     public List<AudioSource> RotationDesPièces;
+    public AudioSource zoomIn;
+    public AudioSource zoomOut;
+
+   /* [HideInInspector]*/ public bool canPlayDoorSound;
+   /* [HideInInspector]*/ public bool onlyOnce;
 
     public void Awake()
     {
         doOnce = true;
-
+        onlyOnce = true;
         Instance = this;
         Application.targetFrameRate = 400;
 
@@ -87,6 +92,16 @@ public class CellPlacement : MonoBehaviour
         {
             PlayUnSelectionSound();
             playUnsSlectionSound = false;
+        }
+
+        if(canPlayDoorSound)
+        {
+            if(onlyOnce)
+            {
+                PlayIsOpenSound();
+                onlyOnce = false;
+                canPlayDoorSound = false;
+            }
         }
 
         if (GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue || GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
@@ -377,8 +392,11 @@ public class CellPlacement : MonoBehaviour
 
     public void PlayIsOpenSound()
     {
-        if (UnePièceEstOpen != null)
-            UnePièceEstOpen.Play(0);
+        if (DeuxPortesSeFontFace != null)
+        {
+            DeuxPortesSeFontFace.Play(0);
+         //   print("ding");
+        }
     }
 
     public void PlayMovingRoomsSound()
@@ -407,11 +425,24 @@ public class CellPlacement : MonoBehaviour
         {
             int indexRand = Random.Range(0, RotationDesPièces.Count);
             RotationDesPièces[indexRand].Play(0);
-            print(indexRand);
             return;
         }
 
 
     }
 
+    public void PlayZoomSound()
+    {
+        if(Camera_UI.Instance.switchToUI == true)
+        {
+            print("ZoomIn");
+
+            zoomIn.Play();
+        }
+        else
+        {
+            print("ZoomOut");
+            zoomOut.Play();
+        }
+    }
 }

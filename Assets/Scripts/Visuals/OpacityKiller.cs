@@ -82,12 +82,15 @@ public class OpacityKiller : MonoBehaviour
             }
             else
             {
-                if (KillChilds[KillChilds.Count - 1].activeInHierarchy == false)
+                if (KillChilds.Count > 0)
                 {
-                    for (int i = 0; i < KillChilds.Count; i++)
+                    if (KillChilds[KillChilds.Count - 1].activeInHierarchy == false)
                     {
-                        KillChilds[i].SetActive(true);
+                        for (int i = 0; i < KillChilds.Count; i++)
+                        {
+                            KillChilds[i].SetActive(true);
 
+                        }
                     }
                 }
             }

@@ -193,7 +193,7 @@ public class CellMovement : MonoBehaviour
 
         if (isOpen)
         {
-            CellPlacement.Instance.PlayIsOpenSound();
+            /*CellPlacement.Instance.PlayIsOpenSound();*/
 
             if (Outline.gameObject.activeInHierarchy == false)
             {

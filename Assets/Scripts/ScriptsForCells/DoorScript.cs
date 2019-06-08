@@ -67,8 +67,16 @@ public class DoorScript : MonoBehaviour
 
                 transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
                 // transform.GetChild(1).gameObject.SetActive(true);
-                    otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
+                otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
                 checkOpenDoor = false;
+
+                if (CellPlacement.Instance.canPlayDoorSound == false)
+                {
+                  //  print("i make canPlaySound true");
+
+                    CellPlacement.Instance.canPlayDoorSound = true;
+                }
+
 
             }
             else
@@ -85,6 +93,11 @@ public class DoorScript : MonoBehaviour
                     transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
                     otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
                 }
+              CellPlacement.Instance.canPlayDoorSound = false;
+              CellPlacement.Instance.onlyOnce = true;
+             //   print("i make canPlaySound false AND onlyOnce true");
+
+
                 checkOpenDoor = false;
 
             }
@@ -122,6 +135,11 @@ public class DoorScript : MonoBehaviour
         }
         else
         {
+            CellPlacement.Instance.canPlayDoorSound = false;
+            CellPlacement.Instance.onlyOnce = true;
+           // print("OnExitPlayer i make canPlaySound false AND onlyOnce true");
+
+
             if (transform.GetChild(0).GetComponent<Renderer>().material.GetColor("_EmissionColor") == OpenDoorColor)
             {
 
