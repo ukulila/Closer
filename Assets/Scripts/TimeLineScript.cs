@@ -139,6 +139,9 @@ public class TimeLineScript : MonoBehaviour
 
                 NothingInTranzit = true;
 
+                AudioManager.Instance.PlayDropClueSound();
+
+
                 signal.gameObject.SetActive(false);
 
                 polaroidInteraction = false;
@@ -281,10 +284,17 @@ public class TimeLineScript : MonoBehaviour
 
         if (CheckMatch() == true)
         {
+            AudioManager.Instance.PlayTrueTimeLineSound();
+
             signal.gameObject.SetActive(true);
 
             signal.text = "Win";
             Debug.Log("win");
+        }
+        else
+        {
+            AudioManager.Instance.PlayFalseTimeLineSound();
+            return;
         }
 
     }

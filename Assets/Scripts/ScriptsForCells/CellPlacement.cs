@@ -49,8 +49,14 @@ public class CellPlacement : MonoBehaviour
     public AudioSource zoomIn;
     public AudioSource zoomOut;
 
-   /* [HideInInspector]*/ public bool canPlayDoorSound;
-   /* [HideInInspector]*/ public bool onlyOnce;
+    [HideInInspector] public bool canPlayDoorSound;
+    [HideInInspector] public bool onlyOnce;
+
+
+    [Header("   Selection")]
+
+    public Color selectedColor = new Color(215, 215, 215, 200);
+    public Color blackedColor = new Color(0, 0, 0, 0);
 
     public void Awake()
     {
@@ -58,7 +64,6 @@ public class CellPlacement : MonoBehaviour
         onlyOnce = true;
         Instance = this;
         Application.targetFrameRate = 400;
-        Time.timeScale = 0.1f;
     }
 
     void Update()
@@ -94,9 +99,9 @@ public class CellPlacement : MonoBehaviour
             playUnsSlectionSound = false;
         }
 
-        if(canPlayDoorSound)
+        if (canPlayDoorSound)
         {
-            if(onlyOnce)
+            if (onlyOnce)
             {
                 PlayIsOpenSound();
                 onlyOnce = false;
@@ -245,7 +250,7 @@ public class CellPlacement : MonoBehaviour
                     {
                         if (canvasRotation.activeInHierarchy == true)
                             PlayUnSelectionSound();
-                            
+
 
                         cM[i].unSelection = true;
                         cM[i].isOpen = false;
@@ -262,6 +267,13 @@ public class CellPlacement : MonoBehaviour
 
             FingerOnScreen = false;
 
+            if (facingPlane != null)
+            {
+                facingPlane.GetComponentInParent<OpacityKiller>().enabled = true;
+                facingPlane.GetComponent<SpriteRenderer>().color = blackedColor;
+                facingPlane = null;
+            }
+
         }
 
 
@@ -276,6 +288,19 @@ public class CellPlacement : MonoBehaviour
             {
                 facingPlane = hit.transform.gameObject;
                 once = false;
+            }
+
+        }
+
+        if (facingPlane != null)
+        {
+
+            facingPlane.GetComponentInParent<OpacityKiller>().enabled = false;
+            facingPlane.GetComponent<SpriteRenderer>().color = selectedColor;
+
+            if(facingPlane.GetComponent<Animator>())
+            {
+                facingPlane.GetComponent<Animator>().SetTrigger("Selected");
             }
 
         }
@@ -395,7 +420,7 @@ public class CellPlacement : MonoBehaviour
         if (DeuxPortesSeFontFace != null)
         {
             DeuxPortesSeFontFace.Play(0);
-         //   print("ding");
+            //   print("ding");
         }
     }
 
@@ -424,7 +449,7 @@ public class CellPlacement : MonoBehaviour
 
     public void PlayRotationDesPièces()
     {
-        if (RotationDesPièces.Count > 0 )
+        if (RotationDesPièces.Count > 0)
         {
             int indexRand = Random.Range(0, RotationDesPièces.Count);
             RotationDesPièces[indexRand].Play(0);
@@ -436,7 +461,7 @@ public class CellPlacement : MonoBehaviour
 
     public void PlayZoomSound()
     {
-        if(Camera_UI.Instance.switchToUI == true)
+        if (Camera_UI.Instance.switchToUI == true)
         {
             print("ZoomIn");
 
