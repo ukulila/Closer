@@ -175,6 +175,21 @@ public class GameManager : MonoBehaviour
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.inventoryButtonsGO));
                 }
 
+                if (previousGameMode == GameMode.Dialogue || previousGameMode == GameMode.CinematicMode)
+                {
+                    UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.WinningGO);
+
+                    Camera_UI.Instance.SwitchToNoUi();
+
+                    Examine_Script.Instance.OUT();
+
+                    ROOM_Manager.Instance.currentRoom.DisableUI();
+
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.contextuelleGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.backgroundGO));
+                    UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.inventoryButtonsGO));
+                }
+
                 Objectif_Scr.Instance.Disappearance();
 
                 Harcelement_Manager.Instance.FarFromThem();

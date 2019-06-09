@@ -11,12 +11,12 @@ public class Question_Ref : MonoBehaviour
     {
         if (NPC_Manager.Instance.currentNPC.questionIndex.Count >= (indexReference + 1))
         {
-            Debug.Log("Replace question " + indexReference + " by dialogue " + dialogueIndex);
+            //Debug.Log("Replace question " + indexReference + " by dialogue " + dialogueIndex);
             NPC_Manager.Instance.currentNPC.questionIndex[indexReference] = dialogueIndex;
         }
         else
         {
-            Debug.Log("Add another index at = " + dialogueIndex);
+            //Debug.Log("Add another index at = " + dialogueIndex);
             NPC_Manager.Instance.currentNPC.questionIndex.Add(dialogueIndex);
         }
     }

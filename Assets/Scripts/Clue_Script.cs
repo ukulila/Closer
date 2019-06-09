@@ -9,6 +9,7 @@ public class Clue_Script : MonoBehaviour
     public static Clue_Script Instance;
 
 
+
     public void LaunchClue()
     {
         StartCoroutine(DelayBeforeClue());
@@ -22,9 +23,11 @@ public class Clue_Script : MonoBehaviour
 
     IEnumerator DelayBeforeClue()
     {
-        GameManager.Instance.SwitchModeTo(GameManager.GameMode.ClueMode);
-
         DataManager.Instance.Save();
+
+        yield return new WaitForSeconds(1.5f);
+
+        GameManager.Instance.SwitchModeTo(GameManager.GameMode.ClueMode);
 
         yield return new WaitForSeconds(1.5f);
 
@@ -34,6 +37,5 @@ public class Clue_Script : MonoBehaviour
     IEnumerator DelayBeforeGoingBack()
     {
         yield return new WaitForSeconds(2f);
-
     }
 }

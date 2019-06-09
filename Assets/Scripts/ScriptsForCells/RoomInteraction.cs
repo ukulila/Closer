@@ -63,11 +63,11 @@ public class RoomInteraction : MonoBehaviour
 
 
         uiAnimators[5].SetTrigger("Enabled");
+
+
         menuAnim.SetTrigger("Off");
         roomNameAnim.SetTrigger("FadeOut");
 
-        //if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.Dialogue)
-        //    Examine_Script.Instance.examineButton.interactable = true;
 
         Objectif_Scr.Instance.Disappearance();
         ProgressionBar.Instance.Disparition();
@@ -147,8 +147,12 @@ public class RoomInteraction : MonoBehaviour
         roomNameAnim.ResetTrigger("FadeOut");
 
         uiAnimators[5].SetTrigger("Disabled");
-        menuAnim.SetTrigger("On");
-        roomNameAnim.SetTrigger("FadeIn");
+
+        if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.ClueMode)
+        {
+            menuAnim.SetTrigger("On");
+            roomNameAnim.SetTrigger("FadeIn");
+        }
     }
 
 
