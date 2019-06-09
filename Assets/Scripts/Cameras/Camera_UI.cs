@@ -86,7 +86,8 @@ public class Camera_UI : MonoBehaviour
 
     public void SwitchToNoUi()
     {
-        if (GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode || GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue | GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.InvestigationMode || GameManager.Instance.currentGameMode == GameManager.GameMode.Dialogue || GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode
+            || GameManager.Instance.currentGameMode == GameManager.GameMode.ClueMode)
         {
             animationCurveTimingMax = animationTimingMin;
 
@@ -234,7 +235,7 @@ public class Camera_UI : MonoBehaviour
 
     public void SwitchToUI()
     {
-        if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
+        if (GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode || GameManager.Instance.currentGameMode == GameManager.GameMode.CinematicMode)
         {
             switchToUI = true;
             cameraReposition = false;

@@ -130,7 +130,8 @@ public class NPC_Manager : MonoBehaviour
         returnAnim.ResetTrigger("Off");
         returnAnim.ResetTrigger("Selected");
 
-        returnAnim.SetTrigger("On");
+        if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.ClueMode)
+            returnAnim.SetTrigger("On");
     }
 
     private void ReturnToDialogueOPTION()
@@ -139,7 +140,7 @@ public class NPC_Manager : MonoBehaviour
 
         currentNPC.dialogue[0].questDialogueSystems.actorsIcon[0].gameObject.SetActive(true);
 
-        Debug.Log("AT RETURN     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
+        //Debug.Log("AT RETURN     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
@@ -173,12 +174,12 @@ public class NPC_Manager : MonoBehaviour
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             questionsAnim[i].ResetTrigger("FadeIN");
             questionsAnim[i].SetTrigger("Gone");
         }
 
-        if (GameManager.Instance.previousGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.previousGameMode != GameManager.GameMode.Dialogue)
+        if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.previousGameMode != GameManager.GameMode.Dialogue && GameManager.Instance.previousGameMode != GameManager.GameMode.ClueMode)
             Examine_Script.Instance.examineButton.interactable = true;
 
         onReverse = true;
@@ -196,7 +197,7 @@ public class NPC_Manager : MonoBehaviour
 
         currentNPC.currentDialogueIndex = currentNPC.questionIndex[dialogueIndex];
 
-        NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.questionIndex[dialogueIndex]].isNewQuest = false;
+        currentNPC.dialogue[currentNPC.questionIndex[dialogueIndex]].isNewQuest = false;
 
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.Dialogue);
     }
@@ -215,7 +216,7 @@ public class NPC_Manager : MonoBehaviour
 
         yield return new WaitForSeconds(time);
 
-        Debug.Log("currentDialogueIndex = " + currentNPC.currentDialogueIndex);
+        //Debug.Log("currentDialogueIndex = " + currentNPC.currentDialogueIndex);
 
         currentNPC.dialogue[currentNPC.currentDialogueIndex].questEvents.Invoke();
 
@@ -228,14 +229,16 @@ public class NPC_Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        ActivateDialogueOPTION();
+        if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.ClueMode)
+            ActivateDialogueOPTION();
     }
 
     public IEnumerator ReturnToDialogueOPTIONAnimIn(float time)
     {
         yield return new WaitForSeconds(time);
 
-        ReturnToDialogueOPTION();
+        if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.ClueMode)
+            ReturnToDialogueOPTION();
     }
 
 

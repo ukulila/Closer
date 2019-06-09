@@ -9,6 +9,11 @@ public class DialogueSystem : MonoBehaviour
     [Header("DEBUG bool")]
     public bool startOnAwake;
 
+    [Header("***** Options")]
+    public bool isForCinematic;
+    public bool doYouHaveFade;
+    public bool isLastDialogue;
+
     [Header("Contenu en lignes du Dialogue")]
     public TextAsset asset;
     public int currentLine;
@@ -169,9 +174,7 @@ public class DialogueSystem : MonoBehaviour
     [Header("Actors name")]
     public List<string> names;
 
-    [Header("***** Cinematic Option")]
-    public bool isForCinematic;
-    public bool doYouHaveFade;
+
 
 
 
@@ -999,79 +1002,99 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(335, 72);
 
-        if (!isForCinematic)
+        if (!isLastDialogue)
         {
-            if (doYouHaveFade)
+            if (!isForCinematic)
             {
-                if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked == false)
+                if (doYouHaveFade)
                 {
-                    FadeScript.Instance.FadeINandOUT();
+                    if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked == false)
+                    {
+                        FadeScript.Instance.FadeINandOUT();
 
-                    Debug.Log("INVOKE");
+                        //Debug.Log("INVOKE");
 
-                    NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
+                        NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
 
-                    StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
+                        StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
 
-                    StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(3f));
+                        StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(3f));
 
-                    Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+                        //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+                    }
+                    else
+                    {
+                        //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+
+                        StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
+                    }
                 }
                 else
                 {
-                    Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+                    if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked == false)
+                    {
+                        //Debug.Log("INVOKE");
 
-                    StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
+                        NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
+
+                        StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0.2f));
+
+                        StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1.5f));
+
+                        //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+                    }
+                    else
+                    {
+                        //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+
+                        StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
+                    }
                 }
+
+                actorsIcon[activeActorsIndex[0]].color = speakingColor;
             }
             else
             {
-                if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked == false)
+                if (doYouHaveFade)
                 {
-                    Debug.Log("INVOKE");
+                    if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked == false)
+                    {
+                        FadeScript.Instance.FadeINandOUT();
 
-                    NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
+                        NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
 
-                    StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1f));
+                        StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
 
-                    StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1.5f));
-
-                    Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2f));
+                    }
+                    else
+                    {
+                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(1.5f));
+                    }
                 }
                 else
                 {
-                    Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+                    if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked == false)
+                    {
+                        NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
 
-                    StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
+                        StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0));
+
+                        CinematicTrigger.Instance.EndCinematicNOW();
+                    }
+                    else
+                    {
+                        CinematicTrigger.Instance.EndCinematicNOW();
+                    }
+                    
                 }
             }
-
-            actorsIcon[activeActorsIndex[0]].color = speakingColor;
         }
         else
         {
-            if (doYouHaveFade)
-            {
-                if (NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked == false)
-                {
-                    FadeScript.Instance.FadeINandOUT();
-
-                    NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
-
-                    StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
-
-                    StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2f));
-                }
-                else
-                {
-                    StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(1.5f));
-                }
-            }
-            else
-            {
-                CinematicTrigger.Instance.EndCinematicNOW();
-            }
+            StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0));
         }
+
 
 
         endOfTheLine = false;
@@ -1206,7 +1229,7 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueGo.anchoredPosition = new Vector2(dialogueGo.anchoredPosition.x, lastY + Ydisplacment * percentY);
 
-        if (isForCinematic)
+        if (isForCinematic || isLastDialogue)
         {
             nameBox.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
             nameCharacter.color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
@@ -1216,14 +1239,14 @@ public class DialogueSystem : MonoBehaviour
 
         float numberOfActors = activeActorsIndex.Count;
 
-        if (numberOfActors == 1 && isForCinematic)
+        if (numberOfActors == 1 && isForCinematic || isLastDialogue)
         {
             actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
         }
 
         if (numberOfActors == 2)
         {
-            if (isForCinematic)
+            if (isForCinematic || isLastDialogue)
                 actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
             actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
@@ -1231,7 +1254,7 @@ public class DialogueSystem : MonoBehaviour
 
         if (numberOfActors == 3)
         {
-            if (isForCinematic)
+            if (isForCinematic || isLastDialogue)
                 actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
             actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
@@ -1241,7 +1264,7 @@ public class DialogueSystem : MonoBehaviour
 
         if (numberOfActors == 4)
         {
-            if (isForCinematic)
+            if (isForCinematic || isLastDialogue)
                 actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));
 
             actorsIcon[activeActorsIndex[1]].color = new Color32(255, 255, 255, (byte)(255 - 255 * percentY));

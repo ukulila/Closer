@@ -40,4 +40,9 @@ public class Examine_Script : MonoBehaviour
             CellPlacement.Instance.CellsDeSelection();
         }
     }
+
+    public void OUT()
+    {
+        examineButton.interactable = false;
+    }
 }
