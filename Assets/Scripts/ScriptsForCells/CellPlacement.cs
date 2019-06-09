@@ -271,6 +271,12 @@ public class CellPlacement : MonoBehaviour
             {
                 facingPlane.GetComponentInParent<OpacityKiller>().enabled = true;
                 facingPlane.GetComponent<SpriteRenderer>().color = blackedColor;
+
+                if (facingPlane.GetComponent<Animator>())
+                {
+                    facingPlane.GetComponent<Animator>().SetTrigger("Selected");
+                }
+
                 facingPlane = null;
             }
 
@@ -292,7 +298,7 @@ public class CellPlacement : MonoBehaviour
 
         }
 
-        if (facingPlane != null)
+        if (facingPlane != null && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode)
         {
 
             facingPlane.GetComponentInParent<OpacityKiller>().enabled = false;
