@@ -1,5 +1,79 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1445894555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1445894556}
+  - component: {fileID: 1445894558}
+  - component: {fileID: 1445894557}
+  m_Layer: 0
+  m_Name: TMP SubMeshUI [GOTHIC SDF Material + GOTHIC_Bold Atlas]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1445894556
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445894555}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7757349714228436683}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1445894558
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445894555}
+  m_CullTransparentMesh: 0
+--- !u!114 &1445894557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445894555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_fontAsset: {fileID: 11400000, guid: 90bf5e062fac5a34399a312c7bfa4977, type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_material: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
+  m_isDefaultMaterial: 0
+  m_padding: 0.5
+  m_canvasRenderer: {fileID: 1445894558}
+  m_TextComponent: {fileID: 3052197533998755792}
+  m_materialReferenceIndex: 1
 --- !u!1 &1589357366064905428
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +103,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1445894556}
   m_Father: {fileID: 1381345519586668367}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -76,7 +151,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4400707
+    rgba: 4294967295
   m_fontColor: {r: 0.2627451, g: 0.14901961, b: 0.2627451, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -113,7 +188,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 29
+  m_firstOverflowCharacterIndex: 15
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -153,7 +228,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1445894557}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -181,17 +256,49 @@ MonoBehaviour:
   shakeIndependency: 2
   waveAmount: 1
   waveSpeed: 1
-  waveSeparation: 1
-  waveIndependency: 3
-  wavevAmount: 1
-  wavevSpeed: 1
-  wavevSeparation: 1
-  wavevIndependency: 3
-  wiggleAmount: 1
-  wiggleSpeed: 0.125
-  wiggleMinimumDuration: 0.5
-  wiggleIndependency: 2
-  charsVisible: 100
+  waveSeparation: 15
+  waveIndependency: 2
+  drunkAmount: 3
+  drunkSpeed: 0.02
+  drunkSeparation: 0.3
+  drunkIndependency: 2
+  excitedAmount: 0
+  excitedSpeed: 0.1
+  excitedSeparation: 0.1
+  excitedIndependency: 2
+  impatientAmount: 1
+  impatientSpeed: 0.3
+  impatientSeparation: 0.1
+  impatientIndependency: 1
+  sickAmount: 3
+  sickSpeed: 0.01
+  sickSeparation: 10
+  sickIndependency: 3
+  happyAmount: 4.5
+  happySpeed: 0.08
+  happySeparation: 15
+  happyIndependency: 2
+  sadAmount: -5
+  sadSpeed: 0.01
+  sadSeparation: 15
+  sadIndependency: 0
+  wiggleAmount: 2.5
+  wiggleSpeed: 0.1
+  wiggleMinimumDuration: 1
+  wiggleIndependency: 1
+  playAmount: 5
+  playSpeed: 0.01
+  playMinimumDuration: 1
+  playIndependency: 0
+  clumsyAmount: 2.5
+  clumsySpeed: 0.005
+  clumsyMinimumDuration: 0
+  clumsyIndependency: 2
+  horrorAmount: 3
+  horrorSpeed: 0.6
+  horrorMinimumDuration: 1
+  horrorIndependency: 3
+  charsVisible: 120
   scrollSpeeds: 
 --- !u!1 &3702722312052717813
 GameObject:
@@ -246,7 +353,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3702722312052717813}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
