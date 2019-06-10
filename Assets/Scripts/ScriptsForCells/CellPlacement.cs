@@ -457,7 +457,7 @@ public class CellPlacement : MonoBehaviour
     {
         if (RotationDesPièces.Count > 0)
         {
-            int indexRand = Random.Range(0, RotationDesPièces.Count);
+            int indexRand = Random.Range(0, RotationDesPièces.Count-1);
             RotationDesPièces[indexRand].Play(0);
             return;
         }
