@@ -25,6 +25,8 @@ public class CinematicTrigger : MonoBehaviour
 
     private void Start()
     {
+        npcConcerned.dialogue[dialogueNpcIndex].questDialogueSystems.gameObject.SetActive(true);
+
         if (playOnAwake)
         {
             StartCoroutine(DelayBeforeCinematic(0.1f));
@@ -36,6 +38,9 @@ public class CinematicTrigger : MonoBehaviour
     /// </summary>
     public void LaunchCinematic()
     {
+        Debug.Log("Unlock dialogue");
+        npcConcerned.dialogue[npcConcerned.questionIndex[dialogueNpcIndex]].questDialogueSystems.gameObject.SetActive(true);
+
         StartCoroutine(DelayBeforeCinematic(1.5f));
     }
 
@@ -94,5 +99,7 @@ public class CinematicTrigger : MonoBehaviour
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.PuzzleMode);
 
         ROOM_Manager.Instance.currentRoom.DisableUI();
+
+        npcConcerned.dialogue[dialogueNpcIndex].questDialogueSystems.gameObject.SetActive(false);
     }
 }

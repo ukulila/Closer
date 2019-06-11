@@ -63,7 +63,7 @@ public class NPC_Manager : MonoBehaviour
     {
         int nbrDialogueAsked = 0;
 
-        Debug.Log("AT SET     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
+        //Debug.Log("AT SET     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
@@ -117,7 +117,7 @@ public class NPC_Manager : MonoBehaviour
 
         currentNPC.dialogue[0].questDialogueSystems.actorsIcon[0].gameObject.SetActive(true);
 
-        Debug.Log("AT ACTIVATION     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
+        //Debug.Log("AT ACTIVATION     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
@@ -137,6 +137,8 @@ public class NPC_Manager : MonoBehaviour
     private void ReturnToDialogueOPTION()
     {
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.Dialogue);
+
+        currentNPC.dialogue[currentNPC.currentDialogueIndex].questDialogueSystems.gameObject.SetActive(false);
 
         currentNPC.dialogue[0].questDialogueSystems.actorsIcon[0].gameObject.SetActive(true);
 
@@ -192,10 +194,16 @@ public class NPC_Manager : MonoBehaviour
     /// </summary>
     public void TalkToCurrentNPC(int dialogueIndex)
     {
+        currentNPC.currentDialogueIndex = currentNPC.questionIndex[dialogueIndex];
+
+        currentNPC.dialogue[currentNPC.currentDialogueIndex].questDialogueSystems.gameObject.SetActive(true);
+
         StartCoroutine(StartDialogueIn(1.5f, dialogueIndex));
         returnAnim.SetTrigger("Off");
 
-        currentNPC.currentDialogueIndex = currentNPC.questionIndex[dialogueIndex];
+       
+
+        questionsAnim[dialogueIndex].SetBool("hasBeenAsked", true);
 
         currentNPC.dialogue[currentNPC.questionIndex[dialogueIndex]].isNewQuest = false;
 
@@ -239,6 +247,8 @@ public class NPC_Manager : MonoBehaviour
 
         if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.ClueMode)
             ReturnToDialogueOPTION();
+
+
     }
 
 

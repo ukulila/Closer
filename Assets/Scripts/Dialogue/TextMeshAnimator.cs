@@ -454,14 +454,15 @@ public class TextMeshAnimator : MonoBehaviour
                     if (inputText[index++] == '>')
                     {
                         string tag = inputText.Substring(startTagIndex, index - startTagIndex);
-                        Debug.Log(tag);
+                        //Debug.Log(tag);
                         if (tag.ToUpper().Contains("COLOR") || tag.ToUpper().Contains("SIZE"))
                         {
-                            Debug.Log("THE TAG IS " + tag);
+                            //Debug.Log("THE TAG IS " + tag);
                             outputText += tag;
 
 
                         }
+
                         //SHAKE
 
                         else if (tag.ToUpper().Contains("/SHAKE"))
@@ -488,7 +489,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out shakeAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for shake amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for shake amount.", amount_string));
                                 }
                             }
                             if (tag.ToUpper().Contains("UNITED"))
@@ -537,7 +538,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out waveAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
                                 }
                             }
 
@@ -556,7 +557,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out waveSpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
                                 }
                             }
 
@@ -575,7 +576,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string separation_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(separation_string, out waveSeparation))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
                                 }
                             }
 
@@ -626,7 +627,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out drunkAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wavev amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wavev amount.", amount_string));
                                 }
                             }
 
@@ -645,7 +646,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out drunkSpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wavev speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wavev speed.", speed_string));
                                 }
                             }
 
@@ -664,7 +665,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string separation_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(separation_string, out drunkSeparation))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wavev separation.", separation_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wavev separation.", separation_string));
                                 }
                             }
 
@@ -714,7 +715,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out excitedAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
                                 }
                             }
 
@@ -733,7 +734,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out excitedSpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
                                 }
                             }
 
@@ -752,7 +753,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string separation_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(separation_string, out excitedSeparation))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
                                 }
                             }
 
@@ -802,7 +803,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out impatientAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
                                 }
                             }
 
@@ -821,7 +822,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out impatientSpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
                                 }
                             }
 
@@ -840,7 +841,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string separation_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(separation_string, out impatientSeparation))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
                                 }
                             }
 
@@ -890,7 +891,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out sickAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
                                 }
                             }
 
@@ -909,7 +910,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out sickSpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
                                 }
                             }
 
@@ -928,7 +929,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string separation_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(separation_string, out sickSeparation))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
                                 }
                             }
 
@@ -978,7 +979,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out happyAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
                                 }
                             }
 
@@ -997,7 +998,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out happySpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
                                 }
                             }
 
@@ -1016,7 +1017,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string separation_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(separation_string, out happySeparation))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
                                 }
                             }
 
@@ -1066,7 +1067,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out sadAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave amount.", amount_string));
                                 }
                             }
 
@@ -1085,7 +1086,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out sadSpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave speed.", speed_string));
                                 }
                             }
 
@@ -1104,7 +1105,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string separation_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(separation_string, out sadSeparation))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wave separation.", separation_string));
                                 }
                             }
 
@@ -1155,7 +1156,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out wiggleAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wiggle amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wiggle amount.", amount_string));
                                 }
                             }
 
@@ -1174,7 +1175,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out wiggleSpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wiggle speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wiggle speed.", speed_string));
                                 }
                             }
 
@@ -1223,7 +1224,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out playAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wiggle amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wiggle amount.", amount_string));
                                 }
                             }
 
@@ -1242,7 +1243,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out playSpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wiggle speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wiggle speed.", speed_string));
                                 }
                             }
 
@@ -1291,7 +1292,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out clumsyAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wiggle amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wiggle amount.", amount_string));
                                 }
                             }
 
@@ -1310,7 +1311,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out clumsySpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wiggle speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wiggle speed.", speed_string));
                                 }
                             }
 
@@ -1359,7 +1360,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string amount_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(amount_string, out horrorAmount))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wiggle amount.", amount_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wiggle amount.", amount_string));
                                 }
                             }
 
@@ -1378,7 +1379,7 @@ public class TextMeshAnimator : MonoBehaviour
                                 string speed_string = tag.Substring(startIndex, iiii - startIndex);
                                 if (!float.TryParse(speed_string, out horrorSpeed))
                                 {
-                                    Debug.LogError(string.Format("'{0}' is not a valid value for wiggle speed.", speed_string));
+                                    //Debug.LogError(string.Format("'{0}' is not a valid value for wiggle speed.", speed_string));
                                 }
                             }
 
