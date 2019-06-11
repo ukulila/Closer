@@ -20,6 +20,8 @@ public class NPCInteractions : MonoBehaviour
 
         NPC_Manager.Instance.currentNPC.currentDialogueIndex = DialogueIndex;
 
+        //currentDialogueIndex = DialogueIndex;
+
         Examine_Script.Instance.examineButton.interactable = false;
     }
 
@@ -27,7 +29,9 @@ public class NPCInteractions : MonoBehaviour
     {
         dialogue[questionIndex[DialogueIndex]].questDialogueSystems.StartDialogue();
 
-        NPC_Manager.Instance.currentNPC.currentDialogueIndex = DialogueIndex;
+        //NPC_Manager.Instance.currentNPC.currentDialogueIndex = DialogueIndex;
+
+        //currentDialogueIndex = DialogueIndex;
 
         Examine_Script.Instance.examineButton.interactable = false;
     }

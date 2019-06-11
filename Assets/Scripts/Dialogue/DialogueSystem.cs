@@ -1025,7 +1025,7 @@ public class DialogueSystem : MonoBehaviour
                     else
                     {
                         //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
-
+                        //Debug.Log("Nothing to INVOKED " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
                         StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
                     }
                 }
@@ -1046,7 +1046,7 @@ public class DialogueSystem : MonoBehaviour
                     else
                     {
                         //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
-
+                        //Debug.Log("Nothing to INVOKED " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
                         StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
                     }
                 }
@@ -1065,7 +1065,7 @@ public class DialogueSystem : MonoBehaviour
 
                         StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
 
-                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2f));
+                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2.2f));
                     }
                     else
                     {
@@ -1078,21 +1078,24 @@ public class DialogueSystem : MonoBehaviour
                     {
                         NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
 
-                        StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0));
+                        StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0f));
 
-                        CinematicTrigger.Instance.EndCinematicNOW();
+                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(0.5f));
+
+                        //CinematicTrigger.Instance.EndCinematicNOW();
                     }
                     else
                     {
-                        CinematicTrigger.Instance.EndCinematicNOW();
+                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(0.5f));
                     }
-                    
                 }
             }
         }
         else
         {
-            StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0));
+            Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+
+            StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
         }
 
 

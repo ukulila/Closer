@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
                     UI_Manager.Instance.StartCoroutine(UI_Manager.Instance.DelayBeforeDeactivation(1.5f, UI_Manager.Instance.inventoryButtonsGO));
                 }
 
-                if (previousGameMode == GameMode.Dialogue || previousGameMode == GameMode.CinematicMode)
+                if (previousGameMode == GameMode.Dialogue)
                 {
                     UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.WinningGO);
 
