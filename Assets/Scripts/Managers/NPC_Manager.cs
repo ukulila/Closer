@@ -93,7 +93,7 @@ public class NPC_Manager : MonoBehaviour
 
             questionsAnim[i].ResetTrigger("FadeIN");
             questionsAnim[i].ResetTrigger("Selected");
-            questionsAnim[i].ResetTrigger("FadeOUT");
+            questionsAnim[i].ResetTrigger("Gone");
         }
 
         if (nbrDialogueAsked == currentNPC.questionIndex.Count)
