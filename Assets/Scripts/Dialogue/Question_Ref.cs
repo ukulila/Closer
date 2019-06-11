@@ -7,6 +7,9 @@ public class Question_Ref : MonoBehaviour
     public int indexReference;
     public Animator boutonAnim;
 
+    public NPCInteractions npcToInfluence;
+
+
     public void ReplaceCurrentQuestionTo(int dialogueIndex)
     {
         if (NPC_Manager.Instance.currentNPC.questionIndex.Count >= (indexReference + 1))
@@ -18,6 +21,25 @@ public class Question_Ref : MonoBehaviour
         {
             //Debug.Log("Add another index at = " + dialogueIndex);
             NPC_Manager.Instance.currentNPC.questionIndex.Add(dialogueIndex);
+        }
+    }
+
+    public void NpcReferenceIs(NPCInteractions npc)
+    {
+        npcToInfluence = npc;
+    }
+
+    public void ReplaceQuestionOfRefNPC(int dialogueIndexNPC)
+    {
+        if (npcToInfluence.questionIndex.Count >= (indexReference + 1))
+        {
+            //Debug.Log("Replace question " + indexReference + " by dialogue " + dialogueIndex);
+            npcToInfluence.questionIndex[indexReference] = dialogueIndexNPC;
+        }
+        else
+        {
+            //Debug.Log("Add another index at = " + dialogueIndex);
+            npcToInfluence.questionIndex.Add(dialogueIndexNPC);
         }
     }
     

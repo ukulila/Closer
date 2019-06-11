@@ -34,6 +34,8 @@ public class Clue_Script : MonoBehaviour
 
     IEnumerator DelayBeforeGoingBack()
     {
+        FadeScript.Instance.fadeAnim.SetTrigger("FadeIn");
+
         yield return new WaitForSeconds(2f);
     }
 }

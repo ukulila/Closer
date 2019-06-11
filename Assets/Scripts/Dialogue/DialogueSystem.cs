@@ -13,6 +13,7 @@ public class DialogueSystem : MonoBehaviour
     public bool isForCinematic;
     public bool doYouHaveFade;
     public bool isLastDialogue;
+    public bool isNpcDesappearingAfter;
 
     [Header("Contenu en lignes du Dialogue")]
     public TextAsset asset;
@@ -1018,7 +1019,14 @@ public class DialogueSystem : MonoBehaviour
 
                         StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
 
-                        StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(3f));
+                        if (isNpcDesappearingAfter)
+                        {
+                            ROOM_Manager.Instance.LaunchUI(1.5f);
+                        }
+                        else
+                        {
+                            StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(3));
+                        }
 
                         //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
                     }
@@ -1038,8 +1046,16 @@ public class DialogueSystem : MonoBehaviour
                         NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
 
                         StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0.2f));
+                        
 
-                        StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1.5f));
+                        if (isNpcDesappearingAfter)
+                        {
+                            ROOM_Manager.Instance.LaunchUI(1.5f);
+                        }
+                        else
+                        {
+                            StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1.5f));
+                        }
 
                         //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
                     }
