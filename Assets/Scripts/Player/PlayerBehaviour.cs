@@ -366,7 +366,7 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 050);
                         //cP.okToSetup = true;
-                        Debug.Log("1st raycastHit" + hit.collider.transform.name);
+                       // Debug.Log("1st raycastHit" + hit.collider.transform.name);
 
 
                         if (nextContext.GetComponent<ScrEnvironment>().doorWayPoints.Contains(hit.collider.transform))
@@ -380,17 +380,17 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
+                       // Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.red, 50);
                         castingRay = false;
-                        Debug.Log("1st NoRaycastHit");
+                        // Debug.Log("1st NoRaycastHit");
 
                     }
 
                     if (Physics.Raycast(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, out hit, 5, layerMaskDoor) && hit.transform.parent.gameObject != context.gameObject && hit.transform.parent.gameObject == nextContext.gameObject)
                     {
-                        Debug.Log("2st RaycastHit");
+                        //Debug.Log("2st RaycastHit");
 
-                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, -context.doorWayPoints[u].transform.up, Color.green, 50);
 
                         if (nextContext.GetComponent<ScrEnvironment>().doorWayPoints.Contains(hit.collider.transform))
                         {
@@ -404,9 +404,9 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
+                        //Debug.DrawRay(context.doorWayPoints[u].GetChild(0).transform.position + offset, context.doorWayPoints[u].transform.up, Color.red, 50);
                         castingRay = false;
-                        Debug.Log("2st NoRaycastHit");
+                        //Debug.Log("2st NoRaycastHit");
 
                     }
 
