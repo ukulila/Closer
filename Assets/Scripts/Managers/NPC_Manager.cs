@@ -63,7 +63,7 @@ public class NPC_Manager : MonoBehaviour
     {
         int nbrDialogueAsked = 0;
 
-        //Debug.Log("AT SET     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
+        Debug.Log("AT SET     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
