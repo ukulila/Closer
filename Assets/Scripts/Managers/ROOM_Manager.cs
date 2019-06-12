@@ -55,14 +55,15 @@ public class ROOM_Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        if (currentRoom.isDialogue)
+        if (currentRoom.isDialogue/* && NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questDialogueSystems.isForCinematic == false*/)
             NPC_Manager.Instance.SetDialogueOPTION();
 
         currentRoom.InteractionAppears();
 
         yield return new WaitForSeconds(2f);
 
-        Examine_Script.Instance.examineButton.interactable = true;
+        if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.Dialogue)
+            Examine_Script.Instance.examineButton.interactable = true;
     }
 
     public IEnumerator DeactiveAnimationIn(float time)

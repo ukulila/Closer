@@ -466,7 +466,8 @@ public class Camera_UI : MonoBehaviour
 
                 animationCurveTimingMax = animationTimingMin;
 
-                Examine_Script.Instance.examineButton.interactable = true;
+                if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.currentGameMode != GameManager.GameMode.Dialogue)
+                    Examine_Script.Instance.examineButton.interactable = true;
 
                 canMoveCells = true;
             }

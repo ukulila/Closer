@@ -20,12 +20,15 @@ public class CinematicTrigger : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        if (playOnAwake)
+            npcConcerned.dialogue[dialogueNpcIndex].questDialogueSystems.gameObject.SetActive(true);
     }
 
 
     private void Start()
     {
-        npcConcerned.dialogue[dialogueNpcIndex].questDialogueSystems.gameObject.SetActive(true);
+        //npcConcerned.dialogue[dialogueNpcIndex].questDialogueSystems.gameObject.SetActive(true);
 
         if (playOnAwake)
         {
@@ -38,7 +41,7 @@ public class CinematicTrigger : MonoBehaviour
     /// </summary>
     public void LaunchCinematic()
     {
-        Debug.Log("Unlock dialogue");
+        //Debug.Log("Unlock dialogue");
         npcConcerned.dialogue[npcConcerned.questionIndex[dialogueNpcIndex]].questDialogueSystems.gameObject.SetActive(true);
 
         StartCoroutine(DelayBeforeCinematic(1.5f));

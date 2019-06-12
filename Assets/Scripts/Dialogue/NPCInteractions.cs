@@ -18,7 +18,7 @@ public class NPCInteractions : MonoBehaviour
     {
         dialogue[DialogueIndex].questDialogueSystems.StartDialogue();
 
-        NPC_Manager.Instance.currentNPC.currentDialogueIndex = DialogueIndex;
+        //NPC_Manager.Instance.currentNPC.currentDialogueIndex = DialogueIndex;
 
         //currentDialogueIndex = DialogueIndex;
 

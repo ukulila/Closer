@@ -365,6 +365,7 @@ public class CellMovement : MonoBehaviour
                     //CellPlacement.Instance.PlayUnSelectionSound();
                     selected = false;
                 }
+
                 slectedRoomText.text = " ";
                 unSelection = false;
                 timerUnSelection = 0;
