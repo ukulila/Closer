@@ -64,7 +64,8 @@ public class RoomInteraction : MonoBehaviour
 
         uiAnimators[5].SetTrigger("Enabled");
 
-        ROOM_Manager.Instance.currentRoom.GetComponent<CellMovement>().slectedRoomText.text = " ";
+        if (ROOM_Manager.Instance.currentRoom.GetComponent<CellMovement>().slectedRoomText != null)
+            ROOM_Manager.Instance.currentRoom.GetComponent<CellMovement>().slectedRoomText.text = " ";
 
         menuAnim.SetTrigger("Off");
         roomNameAnim.SetTrigger("FadeOut");

@@ -55,8 +55,8 @@ public class CellPlacement : MonoBehaviour
 
     [Header("   Selection")]
 
-    public Color selectedColor = new Color(215, 215, 215, 200);
-    public Color blackedColor = new Color(0, 0, 0, 0);
+    public Color32 selectedColor = new Color(255, 174, 177, 166);
+    public Color32 blackedColor = new Color(0, 0, 0, 0);
 
     public void Awake()
     {
