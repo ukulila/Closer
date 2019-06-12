@@ -1100,13 +1100,13 @@ public class DialogueSystem : MonoBehaviour
 
                         StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0f));
 
-                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(0.5f));
+                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(1f));
 
                         //CinematicTrigger.Instance.EndCinematicNOW();
                     }
                     else
                     {
-                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(0.5f));
+                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(0.1f));
                     }
                 }
             }

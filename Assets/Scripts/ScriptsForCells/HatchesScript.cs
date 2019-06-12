@@ -47,9 +47,11 @@ public class HatchesScript : MonoBehaviour
 
                 if (otherDoor != null && otherDoor.GetChild(0).GetComponent<Renderer>().material.GetColor("_EmissionColor") == openHatchColor)
                 {
-                    otherDoor = hit.transform;
+                    otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", openHatchColor);
+
 
                 }
+                otherDoor = hit.transform;
 
                 transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", openHatchColor);
                 otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", openHatchColor);
