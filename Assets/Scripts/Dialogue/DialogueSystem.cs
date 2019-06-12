@@ -449,7 +449,7 @@ public class DialogueSystem : MonoBehaviour
         esdieColor = new Color32(133, 219, 125, 255);
         walterColor = new Color32(196, 145, 224, 255);
         rayColor = new Color32(204, 149, 130, 255);
-        barneyColor = new Color32(255, 255, 255, 255);
+        barneyColor = new Color32(166, 244, 246, 255);
         nikkyColor = new Color32(161, 236, 196, 255);
         irinaColor = new Color32(158, 218, 231, 255);
     }
@@ -1110,6 +1110,9 @@ public class DialogueSystem : MonoBehaviour
         else
         {
             Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+
+            NPC_Manager.Instance.onReverse = true;
+            NPC_Manager.Instance.isCurveNeeded = true;
 
             StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
         }
