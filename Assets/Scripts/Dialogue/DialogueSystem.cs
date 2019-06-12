@@ -464,8 +464,8 @@ public class DialogueSystem : MonoBehaviour
 
         names.Add("Blanche");
         names.Add("Mireille");
-        names.Add("Louis");
-        names.Add("Madame BERLEAU");
+        names.Add("Mehdi");
+        names.Add("Ms BERLEAU");
         names.Add("Dotty");
         names.Add("Jolly");
         names.Add("Dolores");
