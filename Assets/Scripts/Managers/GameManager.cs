@@ -208,6 +208,17 @@ public class GameManager : MonoBehaviour
         DataManager.Instance.Load();
 
         SaveProgression();
+
+        //if(currentGameMode == GameMode.PuzzleMode)
+        //{
+        //    Debug.Log("At START");
+
+        //    Camera_UI.Instance.SwitchToNoUi();
+
+        //    SwitchModeTo(GameMode.PuzzleMode);
+
+        //    ROOM_Manager.Instance.currentRoom.DisableUI();
+        //}
     }
 
     public void SaveProgression()
