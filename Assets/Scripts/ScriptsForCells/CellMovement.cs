@@ -163,8 +163,9 @@ public class CellMovement : MonoBehaviour
                 SoundSelectionOnce = false;
             }
 
+            if (slectedRoomText != null)
+                slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
 
-            slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
             //slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
             actiCanvas = true;
             CanvasRotation.SetActive(true);
@@ -338,7 +339,8 @@ public class CellMovement : MonoBehaviour
                 SoundSelectionOnce = true;
             }
 
-            slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
+            if (slectedRoomText != null)
+                slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
             //slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
         }
 
@@ -366,7 +368,9 @@ public class CellMovement : MonoBehaviour
                     selected = false;
                 }
 
-                slectedRoomText.text = " ";
+                if (slectedRoomText != null)
+                    slectedRoomText.text = " ";
+
                 unSelection = false;
                 timerUnSelection = 0;
             }
@@ -567,7 +571,7 @@ public class CellMovement : MonoBehaviour
         //Makes the actual Position of Cell Change. The 1rst position --> the 2nd etc..
         if (moveHorizontal && !NoHorizontal)
         {
-            if(onceSoundMovement == true)
+            if (onceSoundMovement == true)
             {
                 CellPlacement.Instance.PlayMovingRoomsSound();
                 onceSoundMovement = false;
@@ -626,7 +630,7 @@ public class CellMovement : MonoBehaviour
                 CellPlacement.Instance.PlayHasEndedSound();
 
                 once = false;
-               // selected = false;
+                // selected = false;
                 click = false;
                 timer = 0;
 
@@ -701,7 +705,7 @@ public class CellMovement : MonoBehaviour
                 CellPlacement.Instance.PlayHasEndedSound();
 
                 once = false;
-            //    selected = false;
+                //    selected = false;
                 click = false;
                 timer = 0;
 
@@ -775,7 +779,7 @@ public class CellMovement : MonoBehaviour
                 CellPlacement.Instance.PlayHasEndedSound();
 
                 once = false;
-               // selected = false;
+                // selected = false;
                 click = false;
                 timer = 0;
 
