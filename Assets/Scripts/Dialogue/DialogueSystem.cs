@@ -203,6 +203,7 @@ public class DialogueSystem : MonoBehaviour
     public void StartDialogue()
     {
         CellPlacement.Instance.doOnce = true;
+
         StartCoroutine(StartDialogueIn(1.5f));
     }
 
@@ -272,7 +273,10 @@ public class DialogueSystem : MonoBehaviour
     IEnumerator StartDialogueIn(float time)
     {
         ActivateActorsIcons();
-        nameCharacter.text = names[activeActorsIndex[1]];
+
+        if (activeActorsIndex.Count != 1)
+            nameCharacter.text = names[activeActorsIndex[1]];
+
         isStarting = true;
 
         yield return new WaitForSeconds(time);
@@ -1046,7 +1050,7 @@ public class DialogueSystem : MonoBehaviour
                         NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
 
                         StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0.2f));
-                        
+
 
                         if (isNpcDesappearingAfter)
                         {
@@ -1144,17 +1148,24 @@ public class DialogueSystem : MonoBehaviour
 
         currentActor = actors[currentLine];
 
-
-        if ((int)currentActor == activeActorsIndex[0])
+        if (activeActorsIndex.Count != 1)
         {
-            actorsIcon[activeActorsIndex[0]].color = speakingColor;
-            actorsIcon[activeActorsIndex[1]].color = listeningColor;
+            if ((int)currentActor == activeActorsIndex[0])
+            {
+                actorsIcon[activeActorsIndex[0]].color = speakingColor;
+                actorsIcon[activeActorsIndex[1]].color = listeningColor;
+            }
+            else
+            {
+                actorsIcon[activeActorsIndex[1]].color = speakingColor;
+                actorsIcon[activeActorsIndex[0]].color = listeningColor;
+            }
         }
         else
         {
-            actorsIcon[activeActorsIndex[1]].color = speakingColor;
-            actorsIcon[activeActorsIndex[0]].color = listeningColor;
+            actorsIcon[activeActorsIndex[0]].color = speakingColor;
         }
+
 
     }
 

@@ -10,6 +10,7 @@ public class HatchesScript : MonoBehaviour
     private int timerOpenDoor;
     public Color openHatchColor;
     public Color ClosedHatchColor;
+    public bool isForEnding;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,7 @@ public class HatchesScript : MonoBehaviour
     public void CheckForDoors()
     {
 
-        if (checkOpenDoor)
+        if (checkOpenDoor && !isForEnding)
         {
             //Debug.Log("           I draw          ");
 
@@ -42,7 +43,7 @@ public class HatchesScript : MonoBehaviour
 
             if (Physics.Raycast(transform.transform.position + offset, -transform.forward, out hit, 5, layerMaskDoor) && hit.transform.gameObject != gameObject)
             {
-                // Debug.DrawRay(transform.transform.position + offset, -transform.forward,Color.black, 500);
+                 Debug.DrawRay(transform.transform.position + offset, -transform.forward,Color.black, 500);
 
                 if (otherDoor != null && otherDoor.GetChild(0).GetComponent<Renderer>().material.GetColor("_EmissionColor") == openHatchColor)
                 {
@@ -61,7 +62,7 @@ public class HatchesScript : MonoBehaviour
             else
             {
 
-                //     Debug.DrawRay(transform.transform.position + offset, -transform.forward, Color.black, 500);
+                 Debug.DrawRay(transform.transform.position + offset, -transform.forward, Color.black, 500);
                 if (otherDoor != null)
                 {
                     transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedHatchColor);
