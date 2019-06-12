@@ -99,7 +99,8 @@ public class Camera_UI : MonoBehaviour
 
             switchToUI = false;
 
-            ROOM_Manager.Instance.DeactivateUI();
+            if (GameManager.Instance.currentGameMode != GameManager.GameMode.ClueMode)
+                ROOM_Manager.Instance.DeactivateUI();
 
             cameraReposition = false;
         }

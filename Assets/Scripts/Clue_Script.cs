@@ -25,8 +25,6 @@ public class Clue_Script : MonoBehaviour
     {
         DataManager.Instance.Save();
 
-        yield return new WaitForSeconds(1.5f);
-
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.ClueMode);
 
         yield return new WaitForSeconds(1.5f);
@@ -36,6 +34,8 @@ public class Clue_Script : MonoBehaviour
 
     IEnumerator DelayBeforeGoingBack()
     {
+        FadeScript.Instance.fadeAnim.SetTrigger("FadeIn");
+
         yield return new WaitForSeconds(2f);
     }
 }

@@ -13,6 +13,7 @@ public class DialogueSystem : MonoBehaviour
     public bool isForCinematic;
     public bool doYouHaveFade;
     public bool isLastDialogue;
+    public bool isNpcDesappearingAfter;
 
     [Header("Contenu en lignes du Dialogue")]
     public TextAsset asset;
@@ -448,7 +449,7 @@ public class DialogueSystem : MonoBehaviour
         esdieColor = new Color32(133, 219, 125, 255);
         walterColor = new Color32(196, 145, 224, 255);
         rayColor = new Color32(204, 149, 130, 255);
-        barneyColor = new Color32(255, 255, 255, 255);
+        barneyColor = new Color32(166, 244, 246, 255);
         nikkyColor = new Color32(161, 236, 196, 255);
         irinaColor = new Color32(158, 218, 231, 255);
     }
@@ -1018,14 +1019,21 @@ public class DialogueSystem : MonoBehaviour
 
                         StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
 
-                        StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(3f));
+                        if (isNpcDesappearingAfter)
+                        {
+                            ROOM_Manager.Instance.LaunchUI(1.5f);
+                        }
+                        else
+                        {
+                            StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(3));
+                        }
 
                         //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
                     }
                     else
                     {
                         //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
-
+                        //Debug.Log("Nothing to INVOKED " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
                         StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
                     }
                 }
@@ -1038,15 +1046,23 @@ public class DialogueSystem : MonoBehaviour
                         NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
 
                         StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0.2f));
+                        
 
-                        StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1.5f));
+                        if (isNpcDesappearingAfter)
+                        {
+                            ROOM_Manager.Instance.LaunchUI(1.5f);
+                        }
+                        else
+                        {
+                            StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1.5f));
+                        }
 
                         //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
                     }
                     else
                     {
                         //Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
-
+                        //Debug.Log("Nothing to INVOKED " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
                         StartCoroutine(NPC_Manager.Instance.ReturnToDialogueOPTIONAnimIn(1f));
                     }
                 }
@@ -1065,7 +1081,7 @@ public class DialogueSystem : MonoBehaviour
 
                         StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
 
-                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2f));
+                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(2.2f));
                     }
                     else
                     {
@@ -1078,21 +1094,27 @@ public class DialogueSystem : MonoBehaviour
                     {
                         NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questHasBeenAsked = true;
 
-                        StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0));
+                        StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0f));
 
-                        CinematicTrigger.Instance.EndCinematicNOW();
+                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(0.5f));
+
+                        //CinematicTrigger.Instance.EndCinematicNOW();
                     }
                     else
                     {
-                        CinematicTrigger.Instance.EndCinematicNOW();
+                        StartCoroutine(CinematicTrigger.Instance.DelayBoforeEndingCinematic(0.5f));
                     }
-                    
                 }
             }
         }
         else
         {
-            StartCoroutine(NPC_Manager.Instance.StartInvokeIn(0));
+            Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
+
+            NPC_Manager.Instance.onReverse = true;
+            NPC_Manager.Instance.isCurveNeeded = true;
+
+            StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
         }
 
 

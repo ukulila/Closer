@@ -59,6 +59,10 @@ public class ROOM_Manager : MonoBehaviour
             NPC_Manager.Instance.SetDialogueOPTION();
 
         currentRoom.InteractionAppears();
+
+        yield return new WaitForSeconds(2f);
+
+        Examine_Script.Instance.examineButton.interactable = true;
     }
 
     public IEnumerator DeactiveAnimationIn(float time)
