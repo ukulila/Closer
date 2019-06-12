@@ -626,7 +626,7 @@ public class CellMovement : MonoBehaviour
                 CellPlacement.Instance.PlayHasEndedSound();
 
                 once = false;
-                selected = false;
+               // selected = false;
                 click = false;
                 timer = 0;
 
@@ -701,7 +701,7 @@ public class CellMovement : MonoBehaviour
                 CellPlacement.Instance.PlayHasEndedSound();
 
                 once = false;
-                selected = false;
+            //    selected = false;
                 click = false;
                 timer = 0;
 
@@ -775,7 +775,7 @@ public class CellMovement : MonoBehaviour
                 CellPlacement.Instance.PlayHasEndedSound();
 
                 once = false;
-                selected = false;
+               // selected = false;
                 click = false;
                 timer = 0;
 
