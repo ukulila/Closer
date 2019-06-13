@@ -57,7 +57,7 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("   Récupération des acteurs")]
     public GameObject actorsIconHierarchyReference;
-    public enum Actors { Blanche, Mireille, Mehdi, MmeBerleau, Dotty, Jolly, Dolores, Maggie, Esdie, Walter, Ray, Barney, Nikky, Irina };
+    public enum Actors { Blanche, Mireille, Mehdi, MmeBerleau, Dotty, Client, Dolores, Maggie, Esdie, Walter, Ray, Barney, Nikki, Irina };
     public Actors currentActor;
     public List<Actors> actors;
     public List<int> activeActorsIndex;
@@ -274,7 +274,7 @@ public class DialogueSystem : MonoBehaviour
     {
         ActivateActorsIcons();
 
-        if (activeActorsIndex.Count != 1)
+        if (activeActorsIndex.Count > 0)
             nameCharacter.text = names[activeActorsIndex[1]];
 
         isStarting = true;
@@ -445,7 +445,7 @@ public class DialogueSystem : MonoBehaviour
         blancheColor = new Color32(255, 255, 255, 255);
         mireilleColor = new Color32(241, 172, 90, 255);
         louisColor = new Color32(200, 99, 166, 255); ;
-        berleauColor = new Color32(255, 255, 255, 255);
+        berleauColor = new Color32(255, 165, 199, 255);
         dottyColor = new Color32(191, 148, 205, 255);
         jollyColor = new Color32(255, 255, 255, 255);
         doloresColor = new Color32(255, 144, 126, 255);
@@ -467,14 +467,14 @@ public class DialogueSystem : MonoBehaviour
         names.Add("Mehdi");
         names.Add("Ms BERLEAU");
         names.Add("Dotty");
-        names.Add("Jolly");
+        names.Add("Client");
         names.Add("Dolores");
         names.Add("Maggie");
         names.Add("Esdie");
         names.Add("Walter");
         names.Add("Ray");
         names.Add("Barney");
-        names.Add("Nikky");
+        names.Add("Nikki");
         names.Add("Irina");
 
     }
@@ -617,9 +617,9 @@ public class DialogueSystem : MonoBehaviour
                         }
 
 
-                        if (currentWord == Actors.Jolly.ToString().ToUpper())
+                        if (currentWord == Actors.Client.ToString().ToUpper())
                         {
-                            actors.Add(Actors.Jolly);
+                            actors.Add(Actors.Client);
                             spaceCount = 0;
                             actorSet = true;
                             lines.Add("");
@@ -666,6 +666,15 @@ public class DialogueSystem : MonoBehaviour
                         if (currentWord == Actors.Ray.ToString().ToUpper())
                         {
                             actors.Add(Actors.Ray);
+                            spaceCount = 0;
+                            actorSet = true;
+                            lines.Add("");
+                            currentWord = "";
+                        }
+
+                        if (currentWord == Actors.Nikki.ToString().ToUpper())
+                        {
+                            actors.Add(Actors.Nikki);
                             spaceCount = 0;
                             actorSet = true;
                             lines.Add("");
@@ -888,14 +897,19 @@ public class DialogueSystem : MonoBehaviour
                 actorsIcon[(int)Actors.Dotty].gameObject.SetActive(true);
             }
 
-            if (actors[i] == Actors.Jolly)
+            if (actors[i] == Actors.Client)
             {
-                actorsIcon[(int)Actors.Jolly].gameObject.SetActive(true);
+                actorsIcon[(int)Actors.Client].gameObject.SetActive(true);
             }
 
             if (actors[i] == Actors.Dolores)
             {
                 actorsIcon[(int)Actors.Dolores].gameObject.SetActive(true);
+            }
+
+            if (actors[i] == Actors.Nikki)
+            {
+                actorsIcon[(int)Actors.Nikki].gameObject.SetActive(true);
             }
 
             if (actors[i] == Actors.Maggie)
