@@ -274,7 +274,7 @@ public class DialogueSystem : MonoBehaviour
     {
         ActivateActorsIcons();
 
-        if (activeActorsIndex.Count != 1)
+        if (activeActorsIndex.Count > 0)
             nameCharacter.text = names[activeActorsIndex[1]];
 
         isStarting = true;
@@ -445,7 +445,7 @@ public class DialogueSystem : MonoBehaviour
         blancheColor = new Color32(255, 255, 255, 255);
         mireilleColor = new Color32(241, 172, 90, 255);
         louisColor = new Color32(200, 99, 166, 255); ;
-        berleauColor = new Color32(255, 255, 255, 255);
+        berleauColor = new Color32(255, 165, 199, 255);
         dottyColor = new Color32(191, 148, 205, 255);
         jollyColor = new Color32(255, 255, 255, 255);
         doloresColor = new Color32(255, 144, 126, 255);
