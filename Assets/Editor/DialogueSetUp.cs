@@ -3,7 +3,7 @@ using UnityEditor;
 
 
 
-
+[CanEditMultipleObjects]
 // Custom Editor using SerializedProperties.
 // Automatic handling of multi-object editing, undo, and Prefab overrides.
 [CustomEditor(typeof(DialogueSystem))]
