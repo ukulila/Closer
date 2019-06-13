@@ -60,9 +60,13 @@ public class TutorialDispatcher : MonoBehaviour
 
     IEnumerator ThrowCamTuto01()
     {
-        yield return new WaitForSeconds(waitCamTuto01);
+        yield return new WaitForSeconds(1.5f);
 
         camTuto01.SetActive(true);
+
+        yield return new WaitForSeconds(3);
+
+        camTuto01.SetActive(false);
     }
 
     IEnumerator ThrowCamTuto02()
