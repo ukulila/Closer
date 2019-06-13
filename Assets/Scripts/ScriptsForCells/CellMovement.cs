@@ -1240,7 +1240,7 @@ public class CellMovement : MonoBehaviour
             return;
         }
     }*/
-
+    /*
     public void OnDrawGizmos()
     {
         PositionsDebug[0] = new Vector3(-resetPosValue, -resetPosValue, -resetPosValue);
@@ -1259,9 +1259,9 @@ public class CellMovement : MonoBehaviour
            brothers[4].transform.position = PositionsDebug[4];
            brothers[5].transform.position = PositionsDebug[5];
            brothers[6].transform.position = PositionsDebug[6];
-           brothers[7].transform.position = PositionsDebug[7];*/
+           brothers[7].transform.position = PositionsDebug[7];
 
-    }
+    }*/
 
     public void RotationButtonLeft()
     {
