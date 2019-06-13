@@ -20,6 +20,7 @@ public class TutorialDispatcher : MonoBehaviour
 
     private bool passed02;
     private bool once;
+    public bool cannotBeChanged;
 
 
 
@@ -40,7 +41,7 @@ public class TutorialDispatcher : MonoBehaviour
 
     public void ThrowTalkToTutoFctn()
     {
-        if(once == false)
+        if (once == false)
         {
             StartCoroutine("ThrowTalkToTuto");
             once = true;
@@ -49,7 +50,7 @@ public class TutorialDispatcher : MonoBehaviour
 
     public void offTalkToTutoFctn()
     {
-            TalkToTuto.SetActive(false);
+        TalkToTuto.SetActive(false);
     }
 
     public void ThrowReturnTutoFctn()
@@ -67,24 +68,28 @@ public class TutorialDispatcher : MonoBehaviour
 
     IEnumerator ThrowCamTuto02()
     {
-        yield return new WaitForSeconds(waitcamTuto02-1.5f);
+        yield return new WaitForSeconds(waitcamTuto02 - 1.5f);
 
         camTuto01.SetActive(false);
 
         //yield return new WaitForSeconds(waitcamTuto02);
 
-        yield return new WaitForSeconds(waitcamTuto02-0.5f);
+        yield return new WaitForSeconds(waitcamTuto02 - 0.5f);
         camTuto02.SetActive(true);
         passed02 = true;
     }
 
     IEnumerator ThrowInvestigationTuto()
     {
+        if (DoorsAlignedTuto != null)
+            DoorsAlignedTuto.SetActive(false);
+
         yield return new WaitForSeconds(waitinvestigationTuto + 3);
 
-        camTuto02.SetActive(false);
+        if (camTuto02 != null)
+            camTuto02.SetActive(false);
 
-        yield return new WaitForSeconds(waitinvestigationTuto-2);
+        yield return new WaitForSeconds(waitinvestigationTuto - 2);
 
         investigationTuto.SetActive(true);
         StopAllCoroutines();
@@ -112,34 +117,173 @@ public class TutorialDispatcher : MonoBehaviour
 
     #endregion
 
+    #region Tuto03
 
+    public GameObject SlideTuto;
+    public GameObject DoorsAlignedTuto;
 
+    public float waitSlideTuto;
+    public float waitDoorsAlignedTuto;
+    public CellMovement targetRoom;
+    public bool isTuto01;
+    public bool isTuto02;
 
+    public static TutorialDispatcher Instance;
+    private bool oneTime;
+    public bool isTuto03;
 
+    public void Awake()
+    {
+        Instance = this;
+    }
+
+    public void ThrowSlideTutoFctn()
+    {
+
+        StartCoroutine("ThrowSlideTuto");
+
+    }
+
+    public void ThrowDoorsAlignFctn()
+    {
+
+        StartCoroutine("ThrowDoorsAlignedTuto");
+
+    }
+
+    public void InverseThrowDoorsAlignFctn()
+    {
+
+        StartCoroutine("InverseThrowDoorsAlignedTuto");
+
+    }
+
+    IEnumerator ThrowSlideTuto()
+    {
+        yield return new WaitForSeconds(waitSlideTuto);
+
+        SlideTuto.SetActive(true);
+    }
+
+    IEnumerator ThrowDoorsAlignedTuto()
+    {
+        yield return new WaitForSeconds(waitSlideTuto - 1.5f);
+
+        if (SlideTuto != null)
+            SlideTuto.SetActive(false);
+
+        DoorsAlignedTuto.SetActive(true);
+    }
+
+    IEnumerator InverseThrowDoorsAlignedTuto()
+    {
+        yield return new WaitForSeconds(waitSlideTuto - 1);
+
+        DoorsAlignedTuto.SetActive(false);
+        investigationTuto.SetActive(true);
+
+    }
+
+    IEnumerator InvestTuto02()
+    {
+        if (DoorsAlignedTuto != null)
+            DoorsAlignedTuto.SetActive(false);
+
+        yield return new WaitForSeconds(waitinvestigationTuto - 2);
+
+        investigationTuto.SetActive(true);
+        StopAllCoroutines();
+    }
+
+    #endregion
+
+    public GameObject objectifTuto;
+    public GameObject Inventorytuto;
+
+    public void ObjectifPopFctn()
+    {
+        StartCoroutine("ObjectifPop");
+    }
+
+    public void InventoryPopFctn()
+    {
+        StartCoroutine("InventoryPop");
+    }
+
+    IEnumerator ObjectifPop()
+    {
+        yield return new WaitForSeconds(1);
+
+        objectifTuto.SetActive(true);
+
+        yield return new WaitForSeconds(5);
+
+        objectifTuto.SetActive(false);
+
+    }
+
+    IEnumerator  InventoryPop()
+    {
+        yield return new WaitForSeconds(1);
+
+        Inventorytuto.SetActive(true);
+
+        yield return new WaitForSeconds(6);
+
+        Inventorytuto.SetActive(false);
+
+    }
 
     public void Update()
     {
         #region tuto01 Update
-
-        if(Camera_Rotation.Instance.aboutCamera == true)
+        if (isTuto01)
         {
-
-            if(camTuto01.activeInHierarchy == true)
+            if (Camera_Rotation.Instance.aboutCamera == true)
             {
-                
-                StartCoroutine("ThrowCamTuto02");
+
+                if (camTuto01.activeInHierarchy == true)
+                {
+
+                    StartCoroutine("ThrowCamTuto02");
+
+                }
+
+                if (camTuto02.activeInHierarchy == true)
+                {
+
+                    StartCoroutine("ThrowInvestigationTuto");
+
+                }
 
             }
+        }
 
-            if (camTuto02.activeInHierarchy == true)
+        #endregion
+
+        if (isTuto02)
+        {
+
+            if (targetRoom.isSpawn == true)
             {
+                if (!oneTime)
+                {
+                    DoorsAlignedTuto.SetActive(false);
 
-                StartCoroutine("ThrowInvestigationTuto");
+                    StartCoroutine("InvestTuto02");
 
+                    oneTime = true;
+                }
             }
 
         }
-        #endregion
 
+        if(isTuto03)
+        {
+            if(targetRoom.isSpawn == true)
+            {
+                DoorsAlignedTuto.SetActive(false);
+            }
+        }
     }
 }
