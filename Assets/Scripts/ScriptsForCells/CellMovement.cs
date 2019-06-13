@@ -173,6 +173,16 @@ public class CellMovement : MonoBehaviour
             if (CanvasRotation != null)
                 CanvasRotation.SetActive(true);
 
+            if(isTuto03)
+            {
+                if (!TutorialDispatcher.Instance.cannotBeChanged)
+                {
+                    TutorialDispatcher.Instance.SlideTuto.SetActive(false);
+                    TutorialDispatcher.Instance.DoorsAlignedTuto.SetActive(true);
+                    TutorialDispatcher.Instance.cannotBeChanged = true;
+                }
+            }
+
         }
 
 
@@ -182,6 +192,7 @@ public class CellMovement : MonoBehaviour
             {
                 if (CanvasRotation != null)
                     CanvasRotation.SetActive(false);
+
                 actiCanvas = false;
             }
         }
