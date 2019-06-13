@@ -274,7 +274,7 @@ public class DialogueSystem : MonoBehaviour
     /// <returns></returns>
     IEnumerator StartDialogueIn(float time)
     {
-        ActivateActorsIcons();
+        //ActivateActorsIcons();
 
         if (activeActorsIndex.Count != 1)
             nameCharacter.text = names[activeActorsIndex[1]];
@@ -947,8 +947,10 @@ public class DialogueSystem : MonoBehaviour
 
         for (int i = 0; i < actorsIcon.Count; i++)
         {
-            if (actorsIcon[i].IsActive())
+            if (actorsIcon[i].gameObject.activeSelf)
             {
+                Debug.Log(i);
+
                 activeActorsIndex.Add(i);
             }
         }
@@ -1144,8 +1146,7 @@ public class DialogueSystem : MonoBehaviour
         {
             Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
 
-            NPC_Manager.Instance.onReverse = true;
-            NPC_Manager.Instance.isCurveNeeded = true;
+            NPC_Manager.Instance.DeactivateDialogueOPTION();
 
             StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
         }
