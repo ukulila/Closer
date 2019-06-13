@@ -447,7 +447,7 @@ public class DialogueSystem : MonoBehaviour
         louisColor = new Color32(200, 99, 166, 255); ;
         berleauColor = new Color32(255, 165, 199, 255);
         dottyColor = new Color32(191, 148, 205, 255);
-        jollyColor = new Color32(255, 255, 255, 255);
+        jollyColor = new Color32(164, 139, 162, 255);
         doloresColor = new Color32(255, 144, 126, 255);
         maggieColor = new Color32(217, 112, 132, 255);
         esdieColor = new Color32(133, 219, 125, 255);
