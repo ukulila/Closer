@@ -12,9 +12,15 @@ public class HatchesScript : MonoBehaviour
     public Color ClosedHatchColor;
     public bool isForEnding;
 
+    public bool isTuto03;
+    private bool connection;
+    private bool once;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        once = true;
         checkOpenDoor = true;
         transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedHatchColor);
 
@@ -26,6 +32,19 @@ public class HatchesScript : MonoBehaviour
         if (transform.parent.GetComponent<CellMovement>().isSpawn)
         {
             CheckForDoors();
+        }
+
+        if (isTuto03)
+        {
+            if(connection && once)
+            {
+                TutorialDispatcher.Instance.SlideTuto.SetActive(false);
+                TutorialDispatcher.Instance.DoorsAlignedTuto.SetActive(false);
+                //TutorialDispatcher.Instance.ThrowDoorsAlignFctn();
+                once = false;
+            }
+
+
         }
     }
 
@@ -45,6 +64,8 @@ public class HatchesScript : MonoBehaviour
             {
                  Debug.DrawRay(transform.transform.position + offset, -transform.forward,Color.black, 500);
 
+                connection = true;
+
                 if (otherDoor != null && otherDoor.GetChild(0).GetComponent<Renderer>().material.GetColor("_EmissionColor") == openHatchColor)
                 {
                     otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", openHatchColor);
@@ -63,8 +84,9 @@ public class HatchesScript : MonoBehaviour
             }
             else
             {
+                connection = false;
 
-                 Debug.DrawRay(transform.transform.position + offset, -transform.forward, Color.black, 500);
+                Debug.DrawRay(transform.transform.position + offset, -transform.forward, Color.black, 500);
                 if (otherDoor != null)
                 {
                     transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedHatchColor);

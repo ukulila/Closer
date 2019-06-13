@@ -20,6 +20,7 @@ public class TutorialDispatcher : MonoBehaviour
 
     private bool passed02;
     private bool once;
+    public bool cannotBeChanged;
 
 
 
@@ -87,7 +88,7 @@ public class TutorialDispatcher : MonoBehaviour
         if (DoorsAlignedTuto != null)
             DoorsAlignedTuto.SetActive(false);
 
-            yield return new WaitForSeconds(waitinvestigationTuto + 3);
+        yield return new WaitForSeconds(waitinvestigationTuto + 3);
 
         if (camTuto02 != null)
             camTuto02.SetActive(false);
@@ -120,6 +121,7 @@ public class TutorialDispatcher : MonoBehaviour
 
     #endregion
 
+    #region Tuto03
 
     public GameObject SlideTuto;
     public GameObject DoorsAlignedTuto;
@@ -132,6 +134,7 @@ public class TutorialDispatcher : MonoBehaviour
 
     public static TutorialDispatcher Instance;
     private bool oneTime;
+    public bool isTuto03;
 
     public void Awake()
     {
@@ -170,7 +173,8 @@ public class TutorialDispatcher : MonoBehaviour
     {
         yield return new WaitForSeconds(waitSlideTuto - 1.5f);
 
-        SlideTuto.SetActive(false);
+        if (SlideTuto != null)
+            SlideTuto.SetActive(false);
 
         DoorsAlignedTuto.SetActive(true);
     }
@@ -193,6 +197,45 @@ public class TutorialDispatcher : MonoBehaviour
 
         investigationTuto.SetActive(true);
         StopAllCoroutines();
+    }
+
+    #endregion
+
+    public GameObject objectifTuto;
+    public GameObject Inventorytuto;
+
+    public void ObjectifPopFctn()
+    {
+        StartCoroutine("ObjectifPop");
+    }
+
+    public void InventoryPopFctn()
+    {
+        StartCoroutine("InventoryPop");
+    }
+
+    IEnumerator ObjectifPop()
+    {
+        yield return new WaitForSeconds(1);
+
+        objectifTuto.SetActive(true);
+
+        yield return new WaitForSeconds(5);
+
+        objectifTuto.SetActive(false);
+
+    }
+
+    IEnumerator  InventoryPop()
+    {
+        yield return new WaitForSeconds(1);
+
+        Inventorytuto.SetActive(true);
+
+        yield return new WaitForSeconds(6);
+
+        Inventorytuto.SetActive(false);
+
     }
 
     public void Update()
@@ -227,7 +270,7 @@ public class TutorialDispatcher : MonoBehaviour
 
             if (targetRoom.isSpawn == true)
             {
-                if(!oneTime)
+                if (!oneTime)
                 {
                     DoorsAlignedTuto.SetActive(false);
 
@@ -237,6 +280,14 @@ public class TutorialDispatcher : MonoBehaviour
                 }
             }
 
+        }
+
+        if(isTuto03)
+        {
+            if(targetRoom.isSpawn == true)
+            {
+                DoorsAlignedTuto.SetActive(false);
+            }
         }
     }
 }

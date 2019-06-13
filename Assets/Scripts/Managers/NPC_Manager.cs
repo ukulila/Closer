@@ -66,44 +66,54 @@ public class NPC_Manager : MonoBehaviour
         //Debug.Log("AT SET     currentNPC.questionIndex.Count = " + currentNPC.questionIndex.Count);
         if (currentNPC != null)
         {
-            for (int i = 0; i < currentNPC.questionIndex.Count; i++)
+            if (currentNPC.dialogue[currentNPC.currentDialogueIndex].questDialogueSystems.isForCinematic == false)
             {
-                if (currentNPC.dialogue[currentNPC.questionIndex[i]].isNewQuest == true)
-                {
-                    questionsAnim[i].SetBool("Discovered", true);
 
-                    nbrDialogueAsked -= 1;
+
+                for (int i = 0; i < currentNPC.questionIndex.Count; i++)
+                {
+                    //Debug.Log("count = " + currentNPC.questionIndex.Count);
+                    //Debug.Log("current i  = " + i);
+
+
+
+                    if (currentNPC.dialogue[currentNPC.questionIndex[i]].isNewQuest == true)
+                    {
+                        questionsAnim[i].SetBool("Discovered", true);
+
+                        nbrDialogueAsked -= 1;
+                    }
+                    else
+                    {
+                        questionsAnim[i].SetBool("Discovered", false);
+                    }
+
+                    if (currentNPC.dialogue[currentNPC.questionIndex[i]].questHasBeenAsked == true)
+                    {
+                        questionsAnim[i].SetBool("hasBeenAsked", true);
+
+                        nbrDialogueAsked += 1;
+                    }
+                    else
+                    {
+                        questionsAnim[i].SetBool("hasBeenAsked", false);
+                    }
+
+                    questionsTexts[i].text = currentNPC.dialogue[currentNPC.questionIndex[i]].questQuestion;
+
+                    questionsAnim[i].ResetTrigger("FadeIN");
+                    questionsAnim[i].ResetTrigger("Selected");
+                    questionsAnim[i].ResetTrigger("Gone");
+                }
+
+                if (nbrDialogueAsked == currentNPC.questionIndex.Count)
+                {
+                    isEveryDialogueDone = true;
                 }
                 else
                 {
-                    questionsAnim[i].SetBool("Discovered", false);
+                    isEveryDialogueDone = false;
                 }
-
-                if (currentNPC.dialogue[currentNPC.questionIndex[i]].questHasBeenAsked == true)
-                {
-                    questionsAnim[i].SetBool("hasBeenAsked", true);
-
-                    nbrDialogueAsked += 1;
-                }
-                else
-                {
-                    questionsAnim[i].SetBool("hasBeenAsked", false);
-                }
-
-                questionsTexts[i].text = currentNPC.dialogue[currentNPC.questionIndex[i]].questQuestion;
-
-                questionsAnim[i].ResetTrigger("FadeIN");
-                questionsAnim[i].ResetTrigger("Selected");
-                questionsAnim[i].ResetTrigger("Gone");
-            }
-
-            if (nbrDialogueAsked == currentNPC.questionIndex.Count)
-            {
-                isEveryDialogueDone = true;
-            }
-            else
-            {
-                isEveryDialogueDone = false;
             }
         }
     }
@@ -186,7 +196,7 @@ public class NPC_Manager : MonoBehaviour
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
-            Debug.Log("i " + i);
+            //Debug.Log("i " + i);
             questionsAnim[i].ResetTrigger("FadeIN");
             questionsAnim[i].SetTrigger("Selected");
         }
