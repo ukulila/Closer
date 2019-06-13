@@ -55,7 +55,7 @@ public class ROOM_Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        if (currentRoom.isDialogue/* && NPC_Manager.Instance.currentNPC.dialogue[NPC_Manager.Instance.currentNPC.currentDialogueIndex].questDialogueSystems.isForCinematic == false*/)
+        if (currentRoom.isDialogue && NPC_Manager.Instance.currentNPC != null)
             NPC_Manager.Instance.SetDialogueOPTION();
 
         currentRoom.InteractionAppears();
