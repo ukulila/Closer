@@ -73,6 +73,8 @@ public class GameManager : MonoBehaviour
             case GameMode.InvestigationMode:
                 if (previousGameMode == GameMode.PuzzleMode)
                 {
+                    //UI_Manager.Instance.ActivateListOfUI(UI_Manager.Instance.dialogueGO);
+
                     UI_Manager.Instance.inventoryGO[2].GetComponent<Button>().onClick.Invoke();
                     UI_Manager.Instance.inventoryButtonsGO[0].GetComponentInChildren<Button>().onClick.Invoke();
                     InventorySystem.Instance.HideInventory();
