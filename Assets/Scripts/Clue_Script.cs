@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Clue_Script : MonoBehaviour
 {
@@ -20,6 +21,11 @@ public class Clue_Script : MonoBehaviour
         StartCoroutine(DelayBeforeGoingBack());
     }
 
+    public void Reload()
+    {
+        StartCoroutine(DelayBeforeReload());
+    }
+
 
     IEnumerator DelayBeforeClue()
     {
@@ -37,5 +43,16 @@ public class Clue_Script : MonoBehaviour
         FadeScript.Instance.fadeAnim.SetTrigger("FadeIn");
 
         yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene(0);
+    }
+
+    IEnumerator DelayBeforeReload()
+    {
+        FadeScript.Instance.fadeAnim.SetTrigger("FadeIn");
+
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

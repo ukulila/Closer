@@ -1144,8 +1144,7 @@ public class DialogueSystem : MonoBehaviour
         {
             Debug.Log("current = " + NPC_Manager.Instance.currentNPC.currentDialogueIndex);
 
-            NPC_Manager.Instance.onReverse = true;
-            NPC_Manager.Instance.isCurveNeeded = true;
+            NPC_Manager.Instance.DeactivateDialogueOPTION();
 
             StartCoroutine(NPC_Manager.Instance.StartInvokeIn(1.5f));
         }
