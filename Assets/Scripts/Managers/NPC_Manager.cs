@@ -115,6 +115,14 @@ public class NPC_Manager : MonoBehaviour
     {
         GameManager.Instance.SwitchModeTo(GameManager.GameMode.Dialogue);
 
+        if (currentNPC != null)
+        {
+            SetDialogueOPTION();
+
+            nameCharacter.text = currentNPC.gameObject.name;
+        }
+
+
         Examine_Script.Instance.examineButton.interactable = false;
 
         currentNPC.dialogue[0].questDialogueSystems.actorsIcon[0].gameObject.SetActive(true);
@@ -178,9 +186,9 @@ public class NPC_Manager : MonoBehaviour
 
         for (int i = 0; i < currentNPC.questionIndex.Count; i++)
         {
-            //Debug.Log(i);
+            Debug.Log("i " + i);
             questionsAnim[i].ResetTrigger("FadeIN");
-            questionsAnim[i].SetTrigger("Gone");
+            questionsAnim[i].SetTrigger("Selected");
         }
 
         if (GameManager.Instance.currentGameMode != GameManager.GameMode.CinematicMode && GameManager.Instance.previousGameMode != GameManager.GameMode.Dialogue && GameManager.Instance.previousGameMode != GameManager.GameMode.ClueMode)
@@ -285,8 +293,6 @@ public class NPC_Manager : MonoBehaviour
             {
                 isCurveNeeded = false;
                 currentTime = 0;
-
-                //Examine_Script.Instance.examineButton.interactable = true;
             }
         }
 
