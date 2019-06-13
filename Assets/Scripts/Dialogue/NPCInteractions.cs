@@ -14,13 +14,15 @@ public class NPCInteractions : MonoBehaviour
 
 
 
-    public void StartAnyDialogueViaIndex(int DialogueIndex)
+    public void StartAnyDialogueViaIndex(int index)
     {
-        dialogue[DialogueIndex].questDialogueSystems.StartDialogue();
+        dialogue[index].questDialogueSystems.gameObject.SetActive(true);
+
+        dialogue[index].questDialogueSystems.StartDialogue();
 
         //NPC_Manager.Instance.currentNPC.currentDialogueIndex = DialogueIndex;
 
-        //currentDialogueIndex = DialogueIndex;
+        currentDialogueIndex = index;
 
         Examine_Script.Instance.examineButton.interactable = false;
     }

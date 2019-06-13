@@ -26,12 +26,23 @@ public class SCENE_Manager : MonoBehaviour
 
     public void SetNextSceneToLoad(int nextSceneIndex)
     {
-        currentNextSceneToLoad = nextSceneIndex;
+        currentNextSceneToLoad = nextSceneIndex + 1;
     }
 
 
     public void Loading()
     {
+        StartCoroutine(DelayBeforeLoading());
+
+        FadeScript.Instance.fadeAnim.SetTrigger("FadeIn");
+
+        //SceneManager.LoadScene(currentNextSceneToLoad, LoadSceneMode.Single);
+    }
+
+    IEnumerator DelayBeforeLoading()
+    {
+        yield return new WaitForSeconds(2.5f);
+
         SceneManager.LoadScene(currentNextSceneToLoad, LoadSceneMode.Single);
     }
 }
