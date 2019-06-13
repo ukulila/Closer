@@ -274,7 +274,7 @@ public class DialogueSystem : MonoBehaviour
     /// <returns></returns>
     IEnumerator StartDialogueIn(float time)
     {
-        ActivateActorsIcons();
+        //ActivateActorsIcons();
 
         if (activeActorsIndex.Count != 1)
             nameCharacter.text = names[activeActorsIndex[1]];
@@ -947,8 +947,10 @@ public class DialogueSystem : MonoBehaviour
 
         for (int i = 0; i < actorsIcon.Count; i++)
         {
-            if (actorsIcon[i].IsActive())
+            if (actorsIcon[i].gameObject.activeSelf)
             {
+                Debug.Log(i);
+
                 activeActorsIndex.Add(i);
             }
         }
