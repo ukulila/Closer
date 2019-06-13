@@ -29,6 +29,8 @@ public class OpacityKiller : MonoBehaviour
     private bool once;
     private int timer;
 
+    public GameObject LapDObject;
+
     void Update()
     {
         //  Debug.Log("DesactCells       " + CellPlacement.Instance.DesactCells);
@@ -98,6 +100,8 @@ public class OpacityKiller : MonoBehaviour
 
         if (BlackRoom)
         {
+            if (LapDObject != null)
+                LapDObject.SetActive(true);
 
             for (int i = 0; i < Planes.Count; i++)
             {
@@ -150,6 +154,8 @@ public class OpacityKiller : MonoBehaviour
         }
         else /*(!BlackRoom && !CellPlacement.Instance.DesactCells)*/
         {
+            if (LapDObject != null)
+                LapDObject.SetActive(false);
 
             if (myEnviro.doorWayPoints.Count > 0)
             {
@@ -268,8 +274,6 @@ public class OpacityKiller : MonoBehaviour
 
         //  localPlaneIndex = planeIndex;
         localAlpha = alpha;
-
-
     }
 
 

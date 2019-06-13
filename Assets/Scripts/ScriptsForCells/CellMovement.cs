@@ -346,17 +346,20 @@ public class CellMovement : MonoBehaviour
 
         #region ---- Selection ----
 
-        if (click && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode && Camera_Zoom.Instance.onZoom == false)
+        if (GetComponent<OpacityKiller>() != null)
         {
-            if (selected == false)
+            if (click && GameManager.Instance.currentGameMode == GameManager.GameMode.PuzzleMode && Camera_Zoom.Instance.onZoom == false && !GetComponent<OpacityKiller>().BlackRoom)
             {
-                selected = true;
-                SoundSelectionOnce = true;
-            }
+                if (selected == false)
+                {
+                    selected = true;
+                    SoundSelectionOnce = true;
+                }
 
-            if (slectedRoomText != null)
-                slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
-            //slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
+                if (slectedRoomText != null)
+                    slectedRoomText.text = GetComponent<RoomInteraction>().roomName;
+                //slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
+            }
         }
 
 
