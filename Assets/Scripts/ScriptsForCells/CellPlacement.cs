@@ -69,9 +69,10 @@ public class CellPlacement : MonoBehaviour
     void Update()
     {
 
-        if(GameManager.Instance.previousGameMode == GameManager.GameMode.PuzzleMode)
+        if (GameManager.Instance.previousGameMode == GameManager.GameMode.PuzzleMode)
         {
-            cM[0].CanvasRotation.gameObject.SetActive(false);
+            if (cM[0].CanvasRotation != null)
+                cM[0].CanvasRotation.gameObject.SetActive(false);
         }
 
         /*if (GameManager.Instance.previousGameMode == GameManager.GameMode.Dialogue)
@@ -258,7 +259,7 @@ public class CellPlacement : MonoBehaviour
 
                     if (cM[i].selected && !cM[i].isSpawn)
                     {
-                        if (canvasRotation.activeInHierarchy == true)
+                        if (canvasRotation != null)
                             PlayUnSelectionSound();
 
 
@@ -279,10 +280,12 @@ public class CellPlacement : MonoBehaviour
 
             if (facingPlane != null)
             {
-                if(!cM[0].NoHorizontal || !cM[0].NoVertical)
+
+                if (!cM[0].NoHorizontal || !cM[0].NoVertical)
                 {
                     facingPlane.GetComponentInParent<OpacityKiller>().enabled = true;
                 }
+
                 facingPlane.GetComponent<SpriteRenderer>().color = blackedColor;
 
                 if (facingPlane.GetComponent<Animator>())
@@ -317,7 +320,7 @@ public class CellPlacement : MonoBehaviour
             facingPlane.GetComponentInParent<OpacityKiller>().enabled = false;
             facingPlane.GetComponent<SpriteRenderer>().color = selectedColor;
 
-            if(facingPlane.GetComponent<Animator>())
+            if (facingPlane.GetComponent<Animator>())
             {
                 facingPlane.GetComponent<Animator>().SetTrigger("Selected");
             }
@@ -470,7 +473,7 @@ public class CellPlacement : MonoBehaviour
     {
         if (RotationDesPièces.Count > 0)
         {
-            int indexRand = Random.Range(0, RotationDesPièces.Count-1);
+            int indexRand = Random.Range(0, RotationDesPièces.Count - 1);
             RotationDesPièces[indexRand].Play(0);
             return;
         }

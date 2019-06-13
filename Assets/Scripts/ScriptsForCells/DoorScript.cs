@@ -13,12 +13,15 @@ public class DoorScript : MonoBehaviour
     public Color ClosedDoorColor;
 
     public bool playerBeenHere;
+    public bool isTuto02;
+    public bool connection;
+    private bool once;
 
     // Start is called before the first frame update
     void Start()
     {
         playerBeenHere = true;
-
+        once = true;
         checkOpenDoor = true;
         transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
     }
@@ -36,6 +39,28 @@ public class DoorScript : MonoBehaviour
         if (playerBeenHere && !transform.parent.GetComponent<CellMovement>().isSpawn)
         {
             OnExitPlayer();
+        }
+
+        if(isTuto02)
+        {
+            if(connection && once)
+            {
+                
+                TutorialDispatcher.Instance.ThrowDoorsAlignFctn();
+                once = false;
+                /*if(Camera_Rotation.Instance.aboutCamera == false)
+                {
+
+                    TutorialDispatcher.Instance.ThrowInvestigationFctn();
+                    
+                }*/
+            }
+
+           
+           /* if (!connection && TutorialDispatcher.Instance.DoorsAlignedTuto.activeInHierarchy ==true)
+            {
+                TutorialDispatcher.Instance.InverseThrowDoorsAlignFctn();
+            }*/
         }
     }
 
@@ -56,6 +81,8 @@ public class DoorScript : MonoBehaviour
                 //  Debug.Log("           I touch         " + hit.transform.name);
 
                 //  Debug.DrawRay (transform.position + offset, -transform.up, Color.blue, 500);
+
+                connection = true;
 
                 if (otherDoor != null && otherDoor.GetChild(0).GetComponent<Renderer>().material.GetColor("_EmissionColor") == OpenDoorColor)
                 {
@@ -83,6 +110,8 @@ public class DoorScript : MonoBehaviour
                 //    Debug.Log("           I touch      nothing   ");
 
                 //  Debug.DrawRay(transform.position + offset, -transform.up, Color.black, 500);
+
+                connection = false;
 
                 if (otherDoor != null)
                 {
