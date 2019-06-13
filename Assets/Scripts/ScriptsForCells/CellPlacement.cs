@@ -74,10 +74,10 @@ public class CellPlacement : MonoBehaviour
             cM[0].CanvasRotation.gameObject.SetActive(false);
         }
 
-        if (GameManager.Instance.previousGameMode == GameManager.GameMode.Dialogue)
+        /*if (GameManager.Instance.previousGameMode == GameManager.GameMode.Dialogue)
         {
             facingPlane = null;
-        }
+        }*/
 
         if (playHasEndedSound)
         {
@@ -488,5 +488,10 @@ public class CellPlacement : MonoBehaviour
             print("ZoomOut");
             zoomOut.Play();
         }
+    }
+
+    public void EmptyFacingPlane()
+    {
+        facingPlane = null;
     }
 }
