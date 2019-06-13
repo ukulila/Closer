@@ -69,6 +69,16 @@ public class CellPlacement : MonoBehaviour
     void Update()
     {
 
+        if(GameManager.Instance.previousGameMode == GameManager.GameMode.PuzzleMode)
+        {
+            cM[0].CanvasRotation.gameObject.SetActive(false);
+        }
+
+        if (GameManager.Instance.previousGameMode == GameManager.GameMode.Dialogue)
+        {
+            facingPlane = null;
+        }
+
         if (playHasEndedSound)
         {
             PlayHasEndedSound();

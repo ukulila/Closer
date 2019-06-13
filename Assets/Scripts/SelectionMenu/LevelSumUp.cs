@@ -28,6 +28,8 @@ public class LevelSumUp : MonoBehaviour
     /// </summary>
     public void AssignToCloseUp()
     {
+        LevelManager.Instance.levelOnCloseUp = this;
+
         if (isLevelFinished)
         {
             LevelCloseUp.Instance.polaroideImage.sprite = spriteClue;
@@ -43,7 +45,5 @@ public class LevelSumUp : MonoBehaviour
         
         LevelCloseUp.Instance.levelNameCU.text = levelName;
         LevelCloseUp.Instance.levelDescriptionCU.text = levelDescription;
-
-        LevelManager.Instance.levelOnCloseUp = this;
     }
 }
