@@ -57,7 +57,7 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("   Récupération des acteurs")]
     public GameObject actorsIconHierarchyReference;
-    public enum Actors { Blanche, Mireille, Mehdi, MmeBerleau, Dotty, Client, Dolores, Maggie, Esdie, Walter, Ray, Barney, Nikki, Irina };
+    public enum Actors { Blanche, Mireille, Mehdi, Berleau, Dotty, Client, Dolores, Maggie, Esdie, Walter, Ray, Barney, Nikki, Irina };
     public Actors currentActor;
     public List<Actors> actors;
     public List<int> activeActorsIndex;
@@ -274,7 +274,7 @@ public class DialogueSystem : MonoBehaviour
     {
         ActivateActorsIcons();
 
-        if (activeActorsIndex.Count > 0)
+        if (activeActorsIndex.Count != 1)
             nameCharacter.text = names[activeActorsIndex[1]];
 
         isStarting = true;
@@ -465,7 +465,7 @@ public class DialogueSystem : MonoBehaviour
         names.Add("Blanche");
         names.Add("Mireille");
         names.Add("Mehdi");
-        names.Add("Ms BERLEAU");
+        names.Add("Misses BERLEAU");
         names.Add("Dotty");
         names.Add("Client");
         names.Add("Dolores");
@@ -654,9 +654,9 @@ public class DialogueSystem : MonoBehaviour
                             currentWord = "";
                         }
 
-                        if (currentWord == Actors.MmeBerleau.ToString().ToUpper())
+                        if (currentWord == Actors.Berleau.ToString().ToUpper())
                         {
-                            actors.Add(Actors.MmeBerleau);
+                            actors.Add(Actors.Berleau);
                             spaceCount = 0;
                             actorSet = true;
                             lines.Add("");
@@ -887,9 +887,9 @@ public class DialogueSystem : MonoBehaviour
                 actorsIcon[(int)Actors.Mehdi].gameObject.SetActive(true);
             }
 
-            if (actors[i] == Actors.MmeBerleau)
+            if (actors[i] == Actors.Berleau)
             {
-                actorsIcon[(int)Actors.MmeBerleau].gameObject.SetActive(true);
+                actorsIcon[(int)Actors.Berleau].gameObject.SetActive(true);
             }
 
             if (actors[i] == Actors.Dotty)

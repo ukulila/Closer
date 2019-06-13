@@ -62,10 +62,9 @@ public class LevelManager : MonoBehaviour
             MoveLevels();
         }
 
-        if (isMoveAwayAnimationOver /*&& SmoothMoveSwipe.Instance.isCranAnimationOver == true*/ && !isCloseUpAllSet)
+        if (isMoveAwayAnimationOver /*&& SmoothMoveSwipe.Instance.isCranAnimationOver == true*/ && isCloseUpAllSet)
         {
-            ShowCloseUp();
-            isCloseUpAllSet = true;
+            //ShowCloseUp();
         }
     }
 
@@ -115,6 +114,8 @@ public class LevelManager : MonoBehaviour
             Vector2 rightLimit = new Vector2(0, 0);
             Vector2 leftLimit = new Vector2(0, 0);
 
+            Debug.Log("level selected" + levelOnCloseUp.gameObject.name);
+
             if (levelOnCloseUp.gameObject.name == levels[i].gameObject.name)
             {
                 closeUpLevelIndex = i;
@@ -122,8 +123,12 @@ public class LevelManager : MonoBehaviour
                 SmoothMoveSwipe.Instance.diffPos = SmoothMoveSwipe.Instance.levelCranRef[i] - SmoothMoveSwipe.Instance.lastPos;
 
                 SmoothMoveSwipe.Instance.isCranAnimationOver = false;
+
+                SCENE_Manager.Instance.SetNextSceneToLoad(closeUpLevelIndex);
             }
         }
+
+        isCloseUpAllSet = true;
     }
 
     /// <summary>
@@ -138,6 +143,9 @@ public class LevelManager : MonoBehaviour
         else
         {
             isMoveAwayAnimationOver = true;
+
+            if (isMovedAway)
+                ShowCloseUp();
         }
 
         currentMovePercent = moveAwayCurve.Evaluate(currentMoveTime / maxMoveTime);
@@ -182,6 +190,7 @@ public class LevelManager : MonoBehaviour
     {
         levelOnCloseUp.gameObject.GetComponent<Animator>().SetTrigger("FadeIn");
 
+        closeUpAnim.ResetTrigger("FadeIn");
         closeUpAnim.SetTrigger("FadeOut");
 
         currentMoveTime = 0;
