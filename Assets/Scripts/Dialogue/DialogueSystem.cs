@@ -228,8 +228,11 @@ public class DialogueSystem : MonoBehaviour
             nameCharacter.color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
         }
 
+        //Debug.Log("sarting with");
 
         float numberOfActors = activeActorsIndex.Count;
+
+        //Debug.Log("number = " + numberOfActors);
 
         if (numberOfActors == 1 && isForCinematic)
         {
@@ -241,10 +244,12 @@ public class DialogueSystem : MonoBehaviour
             if (isForCinematic)
                 actorsIcon[activeActorsIndex[0]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
 
+            //Debug.Log("activeActorsIndex = " + activeActorsIndex[1]);
+
             actorsIcon[activeActorsIndex[1]].color = new Color(1, 1, 1, (0 + (1 * currentStartPercent)));
         }
 
-        /*
+        
         if (numberOfActors == 3)
         {
             actorsIcon[activeActorsIndex[0]].color = new Color32(255, 255, 255, (byte)(0 + 255 * currentStartPercent));
@@ -264,7 +269,7 @@ public class DialogueSystem : MonoBehaviour
 
             actorsIcon[activeActorsIndex[3]].color = new Color32(255, 255, 255, (byte)(0 + 255 * currentStartPercent));
         }
-        */
+        
     }
 
     /// <summary>
@@ -274,7 +279,7 @@ public class DialogueSystem : MonoBehaviour
     /// <returns></returns>
     IEnumerator StartDialogueIn(float time)
     {
-        //ActivateActorsIcons();
+        ActivateActorsIcons();
 
         if (activeActorsIndex.Count != 1)
             nameCharacter.text = names[activeActorsIndex[1]];
@@ -467,7 +472,7 @@ public class DialogueSystem : MonoBehaviour
         names.Add("Blanche");
         names.Add("Mireille");
         names.Add("Mehdi");
-        names.Add("Misses BERLEAU");
+        names.Add("Berleau");
         names.Add("Dotty");
         names.Add("Client");
         names.Add("Dolores");
