@@ -279,7 +279,10 @@ public class CellPlacement : MonoBehaviour
 
             if (facingPlane != null)
             {
-                facingPlane.GetComponentInParent<OpacityKiller>().enabled = true;
+                if(!cM[0].NoHorizontal || !cM[0].NoVertical)
+                {
+                    facingPlane.GetComponentInParent<OpacityKiller>().enabled = true;
+                }
                 facingPlane.GetComponent<SpriteRenderer>().color = blackedColor;
 
                 if (facingPlane.GetComponent<Animator>())
