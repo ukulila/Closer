@@ -101,7 +101,8 @@ public class CellMovement : MonoBehaviour
 
     public void Awake()
     {
-        CanvasRotation.SetActive(false);
+        if (CanvasRotation != null)
+            CanvasRotation.SetActive(false);
 
         over = true;
         //Outline.ReColor("");
@@ -168,7 +169,9 @@ public class CellMovement : MonoBehaviour
 
             //slectedRoomText.color = GetComponent<RoomInteraction>().roomColor;
             actiCanvas = true;
-            CanvasRotation.SetActive(true);
+
+            if (CanvasRotation != null)
+                CanvasRotation.SetActive(true);
 
         }
 
@@ -177,7 +180,8 @@ public class CellMovement : MonoBehaviour
         {
             if (actiCanvas == true)
             {
-                CanvasRotation.SetActive(false);
+                if (CanvasRotation != null)
+                    CanvasRotation.SetActive(false);
                 actiCanvas = false;
             }
         }
