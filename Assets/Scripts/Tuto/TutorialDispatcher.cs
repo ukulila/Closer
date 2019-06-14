@@ -83,6 +83,8 @@ public class TutorialDispatcher : MonoBehaviour
         camTuto02.SetActive(false);
         passed02 = true;
         StopAllCoroutines();
+        ThrowInvestigationFctn();
+
     }
 
     IEnumerator ThrowInvestigationTuto()
