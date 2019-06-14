@@ -31,7 +31,7 @@ public class DoorScript : MonoBehaviour
     {
         if (transform.parent.GetComponent<CellMovement>().isSpawn)
         {
-            playerBeenHere = true;
+            //playerBeenHere = true;
             CheckForDoors();
         }
 
@@ -41,11 +41,17 @@ public class DoorScript : MonoBehaviour
             OnExitPlayer();
         }
 
-        if(isTuto02)
+        if (!once && isTuto02)
         {
-            if(connection && once)
+            this.enabled = false;
+            connection = false;
+        }
+
+        if (isTuto02)
+        {
+            if (connection && once)
             {
-                
+               // print("francois");
                 TutorialDispatcher.Instance.ThrowDoorsAlignFctn();
                 once = false;
                 /*if(Camera_Rotation.Instance.aboutCamera == false)
@@ -56,11 +62,11 @@ public class DoorScript : MonoBehaviour
                 }*/
             }
 
-           
-           /* if (!connection && TutorialDispatcher.Instance.DoorsAlignedTuto.activeInHierarchy ==true)
-            {
-                TutorialDispatcher.Instance.InverseThrowDoorsAlignFctn();
-            }*/
+
+            /* if (!connection && TutorialDispatcher.Instance.DoorsAlignedTuto.activeInHierarchy ==true)
+             {
+                 TutorialDispatcher.Instance.InverseThrowDoorsAlignFctn();
+             }*/
         }
     }
 
@@ -78,11 +84,10 @@ public class DoorScript : MonoBehaviour
 
             if (Physics.Raycast(transform.GetChild(0).transform.position + offset, -transform.up, out hit, 5, layerMaskDoor) && hit.transform.gameObject != gameObject)
             {
-                //  Debug.Log("           I touch         " + hit.transform.name);
+                // Debug.Log("           I touch         " + hit.transform.name);
 
                 //  Debug.DrawRay (transform.position + offset, -transform.up, Color.blue, 500);
-
-                connection = true;
+                    connection = true;
 
                 if (otherDoor != null && otherDoor.GetChild(0).GetComponent<Renderer>().material.GetColor("_EmissionColor") == OpenDoorColor)
                 {
@@ -98,7 +103,7 @@ public class DoorScript : MonoBehaviour
 
                 if (CellPlacement.Instance.canPlayDoorSound == false)
                 {
-                  //  print("i make canPlaySound true");
+                    //  print("i make canPlaySound true");
 
                     CellPlacement.Instance.canPlayDoorSound = true;
                 }
@@ -121,9 +126,9 @@ public class DoorScript : MonoBehaviour
                     transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
                     otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", ClosedDoorColor);
                 }
-              CellPlacement.Instance.canPlayDoorSound = false;
-              CellPlacement.Instance.onlyOnce = true;
-             //   print("i make canPlaySound false AND onlyOnce true");
+                CellPlacement.Instance.canPlayDoorSound = false;
+                CellPlacement.Instance.onlyOnce = true;
+                //   print("i make canPlaySound false AND onlyOnce true");
 
 
                 checkOpenDoor = false;
@@ -165,7 +170,7 @@ public class DoorScript : MonoBehaviour
         {
             CellPlacement.Instance.canPlayDoorSound = false;
             CellPlacement.Instance.onlyOnce = true;
-           // print("OnExitPlayer i make canPlaySound false AND onlyOnce true");
+            // print("OnExitPlayer i make canPlaySound false AND onlyOnce true");
 
 
             if (transform.GetChild(0).GetComponent<Renderer>().material.GetColor("_EmissionColor") == OpenDoorColor)
