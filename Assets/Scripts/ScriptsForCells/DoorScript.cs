@@ -14,6 +14,8 @@ public class DoorScript : MonoBehaviour
 
     public bool playerBeenHere;
     public bool isTuto02;
+    public bool activeTuto;
+
     public bool connection;
     private bool once;
 
@@ -41,11 +43,13 @@ public class DoorScript : MonoBehaviour
             OnExitPlayer();
         }
 
-        if (!once && isTuto02)
+        if (!once && isTuto02 )
         {
-            this.enabled = false;
+          //  this.enabled = false;
             connection = false;
         }
+
+        
 
         if (isTuto02)
         {
@@ -101,11 +105,12 @@ public class DoorScript : MonoBehaviour
                 otherDoor.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", OpenDoorColor);
                 checkOpenDoor = false;
 
-                if (CellPlacement.Instance.canPlayDoorSound == false)
+                if (CellPlacement.Instance.canPlayDoorSound == false && activeTuto == false)
                 {
                     //  print("i make canPlaySound true");
 
                     CellPlacement.Instance.canPlayDoorSound = true;
+                    activeTuto = true;
                 }
 
 
@@ -117,7 +122,7 @@ public class DoorScript : MonoBehaviour
                 //  Debug.DrawRay(transform.position + offset, -transform.up, Color.black, 500);
 
                 connection = false;
-
+                activeTuto = false;
                 if (otherDoor != null)
                 {
                     if (transform.childCount > 1)
