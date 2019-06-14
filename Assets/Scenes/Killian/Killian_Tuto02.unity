@@ -57,7 +57,7 @@ LightmapSettings:
     serializedVersion: 10
     m_Resolution: 12
     m_BakeResolution: 24
-    m_AtlasSize: 512
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -14827,6 +14827,16 @@ PrefabInstance:
       propertyPath: far clip plane
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 1241135058228366033, guid: 87d0b1113276f8646a9b3a1c91897f9d,
+        type: 3}
+      propertyPath: m_TrackedObjectOffset.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241135058228366033, guid: 87d0b1113276f8646a9b3a1c91897f9d,
+        type: 3}
+      propertyPath: m_TrackedObjectOffset.z
+      value: -3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1241135057083059885, guid: 87d0b1113276f8646a9b3a1c91897f9d,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -14851,16 +14861,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1241135058228366033, guid: 87d0b1113276f8646a9b3a1c91897f9d,
-        type: 3}
-      propertyPath: m_TrackedObjectOffset.y
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1241135058228366033, guid: 87d0b1113276f8646a9b3a1c91897f9d,
-        type: 3}
-      propertyPath: m_TrackedObjectOffset.z
-      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 432065931, guid: 87d0b1113276f8646a9b3a1c91897f9d, type: 3}
       propertyPath: m_RootOrder
@@ -16961,11 +16961,6 @@ PrefabInstance:
       propertyPath: offset.y
       value: 1.5
       objectReference: {fileID: 0}
-    - target: {fileID: 6849213292461780079, guid: eb59d5efbdf04aa439ff6e1e59dd26ea,
-        type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 1927830708}
     - target: {fileID: 1510869873444170992, guid: eb59d5efbdf04aa439ff6e1e59dd26ea,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -17426,6 +17421,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.w
       value: 0.9915767
       objectReference: {fileID: 0}
+    - target: {fileID: 6849213292461780079, guid: eb59d5efbdf04aa439ff6e1e59dd26ea,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1927830708}
     - target: {fileID: 6849213292461780081, guid: eb59d5efbdf04aa439ff6e1e59dd26ea,
         type: 3}
       propertyPath: m_RootOrder
@@ -21784,6 +21784,7 @@ MonoBehaviour:
   - {fileID: 5002621432028670590}
   BlackRoom: 0
   myEnviro: {fileID: 3175635774323704755}
+  LapDObject: {fileID: 0}
 --- !u!95 &2775551258861536164
 Animator:
   serializedVersion: 3
@@ -23614,16 +23615,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6152247427607712821}
     m_Modifications:
-    - target: {fileID: 3793301487500449540, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
-        type: 3}
-      propertyPath: m_Name
-      value: Porte_Simple_Dortoir
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793301487500449540, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3793301487500348196, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23678,6 +23669,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793301487500449540, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: m_Name
+      value: Porte_Simple_Dortoir
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793301487500449540, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
         type: 3}
@@ -25876,6 +25877,7 @@ MonoBehaviour:
   - {fileID: 2976126005130991620}
   BlackRoom: 0
   myEnviro: {fileID: 6152247427607712820}
+  LapDObject: {fileID: 0}
 --- !u!1 &5856098900202498384
 GameObject:
   m_ObjectHideFlags: 0
@@ -27862,11 +27864,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3175635774323704754}
     m_Modifications:
-    - target: {fileID: 3793301487500449540, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
-        type: 3}
-      propertyPath: m_Name
-      value: Porte_Simple
-      objectReference: {fileID: 0}
     - target: {fileID: 3793301487500348196, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27922,6 +27919,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 3793301487500449540, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: m_Name
+      value: Porte_Simple
+      objectReference: {fileID: 0}
     - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
         type: 3}
       propertyPath: m_Enabled
@@ -27971,11 +27973,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3175635774323704754}
     m_Modifications:
-    - target: {fileID: 3793301487500449540, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
-        type: 3}
-      propertyPath: m_Name
-      value: Porte_Simple (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 3793301487500348196, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -28030,6 +28027,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793301487500449540, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
+        type: 3}
+      propertyPath: m_Name
+      value: Porte_Simple (1)
       objectReference: {fileID: 0}
     - target: {fileID: 691197179927153231, guid: b1d9bafd8ccfde5428ee34c0e7a4e3ca,
         type: 3}
