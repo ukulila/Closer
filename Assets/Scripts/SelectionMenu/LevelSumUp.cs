@@ -39,11 +39,12 @@ public class LevelSumUp : MonoBehaviour
         else
         {
             LevelCloseUp.Instance.polaroideImage.sprite = spriteUnknown;
-            LevelCloseUp.Instance.clueNameCU.text = "";
-            LevelCloseUp.Instance.clueDescriptionCU.text = "";
+            LevelCloseUp.Instance.clueNameCU.text = " ";
+            LevelCloseUp.Instance.clueDescriptionCU.text = " ";
         }
         
         LevelCloseUp.Instance.levelNameCU.text = levelName;
         LevelCloseUp.Instance.levelDescriptionCU.text = levelDescription;
+
     }
 }
