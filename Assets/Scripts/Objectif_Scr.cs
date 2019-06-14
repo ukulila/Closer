@@ -62,7 +62,7 @@ public class Objectif_Scr : MonoBehaviour
     {
         myAnimator.SetTrigger("FadeOut");
 
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.2f);
 
         myTextVar.text = newObjectif;
 
