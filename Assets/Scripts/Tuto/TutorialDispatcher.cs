@@ -68,19 +68,21 @@ public class TutorialDispatcher : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         camTuto01.SetActive(false);
+        StartCoroutine("ThrowCamTuto02");
     }
 
     IEnumerator ThrowCamTuto02()
     {
         yield return new WaitForSeconds(waitcamTuto02 - 1.5f);
 
-        camTuto01.SetActive(false);
+        camTuto02.SetActive(true);
 
         //yield return new WaitForSeconds(waitcamTuto02);
 
-        yield return new WaitForSeconds(waitcamTuto02 - 0.5f);
-        camTuto02.SetActive(true);
+        yield return new WaitForSeconds(waitcamTuto02 + 0.5f);
+        camTuto02.SetActive(false);
         passed02 = true;
+        StopAllCoroutines();
     }
 
     IEnumerator ThrowInvestigationTuto()
@@ -241,6 +243,7 @@ public class TutorialDispatcher : MonoBehaviour
     public void Update()
     {
         #region tuto01 Update
+        /*
         if (isTuto01)
         {
             if (Camera_Rotation.Instance.aboutCamera == true)
@@ -261,7 +264,7 @@ public class TutorialDispatcher : MonoBehaviour
                 }
 
             }
-        }
+        }*/
 
         #endregion
 
