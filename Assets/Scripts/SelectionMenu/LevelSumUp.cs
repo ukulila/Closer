@@ -30,6 +30,8 @@ public class LevelSumUp : MonoBehaviour
     {
         LevelManager.Instance.levelOnCloseUp = this;
 
+        Debug.Log("Level = " + LevelManager.Instance.levelOnCloseUp);
+
         if (isLevelFinished)
         {
             LevelCloseUp.Instance.polaroideImage.sprite = spriteClue;

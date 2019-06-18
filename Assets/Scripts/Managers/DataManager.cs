@@ -10,15 +10,22 @@ public class DataManager : MonoBehaviour
     public static DataManager Instance;
     public string path;
 
+    public int currentSavedProgression;
+    public int test;
+
     public DATA data;
 
     public bool saved;
+
+
 
     void Awake()
     {
         Instance = this;
 
         SetPath();
+
+        Load();
     }
 
     private void Update()
@@ -26,6 +33,11 @@ public class DataManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             Save();
+        }
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            Load();
         }
     }
 
@@ -40,10 +52,13 @@ public class DataManager : MonoBehaviour
         {
             Load();
             saved = true;
+
+            SetData();
+            SerializeData();
         }
 
-        SetData();
-        SerializeData();
+        //SetData();
+        //SerializeData();
     }
 
     void SerializeData()
@@ -90,6 +105,6 @@ public class DataManager : MonoBehaviour
 
     void ExploitData()
     {
-        GameManager.Instance.progressionLevel = data.progressionIndex;
+        currentSavedProgression = data.progressionIndex;
     }
 }

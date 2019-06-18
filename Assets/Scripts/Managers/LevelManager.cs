@@ -46,7 +46,7 @@ public class LevelManager : MonoBehaviour
     {
         Instance = this;
 
-        SetUpProgression();
+        //SetUpProgression();
 
         for (int i = 0; i < levels.Count; i++)
         {
@@ -78,17 +78,34 @@ public class LevelManager : MonoBehaviour
             levels[i].lockedImage.color = new Color32((byte)255, (byte)255, (byte)255, (byte)0);
         }
 
-        for (int i = progressionIndex; i < levels.Count; i++)
+        if (progressionIndex < levels.Count)
         {
-            levels[i].GetComponent<Button>().interactable = false;
+            for (int i = 0; i < progressionIndex - 1; i++)
+            {
+                levels[i].GetComponent<Button>().interactable = true;
+            }
+
+            for (int i = 0; i < progressionIndex - 1; i++)
+            {
+                levels[i].isLevelFinished = true;
+            }
+
+            //levels[progressionIndex].lvlAnim.SetTrigger("Reveal");
         }
 
-        for (int i = 0; i < progressionIndex - 1; i++)
-        {
-            levels[i].isLevelFinished = true;
-        }
 
-        levels[progressionIndex].lvlAnim.SetTrigger("Reveal");
+        else if (progressionIndex == levels.Count)
+        {
+            for (int i = 0; i < progressionIndex; i++)
+            {
+                levels[i].isLevelFinished = true;
+            }
+
+            for (int i = 0; i < progressionIndex; i++)
+            {
+                levels[i].GetComponent<Button>().interactable = true;
+            }
+        }    
     }
 
     /// <summary>
@@ -101,6 +118,7 @@ public class LevelManager : MonoBehaviour
         isCloseUpAllSet = false;
 
         levels_ReturnToMain.gameObject.SetActive(false);
+
         StartCoroutine(GoCloseIn());
 
         currentMoveTime = 0;
@@ -208,7 +226,7 @@ public class LevelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        for (int i = 0; i < progressionIndex; i++)
+        for (int i = 0; i < levels.Count; i++)
         {
             levels[i].gameObject.GetComponent<Image>().raycastTarget = true;
             levels[i].gameObject.GetComponent<Button>().interactable = true;
